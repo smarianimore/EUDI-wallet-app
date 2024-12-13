@@ -21,11 +21,15 @@ CredentialIssuerConfiguration _$CredentialIssuerConfigurationFromJson(
 
 /// @nodoc
 mixin _$CredentialIssuerConfiguration {
+  @JsonKey(name: 'credential_issuer')
   String get credentialIssuer => throw _privateConstructorUsedError;
+  @JsonKey(name: 'authorization_servers')
   List<String> get authorizationServers => throw _privateConstructorUsedError;
+  @JsonKey(name: 'credential_endpoint')
   String get credentialEndpoint => throw _privateConstructorUsedError;
-  CredentialIssuerDisplayInformation get display =>
+  List<CredentialIssuerDisplayInformation> get display =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'credential_configurations_supported')
   Map<String, SupportedCredentialConfiguration>
       get credentialConfigurationsSupported =>
           throw _privateConstructorUsedError;
@@ -49,14 +53,13 @@ abstract class $CredentialIssuerConfigurationCopyWith<$Res> {
           CredentialIssuerConfiguration>;
   @useResult
   $Res call(
-      {String credentialIssuer,
-      List<String> authorizationServers,
-      String credentialEndpoint,
-      CredentialIssuerDisplayInformation display,
+      {@JsonKey(name: 'credential_issuer') String credentialIssuer,
+      @JsonKey(name: 'authorization_servers') List<String> authorizationServers,
+      @JsonKey(name: 'credential_endpoint') String credentialEndpoint,
+      List<CredentialIssuerDisplayInformation> display,
+      @JsonKey(name: 'credential_configurations_supported')
       Map<String, SupportedCredentialConfiguration>
           credentialConfigurationsSupported});
-
-  $CredentialIssuerDisplayInformationCopyWith<$Res> get display;
 }
 
 /// @nodoc
@@ -97,24 +100,13 @@ class _$CredentialIssuerConfigurationCopyWithImpl<$Res,
       display: null == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
-              as CredentialIssuerDisplayInformation,
+              as List<CredentialIssuerDisplayInformation>,
       credentialConfigurationsSupported: null ==
               credentialConfigurationsSupported
           ? _value.credentialConfigurationsSupported
           : credentialConfigurationsSupported // ignore: cast_nullable_to_non_nullable
               as Map<String, SupportedCredentialConfiguration>,
     ) as $Val);
-  }
-
-  /// Create a copy of CredentialIssuerConfiguration
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $CredentialIssuerDisplayInformationCopyWith<$Res> get display {
-    return $CredentialIssuerDisplayInformationCopyWith<$Res>(_value.display,
-        (value) {
-      return _then(_value.copyWith(display: value) as $Val);
-    });
   }
 }
 
@@ -128,15 +120,13 @@ abstract class _$$CredentialIssuerConfigurationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String credentialIssuer,
-      List<String> authorizationServers,
-      String credentialEndpoint,
-      CredentialIssuerDisplayInformation display,
+      {@JsonKey(name: 'credential_issuer') String credentialIssuer,
+      @JsonKey(name: 'authorization_servers') List<String> authorizationServers,
+      @JsonKey(name: 'credential_endpoint') String credentialEndpoint,
+      List<CredentialIssuerDisplayInformation> display,
+      @JsonKey(name: 'credential_configurations_supported')
       Map<String, SupportedCredentialConfiguration>
           credentialConfigurationsSupported});
-
-  @override
-  $CredentialIssuerDisplayInformationCopyWith<$Res> get display;
 }
 
 /// @nodoc
@@ -174,9 +164,9 @@ class __$$CredentialIssuerConfigurationImplCopyWithImpl<$Res>
           : credentialEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
       display: null == display
-          ? _value.display
+          ? _value._display
           : display // ignore: cast_nullable_to_non_nullable
-              as CredentialIssuerDisplayInformation,
+              as List<CredentialIssuerDisplayInformation>,
       credentialConfigurationsSupported: null ==
               credentialConfigurationsSupported
           ? _value._credentialConfigurationsSupported
@@ -187,17 +177,21 @@ class __$$CredentialIssuerConfigurationImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$CredentialIssuerConfigurationImpl
     implements _CredentialIssuerConfiguration {
   _$CredentialIssuerConfigurationImpl(
-      {required this.credentialIssuer,
+      {@JsonKey(name: 'credential_issuer') required this.credentialIssuer,
+      @JsonKey(name: 'authorization_servers')
       required final List<String> authorizationServers,
-      required this.credentialEndpoint,
-      required this.display,
+      @JsonKey(name: 'credential_endpoint') required this.credentialEndpoint,
+      required final List<CredentialIssuerDisplayInformation> display,
+      @JsonKey(name: 'credential_configurations_supported')
       required final Map<String, SupportedCredentialConfiguration>
           credentialConfigurationsSupported})
       : _authorizationServers = authorizationServers,
+        _display = display,
         _credentialConfigurationsSupported = credentialConfigurationsSupported;
 
   factory _$CredentialIssuerConfigurationImpl.fromJson(
@@ -205,9 +199,11 @@ class _$CredentialIssuerConfigurationImpl
       _$$CredentialIssuerConfigurationImplFromJson(json);
 
   @override
+  @JsonKey(name: 'credential_issuer')
   final String credentialIssuer;
   final List<String> _authorizationServers;
   @override
+  @JsonKey(name: 'authorization_servers')
   List<String> get authorizationServers {
     if (_authorizationServers is EqualUnmodifiableListView)
       return _authorizationServers;
@@ -216,12 +212,20 @@ class _$CredentialIssuerConfigurationImpl
   }
 
   @override
+  @JsonKey(name: 'credential_endpoint')
   final String credentialEndpoint;
+  final List<CredentialIssuerDisplayInformation> _display;
   @override
-  final CredentialIssuerDisplayInformation display;
+  List<CredentialIssuerDisplayInformation> get display {
+    if (_display is EqualUnmodifiableListView) return _display;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_display);
+  }
+
   final Map<String, SupportedCredentialConfiguration>
       _credentialConfigurationsSupported;
   @override
+  @JsonKey(name: 'credential_configurations_supported')
   Map<String, SupportedCredentialConfiguration>
       get credentialConfigurationsSupported {
     if (_credentialConfigurationsSupported is EqualUnmodifiableMapView)
@@ -246,7 +250,7 @@ class _$CredentialIssuerConfigurationImpl
                 .equals(other._authorizationServers, _authorizationServers) &&
             (identical(other.credentialEndpoint, credentialEndpoint) ||
                 other.credentialEndpoint == credentialEndpoint) &&
-            (identical(other.display, display) || other.display == display) &&
+            const DeepCollectionEquality().equals(other._display, _display) &&
             const DeepCollectionEquality().equals(
                 other._credentialConfigurationsSupported,
                 _credentialConfigurationsSupported));
@@ -259,7 +263,7 @@ class _$CredentialIssuerConfigurationImpl
       credentialIssuer,
       const DeepCollectionEquality().hash(_authorizationServers),
       credentialEndpoint,
-      display,
+      const DeepCollectionEquality().hash(_display),
       const DeepCollectionEquality().hash(_credentialConfigurationsSupported));
 
   /// Create a copy of CredentialIssuerConfiguration
@@ -283,10 +287,14 @@ class _$CredentialIssuerConfigurationImpl
 abstract class _CredentialIssuerConfiguration
     implements CredentialIssuerConfiguration {
   factory _CredentialIssuerConfiguration(
-          {required final String credentialIssuer,
+          {@JsonKey(name: 'credential_issuer')
+          required final String credentialIssuer,
+          @JsonKey(name: 'authorization_servers')
           required final List<String> authorizationServers,
+          @JsonKey(name: 'credential_endpoint')
           required final String credentialEndpoint,
-          required final CredentialIssuerDisplayInformation display,
+          required final List<CredentialIssuerDisplayInformation> display,
+          @JsonKey(name: 'credential_configurations_supported')
           required final Map<String, SupportedCredentialConfiguration>
               credentialConfigurationsSupported}) =
       _$CredentialIssuerConfigurationImpl;
@@ -295,14 +303,18 @@ abstract class _CredentialIssuerConfiguration
       _$CredentialIssuerConfigurationImpl.fromJson;
 
   @override
+  @JsonKey(name: 'credential_issuer')
   String get credentialIssuer;
   @override
+  @JsonKey(name: 'authorization_servers')
   List<String> get authorizationServers;
   @override
+  @JsonKey(name: 'credential_endpoint')
   String get credentialEndpoint;
   @override
-  CredentialIssuerDisplayInformation get display;
+  List<CredentialIssuerDisplayInformation> get display;
   @override
+  @JsonKey(name: 'credential_configurations_supported')
   Map<String, SupportedCredentialConfiguration>
       get credentialConfigurationsSupported;
 

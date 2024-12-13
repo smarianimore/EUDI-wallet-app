@@ -6,11 +6,13 @@ part 'credentialissuerconfiguration.g.dart';
 
 @freezed
 class CredentialIssuerConfiguration with _$CredentialIssuerConfiguration {
+  @JsonSerializable(explicitToJson: true)
   factory CredentialIssuerConfiguration({
-    required String credentialIssuer,
-    required List<String> authorizationServers,
-    required String credentialEndpoint,
-    required CredentialIssuerDisplayInformation display,
+    @JsonKey(name: 'credential_issuer') required String credentialIssuer,
+    @JsonKey(name: 'authorization_servers') required List<String> authorizationServers,
+    @JsonKey(name: 'credential_endpoint') required String credentialEndpoint,
+    required List<CredentialIssuerDisplayInformation> display,
+    @JsonKey(name: 'credential_configurations_supported')
     required Map<String, SupportedCredentialConfiguration> credentialConfigurationsSupported,
   }) = _CredentialIssuerConfiguration;
 

@@ -209,5 +209,15 @@ extension FutureResponseExtension<B, E> on Future<Response<B, E>> {
   }
 }
 
+extension ResponseFeaturesExtension<T> on Response<T, ApplicationError> {
+  Future<T> toFuture() {
+    if (isError) {
+      final error = errors?.isEmpty ?? true ? ApplicationError.generic() : errors!.first;
+      return Future.error(error);
+    }
+    return Future.value(payload);
+  }
+}
+
 typedef AsyncApplicationResponse<T> = Future<Response<T, ApplicationError>>;
 typedef ApplicationResponse<T> = Response<T, ApplicationError>;

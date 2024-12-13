@@ -10,11 +10,11 @@ _$IssuerOpenIDConfigurationImpl _$$IssuerOpenIDConfigurationImplFromJson(
         Map<String, dynamic> json) =>
     _$IssuerOpenIDConfigurationImpl(
       issuer: json['issuer'] as String,
-      authorizationEndpoint: json['authorizationEndpoint'] as String,
-      tokenEndpoint: json['tokenEndpoint'] as String,
-      userinfoEndpoint: json['userinfoEndpoint'] as String,
-      jwksUri: json['jwksUri'] as String,
-      claimsSupported: (json['claimsSupported'] as List<dynamic>)
+      authorizationEndpoint: json['authorization_endpoint'] as String,
+      tokenEndpoint: json['token_endpoint'] as String,
+      userInfoEndpoint: json['userinfo_endpoint'] as String,
+      jwksUri: json['jwks_uri'] as String,
+      claimsSupported: (json['claims_supported'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
     );
@@ -23,9 +23,9 @@ Map<String, dynamic> _$$IssuerOpenIDConfigurationImplToJson(
         _$IssuerOpenIDConfigurationImpl instance) =>
     <String, dynamic>{
       'issuer': instance.issuer,
-      'authorizationEndpoint': instance.authorizationEndpoint,
-      'tokenEndpoint': instance.tokenEndpoint,
-      'userinfoEndpoint': instance.userinfoEndpoint,
-      'jwksUri': instance.jwksUri,
-      'claimsSupported': instance.claimsSupported,
+      'authorization_endpoint': instance.authorizationEndpoint,
+      'token_endpoint': instance.tokenEndpoint,
+      'userinfo_endpoint': instance.userInfoEndpoint,
+      'jwks_uri': instance.jwksUri,
+      'claims_supported': instance.claimsSupported,
     };

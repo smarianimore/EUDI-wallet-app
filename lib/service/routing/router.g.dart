@@ -22,7 +22,7 @@ final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef NavigatorKeyRef = ProviderRef<GlobalKey<NavigatorState>>;
-String _$birexRouterHash() => r'68ac0600a3673478bd4bd5e7a8882f7c62647bcb';
+String _$birexRouterHash() => r'a546151f1906f11aed52dbf1b008ba4538faed90';
 
 /// See also [birexRouter].
 @ProviderFor(birexRouter)

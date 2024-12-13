@@ -22,15 +22,18 @@ SupportedCredentialConfiguration _$SupportedCredentialConfigurationFromJson(
 /// @nodoc
 mixin _$SupportedCredentialConfiguration {
   String get scope => throw _privateConstructorUsedError;
-  Map<String, dynamic> get claims => throw _privateConstructorUsedError;
+  Map<String, ClaimProperties> get claims => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cryptographic_binding_methods_supported')
   List<String> get cryptographicBindingMethodsSupported =>
       throw _privateConstructorUsedError;
-  SupportedCredentialDisplayInformation get display =>
+  List<SupportedCredentialDisplayInformation> get display =>
       throw _privateConstructorUsedError;
+  @JsonKey(name: 'credential_signing_alg_values_supported')
   List<String> get credentialSigningAlgValuesSupported =>
       throw _privateConstructorUsedError;
   String get format => throw _privateConstructorUsedError;
   String get vct => throw _privateConstructorUsedError;
+  @JsonKey(name: 'proof_types_supported')
   Map<String, dynamic> get proofTypesSupported =>
       throw _privateConstructorUsedError;
 
@@ -54,15 +57,16 @@ abstract class $SupportedCredentialConfigurationCopyWith<$Res> {
   @useResult
   $Res call(
       {String scope,
-      Map<String, dynamic> claims,
+      Map<String, ClaimProperties> claims,
+      @JsonKey(name: 'cryptographic_binding_methods_supported')
       List<String> cryptographicBindingMethodsSupported,
-      SupportedCredentialDisplayInformation display,
+      List<SupportedCredentialDisplayInformation> display,
+      @JsonKey(name: 'credential_signing_alg_values_supported')
       List<String> credentialSigningAlgValuesSupported,
       String format,
       String vct,
+      @JsonKey(name: 'proof_types_supported')
       Map<String, dynamic> proofTypesSupported});
-
-  $SupportedCredentialDisplayInformationCopyWith<$Res> get display;
 }
 
 /// @nodoc
@@ -98,7 +102,7 @@ class _$SupportedCredentialConfigurationCopyWithImpl<$Res,
       claims: null == claims
           ? _value.claims
           : claims // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, ClaimProperties>,
       cryptographicBindingMethodsSupported: null ==
               cryptographicBindingMethodsSupported
           ? _value.cryptographicBindingMethodsSupported
@@ -107,7 +111,7 @@ class _$SupportedCredentialConfigurationCopyWithImpl<$Res,
       display: null == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
-              as SupportedCredentialDisplayInformation,
+              as List<SupportedCredentialDisplayInformation>,
       credentialSigningAlgValuesSupported: null ==
               credentialSigningAlgValuesSupported
           ? _value.credentialSigningAlgValuesSupported
@@ -127,17 +131,6 @@ class _$SupportedCredentialConfigurationCopyWithImpl<$Res,
               as Map<String, dynamic>,
     ) as $Val);
   }
-
-  /// Create a copy of SupportedCredentialConfiguration
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SupportedCredentialDisplayInformationCopyWith<$Res> get display {
-    return $SupportedCredentialDisplayInformationCopyWith<$Res>(_value.display,
-        (value) {
-      return _then(_value.copyWith(display: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -151,16 +144,16 @@ abstract class _$$SupportedCredentialConfigurationImplCopyWith<$Res>
   @useResult
   $Res call(
       {String scope,
-      Map<String, dynamic> claims,
+      Map<String, ClaimProperties> claims,
+      @JsonKey(name: 'cryptographic_binding_methods_supported')
       List<String> cryptographicBindingMethodsSupported,
-      SupportedCredentialDisplayInformation display,
+      List<SupportedCredentialDisplayInformation> display,
+      @JsonKey(name: 'credential_signing_alg_values_supported')
       List<String> credentialSigningAlgValuesSupported,
       String format,
       String vct,
+      @JsonKey(name: 'proof_types_supported')
       Map<String, dynamic> proofTypesSupported});
-
-  @override
-  $SupportedCredentialDisplayInformationCopyWith<$Res> get display;
 }
 
 /// @nodoc
@@ -195,16 +188,16 @@ class __$$SupportedCredentialConfigurationImplCopyWithImpl<$Res>
       claims: null == claims
           ? _value._claims
           : claims // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as Map<String, ClaimProperties>,
       cryptographicBindingMethodsSupported: null ==
               cryptographicBindingMethodsSupported
           ? _value._cryptographicBindingMethodsSupported
           : cryptographicBindingMethodsSupported // ignore: cast_nullable_to_non_nullable
               as List<String>,
       display: null == display
-          ? _value.display
+          ? _value._display
           : display // ignore: cast_nullable_to_non_nullable
-              as SupportedCredentialDisplayInformation,
+              as List<SupportedCredentialDisplayInformation>,
       credentialSigningAlgValuesSupported: null ==
               credentialSigningAlgValuesSupported
           ? _value._credentialSigningAlgValuesSupported
@@ -227,21 +220,26 @@ class __$$SupportedCredentialConfigurationImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$SupportedCredentialConfigurationImpl
     implements _SupportedCredentialConfiguration {
   _$SupportedCredentialConfigurationImpl(
       {required this.scope,
-      required final Map<String, dynamic> claims,
+      required final Map<String, ClaimProperties> claims,
+      @JsonKey(name: 'cryptographic_binding_methods_supported')
       required final List<String> cryptographicBindingMethodsSupported,
-      required this.display,
+      required final List<SupportedCredentialDisplayInformation> display,
+      @JsonKey(name: 'credential_signing_alg_values_supported')
       required final List<String> credentialSigningAlgValuesSupported,
       required this.format,
       required this.vct,
+      @JsonKey(name: 'proof_types_supported')
       required final Map<String, dynamic> proofTypesSupported})
       : _claims = claims,
         _cryptographicBindingMethodsSupported =
             cryptographicBindingMethodsSupported,
+        _display = display,
         _credentialSigningAlgValuesSupported =
             credentialSigningAlgValuesSupported,
         _proofTypesSupported = proofTypesSupported;
@@ -252,9 +250,9 @@ class _$SupportedCredentialConfigurationImpl
 
   @override
   final String scope;
-  final Map<String, dynamic> _claims;
+  final Map<String, ClaimProperties> _claims;
   @override
-  Map<String, dynamic> get claims {
+  Map<String, ClaimProperties> get claims {
     if (_claims is EqualUnmodifiableMapView) return _claims;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableMapView(_claims);
@@ -262,6 +260,7 @@ class _$SupportedCredentialConfigurationImpl
 
   final List<String> _cryptographicBindingMethodsSupported;
   @override
+  @JsonKey(name: 'cryptographic_binding_methods_supported')
   List<String> get cryptographicBindingMethodsSupported {
     if (_cryptographicBindingMethodsSupported is EqualUnmodifiableListView)
       return _cryptographicBindingMethodsSupported;
@@ -269,10 +268,17 @@ class _$SupportedCredentialConfigurationImpl
     return EqualUnmodifiableListView(_cryptographicBindingMethodsSupported);
   }
 
+  final List<SupportedCredentialDisplayInformation> _display;
   @override
-  final SupportedCredentialDisplayInformation display;
+  List<SupportedCredentialDisplayInformation> get display {
+    if (_display is EqualUnmodifiableListView) return _display;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_display);
+  }
+
   final List<String> _credentialSigningAlgValuesSupported;
   @override
+  @JsonKey(name: 'credential_signing_alg_values_supported')
   List<String> get credentialSigningAlgValuesSupported {
     if (_credentialSigningAlgValuesSupported is EqualUnmodifiableListView)
       return _credentialSigningAlgValuesSupported;
@@ -286,6 +292,7 @@ class _$SupportedCredentialConfigurationImpl
   final String vct;
   final Map<String, dynamic> _proofTypesSupported;
   @override
+  @JsonKey(name: 'proof_types_supported')
   Map<String, dynamic> get proofTypesSupported {
     if (_proofTypesSupported is EqualUnmodifiableMapView)
       return _proofTypesSupported;
@@ -308,7 +315,7 @@ class _$SupportedCredentialConfigurationImpl
             const DeepCollectionEquality().equals(
                 other._cryptographicBindingMethodsSupported,
                 _cryptographicBindingMethodsSupported) &&
-            (identical(other.display, display) || other.display == display) &&
+            const DeepCollectionEquality().equals(other._display, _display) &&
             const DeepCollectionEquality().equals(
                 other._credentialSigningAlgValuesSupported,
                 _credentialSigningAlgValuesSupported) &&
@@ -326,7 +333,7 @@ class _$SupportedCredentialConfigurationImpl
       const DeepCollectionEquality().hash(_claims),
       const DeepCollectionEquality()
           .hash(_cryptographicBindingMethodsSupported),
-      display,
+      const DeepCollectionEquality().hash(_display),
       const DeepCollectionEquality().hash(_credentialSigningAlgValuesSupported),
       format,
       vct,
@@ -354,12 +361,15 @@ abstract class _SupportedCredentialConfiguration
     implements SupportedCredentialConfiguration {
   factory _SupportedCredentialConfiguration(
           {required final String scope,
-          required final Map<String, dynamic> claims,
+          required final Map<String, ClaimProperties> claims,
+          @JsonKey(name: 'cryptographic_binding_methods_supported')
           required final List<String> cryptographicBindingMethodsSupported,
-          required final SupportedCredentialDisplayInformation display,
+          required final List<SupportedCredentialDisplayInformation> display,
+          @JsonKey(name: 'credential_signing_alg_values_supported')
           required final List<String> credentialSigningAlgValuesSupported,
           required final String format,
           required final String vct,
+          @JsonKey(name: 'proof_types_supported')
           required final Map<String, dynamic> proofTypesSupported}) =
       _$SupportedCredentialConfigurationImpl;
 
@@ -370,18 +380,21 @@ abstract class _SupportedCredentialConfiguration
   @override
   String get scope;
   @override
-  Map<String, dynamic> get claims;
+  Map<String, ClaimProperties> get claims;
   @override
+  @JsonKey(name: 'cryptographic_binding_methods_supported')
   List<String> get cryptographicBindingMethodsSupported;
   @override
-  SupportedCredentialDisplayInformation get display;
+  List<SupportedCredentialDisplayInformation> get display;
   @override
+  @JsonKey(name: 'credential_signing_alg_values_supported')
   List<String> get credentialSigningAlgValuesSupported;
   @override
   String get format;
   @override
   String get vct;
   @override
+  @JsonKey(name: 'proof_types_supported')
   Map<String, dynamic> get proofTypesSupported;
 
   /// Create a copy of SupportedCredentialConfiguration
@@ -403,7 +416,9 @@ mixin _$SupportedCredentialDisplayInformation {
   String get name => throw _privateConstructorUsedError;
   String get locale => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'background_color')
   String get backgroudColor => throw _privateConstructorUsedError;
+  @JsonKey(name: 'text_color')
   String get textColor => throw _privateConstructorUsedError;
   SupportedCredentialIssuerLogo get logo => throw _privateConstructorUsedError;
 
@@ -430,8 +445,8 @@ abstract class $SupportedCredentialDisplayInformationCopyWith<$Res> {
       {String name,
       String locale,
       String description,
-      String backgroudColor,
-      String textColor,
+      @JsonKey(name: 'background_color') String backgroudColor,
+      @JsonKey(name: 'text_color') String textColor,
       SupportedCredentialIssuerLogo logo});
 
   $SupportedCredentialIssuerLogoCopyWith<$Res> get logo;
@@ -512,8 +527,8 @@ abstract class _$$SupportedCredentialDisplayInformationImplCopyWith<$Res>
       {String name,
       String locale,
       String description,
-      String backgroudColor,
-      String textColor,
+      @JsonKey(name: 'background_color') String backgroudColor,
+      @JsonKey(name: 'text_color') String textColor,
       SupportedCredentialIssuerLogo logo});
 
   @override
@@ -572,15 +587,16 @@ class __$$SupportedCredentialDisplayInformationImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$SupportedCredentialDisplayInformationImpl
     implements _SupportedCredentialDisplayInformation {
   _$SupportedCredentialDisplayInformationImpl(
       {required this.name,
       required this.locale,
       required this.description,
-      required this.backgroudColor,
-      required this.textColor,
+      @JsonKey(name: 'background_color') required this.backgroudColor,
+      @JsonKey(name: 'text_color') required this.textColor,
       required this.logo});
 
   factory _$SupportedCredentialDisplayInformationImpl.fromJson(
@@ -594,8 +610,10 @@ class _$SupportedCredentialDisplayInformationImpl
   @override
   final String description;
   @override
+  @JsonKey(name: 'background_color')
   final String backgroudColor;
   @override
+  @JsonKey(name: 'text_color')
   final String textColor;
   @override
   final SupportedCredentialIssuerLogo logo;
@@ -647,13 +665,13 @@ class _$SupportedCredentialDisplayInformationImpl
 abstract class _SupportedCredentialDisplayInformation
     implements SupportedCredentialDisplayInformation {
   factory _SupportedCredentialDisplayInformation(
-          {required final String name,
-          required final String locale,
-          required final String description,
-          required final String backgroudColor,
-          required final String textColor,
-          required final SupportedCredentialIssuerLogo logo}) =
-      _$SupportedCredentialDisplayInformationImpl;
+      {required final String name,
+      required final String locale,
+      required final String description,
+      @JsonKey(name: 'background_color') required final String backgroudColor,
+      @JsonKey(name: 'text_color') required final String textColor,
+      required final SupportedCredentialIssuerLogo
+          logo}) = _$SupportedCredentialDisplayInformationImpl;
 
   factory _SupportedCredentialDisplayInformation.fromJson(
           Map<String, dynamic> json) =
@@ -666,8 +684,10 @@ abstract class _SupportedCredentialDisplayInformation
   @override
   String get description;
   @override
+  @JsonKey(name: 'background_color')
   String get backgroudColor;
   @override
+  @JsonKey(name: 'text_color')
   String get textColor;
   @override
   SupportedCredentialIssuerLogo get logo;
@@ -689,6 +709,7 @@ SupportedCredentialIssuerLogo _$SupportedCredentialIssuerLogoFromJson(
 /// @nodoc
 mixin _$SupportedCredentialIssuerLogo {
   String get uri => throw _privateConstructorUsedError;
+  @JsonKey(name: 'alt_text')
   String get altText => throw _privateConstructorUsedError;
 
   /// Serializes this SupportedCredentialIssuerLogo to a JSON map.
@@ -709,7 +730,7 @@ abstract class $SupportedCredentialIssuerLogoCopyWith<$Res> {
       _$SupportedCredentialIssuerLogoCopyWithImpl<$Res,
           SupportedCredentialIssuerLogo>;
   @useResult
-  $Res call({String uri, String altText});
+  $Res call({String uri, @JsonKey(name: 'alt_text') String altText});
 }
 
 /// @nodoc
@@ -753,7 +774,7 @@ abstract class _$$SupportedCredentialIssuerLogoImplCopyWith<$Res>
       __$$SupportedCredentialIssuerLogoImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String uri, String altText});
+  $Res call({String uri, @JsonKey(name: 'alt_text') String altText});
 }
 
 /// @nodoc
@@ -788,11 +809,12 @@ class __$$SupportedCredentialIssuerLogoImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$SupportedCredentialIssuerLogoImpl
     implements _SupportedCredentialIssuerLogo {
   _$SupportedCredentialIssuerLogoImpl(
-      {required this.uri, required this.altText});
+      {required this.uri, @JsonKey(name: 'alt_text') required this.altText});
 
   factory _$SupportedCredentialIssuerLogoImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -801,6 +823,7 @@ class _$SupportedCredentialIssuerLogoImpl
   @override
   final String uri;
   @override
+  @JsonKey(name: 'alt_text')
   final String altText;
 
   @override
@@ -842,8 +865,9 @@ class _$SupportedCredentialIssuerLogoImpl
 abstract class _SupportedCredentialIssuerLogo
     implements SupportedCredentialIssuerLogo {
   factory _SupportedCredentialIssuerLogo(
-      {required final String uri,
-      required final String altText}) = _$SupportedCredentialIssuerLogoImpl;
+          {required final String uri,
+          @JsonKey(name: 'alt_text') required final String altText}) =
+      _$SupportedCredentialIssuerLogoImpl;
 
   factory _SupportedCredentialIssuerLogo.fromJson(Map<String, dynamic> json) =
       _$SupportedCredentialIssuerLogoImpl.fromJson;
@@ -851,6 +875,7 @@ abstract class _SupportedCredentialIssuerLogo
   @override
   String get uri;
   @override
+  @JsonKey(name: 'alt_text')
   String get altText;
 
   /// Create a copy of SupportedCredentialIssuerLogo
@@ -859,5 +884,339 @@ abstract class _SupportedCredentialIssuerLogo
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SupportedCredentialIssuerLogoImplCopyWith<
           _$SupportedCredentialIssuerLogoImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+ClaimProperties _$ClaimPropertiesFromJson(Map<String, dynamic> json) {
+  return _ClaimProperties.fromJson(json);
+}
+
+/// @nodoc
+mixin _$ClaimProperties {
+  List<DisplayClaimProperties> get display =>
+      throw _privateConstructorUsedError;
+
+  /// Serializes this ClaimProperties to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of ClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $ClaimPropertiesCopyWith<ClaimProperties> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $ClaimPropertiesCopyWith<$Res> {
+  factory $ClaimPropertiesCopyWith(
+          ClaimProperties value, $Res Function(ClaimProperties) then) =
+      _$ClaimPropertiesCopyWithImpl<$Res, ClaimProperties>;
+  @useResult
+  $Res call({List<DisplayClaimProperties> display});
+}
+
+/// @nodoc
+class _$ClaimPropertiesCopyWithImpl<$Res, $Val extends ClaimProperties>
+    implements $ClaimPropertiesCopyWith<$Res> {
+  _$ClaimPropertiesCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of ClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? display = null,
+  }) {
+    return _then(_value.copyWith(
+      display: null == display
+          ? _value.display
+          : display // ignore: cast_nullable_to_non_nullable
+              as List<DisplayClaimProperties>,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$ClaimPropertiesImplCopyWith<$Res>
+    implements $ClaimPropertiesCopyWith<$Res> {
+  factory _$$ClaimPropertiesImplCopyWith(_$ClaimPropertiesImpl value,
+          $Res Function(_$ClaimPropertiesImpl) then) =
+      __$$ClaimPropertiesImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({List<DisplayClaimProperties> display});
+}
+
+/// @nodoc
+class __$$ClaimPropertiesImplCopyWithImpl<$Res>
+    extends _$ClaimPropertiesCopyWithImpl<$Res, _$ClaimPropertiesImpl>
+    implements _$$ClaimPropertiesImplCopyWith<$Res> {
+  __$$ClaimPropertiesImplCopyWithImpl(
+      _$ClaimPropertiesImpl _value, $Res Function(_$ClaimPropertiesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? display = null,
+  }) {
+    return _then(_$ClaimPropertiesImpl(
+      display: null == display
+          ? _value._display
+          : display // ignore: cast_nullable_to_non_nullable
+              as List<DisplayClaimProperties>,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$ClaimPropertiesImpl implements _ClaimProperties {
+  _$ClaimPropertiesImpl({required final List<DisplayClaimProperties> display})
+      : _display = display;
+
+  factory _$ClaimPropertiesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ClaimPropertiesImplFromJson(json);
+
+  final List<DisplayClaimProperties> _display;
+  @override
+  List<DisplayClaimProperties> get display {
+    if (_display is EqualUnmodifiableListView) return _display;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_display);
+  }
+
+  @override
+  String toString() {
+    return 'ClaimProperties(display: $display)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ClaimPropertiesImpl &&
+            const DeepCollectionEquality().equals(other._display, _display));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_display));
+
+  /// Create a copy of ClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ClaimPropertiesImplCopyWith<_$ClaimPropertiesImpl> get copyWith =>
+      __$$ClaimPropertiesImplCopyWithImpl<_$ClaimPropertiesImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ClaimPropertiesImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _ClaimProperties implements ClaimProperties {
+  factory _ClaimProperties(
+          {required final List<DisplayClaimProperties> display}) =
+      _$ClaimPropertiesImpl;
+
+  factory _ClaimProperties.fromJson(Map<String, dynamic> json) =
+      _$ClaimPropertiesImpl.fromJson;
+
+  @override
+  List<DisplayClaimProperties> get display;
+
+  /// Create a copy of ClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ClaimPropertiesImplCopyWith<_$ClaimPropertiesImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+DisplayClaimProperties _$DisplayClaimPropertiesFromJson(
+    Map<String, dynamic> json) {
+  return _DisplayClaimProperties.fromJson(json);
+}
+
+/// @nodoc
+mixin _$DisplayClaimProperties {
+  String get name => throw _privateConstructorUsedError;
+  String get locale => throw _privateConstructorUsedError;
+
+  /// Serializes this DisplayClaimProperties to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of DisplayClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $DisplayClaimPropertiesCopyWith<DisplayClaimProperties> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $DisplayClaimPropertiesCopyWith<$Res> {
+  factory $DisplayClaimPropertiesCopyWith(DisplayClaimProperties value,
+          $Res Function(DisplayClaimProperties) then) =
+      _$DisplayClaimPropertiesCopyWithImpl<$Res, DisplayClaimProperties>;
+  @useResult
+  $Res call({String name, String locale});
+}
+
+/// @nodoc
+class _$DisplayClaimPropertiesCopyWithImpl<$Res,
+        $Val extends DisplayClaimProperties>
+    implements $DisplayClaimPropertiesCopyWith<$Res> {
+  _$DisplayClaimPropertiesCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of DisplayClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? locale = null,
+  }) {
+    return _then(_value.copyWith(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$DisplayClaimPropertiesImplCopyWith<$Res>
+    implements $DisplayClaimPropertiesCopyWith<$Res> {
+  factory _$$DisplayClaimPropertiesImplCopyWith(
+          _$DisplayClaimPropertiesImpl value,
+          $Res Function(_$DisplayClaimPropertiesImpl) then) =
+      __$$DisplayClaimPropertiesImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String name, String locale});
+}
+
+/// @nodoc
+class __$$DisplayClaimPropertiesImplCopyWithImpl<$Res>
+    extends _$DisplayClaimPropertiesCopyWithImpl<$Res,
+        _$DisplayClaimPropertiesImpl>
+    implements _$$DisplayClaimPropertiesImplCopyWith<$Res> {
+  __$$DisplayClaimPropertiesImplCopyWithImpl(
+      _$DisplayClaimPropertiesImpl _value,
+      $Res Function(_$DisplayClaimPropertiesImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of DisplayClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? name = null,
+    Object? locale = null,
+  }) {
+    return _then(_$DisplayClaimPropertiesImpl(
+      name: null == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      locale: null == locale
+          ? _value.locale
+          : locale // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$DisplayClaimPropertiesImpl implements _DisplayClaimProperties {
+  _$DisplayClaimPropertiesImpl({required this.name, required this.locale});
+
+  factory _$DisplayClaimPropertiesImpl.fromJson(Map<String, dynamic> json) =>
+      _$$DisplayClaimPropertiesImplFromJson(json);
+
+  @override
+  final String name;
+  @override
+  final String locale;
+
+  @override
+  String toString() {
+    return 'DisplayClaimProperties(name: $name, locale: $locale)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DisplayClaimPropertiesImpl &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.locale, locale) || other.locale == locale));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, name, locale);
+
+  /// Create a copy of DisplayClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DisplayClaimPropertiesImplCopyWith<_$DisplayClaimPropertiesImpl>
+      get copyWith => __$$DisplayClaimPropertiesImplCopyWithImpl<
+          _$DisplayClaimPropertiesImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$DisplayClaimPropertiesImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _DisplayClaimProperties implements DisplayClaimProperties {
+  factory _DisplayClaimProperties(
+      {required final String name,
+      required final String locale}) = _$DisplayClaimPropertiesImpl;
+
+  factory _DisplayClaimProperties.fromJson(Map<String, dynamic> json) =
+      _$DisplayClaimPropertiesImpl.fromJson;
+
+  @override
+  String get name;
+  @override
+  String get locale;
+
+  /// Create a copy of DisplayClaimProperties
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$DisplayClaimPropertiesImplCopyWith<_$DisplayClaimPropertiesImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

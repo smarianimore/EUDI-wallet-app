@@ -22,10 +22,15 @@ IssuerOpenIDConfiguration _$IssuerOpenIDConfigurationFromJson(
 /// @nodoc
 mixin _$IssuerOpenIDConfiguration {
   String get issuer => throw _privateConstructorUsedError;
+  @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'token_endpoint')
   String get tokenEndpoint => throw _privateConstructorUsedError;
-  String get userinfoEndpoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'userinfo_endpoint')
+  String get userInfoEndpoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'jwks_uri')
   String get jwksUri => throw _privateConstructorUsedError;
+  @JsonKey(name: 'claims_supported')
   List<String> get claimsSupported => throw _privateConstructorUsedError;
 
   /// Serializes this IssuerOpenIDConfiguration to a JSON map.
@@ -46,11 +51,11 @@ abstract class $IssuerOpenIDConfigurationCopyWith<$Res> {
   @useResult
   $Res call(
       {String issuer,
-      String authorizationEndpoint,
-      String tokenEndpoint,
-      String userinfoEndpoint,
-      String jwksUri,
-      List<String> claimsSupported});
+      @JsonKey(name: 'authorization_endpoint') String authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String tokenEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') String userInfoEndpoint,
+      @JsonKey(name: 'jwks_uri') String jwksUri,
+      @JsonKey(name: 'claims_supported') List<String> claimsSupported});
 }
 
 /// @nodoc
@@ -72,7 +77,7 @@ class _$IssuerOpenIDConfigurationCopyWithImpl<$Res,
     Object? issuer = null,
     Object? authorizationEndpoint = null,
     Object? tokenEndpoint = null,
-    Object? userinfoEndpoint = null,
+    Object? userInfoEndpoint = null,
     Object? jwksUri = null,
     Object? claimsSupported = null,
   }) {
@@ -89,9 +94,9 @@ class _$IssuerOpenIDConfigurationCopyWithImpl<$Res,
           ? _value.tokenEndpoint
           : tokenEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
-      userinfoEndpoint: null == userinfoEndpoint
-          ? _value.userinfoEndpoint
-          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
+      userInfoEndpoint: null == userInfoEndpoint
+          ? _value.userInfoEndpoint
+          : userInfoEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
       jwksUri: null == jwksUri
           ? _value.jwksUri
@@ -116,11 +121,11 @@ abstract class _$$IssuerOpenIDConfigurationImplCopyWith<$Res>
   @useResult
   $Res call(
       {String issuer,
-      String authorizationEndpoint,
-      String tokenEndpoint,
-      String userinfoEndpoint,
-      String jwksUri,
-      List<String> claimsSupported});
+      @JsonKey(name: 'authorization_endpoint') String authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String tokenEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') String userInfoEndpoint,
+      @JsonKey(name: 'jwks_uri') String jwksUri,
+      @JsonKey(name: 'claims_supported') List<String> claimsSupported});
 }
 
 /// @nodoc
@@ -141,7 +146,7 @@ class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
     Object? issuer = null,
     Object? authorizationEndpoint = null,
     Object? tokenEndpoint = null,
-    Object? userinfoEndpoint = null,
+    Object? userInfoEndpoint = null,
     Object? jwksUri = null,
     Object? claimsSupported = null,
   }) {
@@ -158,9 +163,9 @@ class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
           ? _value.tokenEndpoint
           : tokenEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
-      userinfoEndpoint: null == userinfoEndpoint
-          ? _value.userinfoEndpoint
-          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
+      userInfoEndpoint: null == userInfoEndpoint
+          ? _value.userInfoEndpoint
+          : userInfoEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
       jwksUri: null == jwksUri
           ? _value.jwksUri
@@ -179,10 +184,12 @@ class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
 class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
   _$IssuerOpenIDConfigurationImpl(
       {required this.issuer,
+      @JsonKey(name: 'authorization_endpoint')
       required this.authorizationEndpoint,
-      required this.tokenEndpoint,
-      required this.userinfoEndpoint,
-      required this.jwksUri,
+      @JsonKey(name: 'token_endpoint') required this.tokenEndpoint,
+      @JsonKey(name: 'userinfo_endpoint') required this.userInfoEndpoint,
+      @JsonKey(name: 'jwks_uri') required this.jwksUri,
+      @JsonKey(name: 'claims_supported')
       required final List<String> claimsSupported})
       : _claimsSupported = claimsSupported;
 
@@ -192,15 +199,20 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
   @override
   final String issuer;
   @override
+  @JsonKey(name: 'authorization_endpoint')
   final String authorizationEndpoint;
   @override
+  @JsonKey(name: 'token_endpoint')
   final String tokenEndpoint;
   @override
-  final String userinfoEndpoint;
+  @JsonKey(name: 'userinfo_endpoint')
+  final String userInfoEndpoint;
   @override
+  @JsonKey(name: 'jwks_uri')
   final String jwksUri;
   final List<String> _claimsSupported;
   @override
+  @JsonKey(name: 'claims_supported')
   List<String> get claimsSupported {
     if (_claimsSupported is EqualUnmodifiableListView) return _claimsSupported;
     // ignore: implicit_dynamic_type
@@ -209,7 +221,7 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
 
   @override
   String toString() {
-    return 'IssuerOpenIDConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, userinfoEndpoint: $userinfoEndpoint, jwksUri: $jwksUri, claimsSupported: $claimsSupported)';
+    return 'IssuerOpenIDConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, userInfoEndpoint: $userInfoEndpoint, jwksUri: $jwksUri, claimsSupported: $claimsSupported)';
   }
 
   @override
@@ -222,8 +234,8 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
                 other.authorizationEndpoint == authorizationEndpoint) &&
             (identical(other.tokenEndpoint, tokenEndpoint) ||
                 other.tokenEndpoint == tokenEndpoint) &&
-            (identical(other.userinfoEndpoint, userinfoEndpoint) ||
-                other.userinfoEndpoint == userinfoEndpoint) &&
+            (identical(other.userInfoEndpoint, userInfoEndpoint) ||
+                other.userInfoEndpoint == userInfoEndpoint) &&
             (identical(other.jwksUri, jwksUri) || other.jwksUri == jwksUri) &&
             const DeepCollectionEquality()
                 .equals(other._claimsSupported, _claimsSupported));
@@ -236,7 +248,7 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
       issuer,
       authorizationEndpoint,
       tokenEndpoint,
-      userinfoEndpoint,
+      userInfoEndpoint,
       jwksUri,
       const DeepCollectionEquality().hash(_claimsSupported));
 
@@ -260,10 +272,13 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
 abstract class _IssuerOpenIDConfiguration implements IssuerOpenIDConfiguration {
   factory _IssuerOpenIDConfiguration(
           {required final String issuer,
+          @JsonKey(name: 'authorization_endpoint')
           required final String authorizationEndpoint,
-          required final String tokenEndpoint,
-          required final String userinfoEndpoint,
-          required final String jwksUri,
+          @JsonKey(name: 'token_endpoint') required final String tokenEndpoint,
+          @JsonKey(name: 'userinfo_endpoint')
+          required final String userInfoEndpoint,
+          @JsonKey(name: 'jwks_uri') required final String jwksUri,
+          @JsonKey(name: 'claims_supported')
           required final List<String> claimsSupported}) =
       _$IssuerOpenIDConfigurationImpl;
 
@@ -273,14 +288,19 @@ abstract class _IssuerOpenIDConfiguration implements IssuerOpenIDConfiguration {
   @override
   String get issuer;
   @override
+  @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint;
   @override
+  @JsonKey(name: 'token_endpoint')
   String get tokenEndpoint;
   @override
-  String get userinfoEndpoint;
+  @JsonKey(name: 'userinfo_endpoint')
+  String get userInfoEndpoint;
   @override
+  @JsonKey(name: 'jwks_uri')
   String get jwksUri;
   @override
+  @JsonKey(name: 'claims_supported')
   List<String> get claimsSupported;
 
   /// Create a copy of IssuerOpenIDConfiguration

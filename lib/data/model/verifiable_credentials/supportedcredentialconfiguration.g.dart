@@ -11,36 +11,41 @@ _$SupportedCredentialConfigurationImpl
             Map<String, dynamic> json) =>
         _$SupportedCredentialConfigurationImpl(
           scope: json['scope'] as String,
-          claims: json['claims'] as Map<String, dynamic>,
+          claims: (json['claims'] as Map<String, dynamic>).map(
+            (k, e) => MapEntry(
+                k, ClaimProperties.fromJson(e as Map<String, dynamic>)),
+          ),
           cryptographicBindingMethodsSupported:
-              (json['cryptographicBindingMethodsSupported'] as List<dynamic>)
+              (json['cryptographic_binding_methods_supported'] as List<dynamic>)
                   .map((e) => e as String)
                   .toList(),
-          display: SupportedCredentialDisplayInformation.fromJson(
-              json['display'] as Map<String, dynamic>),
+          display: (json['display'] as List<dynamic>)
+              .map((e) => SupportedCredentialDisplayInformation.fromJson(
+                  e as Map<String, dynamic>))
+              .toList(),
           credentialSigningAlgValuesSupported:
-              (json['credentialSigningAlgValuesSupported'] as List<dynamic>)
+              (json['credential_signing_alg_values_supported'] as List<dynamic>)
                   .map((e) => e as String)
                   .toList(),
           format: json['format'] as String,
           vct: json['vct'] as String,
           proofTypesSupported:
-              json['proofTypesSupported'] as Map<String, dynamic>,
+              json['proof_types_supported'] as Map<String, dynamic>,
         );
 
 Map<String, dynamic> _$$SupportedCredentialConfigurationImplToJson(
         _$SupportedCredentialConfigurationImpl instance) =>
     <String, dynamic>{
       'scope': instance.scope,
-      'claims': instance.claims,
-      'cryptographicBindingMethodsSupported':
+      'claims': instance.claims.map((k, e) => MapEntry(k, e.toJson())),
+      'cryptographic_binding_methods_supported':
           instance.cryptographicBindingMethodsSupported,
-      'display': instance.display,
-      'credentialSigningAlgValuesSupported':
+      'display': instance.display.map((e) => e.toJson()).toList(),
+      'credential_signing_alg_values_supported':
           instance.credentialSigningAlgValuesSupported,
       'format': instance.format,
       'vct': instance.vct,
-      'proofTypesSupported': instance.proofTypesSupported,
+      'proof_types_supported': instance.proofTypesSupported,
     };
 
 _$SupportedCredentialDisplayInformationImpl
@@ -50,8 +55,8 @@ _$SupportedCredentialDisplayInformationImpl
           name: json['name'] as String,
           locale: json['locale'] as String,
           description: json['description'] as String,
-          backgroudColor: json['backgroudColor'] as String,
-          textColor: json['textColor'] as String,
+          backgroudColor: json['background_color'] as String,
+          textColor: json['text_color'] as String,
           logo: SupportedCredentialIssuerLogo.fromJson(
               json['logo'] as Map<String, dynamic>),
         );
@@ -62,21 +67,50 @@ Map<String, dynamic> _$$SupportedCredentialDisplayInformationImplToJson(
       'name': instance.name,
       'locale': instance.locale,
       'description': instance.description,
-      'backgroudColor': instance.backgroudColor,
-      'textColor': instance.textColor,
-      'logo': instance.logo,
+      'background_color': instance.backgroudColor,
+      'text_color': instance.textColor,
+      'logo': instance.logo.toJson(),
     };
 
 _$SupportedCredentialIssuerLogoImpl
     _$$SupportedCredentialIssuerLogoImplFromJson(Map<String, dynamic> json) =>
         _$SupportedCredentialIssuerLogoImpl(
           uri: json['uri'] as String,
-          altText: json['altText'] as String,
+          altText: json['alt_text'] as String,
         );
 
 Map<String, dynamic> _$$SupportedCredentialIssuerLogoImplToJson(
         _$SupportedCredentialIssuerLogoImpl instance) =>
     <String, dynamic>{
       'uri': instance.uri,
-      'altText': instance.altText,
+      'alt_text': instance.altText,
+    };
+
+_$ClaimPropertiesImpl _$$ClaimPropertiesImplFromJson(
+        Map<String, dynamic> json) =>
+    _$ClaimPropertiesImpl(
+      display: (json['display'] as List<dynamic>)
+          .map(
+              (e) => DisplayClaimProperties.fromJson(e as Map<String, dynamic>))
+          .toList(),
+    );
+
+Map<String, dynamic> _$$ClaimPropertiesImplToJson(
+        _$ClaimPropertiesImpl instance) =>
+    <String, dynamic>{
+      'display': instance.display.map((e) => e.toJson()).toList(),
+    };
+
+_$DisplayClaimPropertiesImpl _$$DisplayClaimPropertiesImplFromJson(
+        Map<String, dynamic> json) =>
+    _$DisplayClaimPropertiesImpl(
+      name: json['name'] as String,
+      locale: json['locale'] as String,
+    );
+
+Map<String, dynamic> _$$DisplayClaimPropertiesImplToJson(
+        _$DisplayClaimPropertiesImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'locale': instance.locale,
     };

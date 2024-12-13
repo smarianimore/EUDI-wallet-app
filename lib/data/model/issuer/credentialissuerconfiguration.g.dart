@@ -9,15 +9,17 @@ part of 'credentialissuerconfiguration.dart';
 _$CredentialIssuerConfigurationImpl
     _$$CredentialIssuerConfigurationImplFromJson(Map<String, dynamic> json) =>
         _$CredentialIssuerConfigurationImpl(
-          credentialIssuer: json['credentialIssuer'] as String,
-          authorizationServers: (json['authorizationServers'] as List<dynamic>)
+          credentialIssuer: json['credential_issuer'] as String,
+          authorizationServers: (json['authorization_servers'] as List<dynamic>)
               .map((e) => e as String)
               .toList(),
-          credentialEndpoint: json['credentialEndpoint'] as String,
-          display: CredentialIssuerDisplayInformation.fromJson(
-              json['display'] as Map<String, dynamic>),
+          credentialEndpoint: json['credential_endpoint'] as String,
+          display: (json['display'] as List<dynamic>)
+              .map((e) => CredentialIssuerDisplayInformation.fromJson(
+                  e as Map<String, dynamic>))
+              .toList(),
           credentialConfigurationsSupported:
-              (json['credentialConfigurationsSupported']
+              (json['credential_configurations_supported']
                       as Map<String, dynamic>)
                   .map(
             (k, e) => MapEntry(
@@ -30,12 +32,13 @@ _$CredentialIssuerConfigurationImpl
 Map<String, dynamic> _$$CredentialIssuerConfigurationImplToJson(
         _$CredentialIssuerConfigurationImpl instance) =>
     <String, dynamic>{
-      'credentialIssuer': instance.credentialIssuer,
-      'authorizationServers': instance.authorizationServers,
-      'credentialEndpoint': instance.credentialEndpoint,
-      'display': instance.display,
-      'credentialConfigurationsSupported':
-          instance.credentialConfigurationsSupported,
+      'credential_issuer': instance.credentialIssuer,
+      'authorization_servers': instance.authorizationServers,
+      'credential_endpoint': instance.credentialEndpoint,
+      'display': instance.display.map((e) => e.toJson()).toList(),
+      'credential_configurations_supported': instance
+          .credentialConfigurationsSupported
+          .map((k, e) => MapEntry(k, e.toJson())),
     };
 
 _$CredentialIssuerDisplayInformationImpl

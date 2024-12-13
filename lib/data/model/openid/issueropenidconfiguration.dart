@@ -7,11 +7,11 @@ part 'issueropenidconfiguration.g.dart';
 class IssuerOpenIDConfiguration with _$IssuerOpenIDConfiguration {
   factory IssuerOpenIDConfiguration({
     required String issuer,
-    required String authorizationEndpoint,
-    required String tokenEndpoint,
-    required String userinfoEndpoint,
-    required String jwksUri,
-    required List<String> claimsSupported,
+    @JsonKey(name: 'authorization_endpoint') required String authorizationEndpoint,
+    @JsonKey(name: 'token_endpoint') required String tokenEndpoint,
+    @JsonKey(name: 'userinfo_endpoint') required String userInfoEndpoint,
+    @JsonKey(name: 'jwks_uri') required String jwksUri,
+    @JsonKey(name: 'claims_supported') required List<String> claimsSupported,
   }) = _IssuerOpenIDConfiguration;
 
   factory IssuerOpenIDConfiguration.fromJson(Map<String, dynamic> json) => _$IssuerOpenIDConfigurationFromJson(json);

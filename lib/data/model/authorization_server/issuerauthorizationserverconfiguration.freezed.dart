@@ -23,10 +23,13 @@ IssuerAuthorizationServerConfiguration
 /// @nodoc
 mixin _$IssuerAuthorizationServerConfiguration {
   String get issuer => throw _privateConstructorUsedError;
+  @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'token_endpoint')
   String get tokenEndpoint => throw _privateConstructorUsedError;
-  String get userinfoEndpoint => throw _privateConstructorUsedError;
+  @JsonKey(name: 'jwks_uri')
   String get jwksUri => throw _privateConstructorUsedError;
+  @JsonKey(name: 'grant_types_supported')
   List<String> get grantTypesSupported => throw _privateConstructorUsedError;
 
   /// Serializes this IssuerAuthorizationServerConfiguration to a JSON map.
@@ -50,10 +53,10 @@ abstract class $IssuerAuthorizationServerConfigurationCopyWith<$Res> {
   @useResult
   $Res call(
       {String issuer,
-      String authorizationEndpoint,
-      String tokenEndpoint,
-      String userinfoEndpoint,
-      String jwksUri,
+      @JsonKey(name: 'authorization_endpoint') String authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String tokenEndpoint,
+      @JsonKey(name: 'jwks_uri') String jwksUri,
+      @JsonKey(name: 'grant_types_supported')
       List<String> grantTypesSupported});
 }
 
@@ -76,7 +79,6 @@ class _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
     Object? issuer = null,
     Object? authorizationEndpoint = null,
     Object? tokenEndpoint = null,
-    Object? userinfoEndpoint = null,
     Object? jwksUri = null,
     Object? grantTypesSupported = null,
   }) {
@@ -92,10 +94,6 @@ class _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
       tokenEndpoint: null == tokenEndpoint
           ? _value.tokenEndpoint
           : tokenEndpoint // ignore: cast_nullable_to_non_nullable
-              as String,
-      userinfoEndpoint: null == userinfoEndpoint
-          ? _value.userinfoEndpoint
-          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
       jwksUri: null == jwksUri
           ? _value.jwksUri
@@ -120,10 +118,10 @@ abstract class _$$IssuerAuthorizationServerConfigurationImplCopyWith<$Res>
   @useResult
   $Res call(
       {String issuer,
-      String authorizationEndpoint,
-      String tokenEndpoint,
-      String userinfoEndpoint,
-      String jwksUri,
+      @JsonKey(name: 'authorization_endpoint') String authorizationEndpoint,
+      @JsonKey(name: 'token_endpoint') String tokenEndpoint,
+      @JsonKey(name: 'jwks_uri') String jwksUri,
+      @JsonKey(name: 'grant_types_supported')
       List<String> grantTypesSupported});
 }
 
@@ -145,7 +143,6 @@ class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
     Object? issuer = null,
     Object? authorizationEndpoint = null,
     Object? tokenEndpoint = null,
-    Object? userinfoEndpoint = null,
     Object? jwksUri = null,
     Object? grantTypesSupported = null,
   }) {
@@ -162,10 +159,6 @@ class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
           ? _value.tokenEndpoint
           : tokenEndpoint // ignore: cast_nullable_to_non_nullable
               as String,
-      userinfoEndpoint: null == userinfoEndpoint
-          ? _value.userinfoEndpoint
-          : userinfoEndpoint // ignore: cast_nullable_to_non_nullable
-              as String,
       jwksUri: null == jwksUri
           ? _value.jwksUri
           : jwksUri // ignore: cast_nullable_to_non_nullable
@@ -179,15 +172,17 @@ class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$IssuerAuthorizationServerConfigurationImpl
     implements _IssuerAuthorizationServerConfiguration {
   _$IssuerAuthorizationServerConfigurationImpl(
       {required this.issuer,
+      @JsonKey(name: 'authorization_endpoint')
       required this.authorizationEndpoint,
-      required this.tokenEndpoint,
-      required this.userinfoEndpoint,
-      required this.jwksUri,
+      @JsonKey(name: 'token_endpoint') required this.tokenEndpoint,
+      @JsonKey(name: 'jwks_uri') required this.jwksUri,
+      @JsonKey(name: 'grant_types_supported')
       required final List<String> grantTypesSupported})
       : _grantTypesSupported = grantTypesSupported;
 
@@ -198,15 +193,17 @@ class _$IssuerAuthorizationServerConfigurationImpl
   @override
   final String issuer;
   @override
+  @JsonKey(name: 'authorization_endpoint')
   final String authorizationEndpoint;
   @override
+  @JsonKey(name: 'token_endpoint')
   final String tokenEndpoint;
   @override
-  final String userinfoEndpoint;
-  @override
+  @JsonKey(name: 'jwks_uri')
   final String jwksUri;
   final List<String> _grantTypesSupported;
   @override
+  @JsonKey(name: 'grant_types_supported')
   List<String> get grantTypesSupported {
     if (_grantTypesSupported is EqualUnmodifiableListView)
       return _grantTypesSupported;
@@ -216,7 +213,7 @@ class _$IssuerAuthorizationServerConfigurationImpl
 
   @override
   String toString() {
-    return 'IssuerAuthorizationServerConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, userinfoEndpoint: $userinfoEndpoint, jwksUri: $jwksUri, grantTypesSupported: $grantTypesSupported)';
+    return 'IssuerAuthorizationServerConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, jwksUri: $jwksUri, grantTypesSupported: $grantTypesSupported)';
   }
 
   @override
@@ -229,8 +226,6 @@ class _$IssuerAuthorizationServerConfigurationImpl
                 other.authorizationEndpoint == authorizationEndpoint) &&
             (identical(other.tokenEndpoint, tokenEndpoint) ||
                 other.tokenEndpoint == tokenEndpoint) &&
-            (identical(other.userinfoEndpoint, userinfoEndpoint) ||
-                other.userinfoEndpoint == userinfoEndpoint) &&
             (identical(other.jwksUri, jwksUri) || other.jwksUri == jwksUri) &&
             const DeepCollectionEquality()
                 .equals(other._grantTypesSupported, _grantTypesSupported));
@@ -243,7 +238,6 @@ class _$IssuerAuthorizationServerConfigurationImpl
       issuer,
       authorizationEndpoint,
       tokenEndpoint,
-      userinfoEndpoint,
       jwksUri,
       const DeepCollectionEquality().hash(_grantTypesSupported));
 
@@ -270,10 +264,11 @@ abstract class _IssuerAuthorizationServerConfiguration
     implements IssuerAuthorizationServerConfiguration {
   factory _IssuerAuthorizationServerConfiguration(
           {required final String issuer,
+          @JsonKey(name: 'authorization_endpoint')
           required final String authorizationEndpoint,
-          required final String tokenEndpoint,
-          required final String userinfoEndpoint,
-          required final String jwksUri,
+          @JsonKey(name: 'token_endpoint') required final String tokenEndpoint,
+          @JsonKey(name: 'jwks_uri') required final String jwksUri,
+          @JsonKey(name: 'grant_types_supported')
           required final List<String> grantTypesSupported}) =
       _$IssuerAuthorizationServerConfigurationImpl;
 
@@ -284,14 +279,16 @@ abstract class _IssuerAuthorizationServerConfiguration
   @override
   String get issuer;
   @override
+  @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint;
   @override
+  @JsonKey(name: 'token_endpoint')
   String get tokenEndpoint;
   @override
-  String get userinfoEndpoint;
-  @override
+  @JsonKey(name: 'jwks_uri')
   String get jwksUri;
   @override
+  @JsonKey(name: 'grant_types_supported')
   List<String> get grantTypesSupported;
 
   /// Create a copy of IssuerAuthorizationServerConfiguration

@@ -1,3 +1,4 @@
+import 'package:birex/service/routing/routes/auth_route.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,10 @@ GoRouter birexRouter(Ref ref) {
   final key = ref.watch(navigatorKeyProvider);
   return GoRouter(
     navigatorKey: key,
-    initialLocation: '/home',
-    routes: [HomePageRoute()],
+    initialLocation: HomePageRoute.pagePath,
+    routes: [
+      HomePageRoute(),
+      AuthPageRoute(),
+    ],
   );
 }

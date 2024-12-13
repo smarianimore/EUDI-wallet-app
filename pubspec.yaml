@@ -19,6 +19,10 @@ dependencies:
   riverpod_annotation: ^2.6.1
   shared_preferences: ^2.3.3
   logger: ^2.5.0
+  dio: ^5.7.0
+  pretty_dio_logger: ^1.4.0
+  shimmer: ^3.0.0
+  google_fonts: ^6.2.1
 
 dev_dependencies:
   flutter_test:
