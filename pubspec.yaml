@@ -23,6 +23,7 @@ dependencies:
   pretty_dio_logger: ^1.4.0
   shimmer: ^3.0.0
   google_fonts: ^6.2.1
+  curl_logger_dio_interceptor: ^1.0.0
 
 dev_dependencies:
   flutter_test:

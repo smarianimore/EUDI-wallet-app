@@ -1,5 +1,7 @@
 import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
+import 'package:birex/domain/usecase/request_credential/request_credential_usecase.dart';
 import 'package:birex/presentation/components/screen/loading_switcher.dart';
 import 'package:birex/presentation/pages/home/crif_offers/crif_offers_provider.dart';
 import 'package:birex/presentation/theme/dimension.dart';
@@ -19,7 +21,7 @@ class CRIFOfferSection extends ConsumerWidget {
         children: [
           _IssuerOffersSection(configuration: crifOffer),
           Dimensions.mediumSize.spacer(),
-          _SupportedCredentialsSection(claims: crifOffer.credentialConfigurationsSupported),
+          _SupportedCredentialsSection(configuration: crifOffer),
         ],
       ),
     );
@@ -81,9 +83,9 @@ class _IssuerDisplayInformationCard extends StatelessWidget {
 }
 
 class _SupportedCredentialsSection extends StatelessWidget {
-  const _SupportedCredentialsSection({required this.claims});
+  const _SupportedCredentialsSection({required this.configuration});
 
-  final Map<String, SupportedCredentialConfiguration> claims;
+  final CredentialIssuerConfiguration configuration;
 
   @override
   Widget build(BuildContext context) {
@@ -95,21 +97,30 @@ class _SupportedCredentialsSection extends StatelessWidget {
           style: Theme.of(context).textTheme.titleLarge,
         ),
         Dimensions.mediumSize.spacer(),
-        for (final credential in claims.values) _SupportedCredentialComponent(credential: credential),
+        for (final credential in configuration.credentialConfigurationsSupported.entries)
+          _SupportedCredentialComponent(
+            credential: credential.value,
+            configuration: configuration,
+            credentialSubject: credential.key,
+          ),
       ],
     );
   }
 }
 
-class _SupportedCredentialComponent extends StatelessWidget {
+class _SupportedCredentialComponent extends ConsumerWidget {
   const _SupportedCredentialComponent({
     required this.credential,
+    required this.configuration,
+    required this.credentialSubject,
   });
 
   final SupportedCredentialConfiguration credential;
+  final String credentialSubject;
+  final CredentialIssuerConfiguration configuration;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final display = credential.display.first;
     return ExpansionTile(
       title: Text(display.name),
@@ -123,22 +134,29 @@ class _SupportedCredentialComponent extends StatelessWidget {
       tilePadding: EdgeInsets.zero,
       childrenPadding: Dimensions.mediumSize.verticalPadding.copyWith(top: 0),
       children: [
-        Text('Scope', style: Theme.of(context).textTheme.titleMedium),
-        Text(credential.scope),
-        const WidgetSeparator.small(),
-        Text('Format', style: Theme.of(context).textTheme.titleMedium),
-        Text(credential.format),
-        const WidgetSeparator.small(),
-        Text('VCT', style: Theme.of(context).textTheme.titleMedium),
-        Text(credential.vct),
-        const WidgetSeparator.small(),
         Wrap(
           spacing: Dimensions.smallSize,
           children: [
             for (final claim in credential.claims.entries) Chip(label: Text(claim.value.display.first.name)),
           ],
         ),
+        const WidgetSeparator.small(),
+        Align(
+          alignment: Alignment.bottomRight,
+          child: FilledButton(
+            onPressed: () => _onLogin(ref),
+            child: const Text('Richiedi'),
+          ),
+        ),
       ],
     );
   }
+
+  void _onLogin(WidgetRef ref) => ref.read(requestCredentialUseCaseProvider).call(
+        RequestCredentialCommand(
+          host: configuration.credentialIssuer,
+          credentialSubject: credentialSubject,
+          credentialType: 2,
+        ),
+      );
 }
