@@ -1,9 +1,9 @@
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/extensions/empty_response/emptyresponse.dart';
-import 'package:keyfull/utils/response.dart';
-import 'package:keyfull/utils/usecase/handler/handler.dart';
-import 'package:keyfull/utils/usecase/requirement/requirement.dart';
-import 'package:keyfull/utils/usecase/validator/use_case_validator.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/extensions/empty_response/emptyresponse.dart';
+import 'package:birex/utils/response.dart';
+import 'package:birex/utils/usecase/handler/handler.dart';
+import 'package:birex/utils/usecase/requirement/requirement.dart';
+import 'package:birex/utils/usecase/validator/use_case_validator.dart';
 
 abstract class UseCase<R, I> {
   UseCase({

@@ -1,6 +1,6 @@
-import 'package:keyfull/service/dialog/dialog_service.dart';
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/usecase/handler/handler.dart';
+import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/usecase/handler/handler.dart';
 
 class ShowDialogErrorHandler extends UseCaseErrorHandler {
   ShowDialogErrorHandler(this.dialogService);

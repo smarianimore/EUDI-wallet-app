@@ -1,7 +1,7 @@
-/* import 'package:keyfull/domain/domain.dart';
-import 'package:keyfull/presentation/presentation.dart';
-import 'package:keyfull/service/service.dart';
-import 'package:keyfull/utils/utils.dart';
+/* import 'package:birex/domain/domain.dart';
+import 'package:birex/presentation/presentation.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmOperationRequirement extends UseCaseRequirement {

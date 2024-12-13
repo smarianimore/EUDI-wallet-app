@@ -1,15 +1,15 @@
+import 'package:birex/service/routing/router.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:keyfull/service/routing/router.dart';
 
-class KeyfullApp extends ConsumerWidget {
-  const KeyfullApp({super.key});
+class birexApp extends ConsumerWidget {
+  const birexApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(keyfullRouterProvider);
+    final router = ref.watch(birexRouterProvider);
     return MaterialApp.router(
-      title: 'Keyfull',
+      title: 'birex',
       routerConfig: router,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

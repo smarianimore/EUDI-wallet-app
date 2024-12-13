@@ -1,4 +1,4 @@
-package com.example.keyfull
+package com.example.birex
 
 import io.flutter.embedding.android.FlutterActivity
 

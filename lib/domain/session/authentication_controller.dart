@@ -1,4 +1,4 @@
-import 'package:keyfull/domain/session/state/authenticationstate.dart';
+import 'package:birex/domain/session/state/authenticationstate.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'authentication_controller.g.dart';

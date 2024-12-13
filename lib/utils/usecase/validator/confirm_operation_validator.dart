@@ -1,9 +1,9 @@
-import 'package:keyfull/presentation/components/dialog/confirm_dialog.dart';
-import 'package:keyfull/service/dialog/dialog_service.dart';
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/extensions/empty_response/emptyresponse.dart';
-import 'package:keyfull/utils/response.dart';
-import 'package:keyfull/utils/usecase/validator/use_case_validator.dart';
+import 'package:birex/presentation/components/dialog/confirm_dialog.dart';
+import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/extensions/empty_response/emptyresponse.dart';
+import 'package:birex/utils/response.dart';
+import 'package:birex/utils/usecase/validator/use_case_validator.dart';
 
 class ConfirmOperationValidator<I> extends UseCaseValidator<I> {
   ConfirmOperationValidator(

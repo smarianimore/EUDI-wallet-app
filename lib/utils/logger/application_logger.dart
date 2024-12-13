@@ -1,7 +1,7 @@
 // ignore_for_file: strict_raw_type
 
+import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:keyfull/utils/logger/custom_logger.dart';
 
 class RiverpodApplicationLogger extends ProviderObserver {
   @override

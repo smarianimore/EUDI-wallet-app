@@ -1,6 +1,6 @@
+import 'package:birex/utils/error/applicationerror.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:keyfull/utils/error/applicationerror.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'dialog_service.g.dart';

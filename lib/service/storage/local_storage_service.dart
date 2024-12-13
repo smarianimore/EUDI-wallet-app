@@ -1,8 +1,8 @@
-import 'package:keyfull/service/storage/keys.dart';
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/extensions/empty_response/emptyresponse.dart';
-import 'package:keyfull/utils/logger/custom_logger.dart';
-import 'package:keyfull/utils/response.dart';
+import 'package:birex/service/storage/keys.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/extensions/empty_response/emptyresponse.dart';
+import 'package:birex/utils/logger/custom_logger.dart';
+import 'package:birex/utils/response.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 mixin StorageServiceProvider {

@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/extensions/list_extensions.dart';
-import 'package:keyfull/utils/response.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/extensions/list_extensions.dart';
+import 'package:birex/utils/response.dart';
 
 abstract class UseCaseSuccessHandler<R, I> {
   Future<void> handle(R? payload, I input);

@@ -1,5 +1,5 @@
+import 'package:birex/presentation/pages/home/home_page.dart';
 import 'package:go_router/go_router.dart';
-import 'package:keyfull/presentation/pages/home/home_page.dart';
 
 class HomePageRoute extends GoRoute {
   HomePageRoute()

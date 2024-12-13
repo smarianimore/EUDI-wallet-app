@@ -1,5 +1,5 @@
-import 'package:keyfull/utils/error/applicationerror.dart';
-import 'package:keyfull/utils/extensions/list_extensions.dart';
+import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/extensions/list_extensions.dart';
 
 class Responses {
   static Response<P, E> success<P, E>(P? payload) => _Success(payload: payload);
