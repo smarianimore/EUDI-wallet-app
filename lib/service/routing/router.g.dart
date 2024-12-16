@@ -41,7 +41,7 @@ final homeShellNavigatorKeyProvider =
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef HomeShellNavigatorKeyRef = ProviderRef<GlobalKey<NavigatorState>>;
-String _$birexRouterHash() => r'97c5642325dd9e180e5739fe50020a36c219596f';
+String _$birexRouterHash() => r'6435fddb48d1a768077a427746354b0f33196bc8';
 
 /// See also [birexRouter].
 @ProviderFor(birexRouter)

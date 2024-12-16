@@ -18,7 +18,7 @@ class BirexApp extends ConsumerWidget {
     final lightTextTheme = GoogleFonts.interTextTheme(lightTheme.textTheme);
     final darkTextTheme = GoogleFonts.interTextTheme(darkTheme.textTheme);
     return MaterialApp.router(
-      title: 'birex',
+      title: 'BiRex',
       routerConfig: router,
       themeMode: themeMode,
       theme: lightTheme.copyWith(textTheme: lightTextTheme),

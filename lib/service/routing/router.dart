@@ -24,7 +24,7 @@ GoRouter birexRouter(Ref ref) {
   final shellKey = ref.watch(homeShellNavigatorKeyProvider);
   return GoRouter(
     navigatorKey: key,
-    initialLocation: MyWalletPageRoute.pagePath,
+    initialLocation: AuthPageRoute.pagePath,
     routes: [
       HomePageShellRoute(shellKey: shellKey),
       AuthPageRoute(),

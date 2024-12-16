@@ -2,6 +2,7 @@ import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/request_credential_usecase.dart';
+import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
 import 'package:birex/presentation/components/screen/loading_switcher.dart';
 import 'package:birex/presentation/pages/discovery/crif_offers/crif_offers_provider.dart';
 import 'package:birex/presentation/theme/dimension.dart';
@@ -144,7 +145,7 @@ class _SupportedCredentialComponent extends ConsumerWidget {
         Align(
           alignment: Alignment.bottomRight,
           child: FilledButton(
-            onPressed: () => _onLogin(ref),
+            onPressed: () => _onLogin(context, ref),
             child: const Text('Richiedi'),
           ),
         ),
@@ -152,11 +153,15 @@ class _SupportedCredentialComponent extends ConsumerWidget {
     );
   }
 
-  void _onLogin(WidgetRef ref) => ref.read(requestCredentialUseCaseProvider).call(
-        RequestCredentialCommand(
-          host: configuration.credentialIssuer,
-          credentialSubject: credentialSubject,
-          credentialType: 2,
-        ),
-      );
+  Future<void> _onLogin(BuildContext context, WidgetRef ref) async {
+    final loaderManager = OverlayLoaderManager.instance;
+    final request = RequestCredentialCommand(
+      host: configuration.credentialIssuer,
+      credentialSubject: credentialSubject,
+      credentialType: 2,
+    );
+    loaderManager.showLoader(context);
+    await ref.read(requestCredentialUseCaseProvider).call(request);
+    loaderManager.hideLoader();
+  }
 }

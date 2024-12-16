@@ -4,9 +4,9 @@ import 'package:go_router/go_router.dart';
 class AuthPageRoute extends GoRoute {
   AuthPageRoute()
       : super(
-          path: _path,
+          path: pagePath,
           builder: (context, state) => const AuthenticationPage(),
         );
 
-  static const String _path = '/auth';
+  static const String pagePath = '/auth';
 }

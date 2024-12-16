@@ -15,12 +15,6 @@ class SettingsPage extends ConsumerWidget {
     final style = ref.watch(themeStyleProvider);
     return BaseScreen(
       title: 'Impostazioni',
-      actions: [
-        IconButton.outlined(
-          onPressed: () {},
-          icon: const Icon(Icons.network_cell_rounded),
-        ),
-      ],
       slivers: [
         SliverPadding(
           padding: Dimensions.pageInsets,
