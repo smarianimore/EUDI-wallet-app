@@ -8,7 +8,14 @@ part 'dio_provider.g.dart';
 
 @riverpod
 Dio dio(Ref ref) {
-  final dio = Dio();
+  const baseTimeout = Duration(seconds: 30);
+  final dio = Dio(
+    BaseOptions(
+      sendTimeout: baseTimeout,
+      connectTimeout: baseTimeout,
+      receiveTimeout: baseTimeout,
+    ),
+  );
   final inteceptors = [
     CurlLoggerDioInterceptor(printOnSuccess: false),
     PrettyDioLogger(requestBody: true, requestHeader: true),

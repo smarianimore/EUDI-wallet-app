@@ -1,5 +1,7 @@
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
+import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
+import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
 import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/utils/response.dart';
@@ -20,6 +22,7 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   final errorHandler = ShowDialogErrorHandler(dialogService);
   return RequestCredentialUseCase(
     repository: ref.read(authenticationRepositoryProvider),
+    verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
     errorHandlers: [errorHandler],
     successHandlers: [successDialog],
   );
@@ -28,6 +31,7 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
 class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
   RequestCredentialUseCase({
     required this.repository,
+    required this.verifiableCredentialRepository,
     super.requirements,
     super.errorHandlers,
     super.successHandlers,
@@ -35,9 +39,11 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
   });
 
   final IAuthenticationRepository repository;
+  final IVerifiableCredentialRepository verifiableCredentialRepository;
 
   @override
   AsyncApplicationResponse<void> call(RequestCredentialCommand input) async {
+    const clientId = 'clientId';
     final check = await checkRequirements();
     final authorizationResponse = await check.flatMapAsync(
       (_) => repository.authorizeCredentialIssuance(
@@ -51,11 +57,20 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
         host: input.host,
         code: auth!.grants.entries.first.value.code,
         grantType: auth.grants.entries.first.key,
-        clientId: 'clientId',
+        clientId: clientId,
       ),
     );
-    await loginResponse.ifErrorAsync((_) => applyErrorHandlers(loginResponse));
-    await loginResponse.ifSuccessAsync((_) => applySuccessHandlers(loginResponse, input));
-    return loginResponse.map((_) {});
+    final keyProofResponse = await loginResponse.flatMapAsync(
+      (payload) => verifiableCredentialRepository.generateKeyProof(
+        accessToken: payload!.accessToken,
+        host: input.host,
+        clientId: clientId,
+        issuer: input.host,
+        nonce: payload.cNonce,
+      ),
+    );
+    await keyProofResponse.ifErrorAsync((_) => applyErrorHandlers(keyProofResponse));
+    await keyProofResponse.ifSuccessAsync((_) => applySuccessHandlers(keyProofResponse, input));
+    return keyProofResponse.map((_) {});
   }
 }

@@ -22,7 +22,19 @@ class MyWalletPageRoute extends GoRoute {
   MyWalletPageRoute()
       : super(
           path: pagePath,
-          builder: (context, state) => const MyWalletPage(),
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const MyWalletPage(),
+            transitionDuration: const Duration(milliseconds: 150),
+            reverseTransitionDuration: const Duration(milliseconds: 150),
+            transitionsBuilder: (context, animation, _, child) => SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(-1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          ),
         );
 
   static const String pagePath = '/my-wallet';
@@ -32,8 +44,20 @@ class MenuPageRoute extends GoRoute {
   MenuPageRoute()
       : super(
           path: pagePath,
-          builder: (context, state) => const MenuPage(),
           routes: [DiscoveryPageRoute(), SettingsPageRoute()],
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const MenuPage(),
+            transitionDuration: const Duration(milliseconds: 150),
+            reverseTransitionDuration: const Duration(milliseconds: 150),
+            transitionsBuilder: (context, animation, _, child) => SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            ),
+          ),
         );
 
   static const String pagePath = '/menu';

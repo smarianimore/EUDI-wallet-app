@@ -28,7 +28,18 @@ class DialogService {
     );
   }
 
-  Future<void> showErrorDialog(ApplicationError error) async {}
+  Future<void> showErrorDialog(ApplicationError error) => showCustomDialog(
+        dialogBuilder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: const Text('Errore'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
 
   Future<void> showSuccessDialog({required String message}) => showCustomDialog(
         dialogBuilder: (context) => AlertDialog(
