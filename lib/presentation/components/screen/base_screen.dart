@@ -4,11 +4,13 @@ class BaseScreen extends StatefulWidget {
   const BaseScreen({
     required this.title,
     required this.slivers,
+    this.actions = const [],
     super.key,
   });
 
   final String title;
   final List<Widget> slivers;
+  final List<Widget> actions;
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();
@@ -41,6 +43,7 @@ class _BaseScreenState extends State<BaseScreen> {
               title: Text(widget.title),
               floating: true,
               snap: true,
+              actions: widget.actions,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),

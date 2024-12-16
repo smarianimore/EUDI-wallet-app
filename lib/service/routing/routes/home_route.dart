@@ -2,6 +2,7 @@ import 'package:birex/presentation/pages/home/home_shell_wrapper.dart';
 import 'package:birex/presentation/pages/home/shell/menu/menu_page.dart';
 import 'package:birex/presentation/pages/home/shell/my_wallet/my_wallet_page.dart';
 import 'package:birex/service/routing/routes/discovery_route.dart';
+import 'package:birex/service/routing/routes/settings_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -50,7 +51,7 @@ class MenuPageRoute extends GoRoute {
               child: child,
             ),
           ),
-          routes: [DiscoveryPageRoute()],
+          routes: [DiscoveryPageRoute(), SettingsPageRoute()],
         );
 
   static const String pagePath = '/menu';
