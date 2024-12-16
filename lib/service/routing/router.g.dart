@@ -22,7 +22,26 @@ final navigatorKeyProvider = Provider<GlobalKey<NavigatorState>>.internal(
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
 typedef NavigatorKeyRef = ProviderRef<GlobalKey<NavigatorState>>;
-String _$birexRouterHash() => r'a546151f1906f11aed52dbf1b008ba4538faed90';
+String _$homeShellNavigatorKeyHash() =>
+    r'1e77ce9386c4cb706f0e33a6c164ad9209d2102d';
+
+/// See also [homeShellNavigatorKey].
+@ProviderFor(homeShellNavigatorKey)
+final homeShellNavigatorKeyProvider =
+    Provider<GlobalKey<NavigatorState>>.internal(
+  homeShellNavigatorKey,
+  name: r'homeShellNavigatorKeyProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$homeShellNavigatorKeyHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef HomeShellNavigatorKeyRef = ProviderRef<GlobalKey<NavigatorState>>;
+String _$birexRouterHash() => r'97c5642325dd9e180e5739fe50020a36c219596f';
 
 /// See also [birexRouter].
 @ProviderFor(birexRouter)

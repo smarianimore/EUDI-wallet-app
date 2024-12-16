@@ -1,4 +1,5 @@
 import 'package:birex/service/routing/routes/auth_route.dart';
+import 'package:birex/service/routing/routes/discovery_route.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -13,14 +14,27 @@ GlobalKey<NavigatorState> navigatorKey(Ref ref) {
 }
 
 @Riverpod(keepAlive: true)
+GlobalKey<NavigatorState> homeShellNavigatorKey(Ref ref) {
+  return GlobalKey<NavigatorState>();
+}
+
+@Riverpod(keepAlive: true)
 GoRouter birexRouter(Ref ref) {
   final key = ref.watch(navigatorKeyProvider);
+  final shellKey = ref.watch(homeShellNavigatorKeyProvider);
   return GoRouter(
     navigatorKey: key,
-    initialLocation: HomePageRoute.pagePath,
+    initialLocation: MyWalletPageRoute.pagePath,
     routes: [
-      HomePageRoute(),
+      HomePageShellRoute(shellKey: shellKey),
       AuthPageRoute(),
+      DiscoveryPageRoute(),
     ],
   );
+}
+
+extension KeyNavigator on GlobalKey<NavigatorState> {
+  void go(String path) {
+    currentContext!.go(path);
+  }
 }

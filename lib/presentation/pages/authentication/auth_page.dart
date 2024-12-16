@@ -15,7 +15,7 @@ class AuthenticationPage extends ConsumerWidget {
         SliverFillRemaining(
           child: Center(
             child: FilledButton(
-              onPressed: () => ref.read(birexRouterProvider).go(HomePageRoute.pagePath),
+              onPressed: () => ref.read(birexRouterProvider).go(MyWalletPageRoute.pagePath),
               child: const Text('Home'),
             ),
           ),

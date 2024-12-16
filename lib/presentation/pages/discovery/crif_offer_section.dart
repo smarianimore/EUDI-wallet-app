@@ -3,7 +3,7 @@ import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfi
 import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/request_credential_usecase.dart';
 import 'package:birex/presentation/components/screen/loading_switcher.dart';
-import 'package:birex/presentation/pages/home/crif_offers/crif_offers_provider.dart';
+import 'package:birex/presentation/pages/discovery/crif_offers/crif_offers_provider.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
 import 'package:flutter/material.dart';
