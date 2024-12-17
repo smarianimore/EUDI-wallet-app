@@ -17,12 +17,14 @@ mixin RepositoryResponseHandler {
         final result = Responses.success<T, ApplicationError>(data);
         return result;
       } else {
-        final result = Responses.failure<T, ApplicationError>([ApplicationError.generic()]);
+        final message = response.data is String? ? response.data as String? : response.statusMessage;
+        final result = Responses.failure<T, ApplicationError>([ApplicationError.generic(message: message)]);
         return result;
       }
     } on dio.DioException catch (e) {
-      ApplicationLogger.instance.logApplicationError(e.response?.statusMessage ?? 'ERRORE');
-      final response = Responses.failure<T, ApplicationError>([ApplicationError.generic()]);
+      final message = e.response?.statusMessage ?? e.message;
+      ApplicationLogger.instance.logApplicationError(message ?? 'ERRORE');
+      final response = Responses.failure<T, ApplicationError>([ApplicationError.generic(message: message)]);
       return Future.value(response);
     } catch (e) {
       ApplicationLogger.instance.logApplicationError(e.toString());
