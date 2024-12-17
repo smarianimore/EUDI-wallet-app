@@ -26,7 +26,11 @@ class AuthenticationController extends _$AuthenticationController {
   Future<void> login() async {
     final canAuthenticateWithBiometrics = await localAuthentication.canCheckBiometrics;
     final canAuthenticate = canAuthenticateWithBiometrics || await localAuthentication.isDeviceSupported();
-    if (!canAuthenticate) return;
+    if (!canAuthenticate) {
+      state = AsyncData(AuthenticationState.auth());
+      router.go(MyWalletPageRoute.pagePath);
+      return;
+    }
     try {
       final didAuthenticate = await localAuthentication.authenticate(
         localizedReason: 'Please authenticate to access your wallet',
@@ -47,14 +51,13 @@ class AuthenticationController extends _$AuthenticationController {
     } on PlatformException catch (e) {
       ApplicationLogger.instance.logApplicationError(e.code);
       ApplicationLogger.instance.logApplicationError(e.message ?? '');
-      state = AsyncData(AuthenticationState.unauthorized());
       if (e.code == auth_error.notAvailable) {
-        // Add handling of no hardware here.
+        /// The device does not have biometric capabilities
       } else if (e.code == auth_error.notEnrolled) {
-        // ...
-      } else {
-        // ...
-      }
+        /// The user hasn't enrolled any biometrics to authenticate with
+      } else {}
+      state = AsyncData(AuthenticationState.auth());
+      router.go(MyWalletPageRoute.pagePath);
     } catch (e) {
       state = AsyncData(AuthenticationState.unauthorized());
     }

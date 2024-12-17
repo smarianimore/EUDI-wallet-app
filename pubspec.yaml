@@ -26,6 +26,8 @@ dependencies:
   curl_logger_dio_interceptor: ^1.0.0
   local_auth: ^2.3.0
   qr_code_dart_scan: ^0.9.4
+  local_auth_android: ^1.0.46
+  local_auth_darwin: ^1.4.2
 
 dev_dependencies:
   flutter_test:
