@@ -27,7 +27,7 @@ enum ErrorCode {
 extension ErrorLabelMapper on ApplicationError {
   String get title {
     return maybeMap(
-      orElse: () => 'Qualcosa è andato storto',
+      orElse: () => 'Attenzione',
     );
   }
 
