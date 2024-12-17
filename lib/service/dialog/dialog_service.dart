@@ -28,18 +28,22 @@ class DialogService {
     );
   }
 
-  Future<void> showErrorDialog(ApplicationError error) => showCustomDialog(
-        dialogBuilder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: const Text('Errore'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
+  Future<void> showErrorDialog(ApplicationError error) {
+    final isAbortedOperation = error.maybeMap(orElse: () => false, operationAborted: (_) => true);
+    if (isAbortedOperation) return Future.value();
+    return showCustomDialog(
+      dialogBuilder: (context) => AlertDialog(
+        title: Text(error.title),
+        content: Text(error.message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
 
   Future<void> showSuccessDialog({required String message}) => showCustomDialog(
         dialogBuilder: (context) => AlertDialog(

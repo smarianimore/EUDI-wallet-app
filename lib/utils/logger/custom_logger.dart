@@ -1,6 +1,5 @@
-import 'package:birex/utils/env.dart';
+import 'package:birex/service/env.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 
 class AlwaysOnLogger extends LogFilter {
@@ -15,10 +14,7 @@ class ApplicationLogger {
 
   final logger = Logger(
     filter: AlwaysOnLogger(),
-    printer: PrettyPrinter(
-      methodCount: 0,
-      dateTimeFormat: (value) => value.toIso8601String(),
-    ),
+    printer: PrettyPrinter(methodCount: 0, dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart),
   );
 
   void logApplicationEvent(Object? event) {
@@ -39,10 +35,20 @@ class ApplicationLogger {
   }
 
   void logFlutterError(FlutterErrorDetails details) {
-    logger.e(details.exceptionAsString(), stackTrace: details.stack);
+    if (kDebugMode) {
+      print('Error from INSIDE framework');
+      print('----------------------');
+      print('Error :  ${details.exception}');
+      print('StackTrace :  ${details.stack}');
+    }
   }
 
   void logFrameworkError(Object error, StackTrace? stacktrace) {
-    logger.e(error.toString(), stackTrace: stacktrace);
+    if (kDebugMode) {
+      print('Error from OUTSIDE framework');
+      print('----------------------');
+      print('Error :  $error');
+      print('StackTrace :  $stacktrace');
+    }
   }
 }

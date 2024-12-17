@@ -1,3 +1,4 @@
+import 'package:birex/domain/usecase/scan_credential_qr_code/scan_credential_qr_code_usecase.dart';
 import 'package:birex/service/routing/router.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _HomeBottomNavBar extends ConsumerWidget {
           height: 60,
           width: 60,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () => ref.read(scanCredentialQrCodeUsecaseProvider).call(context),
             child: const Icon(Icons.add),
           ),
         ),

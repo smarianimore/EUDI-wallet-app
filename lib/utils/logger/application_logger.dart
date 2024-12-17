@@ -1,17 +1,16 @@
-// ignore_for_file: strict_raw_type
-
 import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class RiverpodApplicationLogger extends ProviderObserver {
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderBase<dynamic> provider,
     Object? previousValue,
     Object? newValue,
     ProviderContainer container,
   ) {
+    final logger = ApplicationLogger.instance;
     if (provider.name == null) return;
-    ApplicationLogger.instance.logApplicationEvent(newValue);
+    logger.logApplicationEvent(newValue);
   }
 }
