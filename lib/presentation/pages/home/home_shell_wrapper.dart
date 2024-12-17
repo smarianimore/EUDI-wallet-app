@@ -1,9 +1,6 @@
-import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
-import 'package:birex/domain/usecase/request_credential/request_credential_usecase.dart';
-import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
+import 'package:birex/domain/usecase/scan_credential_qr_code/scan_credential_qr_code_usecase.dart';
 import 'package:birex/service/routing/router.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
-import 'package:birex/service/routing/routes/qr_code_scanner_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -57,22 +54,7 @@ class _HomeBottomNavBar extends ConsumerWidget {
           height: 60,
           width: 60,
           child: FloatingActionButton(
-            onPressed: () => ref.read(birexRouterProvider).push<(Uri?, String?)>(QRCodeScannerPageRoute.pagePath).then(
-              (value) async {
-                if (value == null) return null;
-                final credentialUri = value.$1;
-                final credentialSubject = value.$2;
-                if (credentialUri == null || credentialSubject == null) return null;
-                final command = RequestCredentialCommand(
-                  host: credentialUri.toString(),
-                  credentialType: 0,
-                  credentialSubject: credentialSubject,
-                );
-                if (!context.mounted) return null;
-                OverlayLoaderManager.instance.showLoader(context);
-                return ref.read(requestCredentialUseCaseProvider).call(command).whenComplete(() {});
-              },
-            ),
+            onPressed: () => ref.read(scanCredentialQrCodeUsecaseProvider).call(context),
             child: const Icon(Icons.add),
           ),
         ),

@@ -24,7 +24,8 @@ class QRCodeScannerPage extends ConsumerWidget {
                     final qrcodeUri = Uri.tryParse(result.text);
                     final queryParameters = qrcodeUri?.queryParameters;
                     final credentialSubject = queryParameters?['credential_subject'];
-                    final credentialUri = Uri.tryParse(queryParameters!['credential_offer_uri']!);
+                    final credentialOfferUri = queryParameters?['credential_offer_uri'];
+                    final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
                     context.pop((credentialUri, credentialSubject));
                   },
                 ),
