@@ -1,6 +1,7 @@
 import 'package:birex/service/routing/routes/auth_route.dart';
 import 'package:birex/service/routing/routes/discovery_route.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
+import 'package:birex/service/routing/routes/qr_code_scanner_route.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -29,6 +30,7 @@ GoRouter birexRouter(Ref ref) {
       HomePageShellRoute(shellKey: shellKey),
       AuthPageRoute(),
       DiscoveryPageRoute(),
+      QRCodeScannerPageRoute(),
     ],
   );
 }

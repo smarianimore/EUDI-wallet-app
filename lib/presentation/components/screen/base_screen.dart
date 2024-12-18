@@ -40,10 +40,11 @@ class _BaseScreenState extends State<BaseScreen> {
           controller: scrollController,
           slivers: [
             SliverAppBar.large(
+              backgroundColor: Theme.of(context).secondaryHeaderColor,
               title: Text(widget.title),
-              floating: true,
-              snap: true,
               actions: widget.actions,
+              elevation: 10,
+              floating: true,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(20),

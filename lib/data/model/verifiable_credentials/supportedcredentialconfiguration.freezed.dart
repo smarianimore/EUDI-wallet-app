@@ -1220,3 +1220,217 @@ abstract class _DisplayClaimProperties implements DisplayClaimProperties {
   _$$DisplayClaimPropertiesImplCopyWith<_$DisplayClaimPropertiesImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+VerifiableCredentialResponse _$VerifiableCredentialResponseFromJson(
+    Map<String, dynamic> json) {
+  return _VerifiableCredentialResponse.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VerifiableCredentialResponse {
+  String get credential => throw _privateConstructorUsedError;
+  @JsonKey(name: 'c_nonce_expires_in')
+  int get cNonceExpiresIn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'c_nonce')
+  dynamic get cNonce => throw _privateConstructorUsedError;
+
+  /// Serializes this VerifiableCredentialResponse to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of VerifiableCredentialResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VerifiableCredentialResponseCopyWith<VerifiableCredentialResponse>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerifiableCredentialResponseCopyWith<$Res> {
+  factory $VerifiableCredentialResponseCopyWith(
+          VerifiableCredentialResponse value,
+          $Res Function(VerifiableCredentialResponse) then) =
+      _$VerifiableCredentialResponseCopyWithImpl<$Res,
+          VerifiableCredentialResponse>;
+  @useResult
+  $Res call(
+      {String credential,
+      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce') dynamic cNonce});
+}
+
+/// @nodoc
+class _$VerifiableCredentialResponseCopyWithImpl<$Res,
+        $Val extends VerifiableCredentialResponse>
+    implements $VerifiableCredentialResponseCopyWith<$Res> {
+  _$VerifiableCredentialResponseCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of VerifiableCredentialResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credential = null,
+    Object? cNonceExpiresIn = null,
+    Object? cNonce = freezed,
+  }) {
+    return _then(_value.copyWith(
+      credential: null == credential
+          ? _value.credential
+          : credential // ignore: cast_nullable_to_non_nullable
+              as String,
+      cNonceExpiresIn: null == cNonceExpiresIn
+          ? _value.cNonceExpiresIn
+          : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
+              as int,
+      cNonce: freezed == cNonce
+          ? _value.cNonce
+          : cNonce // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$VerifiableCredentialResponseImplCopyWith<$Res>
+    implements $VerifiableCredentialResponseCopyWith<$Res> {
+  factory _$$VerifiableCredentialResponseImplCopyWith(
+          _$VerifiableCredentialResponseImpl value,
+          $Res Function(_$VerifiableCredentialResponseImpl) then) =
+      __$$VerifiableCredentialResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {String credential,
+      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce') dynamic cNonce});
+}
+
+/// @nodoc
+class __$$VerifiableCredentialResponseImplCopyWithImpl<$Res>
+    extends _$VerifiableCredentialResponseCopyWithImpl<$Res,
+        _$VerifiableCredentialResponseImpl>
+    implements _$$VerifiableCredentialResponseImplCopyWith<$Res> {
+  __$$VerifiableCredentialResponseImplCopyWithImpl(
+      _$VerifiableCredentialResponseImpl _value,
+      $Res Function(_$VerifiableCredentialResponseImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of VerifiableCredentialResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credential = null,
+    Object? cNonceExpiresIn = null,
+    Object? cNonce = freezed,
+  }) {
+    return _then(_$VerifiableCredentialResponseImpl(
+      credential: null == credential
+          ? _value.credential
+          : credential // ignore: cast_nullable_to_non_nullable
+              as String,
+      cNonceExpiresIn: null == cNonceExpiresIn
+          ? _value.cNonceExpiresIn
+          : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
+              as int,
+      cNonce: freezed == cNonce ? _value.cNonce! : cNonce,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$VerifiableCredentialResponseImpl
+    implements _VerifiableCredentialResponse {
+  _$VerifiableCredentialResponseImpl(
+      {required this.credential,
+      @JsonKey(name: 'c_nonce_expires_in') required this.cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce') this.cNonce});
+
+  factory _$VerifiableCredentialResponseImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$VerifiableCredentialResponseImplFromJson(json);
+
+  @override
+  final String credential;
+  @override
+  @JsonKey(name: 'c_nonce_expires_in')
+  final int cNonceExpiresIn;
+  @override
+  @JsonKey(name: 'c_nonce')
+  final dynamic cNonce;
+
+  @override
+  String toString() {
+    return 'VerifiableCredentialResponse(credential: $credential, cNonceExpiresIn: $cNonceExpiresIn, cNonce: $cNonce)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifiableCredentialResponseImpl &&
+            (identical(other.credential, credential) ||
+                other.credential == credential) &&
+            (identical(other.cNonceExpiresIn, cNonceExpiresIn) ||
+                other.cNonceExpiresIn == cNonceExpiresIn) &&
+            const DeepCollectionEquality().equals(other.cNonce, cNonce));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, credential, cNonceExpiresIn,
+      const DeepCollectionEquality().hash(cNonce));
+
+  /// Create a copy of VerifiableCredentialResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifiableCredentialResponseImplCopyWith<
+          _$VerifiableCredentialResponseImpl>
+      get copyWith => __$$VerifiableCredentialResponseImplCopyWithImpl<
+          _$VerifiableCredentialResponseImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VerifiableCredentialResponseImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _VerifiableCredentialResponse
+    implements VerifiableCredentialResponse {
+  factory _VerifiableCredentialResponse(
+      {required final String credential,
+      @JsonKey(name: 'c_nonce_expires_in') required final int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce')
+      final dynamic cNonce}) = _$VerifiableCredentialResponseImpl;
+
+  factory _VerifiableCredentialResponse.fromJson(Map<String, dynamic> json) =
+      _$VerifiableCredentialResponseImpl.fromJson;
+
+  @override
+  String get credential;
+  @override
+  @JsonKey(name: 'c_nonce_expires_in')
+  int get cNonceExpiresIn;
+  @override
+  @JsonKey(name: 'c_nonce')
+  dynamic get cNonce;
+
+  /// Create a copy of VerifiableCredentialResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VerifiableCredentialResponseImplCopyWith<
+          _$VerifiableCredentialResponseImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

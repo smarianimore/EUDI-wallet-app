@@ -8,7 +8,7 @@ class MyWalletPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return BaseScreen(
-      title: 'My Wallet',
+      title: 'BiRex',
       slivers: [
         SliverFillRemaining(
           child: Center(

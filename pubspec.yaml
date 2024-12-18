@@ -26,6 +26,8 @@ dependencies:
   curl_logger_dio_interceptor: ^1.0.0
   device_info_plus: ^11.2.0
   hive: ^2.2.3
+  qr_code_dart_scan: ^0.9.4
+  dart_jsonwebtoken: ^2.14.2
 
 dev_dependencies:
   flutter_test:
