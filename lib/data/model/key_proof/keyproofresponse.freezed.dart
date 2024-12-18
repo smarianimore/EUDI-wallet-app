@@ -20,8 +20,17 @@ KeyProofResponse _$KeyProofResponseFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$KeyProofResponse {
+  String get jwt => throw _privateConstructorUsedError;
+  String get proofType => throw _privateConstructorUsedError;
+
   /// Serializes this KeyProofResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of KeyProofResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $KeyProofResponseCopyWith<KeyProofResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -29,6 +38,8 @@ abstract class $KeyProofResponseCopyWith<$Res> {
   factory $KeyProofResponseCopyWith(
           KeyProofResponse value, $Res Function(KeyProofResponse) then) =
       _$KeyProofResponseCopyWithImpl<$Res, KeyProofResponse>;
+  @useResult
+  $Res call({String jwt, String proofType});
 }
 
 /// @nodoc
@@ -43,13 +54,34 @@ class _$KeyProofResponseCopyWithImpl<$Res, $Val extends KeyProofResponse>
 
   /// Create a copy of KeyProofResponse
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? proofType = null,
+  }) {
+    return _then(_value.copyWith(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      proofType: null == proofType
+          ? _value.proofType
+          : proofType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$KeyProofResponseImplCopyWith<$Res> {
+abstract class _$$KeyProofResponseImplCopyWith<$Res>
+    implements $KeyProofResponseCopyWith<$Res> {
   factory _$$KeyProofResponseImplCopyWith(_$KeyProofResponseImpl value,
           $Res Function(_$KeyProofResponseImpl) then) =
       __$$KeyProofResponseImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String jwt, String proofType});
 }
 
 /// @nodoc
@@ -62,30 +94,65 @@ class __$$KeyProofResponseImplCopyWithImpl<$Res>
 
   /// Create a copy of KeyProofResponse
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? jwt = null,
+    Object? proofType = null,
+  }) {
+    return _then(_$KeyProofResponseImpl(
+      jwt: null == jwt
+          ? _value.jwt
+          : jwt // ignore: cast_nullable_to_non_nullable
+              as String,
+      proofType: null == proofType
+          ? _value.proofType
+          : proofType // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$KeyProofResponseImpl implements _KeyProofResponse {
-  _$KeyProofResponseImpl();
+  _$KeyProofResponseImpl({required this.jwt, required this.proofType});
 
   factory _$KeyProofResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$KeyProofResponseImplFromJson(json);
 
   @override
+  final String jwt;
+  @override
+  final String proofType;
+
+  @override
   String toString() {
-    return 'KeyProofResponse()';
+    return 'KeyProofResponse(jwt: $jwt, proofType: $proofType)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$KeyProofResponseImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$KeyProofResponseImpl &&
+            (identical(other.jwt, jwt) || other.jwt == jwt) &&
+            (identical(other.proofType, proofType) ||
+                other.proofType == proofType));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, jwt, proofType);
+
+  /// Create a copy of KeyProofResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$KeyProofResponseImplCopyWith<_$KeyProofResponseImpl> get copyWith =>
+      __$$KeyProofResponseImplCopyWithImpl<_$KeyProofResponseImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
@@ -96,8 +163,22 @@ class _$KeyProofResponseImpl implements _KeyProofResponse {
 }
 
 abstract class _KeyProofResponse implements KeyProofResponse {
-  factory _KeyProofResponse() = _$KeyProofResponseImpl;
+  factory _KeyProofResponse(
+      {required final String jwt,
+      required final String proofType}) = _$KeyProofResponseImpl;
 
   factory _KeyProofResponse.fromJson(Map<String, dynamic> json) =
       _$KeyProofResponseImpl.fromJson;
+
+  @override
+  String get jwt;
+  @override
+  String get proofType;
+
+  /// Create a copy of KeyProofResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$KeyProofResponseImplCopyWith<_$KeyProofResponseImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

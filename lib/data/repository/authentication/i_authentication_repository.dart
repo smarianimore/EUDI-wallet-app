@@ -8,6 +8,10 @@ abstract class IAuthenticationRepository {
     required int credentialType,
   });
 
+  AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({
+    required String uri,
+  });
+
   AsyncApplicationResponse<TokenAuthenticationResponse> login({
     required String host,
     required String code,

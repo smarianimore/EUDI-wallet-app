@@ -58,4 +58,12 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
       payloadMapper: TokenAuthenticationResponse.fromJson,
     );
   }
+
+  @override
+  AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({required String uri}) {
+    return handleResponse(
+      request: () => dio.get(uri),
+      payloadMapper: CredentialPreauthorizationResponse.fromJson,
+    );
+  }
 }

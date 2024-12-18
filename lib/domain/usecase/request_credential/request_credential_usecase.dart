@@ -77,6 +77,8 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
       grantType: authPayload.grants.entries.first.key,
       clientId: clientId,
     );
+    final loginPayload = loginResponse.payload;
+    if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);
     final keyProofResponse = await loginResponse.flatMapAsync(
       (payload) => verifiableCredentialRepository.generateKeyProof(
         accessToken: payload!.accessToken,
@@ -86,9 +88,19 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
         nonce: payload.cNonce,
       ),
     );
-    await keyProofResponse.ifErrorAsync((_) => applyErrorHandlers(keyProofResponse));
-    await keyProofResponse.ifSuccessAsync((_) => applySuccessHandlers(keyProofResponse, input));
-    return keyProofResponse.map((_) {});
+    final credentialResponse = await keyProofResponse.flatMapAsync(
+      (keyproof) => verifiableCredentialRepository.generateCredentials(
+        accessToken: loginPayload.accessToken,
+        host: input.host,
+        format: 'jwt',
+        vct: issuerPayload.credentialConfigurationsSupported.values.first.vct,
+        jwt: keyproof!.jwt,
+        proofType: keyproof.proofType,
+      ),
+    );
+    await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
+    await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
+    return credentialResponse.map((_) {});
   }
 
   AsyncApplicationResponse<void> _closeRequest(

@@ -9,4 +9,13 @@ abstract class IVerifiableCredentialRepository {
     required String issuer,
     required String nonce,
   });
+
+  AsyncApplicationResponse<void> generateCredentials({
+    required String accessToken,
+    required String host,
+    required String format,
+    required String vct,
+    required String jwt,
+    required String proofType,
+  });
 }

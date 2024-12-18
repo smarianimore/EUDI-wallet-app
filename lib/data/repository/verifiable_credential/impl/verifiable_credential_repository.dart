@@ -42,4 +42,30 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
       payloadMapper: KeyProofResponse.fromJson,
     );
   }
+
+  @override
+  AsyncApplicationResponse<void> generateCredentials({
+    required String accessToken,
+    required String host,
+    required String format,
+    required String vct,
+    required String jwt,
+    required String proofType,
+  }) {
+    return handleResponse(
+      request: () => dio.post(
+        '$host/api/credential',
+        data: {
+          'format': format,
+          'vct': vct,
+          'proof': {
+            'jwt': jwt,
+            'proof_type': proofType,
+          },
+        },
+        options: Options(headers: {'authorization': 'Bearer $accessToken'}),
+      ),
+      payloadMapper: KeyProofResponse.fromJson,
+    );
+  }
 }

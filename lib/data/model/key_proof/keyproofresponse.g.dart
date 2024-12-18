@@ -8,8 +8,14 @@ part of 'keyproofresponse.dart';
 
 _$KeyProofResponseImpl _$$KeyProofResponseImplFromJson(
         Map<String, dynamic> json) =>
-    _$KeyProofResponseImpl();
+    _$KeyProofResponseImpl(
+      jwt: json['jwt'] as String,
+      proofType: json['proofType'] as String,
+    );
 
 Map<String, dynamic> _$$KeyProofResponseImplToJson(
         _$KeyProofResponseImpl instance) =>
-    <String, dynamic>{};
+    <String, dynamic>{
+      'jwt': instance.jwt,
+      'proofType': instance.proofType,
+    };
