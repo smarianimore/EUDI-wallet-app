@@ -69,3 +69,18 @@ class DisplayClaimProperties with _$DisplayClaimProperties {
 
   factory DisplayClaimProperties.fromJson(Map<String, dynamic> json) => _$DisplayClaimPropertiesFromJson(json);
 }
+
+/*  */
+
+@freezed
+class VerifiableCredentialResponse with _$VerifiableCredentialResponse {
+  @JsonSerializable(explicitToJson: true)
+  factory VerifiableCredentialResponse({
+    required String credential,
+    @JsonKey(name: 'c_nonce_expires_in') required int cNonceExpiresIn,
+    @JsonKey(name: 'c_nonce') cNonce,
+  }) = _VerifiableCredentialResponse;
+
+  factory VerifiableCredentialResponse.fromJson(Map<String, dynamic> json) =>
+      _$VerifiableCredentialResponseFromJson(json);
+}

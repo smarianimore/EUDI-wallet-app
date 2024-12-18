@@ -16,7 +16,7 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   final dialogService = ref.read(dialogServiceProvider);
   final successDialog = ShowDialogSuccessHandler<void, RequestCredentialCommand>(
     dialogService,
-    textMapper: (payload, input) => 'Login effettuato con successo',
+    textMapper: (payload, input) => 'Credenziali richieste con successo!',
   );
   final errorHandler = ShowDialogErrorHandler(dialogService);
   return RequestCredentialUseCase(

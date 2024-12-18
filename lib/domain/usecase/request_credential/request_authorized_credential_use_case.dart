@@ -5,8 +5,10 @@ import 'package:birex/data/repository/verifiable_credential/i_verifiable_credent
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
+import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/use_case.dart';
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -38,7 +40,6 @@ class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauth
 
   @override
   AsyncApplicationResponse<void> call(CredentialPreauthorizationResponse input) async {
-    const clientId = 'clientId';
     final check = await checkRequirements();
     final issuerResponse = await check.flatMapAsync(
       (_) => wellKnownRepository.getCredentialIssuerConfiguration(
@@ -62,24 +63,46 @@ class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauth
     final loginPayload = loginResponse.payload;
     if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);
     final keyProofResponse = await loginResponse.flatMapAsync(
-      (payload) => verifiableCredentialRepository.generateKeyProof(
-        accessToken: payload!.accessToken,
-        host: input.credentialIssuer,
-        clientId: clientId,
-        issuer: input.credentialIssuer,
-        nonce: payload.cNonce,
+      (payload) => wellKnownRepository.getJWKConfiguration(
+        input.credentialIssuer,
       ),
     );
+    final keyProofPayload = keyProofResponse.payload;
+    if (keyProofResponse.isError || keyProofPayload == null) return _closeRequest(keyProofResponse, input: input);
+    final jwt = JWT(
+      {
+        'aud': issuerPayload.credentialIssuer,
+        'iat': DateTime.now().millisecondsSinceEpoch,
+        'nonce': loginPayload.cNonce,
+      },
+      issuer: issuerPayload.credentialIssuer,
+      header: {
+        'type': 'openid4vci-proof+jwt',
+        'alg': 'ES256',
+        'jwk': {
+          'kty': keyProofPayload.kty,
+          'crv': keyProofPayload.crv,
+          'x': keyProofPayload.x,
+          'y': keyProofPayload.y,
+        },
+      },
+    );
+    final jwtToken = jwt.sign(SecretKey(keyProofPayload.x));
     final credentialResponse = await keyProofResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         accessToken: loginPayload.accessToken,
         uri: issuerPayload.credentialEndpoint,
-        format: 'jwt',
+        format: 'vc+sd-jwt',
         vct: issuerPayload.credentialConfigurationsSupported.values.first.vct,
-        jwt: keyproof!.jwt,
-        proofType: keyproof.proofType,
+        jwt: jwtToken,
+        proofType: 'jwt',
       ),
     );
+    final credentialPayload = credentialResponse.payload;
+
+    if (credentialResponse.isError || credentialPayload == null) return _closeRequest(credentialResponse, input: input);
+    final decodedCredential = JWT.decode(credentialPayload.credential);
+    ApplicationLogger.instance.logApplicationSuccess(decodedCredential.toString());
     await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
     await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
     return credentialResponse.map((_) {});

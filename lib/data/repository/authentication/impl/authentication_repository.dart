@@ -27,7 +27,7 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
   }) async {
     return handleResponse(
       request: () => dio.post(
-        uri /* '$host/api/CredentialOffer/offer' */,
+        '$uri/api/CredentialOffer/offer',
         data: {
           'credentialSubject': credentialSubject,
           'expiresOn': DateTime.now().add(const Duration(days: 1)).toIso8601String(),

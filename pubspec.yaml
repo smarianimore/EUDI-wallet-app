@@ -25,6 +25,7 @@ dependencies:
   google_fonts: ^6.2.1
   curl_logger_dio_interceptor: ^1.0.0
   qr_code_dart_scan: ^0.9.4
+  dart_jsonwebtoken: ^2.14.2
 
 dev_dependencies:
   flutter_test:

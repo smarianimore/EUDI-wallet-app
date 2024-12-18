@@ -25,11 +25,16 @@ ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
   final requestCredentialUseCase = ref.watch(requestAuthorizedCredentialUseCaseProvider);
   final dialogService = ref.watch(dialogServiceProvider);
   final errorHandler = ShowDialogErrorHandler(dialogService);
+  final successHandler = ShowDialogSuccessHandler<void, BuildContext>(
+    dialogService,
+    textMapper: (_, __) => 'Credenziali richieste con successo!',
+  );
   return ScanCredentialQrCodeUsecase(
     router: router,
     requestCredentialUseCase: requestCredentialUseCase,
     authRepository: ref.read(authenticationRepositoryProvider),
     errorHandlers: [errorHandler],
+    successHandlers: [successHandler],
   );
 }
 

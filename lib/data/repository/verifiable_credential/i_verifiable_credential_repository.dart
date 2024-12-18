@@ -1,4 +1,5 @@
 import 'package:birex/data/model/key_proof/keyproofresponse.dart';
+import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/utils/response.dart';
 
 abstract class IVerifiableCredentialRepository {
@@ -10,7 +11,7 @@ abstract class IVerifiableCredentialRepository {
     required String nonce,
   });
 
-  AsyncApplicationResponse<void> generateCredentials({
+  AsyncApplicationResponse<VerifiableCredentialResponse> generateCredentials({
     required String accessToken,
     required String uri,
     required String format,
