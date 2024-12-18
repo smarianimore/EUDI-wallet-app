@@ -3,7 +3,7 @@ import 'package:birex/utils/response.dart';
 
 abstract class IAuthenticationRepository {
   AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
-    required String host,
+    required String uri,
     required String credentialSubject,
     required int credentialType,
   });
@@ -13,9 +13,8 @@ abstract class IAuthenticationRepository {
   });
 
   AsyncApplicationResponse<TokenAuthenticationResponse> login({
-    required String host,
+    required String uri,
     required String code,
     required String grantType,
-    required String clientId,
   });
 }

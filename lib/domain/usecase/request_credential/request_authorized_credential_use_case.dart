@@ -1,38 +1,28 @@
+import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
-import 'package:birex/domain/usecase/request_credential/command/requestcredentialcommand.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/utils/response.dart';
-import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
 import 'package:birex/utils/usecase/use_case.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'request_credential_usecase.g.dart';
+part 'request_authorized_credential_use_case.g.dart';
 
 @riverpod
-RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
-  final dialogService = ref.read(dialogServiceProvider);
-  final successDialog = ShowDialogSuccessHandler<void, RequestCredentialCommand>(
-    dialogService,
-    textMapper: (payload, input) => 'Login effettuato con successo',
-  );
-  final errorHandler = ShowDialogErrorHandler(dialogService);
-  return RequestCredentialUseCase(
+RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
+  return RequestAuthorizedCredentialUseCase(
     repository: ref.read(authenticationRepositoryProvider),
     verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
     wellKnownRepository: ref.read(wellKnownRepositoryProvider),
-    errorHandlers: [errorHandler],
-    successHandlers: [successDialog],
   );
 }
 
-class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
-  RequestCredentialUseCase({
+class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauthorizationResponse> {
+  RequestAuthorizedCredentialUseCase({
     required this.repository,
     required this.verifiableCredentialRepository,
     required this.wellKnownRepository,
@@ -47,51 +37,43 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
   final IVerifiableCredentialRepository verifiableCredentialRepository;
 
   @override
-  AsyncApplicationResponse<void> call(RequestCredentialCommand input) async {
+  AsyncApplicationResponse<void> call(CredentialPreauthorizationResponse input) async {
     const clientId = 'clientId';
     final check = await checkRequirements();
-    final authResponse = await check.flatMapAsync(
-      (_) => repository.authorizeCredentialIssuance(
-        host: input.host,
-        credentialSubject: input.credentialSubject,
-        credentialType: input.credentialType,
+    final issuerResponse = await check.flatMapAsync(
+      (_) => wellKnownRepository.getCredentialIssuerConfiguration(
+        input.credentialIssuer,
       ),
-    );
-    final authPayload = authResponse.payload;
-    if (authResponse.isError || authPayload == null) return _closeRequest(authResponse, input: input);
-    final issuerResponse = await wellKnownRepository.getCredentialIssuerConfiguration(
-      authPayload.credentialIssuer,
     );
     final issuerPayload = issuerResponse.payload;
     if (issuerResponse.isError || issuerPayload == null) return _closeRequest(issuerResponse, input: input);
     final oauthResponse = await wellKnownRepository.getAuthorizationServerConfiguration(
-      authPayload.credentialIssuer,
+      input.credentialIssuer,
     );
     final oauthPayload = oauthResponse.payload;
     if (oauthResponse.isError || oauthPayload == null) return _closeRequest(oauthResponse, input: input);
 
     /* Credential request */
     final loginResponse = await repository.login(
-      host: authPayload.credentialIssuer,
-      code: authPayload.grants.entries.first.value.code,
-      grantType: authPayload.grants.entries.first.key,
-      clientId: clientId,
+      uri: oauthPayload.tokenEndpoint,
+      code: input.grants.entries.first.value.code,
+      grantType: input.grants.entries.first.key,
     );
     final loginPayload = loginResponse.payload;
     if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);
     final keyProofResponse = await loginResponse.flatMapAsync(
       (payload) => verifiableCredentialRepository.generateKeyProof(
         accessToken: payload!.accessToken,
-        host: input.host,
+        host: input.credentialIssuer,
         clientId: clientId,
-        issuer: input.host,
+        issuer: input.credentialIssuer,
         nonce: payload.cNonce,
       ),
     );
     final credentialResponse = await keyProofResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         accessToken: loginPayload.accessToken,
-        host: input.host,
+        uri: issuerPayload.credentialEndpoint,
         format: 'jwt',
         vct: issuerPayload.credentialConfigurationsSupported.values.first.vct,
         jwt: keyproof!.jwt,
@@ -105,7 +87,7 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
 
   AsyncApplicationResponse<void> _closeRequest(
     ApplicationResponse<void> response, {
-    required RequestCredentialCommand input,
+    required CredentialPreauthorizationResponse input,
   }) async {
     await response.ifErrorAsync((_) => applyErrorHandlers(response));
     await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));

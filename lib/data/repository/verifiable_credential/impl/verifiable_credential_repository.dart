@@ -45,8 +45,8 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
 
   @override
   AsyncApplicationResponse<void> generateCredentials({
+    required String uri,
     required String accessToken,
-    required String host,
     required String format,
     required String vct,
     required String jwt,
@@ -54,7 +54,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
   }) {
     return handleResponse(
       request: () => dio.post(
-        '$host/api/credential',
+        uri,
         data: {
           'format': format,
           'vct': vct,
