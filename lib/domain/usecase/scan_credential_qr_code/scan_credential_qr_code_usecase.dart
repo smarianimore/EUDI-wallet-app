@@ -75,10 +75,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<void, BuildContext> {
       credentialSubject: offerPayload.credentialConfigurationIds.first,
     );
     if (input.mounted) OverlayLoaderManager.instance.showLoader(input);
-    final credentialResponse = await requestCredentialUseCase.call(command);
-    await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
-    await credentialResponse.ifErrorAsync((error) => applyErrorHandlers(credentialResponse));
-    return credentialResponse;
+    return requestCredentialUseCase.call(command);
   }
 
   AsyncApplicationResponse<void> _closeRequest(

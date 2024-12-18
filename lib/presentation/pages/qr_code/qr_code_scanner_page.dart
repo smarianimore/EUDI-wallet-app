@@ -23,6 +23,7 @@ class QRCodeScannerPage extends ConsumerWidget {
                 child: QRCodeDartScanView(
                   scanInvertedQRCode: true,
                   formats: const [BarcodeFormat.qrCode],
+                  onResultInterceptor: (old, newResult) => old == null || old.text != newResult.text,
                   onCapture: (Result result) {
                     final qrcodeUri = Uri.tryParse(result.text);
                     final queryParameters = qrcodeUri?.queryParameters;
