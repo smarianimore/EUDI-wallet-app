@@ -23,7 +23,6 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
   AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
     required String uri,
     required String credentialSubject,
-    required int credentialType,
   }) async {
     return handleResponse(
       request: () => dio.post(
@@ -31,7 +30,7 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
         data: {
           'credentialSubject': credentialSubject,
           'expiresOn': DateTime.now().add(const Duration(days: 1)).toIso8601String(),
-          'credentialType': credentialType,
+          'credentialType': credentialSubject == 'AffittabileCompleta' ? 2 : 0,
         },
       ),
       payloadMapper: CredentialPreauthorizationResponse.fromJson,

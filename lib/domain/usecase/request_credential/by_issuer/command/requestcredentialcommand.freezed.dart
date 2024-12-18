@@ -18,7 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RequestCredentialCommand {
   String get host => throw _privateConstructorUsedError;
   String get credentialSubject => throw _privateConstructorUsedError;
-  int get credentialType => throw _privateConstructorUsedError;
 
   /// Create a copy of RequestCredentialCommand
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +32,7 @@ abstract class $RequestCredentialCommandCopyWith<$Res> {
           $Res Function(RequestCredentialCommand) then) =
       _$RequestCredentialCommandCopyWithImpl<$Res, RequestCredentialCommand>;
   @useResult
-  $Res call({String host, String credentialSubject, int credentialType});
+  $Res call({String host, String credentialSubject});
 }
 
 /// @nodoc
@@ -54,7 +53,6 @@ class _$RequestCredentialCommandCopyWithImpl<$Res,
   $Res call({
     Object? host = null,
     Object? credentialSubject = null,
-    Object? credentialType = null,
   }) {
     return _then(_value.copyWith(
       host: null == host
@@ -65,10 +63,6 @@ class _$RequestCredentialCommandCopyWithImpl<$Res,
           ? _value.credentialSubject
           : credentialSubject // ignore: cast_nullable_to_non_nullable
               as String,
-      credentialType: null == credentialType
-          ? _value.credentialType
-          : credentialType // ignore: cast_nullable_to_non_nullable
-              as int,
     ) as $Val);
   }
 }
@@ -82,7 +76,7 @@ abstract class _$$RequestCredentialCommandImplCopyWith<$Res>
       __$$RequestCredentialCommandImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String host, String credentialSubject, int credentialType});
+  $Res call({String host, String credentialSubject});
 }
 
 /// @nodoc
@@ -102,7 +96,6 @@ class __$$RequestCredentialCommandImplCopyWithImpl<$Res>
   $Res call({
     Object? host = null,
     Object? credentialSubject = null,
-    Object? credentialType = null,
   }) {
     return _then(_$RequestCredentialCommandImpl(
       host: null == host
@@ -113,10 +106,6 @@ class __$$RequestCredentialCommandImplCopyWithImpl<$Res>
           ? _value.credentialSubject
           : credentialSubject // ignore: cast_nullable_to_non_nullable
               as String,
-      credentialType: null == credentialType
-          ? _value.credentialType
-          : credentialType // ignore: cast_nullable_to_non_nullable
-              as int,
     ));
   }
 }
@@ -125,20 +114,16 @@ class __$$RequestCredentialCommandImplCopyWithImpl<$Res>
 
 class _$RequestCredentialCommandImpl implements _RequestCredentialCommand {
   _$RequestCredentialCommandImpl(
-      {required this.host,
-      required this.credentialSubject,
-      required this.credentialType});
+      {required this.host, required this.credentialSubject});
 
   @override
   final String host;
   @override
   final String credentialSubject;
-  @override
-  final int credentialType;
 
   @override
   String toString() {
-    return 'RequestCredentialCommand(host: $host, credentialSubject: $credentialSubject, credentialType: $credentialType)';
+    return 'RequestCredentialCommand(host: $host, credentialSubject: $credentialSubject)';
   }
 
   @override
@@ -148,14 +133,11 @@ class _$RequestCredentialCommandImpl implements _RequestCredentialCommand {
             other is _$RequestCredentialCommandImpl &&
             (identical(other.host, host) || other.host == host) &&
             (identical(other.credentialSubject, credentialSubject) ||
-                other.credentialSubject == credentialSubject) &&
-            (identical(other.credentialType, credentialType) ||
-                other.credentialType == credentialType));
+                other.credentialSubject == credentialSubject));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, host, credentialSubject, credentialType);
+  int get hashCode => Object.hash(runtimeType, host, credentialSubject);
 
   /// Create a copy of RequestCredentialCommand
   /// with the given fields replaced by the non-null parameter values.
@@ -169,16 +151,14 @@ class _$RequestCredentialCommandImpl implements _RequestCredentialCommand {
 
 abstract class _RequestCredentialCommand implements RequestCredentialCommand {
   factory _RequestCredentialCommand(
-      {required final String host,
-      required final String credentialSubject,
-      required final int credentialType}) = _$RequestCredentialCommandImpl;
+          {required final String host,
+          required final String credentialSubject}) =
+      _$RequestCredentialCommandImpl;
 
   @override
   String get host;
   @override
   String get credentialSubject;
-  @override
-  int get credentialType;
 
   /// Create a copy of RequestCredentialCommand
   /// with the given fields replaced by the non-null parameter values.

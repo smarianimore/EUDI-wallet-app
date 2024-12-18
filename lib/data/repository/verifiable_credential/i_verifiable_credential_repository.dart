@@ -11,12 +11,13 @@ abstract class IVerifiableCredentialRepository {
     required String nonce,
   });
 
-  AsyncApplicationResponse<VerifiableCredentialResponse> generateCredentials({
+  AsyncApplicationResponse<VerifiableCredential> generateCredentials({
     required String accessToken,
     required String uri,
     required String format,
     required String vct,
     required String jwt,
     required String proofType,
+    required String subject,
   });
 }

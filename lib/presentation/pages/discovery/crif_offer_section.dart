@@ -158,7 +158,6 @@ class _SupportedCredentialComponent extends ConsumerWidget {
     final request = RequestCredentialCommand(
       host: configuration.credentialIssuer,
       credentialSubject: credentialSubject,
-      credentialType: 2,
     );
     loaderManager.showLoader(context);
     await ref.read(requestCredentialUseCaseProvider).call(request);
