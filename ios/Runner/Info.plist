@@ -45,6 +45,8 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Use authentication to protect app access only to phone owner</string>
 	<key>NSCameraUsageDescription</key>
 	<string>We use the camera to allow you to scan QR Codes inside our application</string>
 	<key>NSMicrophoneUsageDescription</key>

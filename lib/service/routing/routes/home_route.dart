@@ -14,8 +14,6 @@ class HomePageShellRoute extends ShellRoute {
           builder: (context, state, child) => HomePageShellWrapper(child: child),
           routes: [MyWalletPageRoute(), MenuPageRoute()],
         );
-
-  static const String pagePath = '/home';
 }
 
 class MyWalletPageRoute extends GoRoute {
