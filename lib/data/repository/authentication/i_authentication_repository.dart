@@ -5,7 +5,6 @@ abstract class IAuthenticationRepository {
   AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
     required String uri,
     required String credentialSubject,
-    required int credentialType,
   });
 
   AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({

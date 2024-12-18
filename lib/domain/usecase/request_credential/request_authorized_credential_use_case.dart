@@ -1,11 +1,12 @@
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
+import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
-import 'package:birex/utils/logger/custom_logger.dart';
+import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/use_case.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -23,7 +24,7 @@ RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
   );
 }
 
-class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauthorizationResponse> {
+class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, CredentialPreauthorizationResponse> {
   RequestAuthorizedCredentialUseCase({
     required this.repository,
     required this.verifiableCredentialRepository,
@@ -39,7 +40,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauth
   final IVerifiableCredentialRepository verifiableCredentialRepository;
 
   @override
-  AsyncApplicationResponse<void> call(CredentialPreauthorizationResponse input) async {
+  AsyncApplicationResponse<VerifiableCredential> call(CredentialPreauthorizationResponse input) async {
     final check = await checkRequirements();
     final issuerResponse = await check.flatMapAsync(
       (_) => wellKnownRepository.getCredentialIssuerConfiguration(
@@ -48,6 +49,11 @@ class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauth
     );
     final issuerPayload = issuerResponse.payload;
     if (issuerResponse.isError || issuerPayload == null) return _closeRequest(issuerResponse, input: input);
+    final target = issuerPayload.credentialConfigurationsSupported[input.credentialConfigurationIds.first];
+    if (target == null) {
+      final error = ApplicationError.generic(message: 'Invalid credential configuration');
+      return _closeRequest(Responses.failure<void, ApplicationError>([error]), input: input);
+    }
     final oauthResponse = await wellKnownRepository.getAuthorizationServerConfiguration(
       input.credentialIssuer,
     );
@@ -92,28 +98,30 @@ class RequestAuthorizedCredentialUseCase extends UseCase<void, CredentialPreauth
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         accessToken: loginPayload.accessToken,
         uri: issuerPayload.credentialEndpoint,
-        format: 'vc+sd-jwt',
-        vct: issuerPayload.credentialConfigurationsSupported.values.first.vct,
+        format: target.format,
+        vct: target.vct,
         jwt: jwtToken,
         proofType: 'jwt',
+        subject: target.scope,
       ),
     );
     final credentialPayload = credentialResponse.payload;
 
     if (credentialResponse.isError || credentialPayload == null) return _closeRequest(credentialResponse, input: input);
-    final decodedCredential = JWT.decode(credentialPayload.credential);
-    ApplicationLogger.instance.logApplicationSuccess(decodedCredential.toString());
     await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
     await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
-    return credentialResponse.map((_) {});
+    return credentialResponse;
   }
 
-  AsyncApplicationResponse<void> _closeRequest(
-    ApplicationResponse<void> response, {
+  AsyncApplicationResponse<VerifiableCredential> _closeRequest(
+    ApplicationResponse<dynamic> response, {
     required CredentialPreauthorizationResponse input,
   }) async {
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
-    await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
-    return response.map((_) {});
+    final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
+      ...response.errors ?? <ApplicationError>[],
+    ]);
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
+    return errorResponse;
   }
 }

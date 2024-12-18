@@ -84,3 +84,14 @@ class VerifiableCredentialResponse with _$VerifiableCredentialResponse {
   factory VerifiableCredentialResponse.fromJson(Map<String, dynamic> json) =>
       _$VerifiableCredentialResponseFromJson(json);
 }
+
+@freezed
+class VerifiableCredential with _$VerifiableCredential {
+  @JsonSerializable(explicitToJson: true)
+  factory VerifiableCredential({
+    required VerifiableCredentialResponse credentialResponse,
+    required String subject,
+  }) = _VerifiableCredential;
+
+  factory VerifiableCredential.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialFromJson(json);
+}

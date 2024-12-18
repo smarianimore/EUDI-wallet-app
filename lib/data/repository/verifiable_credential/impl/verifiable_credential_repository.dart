@@ -45,13 +45,14 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
   }
 
   @override
-  AsyncApplicationResponse<VerifiableCredentialResponse> generateCredentials({
+  AsyncApplicationResponse<VerifiableCredential> generateCredentials({
     required String uri,
     required String accessToken,
     required String format,
     required String vct,
     required String jwt,
     required String proofType,
+    required String subject,
   }) {
     return handleResponse(
       request: () => dio.post(
@@ -66,7 +67,10 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
         },
         options: Options(headers: {'authorization': 'Bearer $accessToken'}),
       ),
-      payloadMapper: VerifiableCredentialResponse.fromJson,
+      payloadMapper: (payload) {
+        final response = VerifiableCredentialResponse.fromJson(payload);
+        return VerifiableCredential(credentialResponse: response, subject: subject);
+      },
     );
   }
 }

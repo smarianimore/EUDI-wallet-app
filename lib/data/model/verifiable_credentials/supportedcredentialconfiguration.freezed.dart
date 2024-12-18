@@ -1434,3 +1434,193 @@ abstract class _VerifiableCredentialResponse
           _$VerifiableCredentialResponseImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+VerifiableCredential _$VerifiableCredentialFromJson(Map<String, dynamic> json) {
+  return _VerifiableCredential.fromJson(json);
+}
+
+/// @nodoc
+mixin _$VerifiableCredential {
+  VerifiableCredentialResponse get credentialResponse =>
+      throw _privateConstructorUsedError;
+  String get subject => throw _privateConstructorUsedError;
+
+  /// Serializes this VerifiableCredential to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $VerifiableCredentialCopyWith<VerifiableCredential> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $VerifiableCredentialCopyWith<$Res> {
+  factory $VerifiableCredentialCopyWith(VerifiableCredential value,
+          $Res Function(VerifiableCredential) then) =
+      _$VerifiableCredentialCopyWithImpl<$Res, VerifiableCredential>;
+  @useResult
+  $Res call({VerifiableCredentialResponse credentialResponse, String subject});
+
+  $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+}
+
+/// @nodoc
+class _$VerifiableCredentialCopyWithImpl<$Res,
+        $Val extends VerifiableCredential>
+    implements $VerifiableCredentialCopyWith<$Res> {
+  _$VerifiableCredentialCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialResponse = null,
+    Object? subject = null,
+  }) {
+    return _then(_value.copyWith(
+      credentialResponse: null == credentialResponse
+          ? _value.credentialResponse
+          : credentialResponse // ignore: cast_nullable_to_non_nullable
+              as VerifiableCredentialResponse,
+      subject: null == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse {
+    return $VerifiableCredentialResponseCopyWith<$Res>(
+        _value.credentialResponse, (value) {
+      return _then(_value.copyWith(credentialResponse: value) as $Val);
+    });
+  }
+}
+
+/// @nodoc
+abstract class _$$VerifiableCredentialImplCopyWith<$Res>
+    implements $VerifiableCredentialCopyWith<$Res> {
+  factory _$$VerifiableCredentialImplCopyWith(_$VerifiableCredentialImpl value,
+          $Res Function(_$VerifiableCredentialImpl) then) =
+      __$$VerifiableCredentialImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({VerifiableCredentialResponse credentialResponse, String subject});
+
+  @override
+  $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+}
+
+/// @nodoc
+class __$$VerifiableCredentialImplCopyWithImpl<$Res>
+    extends _$VerifiableCredentialCopyWithImpl<$Res, _$VerifiableCredentialImpl>
+    implements _$$VerifiableCredentialImplCopyWith<$Res> {
+  __$$VerifiableCredentialImplCopyWithImpl(_$VerifiableCredentialImpl _value,
+      $Res Function(_$VerifiableCredentialImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? credentialResponse = null,
+    Object? subject = null,
+  }) {
+    return _then(_$VerifiableCredentialImpl(
+      credentialResponse: null == credentialResponse
+          ? _value.credentialResponse
+          : credentialResponse // ignore: cast_nullable_to_non_nullable
+              as VerifiableCredentialResponse,
+      subject: null == subject
+          ? _value.subject
+          : subject // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$VerifiableCredentialImpl implements _VerifiableCredential {
+  _$VerifiableCredentialImpl(
+      {required this.credentialResponse, required this.subject});
+
+  factory _$VerifiableCredentialImpl.fromJson(Map<String, dynamic> json) =>
+      _$$VerifiableCredentialImplFromJson(json);
+
+  @override
+  final VerifiableCredentialResponse credentialResponse;
+  @override
+  final String subject;
+
+  @override
+  String toString() {
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$VerifiableCredentialImpl &&
+            (identical(other.credentialResponse, credentialResponse) ||
+                other.credentialResponse == credentialResponse) &&
+            (identical(other.subject, subject) || other.subject == subject));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, credentialResponse, subject);
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$VerifiableCredentialImplCopyWith<_$VerifiableCredentialImpl>
+      get copyWith =>
+          __$$VerifiableCredentialImplCopyWithImpl<_$VerifiableCredentialImpl>(
+              this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$VerifiableCredentialImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _VerifiableCredential implements VerifiableCredential {
+  factory _VerifiableCredential(
+      {required final VerifiableCredentialResponse credentialResponse,
+      required final String subject}) = _$VerifiableCredentialImpl;
+
+  factory _VerifiableCredential.fromJson(Map<String, dynamic> json) =
+      _$VerifiableCredentialImpl.fromJson;
+
+  @override
+  VerifiableCredentialResponse get credentialResponse;
+  @override
+  String get subject;
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$VerifiableCredentialImplCopyWith<_$VerifiableCredentialImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

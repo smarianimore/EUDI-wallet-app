@@ -130,3 +130,18 @@ Map<String, dynamic> _$$VerifiableCredentialResponseImplToJson(
       'c_nonce_expires_in': instance.cNonceExpiresIn,
       'c_nonce': instance.cNonce,
     };
+
+_$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VerifiableCredentialImpl(
+      credentialResponse: VerifiableCredentialResponse.fromJson(
+          json['credentialResponse'] as Map<String, dynamic>),
+      subject: json['subject'] as String,
+    );
+
+Map<String, dynamic> _$$VerifiableCredentialImplToJson(
+        _$VerifiableCredentialImpl instance) =>
+    <String, dynamic>{
+      'credentialResponse': instance.credentialResponse.toJson(),
+      'subject': instance.subject,
+    };

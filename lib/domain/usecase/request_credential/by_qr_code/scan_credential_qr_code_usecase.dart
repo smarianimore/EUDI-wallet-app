@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
+import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
@@ -25,9 +26,9 @@ ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
   final requestCredentialUseCase = ref.watch(requestAuthorizedCredentialUseCaseProvider);
   final dialogService = ref.watch(dialogServiceProvider);
   final errorHandler = ShowDialogErrorHandler(dialogService);
-  final successHandler = ShowDialogSuccessHandler<void, BuildContext>(
+  final successHandler = ShowDialogSuccessHandler<VerifiableCredential, BuildContext>(
     dialogService,
-    textMapper: (_, __) => 'Credenziali richieste con successo!',
+    textMapper: (payload, __) => 'Credenziali ${payload!.subject} richieste con successo!',
   );
   return ScanCredentialQrCodeUsecase(
     router: router,
@@ -38,7 +39,7 @@ ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
   );
 }
 
-class ScanCredentialQrCodeUsecase extends UseCase<void, BuildContext> {
+class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildContext> {
   ScanCredentialQrCodeUsecase({
     required this.router,
     required this.requestCredentialUseCase,
@@ -54,9 +55,9 @@ class ScanCredentialQrCodeUsecase extends UseCase<void, BuildContext> {
   final IAuthenticationRepository authRepository;
 
   @override
-  AsyncApplicationResponse<void> call(BuildContext input) async {
+  AsyncApplicationResponse<VerifiableCredential> call(BuildContext input) async {
     final check = await checkRequirements();
-    if (check.isError) return check;
+    if (check.isError) return _closeRequest(check, input: input);
     final qrResponse = await router.push<(Uri?, CredentialPreauthorizationResponse?)>(QRCodeScannerPageRoute.pagePath);
     if (qrResponse == null) {
       final error = Responses.failure<void, ApplicationError>([ApplicationError.operationAborted()]);
@@ -66,7 +67,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<void, BuildContext> {
     final credentialOffer = qrResponse.$2;
     if (credentialUri == null && credentialOffer == null) {
       final error = ApplicationError.generic(message: 'Il QR code non è valido');
-      final errorResponse = Responses.failure<void, ApplicationError>([error]);
+      final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([error]);
       await applyErrorHandlers(errorResponse);
       return Responses.failure([error]);
     }
@@ -79,15 +80,19 @@ class ScanCredentialQrCodeUsecase extends UseCase<void, BuildContext> {
     }
     if (offerPayload == null) return _closeRequest(check, input: input);
     if (input.mounted) OverlayLoaderManager.instance.showLoader(input);
-    return requestCredentialUseCase.call(offerPayload);
+    final response = await requestCredentialUseCase.call(offerPayload);
+    return _closeRequest(response, input: input);
   }
 
-  AsyncApplicationResponse<void> _closeRequest(
-    ApplicationResponse<void> response, {
+  AsyncApplicationResponse<VerifiableCredential> _closeRequest(
+    ApplicationResponse<dynamic> response, {
     required BuildContext input,
   }) async {
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
-    await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
-    return response.map((_) {});
+    final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
+      ...response.errors ?? <ApplicationError>[],
+    ]);
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
+    return errorResponse;
   }
 }

@@ -1,8 +1,10 @@
+import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
 import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
 import 'package:birex/utils/usecase/use_case.dart';
@@ -14,9 +16,9 @@ part 'request_credential_usecase.g.dart';
 @riverpod
 RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   final dialogService = ref.read(dialogServiceProvider);
-  final successDialog = ShowDialogSuccessHandler<void, RequestCredentialCommand>(
+  final successDialog = ShowDialogSuccessHandler<VerifiableCredential, RequestCredentialCommand>(
     dialogService,
-    textMapper: (payload, input) => 'Credenziali richieste con successo!',
+    textMapper: (payload, input) => 'Credenziali ${payload!.subject} richieste con successo!',
   );
   final errorHandler = ShowDialogErrorHandler(dialogService);
   return RequestCredentialUseCase(
@@ -27,7 +29,7 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   );
 }
 
-class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
+class RequestCredentialUseCase extends UseCase<VerifiableCredential, RequestCredentialCommand> {
   RequestCredentialUseCase({
     required this.requestAuthorizedCredentialUseCase,
     required this.repository,
@@ -41,13 +43,12 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
   final IAuthenticationRepository repository;
 
   @override
-  AsyncApplicationResponse<void> call(RequestCredentialCommand input) async {
+  AsyncApplicationResponse<VerifiableCredential> call(RequestCredentialCommand input) async {
     final check = await checkRequirements();
     final authResponse = await check.flatMapAsync(
       (_) => repository.authorizeCredentialIssuance(
         uri: input.host,
         credentialSubject: input.credentialSubject,
-        credentialType: input.credentialType,
       ),
     );
     final authPayload = authResponse.payload;
@@ -55,15 +56,18 @@ class RequestCredentialUseCase extends UseCase<void, RequestCredentialCommand> {
     final response = await authResponse.flatMapAsync((_) => requestAuthorizedCredentialUseCase.call(authPayload));
     await response.ifErrorAsync((_) => applyErrorHandlers(response));
     await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
-    return response.map((_) {});
+    return response;
   }
 
-  AsyncApplicationResponse<void> _closeRequest(
-    ApplicationResponse<void> response, {
+  AsyncApplicationResponse<VerifiableCredential> _closeRequest(
+    ApplicationResponse<dynamic> response, {
     required RequestCredentialCommand input,
   }) async {
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
-    await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
-    return response.map((_) {});
+    final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
+      ...response.errors ?? <ApplicationError>[],
+    ]);
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
+    return errorResponse;
   }
 }

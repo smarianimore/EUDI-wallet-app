@@ -7,6 +7,5 @@ class RequestCredentialCommand with _$RequestCredentialCommand {
   factory RequestCredentialCommand({
     required String host,
     required String credentialSubject,
-    required int credentialType,
   }) = _RequestCredentialCommand;
 }
