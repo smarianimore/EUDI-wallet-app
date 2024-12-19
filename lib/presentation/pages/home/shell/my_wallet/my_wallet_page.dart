@@ -11,6 +11,12 @@ class MyWalletPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return BaseScreen(
       title: 'BiRex',
+      actions: [
+        IconButton(
+          onPressed: () => HiveController.instance.clear(),
+          icon: const Icon(Icons.delete),
+        ),
+      ],
       slivers: [
         ValueListenableBuilder(
           valueListenable: HiveController.instance.verifiableCredentials,

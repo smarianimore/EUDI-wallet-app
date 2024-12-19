@@ -32,7 +32,7 @@ class VerifiableCredentialHiveModel {
   final int cNonceExpiresIn;
   final String credential;
 
-  Map<String, dynamic> toJson() {
+  Map<dynamic, dynamic> toJson() {
     return {
       'subject': subject,
       'c_nonce': cNonce,
