@@ -65,7 +65,7 @@ class _CredentialListSection extends StatelessWidget {
           ListTile(
             title: Text(credential.subject),
             subtitle: Text(
-              DateTime.now().add(Duration(milliseconds: credential.cNonceExpiresIn)).toIso8601String(),
+              DateTime.now().add(Duration(seconds: credential.cNonceExpiresIn)).toIso8601String(),
             ),
           ),
       ],
