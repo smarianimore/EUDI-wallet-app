@@ -73,7 +73,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
     }
     var offerPayload = credentialOffer;
     /* Handle case where the QR Code contained a reference to the credetialOffer API instead of a value */
-    if (credentialOffer == null && credentialUri == null) {
+    if (credentialOffer == null && credentialUri != null) {
       final offer = await check.flatMapAsync((_) => authRepository.getIssuerOffer(uri: credentialUri.toString()));
       if (offer.isError) return _closeRequest(offer, input: input);
       offerPayload = offer.payload;
@@ -81,7 +81,9 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
     if (offerPayload == null) return _closeRequest(check, input: input);
     if (input.mounted) OverlayLoaderManager.instance.showLoader(input);
     final response = await requestCredentialUseCase.call(offerPayload);
-    return _closeRequest(response, input: input);
+    await response.ifErrorAsync((_) => applyErrorHandlers(response));
+    await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
+    return response;
   }
 
   AsyncApplicationResponse<VerifiableCredential> _closeRequest(
