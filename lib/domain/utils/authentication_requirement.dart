@@ -1,12 +1,11 @@
 import 'package:birex/domain/session/state/authenticationstate.dart';
-import 'package:birex/service/storage/local_storage_service.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/extensions/empty_response/emptyresponse.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/requirement/requirement.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RequiresAuthentication extends UseCaseRequirement with StorageServiceProvider {
+class RequiresAuthentication extends UseCaseRequirement {
   const RequiresAuthentication(this.authState);
   final AsyncValue<AuthenticationState> authState;
 

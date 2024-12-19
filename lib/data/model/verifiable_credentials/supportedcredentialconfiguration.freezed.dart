@@ -1232,7 +1232,7 @@ mixin _$VerifiableCredentialResponse {
   @JsonKey(name: 'c_nonce_expires_in')
   int get cNonceExpiresIn => throw _privateConstructorUsedError;
   @JsonKey(name: 'c_nonce')
-  dynamic get cNonce => throw _privateConstructorUsedError;
+  String get cNonce => throw _privateConstructorUsedError;
 
   /// Serializes this VerifiableCredentialResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1255,7 +1255,7 @@ abstract class $VerifiableCredentialResponseCopyWith<$Res> {
   $Res call(
       {String credential,
       @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
-      @JsonKey(name: 'c_nonce') dynamic cNonce});
+      @JsonKey(name: 'c_nonce') String cNonce});
 }
 
 /// @nodoc
@@ -1276,7 +1276,7 @@ class _$VerifiableCredentialResponseCopyWithImpl<$Res,
   $Res call({
     Object? credential = null,
     Object? cNonceExpiresIn = null,
-    Object? cNonce = freezed,
+    Object? cNonce = null,
   }) {
     return _then(_value.copyWith(
       credential: null == credential
@@ -1287,10 +1287,10 @@ class _$VerifiableCredentialResponseCopyWithImpl<$Res,
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
               as int,
-      cNonce: freezed == cNonce
+      cNonce: null == cNonce
           ? _value.cNonce
           : cNonce // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as String,
     ) as $Val);
   }
 }
@@ -1307,7 +1307,7 @@ abstract class _$$VerifiableCredentialResponseImplCopyWith<$Res>
   $Res call(
       {String credential,
       @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
-      @JsonKey(name: 'c_nonce') dynamic cNonce});
+      @JsonKey(name: 'c_nonce') String cNonce});
 }
 
 /// @nodoc
@@ -1327,7 +1327,7 @@ class __$$VerifiableCredentialResponseImplCopyWithImpl<$Res>
   $Res call({
     Object? credential = null,
     Object? cNonceExpiresIn = null,
-    Object? cNonce = freezed,
+    Object? cNonce = null,
   }) {
     return _then(_$VerifiableCredentialResponseImpl(
       credential: null == credential
@@ -1338,7 +1338,10 @@ class __$$VerifiableCredentialResponseImplCopyWithImpl<$Res>
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
               as int,
-      cNonce: freezed == cNonce ? _value.cNonce! : cNonce,
+      cNonce: null == cNonce
+          ? _value.cNonce
+          : cNonce // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -1351,7 +1354,7 @@ class _$VerifiableCredentialResponseImpl
   _$VerifiableCredentialResponseImpl(
       {required this.credential,
       @JsonKey(name: 'c_nonce_expires_in') required this.cNonceExpiresIn,
-      @JsonKey(name: 'c_nonce') this.cNonce});
+      @JsonKey(name: 'c_nonce') required this.cNonce});
 
   factory _$VerifiableCredentialResponseImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -1364,7 +1367,7 @@ class _$VerifiableCredentialResponseImpl
   final int cNonceExpiresIn;
   @override
   @JsonKey(name: 'c_nonce')
-  final dynamic cNonce;
+  final String cNonce;
 
   @override
   String toString() {
@@ -1380,13 +1383,13 @@ class _$VerifiableCredentialResponseImpl
                 other.credential == credential) &&
             (identical(other.cNonceExpiresIn, cNonceExpiresIn) ||
                 other.cNonceExpiresIn == cNonceExpiresIn) &&
-            const DeepCollectionEquality().equals(other.cNonce, cNonce));
+            (identical(other.cNonce, cNonce) || other.cNonce == cNonce));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, credential, cNonceExpiresIn,
-      const DeepCollectionEquality().hash(cNonce));
+  int get hashCode =>
+      Object.hash(runtimeType, credential, cNonceExpiresIn, cNonce);
 
   /// Create a copy of VerifiableCredentialResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -1412,7 +1415,7 @@ abstract class _VerifiableCredentialResponse
       {required final String credential,
       @JsonKey(name: 'c_nonce_expires_in') required final int cNonceExpiresIn,
       @JsonKey(name: 'c_nonce')
-      final dynamic cNonce}) = _$VerifiableCredentialResponseImpl;
+      required final String cNonce}) = _$VerifiableCredentialResponseImpl;
 
   factory _VerifiableCredentialResponse.fromJson(Map<String, dynamic> json) =
       _$VerifiableCredentialResponseImpl.fromJson;
@@ -1424,7 +1427,7 @@ abstract class _VerifiableCredentialResponse
   int get cNonceExpiresIn;
   @override
   @JsonKey(name: 'c_nonce')
-  dynamic get cNonce;
+  String get cNonce;
 
   /// Create a copy of VerifiableCredentialResponse
   /// with the given fields replaced by the non-null parameter values.

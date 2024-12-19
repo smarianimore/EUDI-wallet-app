@@ -6,6 +6,7 @@ import 'package:birex/data/repository/verifiable_credential/i_verifiable_credent
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
+import 'package:birex/service/storage/hive/hive_controller.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/use_case.dart';
@@ -106,8 +107,9 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
       ),
     );
     final credentialPayload = credentialResponse.payload;
-
     if (credentialResponse.isError || credentialPayload == null) return _closeRequest(credentialResponse, input: input);
+    final hiveController = await HiveController.instance;
+    await hiveController.saveVerifiableCredential(credentialPayload);
     await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
     await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
     return credentialResponse;

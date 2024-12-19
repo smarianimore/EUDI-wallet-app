@@ -78,7 +78,7 @@ class VerifiableCredentialResponse with _$VerifiableCredentialResponse {
   factory VerifiableCredentialResponse({
     required String credential,
     @JsonKey(name: 'c_nonce_expires_in') required int cNonceExpiresIn,
-    @JsonKey(name: 'c_nonce') cNonce,
+    @JsonKey(name: 'c_nonce') required String cNonce,
   }) = _VerifiableCredentialResponse;
 
   factory VerifiableCredentialResponse.fromJson(Map<String, dynamic> json) =>
