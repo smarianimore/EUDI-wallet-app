@@ -120,7 +120,7 @@ _$VerifiableCredentialResponseImpl _$$VerifiableCredentialResponseImplFromJson(
     _$VerifiableCredentialResponseImpl(
       credential: json['credential'] as String,
       cNonceExpiresIn: (json['c_nonce_expires_in'] as num).toInt(),
-      cNonce: json['c_nonce'],
+      cNonce: json['c_nonce'] as String,
     );
 
 Map<String, dynamic> _$$VerifiableCredentialResponseImplToJson(
