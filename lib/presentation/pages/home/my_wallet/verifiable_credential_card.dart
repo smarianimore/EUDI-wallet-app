@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/utils/extensions/formatter/date_formatter.dart';
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 
 class VerifiableCredentialCard extends StatelessWidget {
@@ -17,20 +20,26 @@ class VerifiableCredentialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: Shapes.buildRoundedShape(color: Theme.of(context).cardColor),
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: Dimensions.mediumSize.padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _Header(credential: credential),
-            Dimensions.mediumSize.spacer(),
-            _Disclosures(credential: credential),
-            Dimensions.mediumSize.spacer(),
-            _ActionBar(credential: credential),
-          ],
+    return InkWell(
+      onLongPress: () => Share.share(
+        jsonEncode(credential.toJson()),
+        subject: 'Verifiable Credential: ${credential.formatName}',
+      ),
+      child: Card(
+        shape: Shapes.buildRoundedShape(color: Theme.of(context).cardColor),
+        margin: EdgeInsets.zero,
+        child: Padding(
+          padding: Dimensions.mediumSize.padding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _Header(credential: credential),
+              Dimensions.mediumSize.spacer(),
+              _Disclosures(credential: credential),
+              Dimensions.mediumSize.spacer(),
+              _ActionBar(credential: credential),
+            ],
+          ),
         ),
       ),
     );
@@ -96,7 +105,7 @@ class _Disclosures extends StatelessWidget {
   }
 }
 
-class _ActionBar extends StatelessWidget {
+class _ActionBar extends ConsumerWidget {
   const _ActionBar({
     required this.credential,
   });
@@ -104,14 +113,19 @@ class _ActionBar extends StatelessWidget {
   final VerifiableCredential credential;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Wrap(
       spacing: Dimensions.mediumSize,
       alignment: WrapAlignment.end,
       children: [
-        IconButton(
-          onPressed: () => Share.share(jsonEncode(credential.toJson())),
-          icon: const Icon(Icons.share_outlined),
+        OutlinedButton.icon(
+          label: const Text('Condividi'),
+          icon: const Icon(Icons.qr_code),
+          onPressed: () => ref.read(dialogServiceProvider).showCustomDialog<void>(
+                dialogBuilder: (context) => VerifiableCredentialQRCodeDialog(
+                  credential: credential,
+                ),
+              ),
         ),
       ],
     );
