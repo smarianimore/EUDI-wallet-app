@@ -14,8 +14,6 @@ class HiveController {
 
   Future<void> init() async {
     await Hive.initFlutter();
-    await Hive.deleteBoxFromDisk('verifiable_credentials');
-    await Hive.deleteFromDisk();
     Hive.registerAdapter(VerifiableCredentialHiveModelAdapter());
     verifiableCredentialBox = await Hive.openBox<VerifiableCredentialHiveModel>('verifiable_credentials');
   }
@@ -26,6 +24,11 @@ class HiveController {
 
   Future<void> clear() async {
     await verifiableCredentialBox.clear();
+  }
+
+  Future<void> reset() async {
+    await Hive.deleteBoxFromDisk('verifiable_credentials');
+    await Hive.deleteFromDisk();
   }
 
   ValueListenable<Box<VerifiableCredentialHiveModel>> get verifiableCredentials {

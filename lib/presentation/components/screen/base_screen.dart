@@ -5,12 +5,14 @@ class BaseScreen extends StatefulWidget {
     required this.title,
     required this.slivers,
     this.actions = const [],
+    this.roundedAppBar = true,
     super.key,
   });
 
   final String title;
   final List<Widget> slivers;
   final List<Widget> actions;
+  final bool roundedAppBar;
 
   @override
   State<BaseScreen> createState() => _BaseScreenState();
@@ -45,12 +47,14 @@ class _BaseScreenState extends State<BaseScreen> {
               actions: widget.actions,
               elevation: 10,
               floating: true,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(20),
-                  bottomRight: Radius.circular(20),
-                ),
-              ),
+              shape: widget.roundedAppBar
+                  ? const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20),
+                      ),
+                    )
+                  : null,
             ),
             ...widget.slivers,
           ],
