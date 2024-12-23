@@ -8,7 +8,7 @@ class SupportedCredentialConfiguration with _$SupportedCredentialConfiguration {
   @JsonSerializable(explicitToJson: true)
   factory SupportedCredentialConfiguration({
     required String scope,
-    required Map<String, ClaimProperties> claims,
+    required Map<String, SupportedClaimProperties> claims,
     @JsonKey(name: 'cryptographic_binding_methods_supported')
     required List<String> cryptographicBindingMethodsSupported,
     required List<SupportedCredentialDisplayInformation> display,
@@ -51,23 +51,24 @@ class SupportedCredentialIssuerLogo with _$SupportedCredentialIssuerLogo {
 }
 
 @freezed
-class ClaimProperties with _$ClaimProperties {
+class SupportedClaimProperties with _$SupportedClaimProperties {
   @JsonSerializable(explicitToJson: true)
-  factory ClaimProperties({
-    required List<DisplayClaimProperties> display,
-  }) = _ClaimProperties;
+  factory SupportedClaimProperties({
+    required List<DisplaySupportedClaimProperties> display,
+  }) = _SupportedClaimProperties;
 
-  factory ClaimProperties.fromJson(Map<String, dynamic> json) => _$ClaimPropertiesFromJson(json);
+  factory SupportedClaimProperties.fromJson(Map<String, dynamic> json) => _$SupportedClaimPropertiesFromJson(json);
 }
 
 @freezed
-class DisplayClaimProperties with _$DisplayClaimProperties {
-  factory DisplayClaimProperties({
+class DisplaySupportedClaimProperties with _$DisplaySupportedClaimProperties {
+  factory DisplaySupportedClaimProperties({
     required String name,
     required String locale,
-  }) = _DisplayClaimProperties;
+  }) = _DisplaySupportedClaimProperties;
 
-  factory DisplayClaimProperties.fromJson(Map<String, dynamic> json) => _$DisplayClaimPropertiesFromJson(json);
+  factory DisplaySupportedClaimProperties.fromJson(Map<String, dynamic> json) =>
+      _$DisplaySupportedClaimPropertiesFromJson(json);
 }
 
 /*  */
@@ -91,7 +92,31 @@ class VerifiableCredential with _$VerifiableCredential {
   factory VerifiableCredential({
     required VerifiableCredentialResponse credentialResponse,
     required String subject,
+    required List<VerifiableCredentialClaim> claims,
+    required List<VerifiableDisclosure> disclosures,
   }) = _VerifiableCredential;
 
   factory VerifiableCredential.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialFromJson(json);
+}
+
+@freezed
+class VerifiableCredentialClaim with _$VerifiableCredentialClaim {
+  @JsonSerializable(explicitToJson: true)
+  factory VerifiableCredentialClaim({
+    required String name,
+    required String value,
+  }) = _VerifiableCredentialClaim;
+
+  factory VerifiableCredentialClaim.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialClaimFromJson(json);
+}
+
+@freezed
+class VerifiableDisclosure with _$VerifiableDisclosure {
+  @JsonSerializable(explicitToJson: true)
+  factory VerifiableDisclosure({
+    required String name,
+    required String value,
+  }) = _VerifiableDisclosure;
+
+  factory VerifiableDisclosure.fromJson(Map<String, dynamic> json) => _$VerifiableDisclosureFromJson(json);
 }

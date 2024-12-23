@@ -12,8 +12,8 @@ _$SupportedCredentialConfigurationImpl
         _$SupportedCredentialConfigurationImpl(
           scope: json['scope'] as String,
           claims: (json['claims'] as Map<String, dynamic>).map(
-            (k, e) => MapEntry(
-                k, ClaimProperties.fromJson(e as Map<String, dynamic>)),
+            (k, e) => MapEntry(k,
+                SupportedClaimProperties.fromJson(e as Map<String, dynamic>)),
           ),
           cryptographicBindingMethodsSupported:
               (json['cryptographic_binding_methods_supported'] as List<dynamic>)
@@ -86,30 +86,30 @@ Map<String, dynamic> _$$SupportedCredentialIssuerLogoImplToJson(
       'alt_text': instance.altText,
     };
 
-_$ClaimPropertiesImpl _$$ClaimPropertiesImplFromJson(
+_$SupportedClaimPropertiesImpl _$$SupportedClaimPropertiesImplFromJson(
         Map<String, dynamic> json) =>
-    _$ClaimPropertiesImpl(
+    _$SupportedClaimPropertiesImpl(
       display: (json['display'] as List<dynamic>)
-          .map(
-              (e) => DisplayClaimProperties.fromJson(e as Map<String, dynamic>))
+          .map((e) => DisplaySupportedClaimProperties.fromJson(
+              e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$$ClaimPropertiesImplToJson(
-        _$ClaimPropertiesImpl instance) =>
+Map<String, dynamic> _$$SupportedClaimPropertiesImplToJson(
+        _$SupportedClaimPropertiesImpl instance) =>
     <String, dynamic>{
       'display': instance.display.map((e) => e.toJson()).toList(),
     };
 
-_$DisplayClaimPropertiesImpl _$$DisplayClaimPropertiesImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DisplayClaimPropertiesImpl(
-      name: json['name'] as String,
-      locale: json['locale'] as String,
-    );
+_$DisplaySupportedClaimPropertiesImpl
+    _$$DisplaySupportedClaimPropertiesImplFromJson(Map<String, dynamic> json) =>
+        _$DisplaySupportedClaimPropertiesImpl(
+          name: json['name'] as String,
+          locale: json['locale'] as String,
+        );
 
-Map<String, dynamic> _$$DisplayClaimPropertiesImplToJson(
-        _$DisplayClaimPropertiesImpl instance) =>
+Map<String, dynamic> _$$DisplaySupportedClaimPropertiesImplToJson(
+        _$DisplaySupportedClaimPropertiesImpl instance) =>
     <String, dynamic>{
       'name': instance.name,
       'locale': instance.locale,
@@ -137,6 +137,13 @@ _$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
       credentialResponse: VerifiableCredentialResponse.fromJson(
           json['credentialResponse'] as Map<String, dynamic>),
       subject: json['subject'] as String,
+      claims: (json['claims'] as List<dynamic>)
+          .map((e) =>
+              VerifiableCredentialClaim.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      disclosures: (json['disclosures'] as List<dynamic>)
+          .map((e) => VerifiableDisclosure.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$VerifiableCredentialImplToJson(
@@ -144,4 +151,34 @@ Map<String, dynamic> _$$VerifiableCredentialImplToJson(
     <String, dynamic>{
       'credentialResponse': instance.credentialResponse.toJson(),
       'subject': instance.subject,
+      'claims': instance.claims.map((e) => e.toJson()).toList(),
+      'disclosures': instance.disclosures.map((e) => e.toJson()).toList(),
+    };
+
+_$VerifiableCredentialClaimImpl _$$VerifiableCredentialClaimImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VerifiableCredentialClaimImpl(
+      name: json['name'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$$VerifiableCredentialClaimImplToJson(
+        _$VerifiableCredentialClaimImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
+    };
+
+_$VerifiableDisclosureImpl _$$VerifiableDisclosureImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VerifiableDisclosureImpl(
+      name: json['name'] as String,
+      value: json['value'] as String,
+    );
+
+Map<String, dynamic> _$$VerifiableDisclosureImplToJson(
+        _$VerifiableDisclosureImpl instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'value': instance.value,
     };

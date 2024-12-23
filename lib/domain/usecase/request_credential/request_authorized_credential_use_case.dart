@@ -108,7 +108,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final credentialPayload = credentialResponse.payload;
     if (credentialResponse.isError || credentialPayload == null) return _closeRequest(credentialResponse, input: input);
-    final hiveController = await HiveController.instance;
+    final hiveController = HiveController.instance;
     await hiveController.saveVerifiableCredential(credentialPayload);
     await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
     await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:birex/data/model/key_proof/keyproofresponse.dart';
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
@@ -69,8 +71,49 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
       ),
       payloadMapper: (payload) {
         final response = VerifiableCredentialResponse.fromJson(payload);
-        return VerifiableCredential(credentialResponse: response, subject: subject);
+        return VerifiableCredential(
+          credentialResponse: response,
+          subject: subject,
+          disclosures: response.credential.parseDisclosures,
+          claims: <VerifiableCredentialClaim>[],
+        );
       },
     );
+  }
+}
+
+extension on String {
+  List<VerifiableDisclosure> get parseDisclosures {
+    final rawDisclosures = [...split('~')]
+      ..removeLast()
+      ..removeAt(0);
+    return rawDisclosures.disclosures;
+  }
+}
+
+extension on List<String> {
+  List<VerifiableDisclosure> get disclosures {
+    final disclosures = <VerifiableDisclosure>[];
+    for (final raw in this) {
+      final stringToBase64 = utf8.fuse(base64);
+      final padding = raw.length % 4;
+      final rawPadded = padding == 0 ? raw : raw + ('=' * (4 - padding));
+      final base = stringToBase64.decode(rawPadded);
+      final values = _stringToList(base);
+      final mapped = VerifiableDisclosure(name: values[1], value: values[2]);
+      disclosures.add(mapped);
+    }
+    return disclosures;
+  }
+
+  List<String> _stringToList(String value) {
+    final normalized = value.substring(1, value.length - 1);
+    final values = normalized.split(',');
+    final result = <String>[];
+    for (final value in values) {
+      final isString = value.startsWith('"') && value.endsWith('"');
+      result.add(isString ? value.substring(1, value.length - 1) : value);
+    }
+    return result;
   }
 }
