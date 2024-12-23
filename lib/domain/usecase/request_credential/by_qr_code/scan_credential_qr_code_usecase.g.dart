@@ -7,7 +7,7 @@ part of 'scan_credential_qr_code_usecase.dart';
 // **************************************************************************
 
 String _$scanCredentialQrCodeUsecaseHash() =>
-    r'7751b8bd5d91cb94ee850c2afdff072da7972981';
+    r'9cb84bab993bbcece498ed37c6ad7d0b76eabf44';
 
 /// See also [scanCredentialQrCodeUsecase].
 @ProviderFor(scanCredentialQrCodeUsecase)

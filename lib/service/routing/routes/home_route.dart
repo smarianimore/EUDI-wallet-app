@@ -1,6 +1,6 @@
 import 'package:birex/presentation/pages/home/home_shell_wrapper.dart';
-import 'package:birex/presentation/pages/home/shell/menu/menu_page.dart';
-import 'package:birex/presentation/pages/home/shell/my_wallet/my_wallet_page.dart';
+import 'package:birex/presentation/pages/home/menu/menu_page.dart';
+import 'package:birex/presentation/pages/home/my_wallet/my_wallet_page.dart';
 import 'package:birex/service/routing/routes/discovery_route.dart';
 import 'package:birex/service/routing/routes/settings_route.dart';
 import 'package:flutter/material.dart';

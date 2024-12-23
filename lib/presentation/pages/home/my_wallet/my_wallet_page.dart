@@ -1,9 +1,9 @@
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/presentation/components/screen/base_screen.dart';
+import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_card.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
-import 'package:birex/utils/extensions/formatter/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -67,67 +67,7 @@ class _CredentialListSection extends StatelessWidget {
       sliver: SliverList.separated(
         itemCount: values.length,
         separatorBuilder: (context, index) => Dimensions.mediumSize.spacer(),
-        itemBuilder: (context, index) => _VerifiableCredentialCard(credential: values[index]),
-      ),
-    );
-  }
-}
-
-class _VerifiableCredentialCard extends StatelessWidget {
-  const _VerifiableCredentialCard({
-    required this.credential,
-  });
-
-  final VerifiableCredential credential;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      shape: Shapes.buildRoundedShape(color: Theme.of(context).cardColor),
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: Dimensions.mediumSize.padding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        credential.formatName,
-                        style: Theme.of(context).textTheme.titleLarge,
-                      ),
-                      Dimensions.tinySize.spacer(),
-                      Text(
-                        'Scadenza: ${DateFormatter.formatStandardDate(credential.expiresAt)}',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                    ],
-                  ),
-                ),
-                Dimensions.smallSize.spacer(axis: Axis.horizontal),
-                const Icon(
-                  Icons.verified,
-                  color: Colors.green,
-                  size: 36,
-                ),
-              ],
-            ),
-            Dimensions.mediumSize.spacer(),
-            Wrap(
-              spacing: Dimensions.mediumSize,
-              children: [
-                for (final claim in credential.disclosures)
-                  Chip(
-                    label: Text('${claim.formatName}: ${claim.value}'),
-                  ),
-              ],
-            ),
-          ],
-        ),
+        itemBuilder: (context, index) => VerifiableCredentialCard(credential: values[index]),
       ),
     );
   }
