@@ -7,7 +7,7 @@ part of 'authentication_controller.dart';
 // **************************************************************************
 
 String _$authenticationControllerHash() =>
-    r'bc04b62312e67ea8aabd059a9717fcdfc7d85a60';
+    r'a00122326dde696f1ed1f70031ed5d372237331f';
 
 /// See also [AuthenticationController].
 @ProviderFor(AuthenticationController)

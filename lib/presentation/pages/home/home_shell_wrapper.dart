@@ -1,4 +1,4 @@
-import 'package:birex/domain/usecase/scan_credential_qr_code/scan_credential_qr_code_usecase.dart';
+import 'package:birex/domain/usecase/request_credential/by_qr_code/scan_credential_qr_code_usecase.dart';
 import 'package:birex/service/routing/router.dart';
 import 'package:birex/service/routing/routes/home_route.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +11,13 @@ class HomePageShellWrapper extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Expanded(child: child),
-        const _HomeBottomNavBar(),
-      ],
+    return Scaffold(
+      body: child,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => ref.read(scanCredentialQrCodeUsecaseProvider).call(context),
+        child: const Icon(Icons.qr_code),
+      ),
+      bottomNavigationBar: const _HomeBottomNavBar(),
     );
   }
 }
@@ -31,32 +32,17 @@ class _HomeBottomNavBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(_homeBottomNavStateProvider);
-    return Stack(
-      alignment: Alignment.topCenter,
-      clipBehavior: Clip.none,
-      children: [
-        BottomNavigationBar(
-          onTap: (value) => _onTap(value, ref),
-          currentIndex: state,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.menu),
-              label: 'Menu',
-            ),
-          ],
+    return BottomNavigationBar(
+      onTap: (value) => _onTap(value, ref),
+      currentIndex: state,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Home',
         ),
-        Positioned(
-          top: -30,
-          height: 60,
-          width: 60,
-          child: FloatingActionButton(
-            onPressed: () => ref.read(scanCredentialQrCodeUsecaseProvider).call(context),
-            child: const Icon(Icons.add),
-          ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.menu),
+          label: 'Menu',
         ),
       ],
     );

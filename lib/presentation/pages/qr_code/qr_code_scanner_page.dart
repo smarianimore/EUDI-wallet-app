@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
 import 'package:birex/presentation/components/screen/base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -20,13 +23,17 @@ class QRCodeScannerPage extends ConsumerWidget {
                 child: QRCodeDartScanView(
                   scanInvertedQRCode: true,
                   formats: const [BarcodeFormat.qrCode],
+                  onResultInterceptor: (old, newResult) => old == null || old.text != newResult.text,
                   onCapture: (Result result) {
                     final qrcodeUri = Uri.tryParse(result.text);
                     final queryParameters = qrcodeUri?.queryParameters;
-                    final credentialSubject = queryParameters?['credential_subject'];
                     final credentialOfferUri = queryParameters?['credential_offer_uri'];
                     final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
-                    context.pop((credentialUri, credentialSubject));
+                    if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));
+                    final credentialOfferObject = queryParameters?['credential_offer'];
+                    final credentialOffer = credentialOfferObject == null ? null : jsonDecode(credentialOfferObject);
+                    final parsed = CredentialPreauthorizationResponse.fromJson(credentialOffer as Map<String, dynamic>);
+                    return context.pop((null, parsed));
                   },
                 ),
               ),

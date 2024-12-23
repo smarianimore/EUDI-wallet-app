@@ -1,5 +1,6 @@
 import 'package:birex/data/model/authorization_server/issuerauthorizationserverconfiguration.dart';
 import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
+import 'package:birex/data/model/key_proof/keyproofresponse.dart';
 import 'package:birex/data/model/openid/issueropenidconfiguration.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
@@ -48,6 +49,16 @@ class WellKnownRepository with RepositoryResponseHandler implements IWellKnownRe
     return handleResponse<CredentialIssuerConfiguration>(
       request: () => dio.get('$issuer/.well-known/openid-credential-issuer'),
       payloadMapper: CredentialIssuerConfiguration.fromJson,
+    );
+  }
+
+  @override
+  AsyncApplicationResponse<SigningProofConfiguration> getJWKConfiguration(String issuer) {
+    return handleResponse<SigningProofConfiguration>(
+      request: () => dio.get('$issuer/.well-known/jwks.json'),
+      payloadMapper: (payload) => (payload['keys'] as List<dynamic>)
+          .map<SigningProofConfiguration>((e) => SigningProofConfiguration.fromJson(e as Map<String, dynamic>))
+          .first,
     );
   }
 }
