@@ -1,30 +1,30 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'scan_credential_qr_code_usecase.dart';
+part of 'request_authorized_credential_use_case.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$scanCredentialQrCodeUsecaseHash() =>
-    r'5e93c7ce7ced6a1b183cf3f6882db948633bf9f1';
+String _$requestAuthorizedCredentialUseCaseHash() =>
+    r'b281595dc719caff32971773f33435513a2085f7';
 
-/// See also [scanCredentialQrCodeUsecase].
-@ProviderFor(scanCredentialQrCodeUsecase)
-final scanCredentialQrCodeUsecaseProvider =
-    AutoDisposeProvider<ScanCredentialQrCodeUsecase>.internal(
-  scanCredentialQrCodeUsecase,
-  name: r'scanCredentialQrCodeUsecaseProvider',
+/// See also [requestAuthorizedCredentialUseCase].
+@ProviderFor(requestAuthorizedCredentialUseCase)
+final requestAuthorizedCredentialUseCaseProvider =
+    AutoDisposeProvider<RequestAuthorizedCredentialUseCase>.internal(
+  requestAuthorizedCredentialUseCase,
+  name: r'requestAuthorizedCredentialUseCaseProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$scanCredentialQrCodeUsecaseHash,
+      : _$requestAuthorizedCredentialUseCaseHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
 @Deprecated('Will be removed in 3.0. Use Ref instead')
 // ignore: unused_element
-typedef ScanCredentialQrCodeUsecaseRef
-    = AutoDisposeProviderRef<ScanCredentialQrCodeUsecase>;
+typedef RequestAuthorizedCredentialUseCaseRef
+    = AutoDisposeProviderRef<RequestAuthorizedCredentialUseCase>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package

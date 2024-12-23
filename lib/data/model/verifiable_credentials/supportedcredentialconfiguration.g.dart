@@ -114,3 +114,34 @@ Map<String, dynamic> _$$DisplayClaimPropertiesImplToJson(
       'name': instance.name,
       'locale': instance.locale,
     };
+
+_$VerifiableCredentialResponseImpl _$$VerifiableCredentialResponseImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VerifiableCredentialResponseImpl(
+      credential: json['credential'] as String,
+      cNonceExpiresIn: (json['c_nonce_expires_in'] as num).toInt(),
+      cNonce: json['c_nonce'] as String,
+    );
+
+Map<String, dynamic> _$$VerifiableCredentialResponseImplToJson(
+        _$VerifiableCredentialResponseImpl instance) =>
+    <String, dynamic>{
+      'credential': instance.credential,
+      'c_nonce_expires_in': instance.cNonceExpiresIn,
+      'c_nonce': instance.cNonce,
+    };
+
+_$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
+        Map<String, dynamic> json) =>
+    _$VerifiableCredentialImpl(
+      credentialResponse: VerifiableCredentialResponse.fromJson(
+          json['credentialResponse'] as Map<String, dynamic>),
+      subject: json['subject'] as String,
+    );
+
+Map<String, dynamic> _$$VerifiableCredentialImplToJson(
+        _$VerifiableCredentialImpl instance) =>
+    <String, dynamic>{
+      'credentialResponse': instance.credentialResponse.toJson(),
+      'subject': instance.subject,
+    };

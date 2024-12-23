@@ -21,17 +21,16 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
 
   @override
   AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
-    required String host,
+    required String uri,
     required String credentialSubject,
-    required int credentialType,
   }) async {
     return handleResponse(
       request: () => dio.post(
-        '$host/api/CredentialOffer/offer',
+        '$uri/api/CredentialOffer/offer',
         data: {
           'credentialSubject': credentialSubject,
           'expiresOn': DateTime.now().add(const Duration(days: 1)).toIso8601String(),
-          'credentialType': credentialType,
+          'credentialType': credentialSubject == 'AffittabileCompleta' ? 2 : 0,
         },
       ),
       payloadMapper: CredentialPreauthorizationResponse.fromJson,
@@ -40,22 +39,28 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
 
   @override
   AsyncApplicationResponse<TokenAuthenticationResponse> login({
-    required String host,
+    required String uri,
     required String code,
     required String grantType,
-    required String clientId,
   }) {
     final parameters = FormData.fromMap({
       'pre-authorized_code': code,
       'grant_type': grantType,
-      'client_id': clientId,
     });
     return handleResponse<TokenAuthenticationResponse>(
       request: () => dio.post(
-        '$host/api/token',
+        uri,
         data: parameters,
       ),
       payloadMapper: TokenAuthenticationResponse.fromJson,
+    );
+  }
+
+  @override
+  AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({required String uri}) {
+    return handleResponse(
+      request: () => dio.get(uri),
+      payloadMapper: CredentialPreauthorizationResponse.fromJson,
     );
   }
 }

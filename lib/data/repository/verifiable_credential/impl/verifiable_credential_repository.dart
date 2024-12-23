@@ -1,4 +1,5 @@
 import 'package:birex/data/model/key_proof/keyproofresponse.dart';
+import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
 import 'package:birex/service/network/dio/dio_provider.dart';
@@ -40,6 +41,36 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
         options: Options(headers: {'authorization': 'Bearer $accessToken'}),
       ),
       payloadMapper: KeyProofResponse.fromJson,
+    );
+  }
+
+  @override
+  AsyncApplicationResponse<VerifiableCredential> generateCredentials({
+    required String uri,
+    required String accessToken,
+    required String format,
+    required String vct,
+    required String jwt,
+    required String proofType,
+    required String subject,
+  }) {
+    return handleResponse(
+      request: () => dio.post(
+        uri,
+        data: {
+          'format': format,
+          'vct': vct,
+          'proof': {
+            'jwt': jwt,
+            'proof_type': proofType,
+          },
+        },
+        options: Options(headers: {'authorization': 'Bearer $accessToken'}),
+      ),
+      payloadMapper: (payload) {
+        final response = VerifiableCredentialResponse.fromJson(payload);
+        return VerifiableCredential(credentialResponse: response, subject: subject);
+      },
     );
   }
 }
