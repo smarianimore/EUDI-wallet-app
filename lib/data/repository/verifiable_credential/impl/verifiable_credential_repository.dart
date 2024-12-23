@@ -7,6 +7,7 @@ import 'package:birex/data/repository/verifiable_credential/i_verifiable_credent
 import 'package:birex/service/network/dio/dio_provider.dart';
 import 'package:birex/utils/response.dart';
 import 'package:dio/dio.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -100,7 +101,9 @@ extension on List<String> {
       final rawPadded = padding == 0 ? raw : raw + ('=' * (4 - padding));
       final base = stringToBase64.decode(rawPadded);
       final values = _stringToList(base);
-      final mapped = VerifiableDisclosure(name: values[1], value: values[2]);
+      final beforeCapitalLetter = RegExp('(?=[A-Z])');
+      final normalizedName = values[1].split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
+      final mapped = VerifiableDisclosure(name: normalizedName, value: values[2]);
       disclosures.add(mapped);
     }
     return disclosures;

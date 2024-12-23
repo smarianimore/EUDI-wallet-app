@@ -3,41 +3,73 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class VerifiableCredentialHiveModel {
   VerifiableCredentialHiveModel({
-    required this.subject,
-    required this.cNonce,
-    required this.cNonceExpiresIn,
     required this.credential,
   });
 
-  factory VerifiableCredentialHiveModel.fromJson(Map<dynamic, dynamic> json) {
-    return VerifiableCredentialHiveModel(
-      subject: json['subject'] as String,
-      cNonce: json['c_nonce'] as String,
-      cNonceExpiresIn: json['c_nonce_expires_in'] as int,
-      credential: json['credential'] as String,
-    );
-  }
-
   factory VerifiableCredentialHiveModel.fromModel(VerifiableCredential model) {
     return VerifiableCredentialHiveModel(
-      subject: model.subject,
-      cNonce: model.credentialResponse.cNonce,
-      cNonceExpiresIn: model.credentialResponse.cNonceExpiresIn,
-      credential: model.credentialResponse.credential,
+      credential: model,
     );
   }
 
-  final String subject;
-  final String cNonce;
-  final int cNonceExpiresIn;
-  final String credential;
+  factory VerifiableCredentialHiveModel.fromJson(Map<dynamic, dynamic> json) {
+    final cnonce = json['c_nonce'] as String;
+    final cnonceExpiresIn = json['c_nonce_expires_in'] as int;
+    final subject = json['subject'] as String;
+    final credential = json['credential'] as String;
+    final disclosures = json['disclosures'] as List<dynamic>;
+    final claims = json['claims'] as List<dynamic>;
+    final vcResponse = VerifiableCredentialResponse(
+      credential: credential,
+      cNonce: cnonce,
+      cNonceExpiresIn: cnonceExpiresIn,
+    );
+    return VerifiableCredentialHiveModel(
+      credential: VerifiableCredential(
+        credentialResponse: vcResponse,
+        subject: subject,
+        claims: _mapClaims(claims),
+        disclosures: _mapDisclosures(disclosures),
+      ),
+    );
+  }
+
+  static List<VerifiableCredentialClaim> _mapClaims(List<dynamic> values) {
+    final results = <VerifiableCredentialClaim>[];
+    for (final value in values) {
+      final asMap = value as Map<dynamic, dynamic>;
+      final item = VerifiableCredentialClaim(
+        name: asMap['name'] as String,
+        value: asMap['value'] as String,
+      );
+      results.add(item);
+    }
+    return results;
+  }
+
+  static List<VerifiableDisclosure> _mapDisclosures(List<dynamic> values) {
+    final results = <VerifiableDisclosure>[];
+    for (final value in values) {
+      final asMap = value as Map<dynamic, dynamic>;
+      final item = VerifiableDisclosure(
+        name: asMap['name'] as String,
+        value: asMap['value'] as String,
+      );
+      results.add(item);
+    }
+    return results;
+  }
+
+  final VerifiableCredential credential;
 
   Map<dynamic, dynamic> toJson() {
     return {
-      'subject': subject,
-      'c_nonce': cNonce,
-      'c_nonce_expires_in': cNonceExpiresIn,
-      'credential': credential,
+      'subject': credential.subject,
+      'c_nonce': credential.credentialResponse.cNonce,
+      'c_nonce_expires_in': credential.credentialResponse.cNonceExpiresIn,
+      'credential': credential.credentialResponse.credential,
+      'claims': credential.claims.map((e) => e.toJson()).toList(),
+      'disclosures': credential.disclosures.map((e) => e.toJson()).toList(),
     };
   }
 }
