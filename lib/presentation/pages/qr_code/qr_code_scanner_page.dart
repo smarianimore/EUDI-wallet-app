@@ -14,6 +14,7 @@ class QRCodeScannerPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return BaseScreen(
       title: 'Qr Code',
+      roundedAppBar: false,
       slivers: [
         SliverFillRemaining(
           child: Stack(
