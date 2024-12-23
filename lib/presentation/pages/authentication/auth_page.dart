@@ -1,6 +1,5 @@
+import 'package:birex/domain/session/authentication_controller.dart';
 import 'package:birex/presentation/components/screen/base_screen.dart';
-import 'package:birex/service/routing/router.dart';
-import 'package:birex/service/routing/routes/home_route.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,7 +14,7 @@ class AuthenticationPage extends ConsumerWidget {
         SliverFillRemaining(
           child: Center(
             child: FilledButton(
-              onPressed: () => ref.read(birexRouterProvider).go(MyWalletPageRoute.pagePath),
+              onPressed: () => ref.read(authenticationControllerProvider.notifier).login(),
               child: const Text('Home'),
             ),
           ),
