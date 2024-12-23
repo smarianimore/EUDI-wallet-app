@@ -3,7 +3,9 @@ import 'package:birex/data/repository/authentication/i_authentication_repository
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
+import 'package:birex/domain/utils/home_page_redirect_sucess_handler.dart';
 import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/service/routing/router.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
@@ -16,16 +18,20 @@ part 'request_credential_usecase.g.dart';
 @riverpod
 RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   final dialogService = ref.read(dialogServiceProvider);
+  final router = ref.read(birexRouterProvider);
   final successDialog = ShowDialogSuccessHandler<VerifiableCredential, RequestCredentialCommand>(
     dialogService,
     textMapper: (payload, input) => 'Credenziali ${payload!.subject} richieste con successo!',
   );
+  final redirectToHome =
+      RedirectToHomePageSuccessHandler<VerifiableCredential, RequestCredentialCommand>(router: router);
   final errorHandler = ShowDialogErrorHandler(dialogService);
+
   return RequestCredentialUseCase(
     requestAuthorizedCredentialUseCase: ref.read(requestAuthorizedCredentialUseCaseProvider),
     repository: ref.read(authenticationRepositoryProvider),
     errorHandlers: [errorHandler],
-    successHandlers: [successDialog],
+    successHandlers: [successDialog, redirectToHome],
   );
 }
 

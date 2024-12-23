@@ -1466,6 +1466,7 @@ mixin _$VerifiableCredential {
       throw _privateConstructorUsedError;
   List<VerifiableDisclosure> get disclosures =>
       throw _privateConstructorUsedError;
+  DateTime get expiresAt => throw _privateConstructorUsedError;
 
   /// Serializes this VerifiableCredential to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1487,7 +1488,8 @@ abstract class $VerifiableCredentialCopyWith<$Res> {
       {VerifiableCredentialResponse credentialResponse,
       String subject,
       List<VerifiableCredentialClaim> claims,
-      List<VerifiableDisclosure> disclosures});
+      List<VerifiableDisclosure> disclosures,
+      DateTime expiresAt});
 
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
 }
@@ -1512,6 +1514,7 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     Object? subject = null,
     Object? claims = null,
     Object? disclosures = null,
+    Object? expiresAt = null,
   }) {
     return _then(_value.copyWith(
       credentialResponse: null == credentialResponse
@@ -1530,6 +1533,10 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
           ? _value.disclosures
           : disclosures // ignore: cast_nullable_to_non_nullable
               as List<VerifiableDisclosure>,
+      expiresAt: null == expiresAt
+          ? _value.expiresAt
+          : expiresAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 
@@ -1557,7 +1564,8 @@ abstract class _$$VerifiableCredentialImplCopyWith<$Res>
       {VerifiableCredentialResponse credentialResponse,
       String subject,
       List<VerifiableCredentialClaim> claims,
-      List<VerifiableDisclosure> disclosures});
+      List<VerifiableDisclosure> disclosures,
+      DateTime expiresAt});
 
   @override
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
@@ -1580,6 +1588,7 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
     Object? subject = null,
     Object? claims = null,
     Object? disclosures = null,
+    Object? expiresAt = null,
   }) {
     return _then(_$VerifiableCredentialImpl(
       credentialResponse: null == credentialResponse
@@ -1598,6 +1607,10 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
           ? _value._disclosures
           : disclosures // ignore: cast_nullable_to_non_nullable
               as List<VerifiableDisclosure>,
+      expiresAt: null == expiresAt
+          ? _value.expiresAt
+          : expiresAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -1610,7 +1623,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       {required this.credentialResponse,
       required this.subject,
       required final List<VerifiableCredentialClaim> claims,
-      required final List<VerifiableDisclosure> disclosures})
+      required final List<VerifiableDisclosure> disclosures,
+      required this.expiresAt})
       : _claims = claims,
         _disclosures = disclosures;
 
@@ -1638,8 +1652,11 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
   }
 
   @override
+  final DateTime expiresAt;
+
+  @override
   String toString() {
-    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures)';
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt)';
   }
 
   @override
@@ -1652,7 +1669,9 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
             (identical(other.subject, subject) || other.subject == subject) &&
             const DeepCollectionEquality().equals(other._claims, _claims) &&
             const DeepCollectionEquality()
-                .equals(other._disclosures, _disclosures));
+                .equals(other._disclosures, _disclosures) &&
+            (identical(other.expiresAt, expiresAt) ||
+                other.expiresAt == expiresAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1662,7 +1681,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       credentialResponse,
       subject,
       const DeepCollectionEquality().hash(_claims),
-      const DeepCollectionEquality().hash(_disclosures));
+      const DeepCollectionEquality().hash(_disclosures),
+      expiresAt);
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.
@@ -1684,11 +1704,11 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
 
 abstract class _VerifiableCredential implements VerifiableCredential {
   factory _VerifiableCredential(
-          {required final VerifiableCredentialResponse credentialResponse,
-          required final String subject,
-          required final List<VerifiableCredentialClaim> claims,
-          required final List<VerifiableDisclosure> disclosures}) =
-      _$VerifiableCredentialImpl;
+      {required final VerifiableCredentialResponse credentialResponse,
+      required final String subject,
+      required final List<VerifiableCredentialClaim> claims,
+      required final List<VerifiableDisclosure> disclosures,
+      required final DateTime expiresAt}) = _$VerifiableCredentialImpl;
 
   factory _VerifiableCredential.fromJson(Map<String, dynamic> json) =
       _$VerifiableCredentialImpl.fromJson;
@@ -1701,6 +1721,8 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   List<VerifiableCredentialClaim> get claims;
   @override
   List<VerifiableDisclosure> get disclosures;
+  @override
+  DateTime get expiresAt;
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.

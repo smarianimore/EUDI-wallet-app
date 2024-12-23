@@ -5,6 +5,7 @@ import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfi
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
+import 'package:birex/domain/utils/home_page_redirect_sucess_handler.dart';
 import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
 import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/service/routing/router.dart';
@@ -30,12 +31,13 @@ ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
     dialogService,
     textMapper: (payload, __) => 'Credenziali ${payload!.subject} richieste con successo!',
   );
+  final redirectToHome = RedirectToHomePageSuccessHandler<VerifiableCredential, BuildContext>(router: router);
   return ScanCredentialQrCodeUsecase(
     router: router,
     requestCredentialUseCase: requestCredentialUseCase,
     authRepository: ref.read(authenticationRepositoryProvider),
     errorHandlers: [errorHandler],
-    successHandlers: [successHandler],
+    successHandlers: [successHandler, redirectToHome],
   );
 }
 

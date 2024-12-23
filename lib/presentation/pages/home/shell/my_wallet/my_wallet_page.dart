@@ -3,6 +3,7 @@ import 'package:birex/presentation/components/screen/base_screen.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
+import 'package:birex/utils/extensions/formatter/date_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -92,9 +93,19 @@ class _VerifiableCredentialCard extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    credential.subject,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        credential.formatName,
+                        style: Theme.of(context).textTheme.titleLarge,
+                      ),
+                      Dimensions.tinySize.spacer(),
+                      Text(
+                        'Scadenza: ${DateFormatter.formatStandardDate(credential.expiresAt)}',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                    ],
                   ),
                 ),
                 Dimensions.smallSize.spacer(axis: Axis.horizontal),
@@ -111,7 +122,7 @@ class _VerifiableCredentialCard extends StatelessWidget {
               children: [
                 for (final claim in credential.disclosures)
                   Chip(
-                    label: Text('${claim.name}: ${claim.value}'),
+                    label: Text('${claim.formatName}: ${claim.value}'),
                   ),
               ],
             ),

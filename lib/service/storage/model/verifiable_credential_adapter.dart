@@ -19,6 +19,7 @@ class VerifiableCredentialHiveModel {
     final credential = json['credential'] as String;
     final disclosures = json['disclosures'] as List<dynamic>;
     final claims = json['claims'] as List<dynamic>;
+    final expiresAt = DateTime.parse(json['expiresAt'] as String);
     final vcResponse = VerifiableCredentialResponse(
       credential: credential,
       cNonce: cnonce,
@@ -30,6 +31,7 @@ class VerifiableCredentialHiveModel {
         subject: subject,
         claims: _mapClaims(claims),
         disclosures: _mapDisclosures(disclosures),
+        expiresAt: expiresAt,
       ),
     );
   }
@@ -70,6 +72,7 @@ class VerifiableCredentialHiveModel {
       'credential': credential.credentialResponse.credential,
       'claims': credential.claims.map((e) => e.toJson()).toList(),
       'disclosures': credential.disclosures.map((e) => e.toJson()).toList(),
+      'expiresAt': DateTime.now().toIso8601String(),
     };
   }
 }

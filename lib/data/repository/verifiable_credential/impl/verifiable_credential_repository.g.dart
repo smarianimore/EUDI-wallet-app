@@ -7,7 +7,7 @@ part of 'verifiable_credential_repository.dart';
 // **************************************************************************
 
 String _$verifiableCredentialRepositoryHash() =>
-    r'2ad8ac34d301612baffadc4d4625caa553f79301';
+    r'3150e443204e308321df95f34e418acfcbf8aef4';
 
 /// See also [verifiableCredentialRepository].
 @ProviderFor(verifiableCredentialRepository)

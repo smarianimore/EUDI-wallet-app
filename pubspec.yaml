@@ -32,6 +32,9 @@ dependencies:
   hive: ^2.2.3
   dart_jsonwebtoken: ^2.14.2
   hive_flutter: ^1.1.0
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:

@@ -1,13 +1,12 @@
 import 'dart:convert';
 
-import 'package:birex/data/model/key_proof/keyproofresponse.dart';
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
+import 'package:birex/service/jwt/jwt_service.dart';
 import 'package:birex/service/network/dio/dio_provider.dart';
 import 'package:birex/utils/response.dart';
 import 'package:dio/dio.dart';
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -16,36 +15,15 @@ part 'verifiable_credential_repository.g.dart';
 @riverpod
 VerifiableCredentialRepository verifiableCredentialRepository(Ref ref) {
   final dio = ref.read(dioProvider);
-  return VerifiableCredentialRepository(dio: dio);
+  final jwtService = ref.read(jwtServiceProvider);
+  return VerifiableCredentialRepository(dio: dio, jwtService: jwtService);
 }
 
 class VerifiableCredentialRepository with RepositoryResponseHandler implements IVerifiableCredentialRepository {
-  VerifiableCredentialRepository({required this.dio});
+  VerifiableCredentialRepository({required this.dio, required this.jwtService});
 
   final Dio dio;
-
-  @override
-  AsyncApplicationResponse<KeyProofResponse> generateKeyProof({
-    required String accessToken,
-    required String host,
-    required String clientId,
-    required String issuer,
-    required String nonce,
-  }) {
-    final form = FormData.fromMap({
-      'clientId': clientId,
-      'issuer': issuer,
-      'nonce': nonce,
-    });
-    return handleResponse(
-      request: () => dio.post(
-        '$host/api/keyproof/generate-key-proof',
-        data: form,
-        options: Options(headers: {'authorization': 'Bearer $accessToken'}),
-      ),
-      payloadMapper: KeyProofResponse.fromJson,
-    );
-  }
+  final JWTService jwtService;
 
   @override
   AsyncApplicationResponse<VerifiableCredential> generateCredentials({
@@ -72,11 +50,17 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
       ),
       payloadMapper: (payload) {
         final response = VerifiableCredentialResponse.fromJson(payload);
+        final jwtComposer = jwtService.manageJWT(response.credential);
+        final expiresAt = jwtComposer.expirationDate;
+        final claims = jwtComposer.claims.entries
+            .map((e) => VerifiableCredentialClaim(name: e.key, value: e.value as String))
+            .toList();
         return VerifiableCredential(
           credentialResponse: response,
           subject: subject,
           disclosures: response.credential.parseDisclosures,
-          claims: <VerifiableCredentialClaim>[],
+          claims: claims,
+          expiresAt: expiresAt,
         );
       },
     );
@@ -101,9 +85,7 @@ extension on List<String> {
       final rawPadded = padding == 0 ? raw : raw + ('=' * (4 - padding));
       final base = stringToBase64.decode(rawPadded);
       final values = _stringToList(base);
-      final beforeCapitalLetter = RegExp('(?=[A-Z])');
-      final normalizedName = values[1].split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
-      final mapped = VerifiableDisclosure(name: normalizedName, value: values[2]);
+      final mapped = VerifiableDisclosure(name: values[1], value: values[2]);
       disclosures.add(mapped);
     }
     return disclosures;

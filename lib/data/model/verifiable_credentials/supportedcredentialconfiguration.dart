@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'supportedcredentialconfiguration.freezed.dart';
@@ -94,6 +95,7 @@ class VerifiableCredential with _$VerifiableCredential {
     required String subject,
     required List<VerifiableCredentialClaim> claims,
     required List<VerifiableDisclosure> disclosures,
+    required DateTime expiresAt,
   }) = _VerifiableCredential;
 
   factory VerifiableCredential.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialFromJson(json);
@@ -119,4 +121,18 @@ class VerifiableDisclosure with _$VerifiableDisclosure {
   }) = _VerifiableDisclosure;
 
   factory VerifiableDisclosure.fromJson(Map<String, dynamic> json) => _$VerifiableDisclosureFromJson(json);
+}
+
+extension VerifiableDisclosureFormatter on VerifiableDisclosure {
+  String get formatName {
+    final beforeCapitalLetter = RegExp('(?=[A-Z])');
+    return name.split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
+  }
+}
+
+extension VerifiableCredentialFormatter on VerifiableCredential {
+  String get formatName {
+    final beforeCapitalLetter = RegExp('(?=[A-Z])');
+    return subject.split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
+  }
 }
