@@ -10,8 +10,8 @@ class IssuerAuthorizationServerConfiguration with _$IssuerAuthorizationServerCon
     required String issuer,
     @JsonKey(name: 'authorization_endpoint') required String authorizationEndpoint,
     @JsonKey(name: 'token_endpoint') required String tokenEndpoint,
-    @JsonKey(name: 'jwks_uri') required String jwksUri,
     @JsonKey(name: 'grant_types_supported') required List<String> grantTypesSupported,
+    @JsonKey(name: 'jwks_uri') String? jwksUri,
   }) = _IssuerAuthorizationServerConfiguration;
 
   factory IssuerAuthorizationServerConfiguration.fromJson(Map<String, dynamic> json) =>

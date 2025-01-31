@@ -13,10 +13,10 @@ _$IssuerAuthorizationServerConfigurationImpl
           issuer: json['issuer'] as String,
           authorizationEndpoint: json['authorization_endpoint'] as String,
           tokenEndpoint: json['token_endpoint'] as String,
-          jwksUri: json['jwks_uri'] as String,
           grantTypesSupported: (json['grant_types_supported'] as List<dynamic>)
               .map((e) => e as String)
               .toList(),
+          jwksUri: json['jwks_uri'] as String?,
         );
 
 Map<String, dynamic> _$$IssuerAuthorizationServerConfigurationImplToJson(
@@ -25,6 +25,6 @@ Map<String, dynamic> _$$IssuerAuthorizationServerConfigurationImplToJson(
       'issuer': instance.issuer,
       'authorization_endpoint': instance.authorizationEndpoint,
       'token_endpoint': instance.tokenEndpoint,
-      'jwks_uri': instance.jwksUri,
       'grant_types_supported': instance.grantTypesSupported,
+      'jwks_uri': instance.jwksUri,
     };
