@@ -19,6 +19,7 @@ class CredentialPreauthorizationResponse with _$CredentialPreauthorizationRespon
 class CredentialPreauthorizationGrant with _$CredentialPreauthorizationGrant {
   factory CredentialPreauthorizationGrant({
     @JsonKey(name: 'pre-authorized_code') required String code,
+    @JsonKey(name: 'tx_code') TransactionCodeInformation? transactionCode,
   }) = _CredentialPreauthorizationGrant;
 
   factory CredentialPreauthorizationGrant.fromJson(Map<String, dynamic> json) =>
@@ -26,15 +27,26 @@ class CredentialPreauthorizationGrant with _$CredentialPreauthorizationGrant {
 }
 
 @freezed
+class TransactionCodeInformation with _$TransactionCodeInformation {
+  factory TransactionCodeInformation({
+    @JsonKey(name: 'input_mode') String? inputMode,
+    num? length,
+    String? description,
+  }) = _TransactionCodeInformation;
+
+  factory TransactionCodeInformation.fromJson(Map<String, dynamic> json) => _$TransactionCodeInformationFromJson(json);
+}
+
+@freezed
 class TokenAuthenticationResponse with _$TokenAuthenticationResponse {
   factory TokenAuthenticationResponse({
     @JsonKey(name: 'access_token') required String accessToken,
-    @JsonKey(name: 'refresh_token') required String refreshToken,
     @JsonKey(name: 'token_type') required String tokenType,
     @JsonKey(name: 'expires_in') required int expiresIn,
-    @JsonKey(name: 'id_token') required String idToken,
     @JsonKey(name: 'c_nonce') required String cNonce,
     @JsonKey(name: 'c_nonce_expires_in') required int cNonceExpiresIn,
+    @JsonKey(name: 'refresh_token') String? refreshToken,
+    @JsonKey(name: 'id_token') String? idToken,
   }) = _TokenAuthenticationResponse;
 
   factory TokenAuthenticationResponse.fromJson(Map<String, dynamic> json) =>

@@ -266,6 +266,9 @@ CredentialPreauthorizationGrant _$CredentialPreauthorizationGrantFromJson(
 mixin _$CredentialPreauthorizationGrant {
   @JsonKey(name: 'pre-authorized_code')
   String get code => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tx_code')
+  TransactionCodeInformation? get transactionCode =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this CredentialPreauthorizationGrant to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -285,7 +288,11 @@ abstract class $CredentialPreauthorizationGrantCopyWith<$Res> {
       _$CredentialPreauthorizationGrantCopyWithImpl<$Res,
           CredentialPreauthorizationGrant>;
   @useResult
-  $Res call({@JsonKey(name: 'pre-authorized_code') String code});
+  $Res call(
+      {@JsonKey(name: 'pre-authorized_code') String code,
+      @JsonKey(name: 'tx_code') TransactionCodeInformation? transactionCode});
+
+  $TransactionCodeInformationCopyWith<$Res>? get transactionCode;
 }
 
 /// @nodoc
@@ -305,13 +312,33 @@ class _$CredentialPreauthorizationGrantCopyWithImpl<$Res,
   @override
   $Res call({
     Object? code = null,
+    Object? transactionCode = freezed,
   }) {
     return _then(_value.copyWith(
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      transactionCode: freezed == transactionCode
+          ? _value.transactionCode
+          : transactionCode // ignore: cast_nullable_to_non_nullable
+              as TransactionCodeInformation?,
     ) as $Val);
+  }
+
+  /// Create a copy of CredentialPreauthorizationGrant
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $TransactionCodeInformationCopyWith<$Res>? get transactionCode {
+    if (_value.transactionCode == null) {
+      return null;
+    }
+
+    return $TransactionCodeInformationCopyWith<$Res>(_value.transactionCode!,
+        (value) {
+      return _then(_value.copyWith(transactionCode: value) as $Val);
+    });
   }
 }
 
@@ -324,7 +351,12 @@ abstract class _$$CredentialPreauthorizationGrantImplCopyWith<$Res>
       __$$CredentialPreauthorizationGrantImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'pre-authorized_code') String code});
+  $Res call(
+      {@JsonKey(name: 'pre-authorized_code') String code,
+      @JsonKey(name: 'tx_code') TransactionCodeInformation? transactionCode});
+
+  @override
+  $TransactionCodeInformationCopyWith<$Res>? get transactionCode;
 }
 
 /// @nodoc
@@ -343,12 +375,17 @@ class __$$CredentialPreauthorizationGrantImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? code = null,
+    Object? transactionCode = freezed,
   }) {
     return _then(_$CredentialPreauthorizationGrantImpl(
       code: null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      transactionCode: freezed == transactionCode
+          ? _value.transactionCode
+          : transactionCode // ignore: cast_nullable_to_non_nullable
+              as TransactionCodeInformation?,
     ));
   }
 }
@@ -358,7 +395,8 @@ class __$$CredentialPreauthorizationGrantImplCopyWithImpl<$Res>
 class _$CredentialPreauthorizationGrantImpl
     implements _CredentialPreauthorizationGrant {
   _$CredentialPreauthorizationGrantImpl(
-      {@JsonKey(name: 'pre-authorized_code') required this.code});
+      {@JsonKey(name: 'pre-authorized_code') required this.code,
+      @JsonKey(name: 'tx_code') this.transactionCode});
 
   factory _$CredentialPreauthorizationGrantImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -367,10 +405,13 @@ class _$CredentialPreauthorizationGrantImpl
   @override
   @JsonKey(name: 'pre-authorized_code')
   final String code;
+  @override
+  @JsonKey(name: 'tx_code')
+  final TransactionCodeInformation? transactionCode;
 
   @override
   String toString() {
-    return 'CredentialPreauthorizationGrant(code: $code)';
+    return 'CredentialPreauthorizationGrant(code: $code, transactionCode: $transactionCode)';
   }
 
   @override
@@ -378,12 +419,14 @@ class _$CredentialPreauthorizationGrantImpl
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CredentialPreauthorizationGrantImpl &&
-            (identical(other.code, code) || other.code == code));
+            (identical(other.code, code) || other.code == code) &&
+            (identical(other.transactionCode, transactionCode) ||
+                other.transactionCode == transactionCode));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, code);
+  int get hashCode => Object.hash(runtimeType, code, transactionCode);
 
   /// Create a copy of CredentialPreauthorizationGrant
   /// with the given fields replaced by the non-null parameter values.
@@ -406,7 +449,9 @@ class _$CredentialPreauthorizationGrantImpl
 abstract class _CredentialPreauthorizationGrant
     implements CredentialPreauthorizationGrant {
   factory _CredentialPreauthorizationGrant(
-          {@JsonKey(name: 'pre-authorized_code') required final String code}) =
+          {@JsonKey(name: 'pre-authorized_code') required final String code,
+          @JsonKey(name: 'tx_code')
+          final TransactionCodeInformation? transactionCode}) =
       _$CredentialPreauthorizationGrantImpl;
 
   factory _CredentialPreauthorizationGrant.fromJson(Map<String, dynamic> json) =
@@ -415,6 +460,9 @@ abstract class _CredentialPreauthorizationGrant
   @override
   @JsonKey(name: 'pre-authorized_code')
   String get code;
+  @override
+  @JsonKey(name: 'tx_code')
+  TransactionCodeInformation? get transactionCode;
 
   /// Create a copy of CredentialPreauthorizationGrant
   /// with the given fields replaced by the non-null parameter values.
@@ -422,6 +470,213 @@ abstract class _CredentialPreauthorizationGrant
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CredentialPreauthorizationGrantImplCopyWith<
           _$CredentialPreauthorizationGrantImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+TransactionCodeInformation _$TransactionCodeInformationFromJson(
+    Map<String, dynamic> json) {
+  return _TransactionCodeInformation.fromJson(json);
+}
+
+/// @nodoc
+mixin _$TransactionCodeInformation {
+  @JsonKey(name: 'input_mode')
+  String? get inputMode => throw _privateConstructorUsedError;
+  num? get length => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+
+  /// Serializes this TransactionCodeInformation to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of TransactionCodeInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $TransactionCodeInformationCopyWith<TransactionCodeInformation>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $TransactionCodeInformationCopyWith<$Res> {
+  factory $TransactionCodeInformationCopyWith(TransactionCodeInformation value,
+          $Res Function(TransactionCodeInformation) then) =
+      _$TransactionCodeInformationCopyWithImpl<$Res,
+          TransactionCodeInformation>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'input_mode') String? inputMode,
+      num? length,
+      String? description});
+}
+
+/// @nodoc
+class _$TransactionCodeInformationCopyWithImpl<$Res,
+        $Val extends TransactionCodeInformation>
+    implements $TransactionCodeInformationCopyWith<$Res> {
+  _$TransactionCodeInformationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of TransactionCodeInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? inputMode = freezed,
+    Object? length = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_value.copyWith(
+      inputMode: freezed == inputMode
+          ? _value.inputMode
+          : inputMode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      length: freezed == length
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as num?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$TransactionCodeInformationImplCopyWith<$Res>
+    implements $TransactionCodeInformationCopyWith<$Res> {
+  factory _$$TransactionCodeInformationImplCopyWith(
+          _$TransactionCodeInformationImpl value,
+          $Res Function(_$TransactionCodeInformationImpl) then) =
+      __$$TransactionCodeInformationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'input_mode') String? inputMode,
+      num? length,
+      String? description});
+}
+
+/// @nodoc
+class __$$TransactionCodeInformationImplCopyWithImpl<$Res>
+    extends _$TransactionCodeInformationCopyWithImpl<$Res,
+        _$TransactionCodeInformationImpl>
+    implements _$$TransactionCodeInformationImplCopyWith<$Res> {
+  __$$TransactionCodeInformationImplCopyWithImpl(
+      _$TransactionCodeInformationImpl _value,
+      $Res Function(_$TransactionCodeInformationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of TransactionCodeInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? inputMode = freezed,
+    Object? length = freezed,
+    Object? description = freezed,
+  }) {
+    return _then(_$TransactionCodeInformationImpl(
+      inputMode: freezed == inputMode
+          ? _value.inputMode
+          : inputMode // ignore: cast_nullable_to_non_nullable
+              as String?,
+      length: freezed == length
+          ? _value.length
+          : length // ignore: cast_nullable_to_non_nullable
+              as num?,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$TransactionCodeInformationImpl implements _TransactionCodeInformation {
+  _$TransactionCodeInformationImpl(
+      {@JsonKey(name: 'input_mode') this.inputMode,
+      this.length,
+      this.description});
+
+  factory _$TransactionCodeInformationImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$TransactionCodeInformationImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'input_mode')
+  final String? inputMode;
+  @override
+  final num? length;
+  @override
+  final String? description;
+
+  @override
+  String toString() {
+    return 'TransactionCodeInformation(inputMode: $inputMode, length: $length, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$TransactionCodeInformationImpl &&
+            (identical(other.inputMode, inputMode) ||
+                other.inputMode == inputMode) &&
+            (identical(other.length, length) || other.length == length) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, inputMode, length, description);
+
+  /// Create a copy of TransactionCodeInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$TransactionCodeInformationImplCopyWith<_$TransactionCodeInformationImpl>
+      get copyWith => __$$TransactionCodeInformationImplCopyWithImpl<
+          _$TransactionCodeInformationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$TransactionCodeInformationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _TransactionCodeInformation
+    implements TransactionCodeInformation {
+  factory _TransactionCodeInformation(
+      {@JsonKey(name: 'input_mode') final String? inputMode,
+      final num? length,
+      final String? description}) = _$TransactionCodeInformationImpl;
+
+  factory _TransactionCodeInformation.fromJson(Map<String, dynamic> json) =
+      _$TransactionCodeInformationImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'input_mode')
+  String? get inputMode;
+  @override
+  num? get length;
+  @override
+  String? get description;
+
+  /// Create a copy of TransactionCodeInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$TransactionCodeInformationImplCopyWith<_$TransactionCodeInformationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -434,18 +689,18 @@ TokenAuthenticationResponse _$TokenAuthenticationResponseFromJson(
 mixin _$TokenAuthenticationResponse {
   @JsonKey(name: 'access_token')
   String get accessToken => throw _privateConstructorUsedError;
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'token_type')
   String get tokenType => throw _privateConstructorUsedError;
   @JsonKey(name: 'expires_in')
   int get expiresIn => throw _privateConstructorUsedError;
-  @JsonKey(name: 'id_token')
-  String get idToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'c_nonce')
   String get cNonce => throw _privateConstructorUsedError;
   @JsonKey(name: 'c_nonce_expires_in')
   int get cNonceExpiresIn => throw _privateConstructorUsedError;
+  @JsonKey(name: 'refresh_token')
+  String? get refreshToken => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id_token')
+  String? get idToken => throw _privateConstructorUsedError;
 
   /// Serializes this TokenAuthenticationResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -467,12 +722,12 @@ abstract class $TokenAuthenticationResponseCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String refreshToken,
       @JsonKey(name: 'token_type') String tokenType,
       @JsonKey(name: 'expires_in') int expiresIn,
-      @JsonKey(name: 'id_token') String idToken,
       @JsonKey(name: 'c_nonce') String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn});
+      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'refresh_token') String? refreshToken,
+      @JsonKey(name: 'id_token') String? idToken});
 }
 
 /// @nodoc
@@ -492,21 +747,17 @@ class _$TokenAuthenticationResponseCopyWithImpl<$Res,
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
     Object? tokenType = null,
     Object? expiresIn = null,
-    Object? idToken = null,
     Object? cNonce = null,
     Object? cNonceExpiresIn = null,
+    Object? refreshToken = freezed,
+    Object? idToken = freezed,
   }) {
     return _then(_value.copyWith(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
       tokenType: null == tokenType
           ? _value.tokenType
@@ -516,10 +767,6 @@ class _$TokenAuthenticationResponseCopyWithImpl<$Res,
           ? _value.expiresIn
           : expiresIn // ignore: cast_nullable_to_non_nullable
               as int,
-      idToken: null == idToken
-          ? _value.idToken
-          : idToken // ignore: cast_nullable_to_non_nullable
-              as String,
       cNonce: null == cNonce
           ? _value.cNonce
           : cNonce // ignore: cast_nullable_to_non_nullable
@@ -528,6 +775,14 @@ class _$TokenAuthenticationResponseCopyWithImpl<$Res,
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
               as int,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      idToken: freezed == idToken
+          ? _value.idToken
+          : idToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -543,12 +798,12 @@ abstract class _$$TokenAuthenticationResponseImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
-      @JsonKey(name: 'refresh_token') String refreshToken,
       @JsonKey(name: 'token_type') String tokenType,
       @JsonKey(name: 'expires_in') int expiresIn,
-      @JsonKey(name: 'id_token') String idToken,
       @JsonKey(name: 'c_nonce') String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn});
+      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'refresh_token') String? refreshToken,
+      @JsonKey(name: 'id_token') String? idToken});
 }
 
 /// @nodoc
@@ -567,21 +822,17 @@ class __$$TokenAuthenticationResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? accessToken = null,
-    Object? refreshToken = null,
     Object? tokenType = null,
     Object? expiresIn = null,
-    Object? idToken = null,
     Object? cNonce = null,
     Object? cNonceExpiresIn = null,
+    Object? refreshToken = freezed,
+    Object? idToken = freezed,
   }) {
     return _then(_$TokenAuthenticationResponseImpl(
       accessToken: null == accessToken
           ? _value.accessToken
           : accessToken // ignore: cast_nullable_to_non_nullable
-              as String,
-      refreshToken: null == refreshToken
-          ? _value.refreshToken
-          : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
       tokenType: null == tokenType
           ? _value.tokenType
@@ -591,10 +842,6 @@ class __$$TokenAuthenticationResponseImplCopyWithImpl<$Res>
           ? _value.expiresIn
           : expiresIn // ignore: cast_nullable_to_non_nullable
               as int,
-      idToken: null == idToken
-          ? _value.idToken
-          : idToken // ignore: cast_nullable_to_non_nullable
-              as String,
       cNonce: null == cNonce
           ? _value.cNonce
           : cNonce // ignore: cast_nullable_to_non_nullable
@@ -603,6 +850,14 @@ class __$$TokenAuthenticationResponseImplCopyWithImpl<$Res>
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
               as int,
+      refreshToken: freezed == refreshToken
+          ? _value.refreshToken
+          : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String?,
+      idToken: freezed == idToken
+          ? _value.idToken
+          : idToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -613,12 +868,12 @@ class _$TokenAuthenticationResponseImpl
     implements _TokenAuthenticationResponse {
   _$TokenAuthenticationResponseImpl(
       {@JsonKey(name: 'access_token') required this.accessToken,
-      @JsonKey(name: 'refresh_token') required this.refreshToken,
       @JsonKey(name: 'token_type') required this.tokenType,
       @JsonKey(name: 'expires_in') required this.expiresIn,
-      @JsonKey(name: 'id_token') required this.idToken,
       @JsonKey(name: 'c_nonce') required this.cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') required this.cNonceExpiresIn});
+      @JsonKey(name: 'c_nonce_expires_in') required this.cNonceExpiresIn,
+      @JsonKey(name: 'refresh_token') this.refreshToken,
+      @JsonKey(name: 'id_token') this.idToken});
 
   factory _$TokenAuthenticationResponseImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -628,27 +883,27 @@ class _$TokenAuthenticationResponseImpl
   @JsonKey(name: 'access_token')
   final String accessToken;
   @override
-  @JsonKey(name: 'refresh_token')
-  final String refreshToken;
-  @override
   @JsonKey(name: 'token_type')
   final String tokenType;
   @override
   @JsonKey(name: 'expires_in')
   final int expiresIn;
   @override
-  @JsonKey(name: 'id_token')
-  final String idToken;
-  @override
   @JsonKey(name: 'c_nonce')
   final String cNonce;
   @override
   @JsonKey(name: 'c_nonce_expires_in')
   final int cNonceExpiresIn;
+  @override
+  @JsonKey(name: 'refresh_token')
+  final String? refreshToken;
+  @override
+  @JsonKey(name: 'id_token')
+  final String? idToken;
 
   @override
   String toString() {
-    return 'TokenAuthenticationResponse(accessToken: $accessToken, refreshToken: $refreshToken, tokenType: $tokenType, expiresIn: $expiresIn, idToken: $idToken, cNonce: $cNonce, cNonceExpiresIn: $cNonceExpiresIn)';
+    return 'TokenAuthenticationResponse(accessToken: $accessToken, tokenType: $tokenType, expiresIn: $expiresIn, cNonce: $cNonce, cNonceExpiresIn: $cNonceExpiresIn, refreshToken: $refreshToken, idToken: $idToken)';
   }
 
   @override
@@ -658,22 +913,22 @@ class _$TokenAuthenticationResponseImpl
             other is _$TokenAuthenticationResponseImpl &&
             (identical(other.accessToken, accessToken) ||
                 other.accessToken == accessToken) &&
-            (identical(other.refreshToken, refreshToken) ||
-                other.refreshToken == refreshToken) &&
             (identical(other.tokenType, tokenType) ||
                 other.tokenType == tokenType) &&
             (identical(other.expiresIn, expiresIn) ||
                 other.expiresIn == expiresIn) &&
-            (identical(other.idToken, idToken) || other.idToken == idToken) &&
             (identical(other.cNonce, cNonce) || other.cNonce == cNonce) &&
             (identical(other.cNonceExpiresIn, cNonceExpiresIn) ||
-                other.cNonceExpiresIn == cNonceExpiresIn));
+                other.cNonceExpiresIn == cNonceExpiresIn) &&
+            (identical(other.refreshToken, refreshToken) ||
+                other.refreshToken == refreshToken) &&
+            (identical(other.idToken, idToken) || other.idToken == idToken));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, accessToken, refreshToken,
-      tokenType, expiresIn, idToken, cNonce, cNonceExpiresIn);
+  int get hashCode => Object.hash(runtimeType, accessToken, tokenType,
+      expiresIn, cNonce, cNonceExpiresIn, refreshToken, idToken);
 
   /// Create a copy of TokenAuthenticationResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -696,13 +951,13 @@ abstract class _TokenAuthenticationResponse
     implements TokenAuthenticationResponse {
   factory _TokenAuthenticationResponse(
       {@JsonKey(name: 'access_token') required final String accessToken,
-      @JsonKey(name: 'refresh_token') required final String refreshToken,
       @JsonKey(name: 'token_type') required final String tokenType,
       @JsonKey(name: 'expires_in') required final int expiresIn,
-      @JsonKey(name: 'id_token') required final String idToken,
       @JsonKey(name: 'c_nonce') required final String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in')
-      required final int cNonceExpiresIn}) = _$TokenAuthenticationResponseImpl;
+      @JsonKey(name: 'c_nonce_expires_in') required final int cNonceExpiresIn,
+      @JsonKey(name: 'refresh_token') final String? refreshToken,
+      @JsonKey(name: 'id_token')
+      final String? idToken}) = _$TokenAuthenticationResponseImpl;
 
   factory _TokenAuthenticationResponse.fromJson(Map<String, dynamic> json) =
       _$TokenAuthenticationResponseImpl.fromJson;
@@ -711,23 +966,23 @@ abstract class _TokenAuthenticationResponse
   @JsonKey(name: 'access_token')
   String get accessToken;
   @override
-  @JsonKey(name: 'refresh_token')
-  String get refreshToken;
-  @override
   @JsonKey(name: 'token_type')
   String get tokenType;
   @override
   @JsonKey(name: 'expires_in')
   int get expiresIn;
   @override
-  @JsonKey(name: 'id_token')
-  String get idToken;
-  @override
   @JsonKey(name: 'c_nonce')
   String get cNonce;
   @override
   @JsonKey(name: 'c_nonce_expires_in')
   int get cNonceExpiresIn;
+  @override
+  @JsonKey(name: 'refresh_token')
+  String? get refreshToken;
+  @override
+  @JsonKey(name: 'id_token')
+  String? get idToken;
 
   /// Create a copy of TokenAuthenticationResponse
   /// with the given fields replaced by the non-null parameter values.
