@@ -416,12 +416,12 @@ SupportedCredentialDisplayInformation
 mixin _$SupportedCredentialDisplayInformation {
   String get name => throw _privateConstructorUsedError;
   String get locale => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'background_color')
   String get backgroudColor => throw _privateConstructorUsedError;
   @JsonKey(name: 'text_color')
   String get textColor => throw _privateConstructorUsedError;
   SupportedCredentialIssuerLogo get logo => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
 
   /// Serializes this SupportedCredentialDisplayInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -445,10 +445,10 @@ abstract class $SupportedCredentialDisplayInformationCopyWith<$Res> {
   $Res call(
       {String name,
       String locale,
-      String description,
       @JsonKey(name: 'background_color') String backgroudColor,
       @JsonKey(name: 'text_color') String textColor,
-      SupportedCredentialIssuerLogo logo});
+      SupportedCredentialIssuerLogo logo,
+      String? description});
 
   $SupportedCredentialIssuerLogoCopyWith<$Res> get logo;
 }
@@ -471,10 +471,10 @@ class _$SupportedCredentialDisplayInformationCopyWithImpl<$Res,
   $Res call({
     Object? name = null,
     Object? locale = null,
-    Object? description = null,
     Object? backgroudColor = null,
     Object? textColor = null,
     Object? logo = null,
+    Object? description = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -484,10 +484,6 @@ class _$SupportedCredentialDisplayInformationCopyWithImpl<$Res,
       locale: null == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       backgroudColor: null == backgroudColor
           ? _value.backgroudColor
@@ -501,6 +497,10 @@ class _$SupportedCredentialDisplayInformationCopyWithImpl<$Res,
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as SupportedCredentialIssuerLogo,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -527,10 +527,10 @@ abstract class _$$SupportedCredentialDisplayInformationImplCopyWith<$Res>
   $Res call(
       {String name,
       String locale,
-      String description,
       @JsonKey(name: 'background_color') String backgroudColor,
       @JsonKey(name: 'text_color') String textColor,
-      SupportedCredentialIssuerLogo logo});
+      SupportedCredentialIssuerLogo logo,
+      String? description});
 
   @override
   $SupportedCredentialIssuerLogoCopyWith<$Res> get logo;
@@ -553,10 +553,10 @@ class __$$SupportedCredentialDisplayInformationImplCopyWithImpl<$Res>
   $Res call({
     Object? name = null,
     Object? locale = null,
-    Object? description = null,
     Object? backgroudColor = null,
     Object? textColor = null,
     Object? logo = null,
+    Object? description = freezed,
   }) {
     return _then(_$SupportedCredentialDisplayInformationImpl(
       name: null == name
@@ -566,10 +566,6 @@ class __$$SupportedCredentialDisplayInformationImplCopyWithImpl<$Res>
       locale: null == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
               as String,
       backgroudColor: null == backgroudColor
           ? _value.backgroudColor
@@ -583,6 +579,10 @@ class __$$SupportedCredentialDisplayInformationImplCopyWithImpl<$Res>
           ? _value.logo
           : logo // ignore: cast_nullable_to_non_nullable
               as SupportedCredentialIssuerLogo,
+      description: freezed == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -595,10 +595,10 @@ class _$SupportedCredentialDisplayInformationImpl
   _$SupportedCredentialDisplayInformationImpl(
       {required this.name,
       required this.locale,
-      required this.description,
       @JsonKey(name: 'background_color') required this.backgroudColor,
       @JsonKey(name: 'text_color') required this.textColor,
-      required this.logo});
+      required this.logo,
+      this.description});
 
   factory _$SupportedCredentialDisplayInformationImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -609,8 +609,6 @@ class _$SupportedCredentialDisplayInformationImpl
   @override
   final String locale;
   @override
-  final String description;
-  @override
   @JsonKey(name: 'background_color')
   final String backgroudColor;
   @override
@@ -618,10 +616,12 @@ class _$SupportedCredentialDisplayInformationImpl
   final String textColor;
   @override
   final SupportedCredentialIssuerLogo logo;
+  @override
+  final String? description;
 
   @override
   String toString() {
-    return 'SupportedCredentialDisplayInformation(name: $name, locale: $locale, description: $description, backgroudColor: $backgroudColor, textColor: $textColor, logo: $logo)';
+    return 'SupportedCredentialDisplayInformation(name: $name, locale: $locale, backgroudColor: $backgroudColor, textColor: $textColor, logo: $logo, description: $description)';
   }
 
   @override
@@ -631,19 +631,19 @@ class _$SupportedCredentialDisplayInformationImpl
             other is _$SupportedCredentialDisplayInformationImpl &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.locale, locale) || other.locale == locale) &&
-            (identical(other.description, description) ||
-                other.description == description) &&
             (identical(other.backgroudColor, backgroudColor) ||
                 other.backgroudColor == backgroudColor) &&
             (identical(other.textColor, textColor) ||
                 other.textColor == textColor) &&
-            (identical(other.logo, logo) || other.logo == logo));
+            (identical(other.logo, logo) || other.logo == logo) &&
+            (identical(other.description, description) ||
+                other.description == description));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, name, locale, description, backgroudColor, textColor, logo);
+      runtimeType, name, locale, backgroudColor, textColor, logo, description);
 
   /// Create a copy of SupportedCredentialDisplayInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -668,11 +668,10 @@ abstract class _SupportedCredentialDisplayInformation
   factory _SupportedCredentialDisplayInformation(
       {required final String name,
       required final String locale,
-      required final String description,
       @JsonKey(name: 'background_color') required final String backgroudColor,
       @JsonKey(name: 'text_color') required final String textColor,
-      required final SupportedCredentialIssuerLogo
-          logo}) = _$SupportedCredentialDisplayInformationImpl;
+      required final SupportedCredentialIssuerLogo logo,
+      final String? description}) = _$SupportedCredentialDisplayInformationImpl;
 
   factory _SupportedCredentialDisplayInformation.fromJson(
           Map<String, dynamic> json) =
@@ -683,8 +682,6 @@ abstract class _SupportedCredentialDisplayInformation
   @override
   String get locale;
   @override
-  String get description;
-  @override
   @JsonKey(name: 'background_color')
   String get backgroudColor;
   @override
@@ -692,6 +689,8 @@ abstract class _SupportedCredentialDisplayInformation
   String get textColor;
   @override
   SupportedCredentialIssuerLogo get logo;
+  @override
+  String? get description;
 
   /// Create a copy of SupportedCredentialDisplayInformation
   /// with the given fields replaced by the non-null parameter values.

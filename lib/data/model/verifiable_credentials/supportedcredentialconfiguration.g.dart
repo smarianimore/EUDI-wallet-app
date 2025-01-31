@@ -54,11 +54,11 @@ _$SupportedCredentialDisplayInformationImpl
         _$SupportedCredentialDisplayInformationImpl(
           name: json['name'] as String,
           locale: json['locale'] as String,
-          description: json['description'] as String,
           backgroudColor: json['background_color'] as String,
           textColor: json['text_color'] as String,
           logo: SupportedCredentialIssuerLogo.fromJson(
               json['logo'] as Map<String, dynamic>),
+          description: json['description'] as String?,
         );
 
 Map<String, dynamic> _$$SupportedCredentialDisplayInformationImplToJson(
@@ -66,10 +66,10 @@ Map<String, dynamic> _$$SupportedCredentialDisplayInformationImplToJson(
     <String, dynamic>{
       'name': instance.name,
       'locale': instance.locale,
-      'description': instance.description,
       'background_color': instance.backgroudColor,
       'text_color': instance.textColor,
       'logo': instance.logo.toJson(),
+      'description': instance.description,
     };
 
 _$SupportedCredentialIssuerLogoImpl

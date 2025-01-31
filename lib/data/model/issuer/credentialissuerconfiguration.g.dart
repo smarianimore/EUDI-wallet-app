@@ -46,9 +46,13 @@ _$CredentialIssuerDisplayInformationImpl
             Map<String, dynamic> json) =>
         _$CredentialIssuerDisplayInformationImpl(
           name: json['name'] as String,
-          location: json['location'] as String,
-          locale: json['locale'] as String,
-          description: json['description'] as String,
+          location: json['location'] as String?,
+          locale: json['locale'] as String?,
+          description: json['description'] as String?,
+          logo: json['logo'] == null
+              ? null
+              : CredentialIssuerLogoInformation.fromJson(
+                  json['logo'] as Map<String, dynamic>),
         );
 
 Map<String, dynamic> _$$CredentialIssuerDisplayInformationImplToJson(
@@ -58,4 +62,17 @@ Map<String, dynamic> _$$CredentialIssuerDisplayInformationImplToJson(
       'location': instance.location,
       'locale': instance.locale,
       'description': instance.description,
+      'logo': instance.logo,
+    };
+
+_$CredentialIssuerLogoInformationImpl
+    _$$CredentialIssuerLogoInformationImplFromJson(Map<String, dynamic> json) =>
+        _$CredentialIssuerLogoInformationImpl(
+          uri: json['uri'] as String,
+        );
+
+Map<String, dynamic> _$$CredentialIssuerLogoInformationImplToJson(
+        _$CredentialIssuerLogoInformationImpl instance) =>
+    <String, dynamic>{
+      'uri': instance.uri,
     };

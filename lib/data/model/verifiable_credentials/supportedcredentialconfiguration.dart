@@ -29,10 +29,10 @@ class SupportedCredentialDisplayInformation with _$SupportedCredentialDisplayInf
   factory SupportedCredentialDisplayInformation({
     required String name,
     required String locale,
-    required String description,
     @JsonKey(name: 'background_color') required String backgroudColor,
     @JsonKey(name: 'text_color') required String textColor,
     required SupportedCredentialIssuerLogo logo,
+    String? description,
   }) = _SupportedCredentialDisplayInformation;
 
   factory SupportedCredentialDisplayInformation.fromJson(Map<String, dynamic> json) =>

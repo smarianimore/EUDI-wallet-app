@@ -24,11 +24,22 @@ class CredentialIssuerConfiguration with _$CredentialIssuerConfiguration {
 class CredentialIssuerDisplayInformation with _$CredentialIssuerDisplayInformation {
   factory CredentialIssuerDisplayInformation({
     required String name,
-    required String location,
-    required String locale,
-    required String description,
+    String? location,
+    String? locale,
+    String? description,
+    CredentialIssuerLogoInformation? logo,
   }) = _CredentialIssuerDisplayInformation;
 
   factory CredentialIssuerDisplayInformation.fromJson(Map<String, dynamic> json) =>
       _$CredentialIssuerDisplayInformationFromJson(json);
+}
+
+@freezed
+class CredentialIssuerLogoInformation with _$CredentialIssuerLogoInformation {
+  factory CredentialIssuerLogoInformation({
+    required String uri,
+  }) = _CredentialIssuerLogoInformation;
+
+  factory CredentialIssuerLogoInformation.fromJson(Map<String, dynamic> json) =>
+      _$CredentialIssuerLogoInformationFromJson(json);
 }

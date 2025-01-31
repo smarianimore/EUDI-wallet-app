@@ -335,9 +335,11 @@ CredentialIssuerDisplayInformation _$CredentialIssuerDisplayInformationFromJson(
 /// @nodoc
 mixin _$CredentialIssuerDisplayInformation {
   String get name => throw _privateConstructorUsedError;
-  String get location => throw _privateConstructorUsedError;
-  String get locale => throw _privateConstructorUsedError;
-  String get description => throw _privateConstructorUsedError;
+  String? get location => throw _privateConstructorUsedError;
+  String? get locale => throw _privateConstructorUsedError;
+  String? get description => throw _privateConstructorUsedError;
+  CredentialIssuerLogoInformation? get logo =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this CredentialIssuerDisplayInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -358,7 +360,14 @@ abstract class $CredentialIssuerDisplayInformationCopyWith<$Res> {
       _$CredentialIssuerDisplayInformationCopyWithImpl<$Res,
           CredentialIssuerDisplayInformation>;
   @useResult
-  $Res call({String name, String location, String locale, String description});
+  $Res call(
+      {String name,
+      String? location,
+      String? locale,
+      String? description,
+      CredentialIssuerLogoInformation? logo});
+
+  $CredentialIssuerLogoInformationCopyWith<$Res>? get logo;
 }
 
 /// @nodoc
@@ -378,28 +387,48 @@ class _$CredentialIssuerDisplayInformationCopyWithImpl<$Res,
   @override
   $Res call({
     Object? name = null,
-    Object? location = null,
-    Object? locale = null,
-    Object? description = null,
+    Object? location = freezed,
+    Object? locale = freezed,
+    Object? description = freezed,
+    Object? logo = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      locale: null == locale
+              as String?,
+      locale: freezed == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      logo: freezed == logo
+          ? _value.logo
+          : logo // ignore: cast_nullable_to_non_nullable
+              as CredentialIssuerLogoInformation?,
     ) as $Val);
+  }
+
+  /// Create a copy of CredentialIssuerDisplayInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CredentialIssuerLogoInformationCopyWith<$Res>? get logo {
+    if (_value.logo == null) {
+      return null;
+    }
+
+    return $CredentialIssuerLogoInformationCopyWith<$Res>(_value.logo!,
+        (value) {
+      return _then(_value.copyWith(logo: value) as $Val);
+    });
   }
 }
 
@@ -412,7 +441,15 @@ abstract class _$$CredentialIssuerDisplayInformationImplCopyWith<$Res>
       __$$CredentialIssuerDisplayInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String location, String locale, String description});
+  $Res call(
+      {String name,
+      String? location,
+      String? locale,
+      String? description,
+      CredentialIssuerLogoInformation? logo});
+
+  @override
+  $CredentialIssuerLogoInformationCopyWith<$Res>? get logo;
 }
 
 /// @nodoc
@@ -431,27 +468,32 @@ class __$$CredentialIssuerDisplayInformationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? name = null,
-    Object? location = null,
-    Object? locale = null,
-    Object? description = null,
+    Object? location = freezed,
+    Object? locale = freezed,
+    Object? description = freezed,
+    Object? logo = freezed,
   }) {
     return _then(_$CredentialIssuerDisplayInformationImpl(
       name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      location: null == location
+      location: freezed == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
-              as String,
-      locale: null == locale
+              as String?,
+      locale: freezed == locale
           ? _value.locale
           : locale // ignore: cast_nullable_to_non_nullable
-              as String,
-      description: null == description
+              as String?,
+      description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
+      logo: freezed == logo
+          ? _value.logo
+          : logo // ignore: cast_nullable_to_non_nullable
+              as CredentialIssuerLogoInformation?,
     ));
   }
 }
@@ -462,9 +504,10 @@ class _$CredentialIssuerDisplayInformationImpl
     implements _CredentialIssuerDisplayInformation {
   _$CredentialIssuerDisplayInformationImpl(
       {required this.name,
-      required this.location,
-      required this.locale,
-      required this.description});
+      this.location,
+      this.locale,
+      this.description,
+      this.logo});
 
   factory _$CredentialIssuerDisplayInformationImpl.fromJson(
           Map<String, dynamic> json) =>
@@ -473,15 +516,17 @@ class _$CredentialIssuerDisplayInformationImpl
   @override
   final String name;
   @override
-  final String location;
+  final String? location;
   @override
-  final String locale;
+  final String? locale;
   @override
-  final String description;
+  final String? description;
+  @override
+  final CredentialIssuerLogoInformation? logo;
 
   @override
   String toString() {
-    return 'CredentialIssuerDisplayInformation(name: $name, location: $location, locale: $locale, description: $description)';
+    return 'CredentialIssuerDisplayInformation(name: $name, location: $location, locale: $locale, description: $description, logo: $logo)';
   }
 
   @override
@@ -494,13 +539,14 @@ class _$CredentialIssuerDisplayInformationImpl
                 other.location == location) &&
             (identical(other.locale, locale) || other.locale == locale) &&
             (identical(other.description, description) ||
-                other.description == description));
+                other.description == description) &&
+            (identical(other.logo, logo) || other.logo == logo));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, name, location, locale, description);
+      Object.hash(runtimeType, name, location, locale, description, logo);
 
   /// Create a copy of CredentialIssuerDisplayInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -524,9 +570,10 @@ abstract class _CredentialIssuerDisplayInformation
     implements CredentialIssuerDisplayInformation {
   factory _CredentialIssuerDisplayInformation(
           {required final String name,
-          required final String location,
-          required final String locale,
-          required final String description}) =
+          final String? location,
+          final String? locale,
+          final String? description,
+          final CredentialIssuerLogoInformation? logo}) =
       _$CredentialIssuerDisplayInformationImpl;
 
   factory _CredentialIssuerDisplayInformation.fromJson(
@@ -536,11 +583,13 @@ abstract class _CredentialIssuerDisplayInformation
   @override
   String get name;
   @override
-  String get location;
+  String? get location;
   @override
-  String get locale;
+  String? get locale;
   @override
-  String get description;
+  String? get description;
+  @override
+  CredentialIssuerLogoInformation? get logo;
 
   /// Create a copy of CredentialIssuerDisplayInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -548,5 +597,168 @@ abstract class _CredentialIssuerDisplayInformation
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CredentialIssuerDisplayInformationImplCopyWith<
           _$CredentialIssuerDisplayInformationImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+CredentialIssuerLogoInformation _$CredentialIssuerLogoInformationFromJson(
+    Map<String, dynamic> json) {
+  return _CredentialIssuerLogoInformation.fromJson(json);
+}
+
+/// @nodoc
+mixin _$CredentialIssuerLogoInformation {
+  String get uri => throw _privateConstructorUsedError;
+
+  /// Serializes this CredentialIssuerLogoInformation to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of CredentialIssuerLogoInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CredentialIssuerLogoInformationCopyWith<CredentialIssuerLogoInformation>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $CredentialIssuerLogoInformationCopyWith<$Res> {
+  factory $CredentialIssuerLogoInformationCopyWith(
+          CredentialIssuerLogoInformation value,
+          $Res Function(CredentialIssuerLogoInformation) then) =
+      _$CredentialIssuerLogoInformationCopyWithImpl<$Res,
+          CredentialIssuerLogoInformation>;
+  @useResult
+  $Res call({String uri});
+}
+
+/// @nodoc
+class _$CredentialIssuerLogoInformationCopyWithImpl<$Res,
+        $Val extends CredentialIssuerLogoInformation>
+    implements $CredentialIssuerLogoInformationCopyWith<$Res> {
+  _$CredentialIssuerLogoInformationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of CredentialIssuerLogoInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uri = null,
+  }) {
+    return _then(_value.copyWith(
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$CredentialIssuerLogoInformationImplCopyWith<$Res>
+    implements $CredentialIssuerLogoInformationCopyWith<$Res> {
+  factory _$$CredentialIssuerLogoInformationImplCopyWith(
+          _$CredentialIssuerLogoInformationImpl value,
+          $Res Function(_$CredentialIssuerLogoInformationImpl) then) =
+      __$$CredentialIssuerLogoInformationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String uri});
+}
+
+/// @nodoc
+class __$$CredentialIssuerLogoInformationImplCopyWithImpl<$Res>
+    extends _$CredentialIssuerLogoInformationCopyWithImpl<$Res,
+        _$CredentialIssuerLogoInformationImpl>
+    implements _$$CredentialIssuerLogoInformationImplCopyWith<$Res> {
+  __$$CredentialIssuerLogoInformationImplCopyWithImpl(
+      _$CredentialIssuerLogoInformationImpl _value,
+      $Res Function(_$CredentialIssuerLogoInformationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CredentialIssuerLogoInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? uri = null,
+  }) {
+    return _then(_$CredentialIssuerLogoInformationImpl(
+      uri: null == uri
+          ? _value.uri
+          : uri // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$CredentialIssuerLogoInformationImpl
+    implements _CredentialIssuerLogoInformation {
+  _$CredentialIssuerLogoInformationImpl({required this.uri});
+
+  factory _$CredentialIssuerLogoInformationImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$CredentialIssuerLogoInformationImplFromJson(json);
+
+  @override
+  final String uri;
+
+  @override
+  String toString() {
+    return 'CredentialIssuerLogoInformation(uri: $uri)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$CredentialIssuerLogoInformationImpl &&
+            (identical(other.uri, uri) || other.uri == uri));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, uri);
+
+  /// Create a copy of CredentialIssuerLogoInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$CredentialIssuerLogoInformationImplCopyWith<
+          _$CredentialIssuerLogoInformationImpl>
+      get copyWith => __$$CredentialIssuerLogoInformationImplCopyWithImpl<
+          _$CredentialIssuerLogoInformationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CredentialIssuerLogoInformationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _CredentialIssuerLogoInformation
+    implements CredentialIssuerLogoInformation {
+  factory _CredentialIssuerLogoInformation({required final String uri}) =
+      _$CredentialIssuerLogoInformationImpl;
+
+  factory _CredentialIssuerLogoInformation.fromJson(Map<String, dynamic> json) =
+      _$CredentialIssuerLogoInformationImpl.fromJson;
+
+  @override
+  String get uri;
+
+  /// Create a copy of CredentialIssuerLogoInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$CredentialIssuerLogoInformationImplCopyWith<
+          _$CredentialIssuerLogoInformationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

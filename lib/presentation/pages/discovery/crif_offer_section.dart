@@ -74,8 +74,10 @@ class _IssuerDisplayInformationCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(issuer.name),
-            const WidgetSeparator.small(),
-            Text(issuer.description),
+            if (issuer.description != null) ...[
+              const WidgetSeparator.small(),
+              Text(issuer.description!),
+            ],
           ],
         ),
       ),
@@ -125,11 +127,13 @@ class _SupportedCredentialComponent extends ConsumerWidget {
     final display = credential.display.first;
     return ExpansionTile(
       title: Text(display.name),
-      subtitle: Text(
-        display.description,
-        maxLines: 2,
-        overflow: TextOverflow.ellipsis,
-      ),
+      subtitle: display.description == null
+          ? null
+          : Text(
+              display.description!,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
       leading: CircleAvatar(backgroundImage: NetworkImage(display.logo.uri)),
       expandedCrossAxisAlignment: CrossAxisAlignment.stretch,
       tilePadding: EdgeInsets.zero,
