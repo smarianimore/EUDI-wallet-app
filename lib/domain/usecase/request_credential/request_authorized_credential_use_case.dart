@@ -6,6 +6,8 @@ import 'package:birex/data/repository/verifiable_credential/i_verifiable_credent
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
+import 'package:birex/presentation/pages/qr_code/transaction_code_input_bottom_sheet.dart';
+import 'package:birex/service/bottom_sheet.dart/bottom_sheet_service.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
@@ -19,6 +21,7 @@ part 'request_authorized_credential_use_case.g.dart';
 @riverpod
 RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
   return RequestAuthorizedCredentialUseCase(
+    bottomSheetService: ref.read(bottomSheetServiceProvider),
     repository: ref.read(authenticationRepositoryProvider),
     verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
     wellKnownRepository: ref.read(wellKnownRepositoryProvider),
@@ -27,6 +30,7 @@ RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
 
 class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, CredentialPreauthorizationResponse> {
   RequestAuthorizedCredentialUseCase({
+    required this.bottomSheetService,
     required this.repository,
     required this.verifiableCredentialRepository,
     required this.wellKnownRepository,
@@ -36,6 +40,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     super.validators,
   });
 
+  final BottomSheetService bottomSheetService;
   final IAuthenticationRepository repository;
   final IWellKnownRepository wellKnownRepository;
   final IVerifiableCredentialRepository verifiableCredentialRepository;
@@ -61,11 +66,25 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     final oauthPayload = oauthResponse.payload;
     if (oauthResponse.isError || oauthPayload == null) return _closeRequest(oauthResponse, input: input);
 
+    final preAuthorizedGrant = input.grants.entries.first;
+    final preAuthorizedGrantProperties = preAuthorizedGrant.value;
+    final preAuthorizedGrantName = preAuthorizedGrant.key;
+
+    String? txCode;
+
+    if (preAuthorizedGrantProperties.transactionCode != null) {
+      txCode = await bottomSheetService.showCustomBottomSheet<String>(
+        bottomSheetBuilder: (context) => const TransactionCodeInputBottomSheet(),
+      );
+      // Show dialog to input transaction code
+    }
+
     /* Credential request */
     final loginResponse = await repository.login(
       uri: oauthPayload.tokenEndpoint,
-      code: input.grants.entries.first.value.code,
-      grantType: input.grants.entries.first.key,
+      code: preAuthorizedGrantProperties.code,
+      grantType: preAuthorizedGrantName,
+      transactionCode: txCode,
     );
     final loginPayload = loginResponse.payload;
     if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);

@@ -42,15 +42,19 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
     required String uri,
     required String code,
     required String grantType,
+    String? transactionCode,
   }) {
-    final parameters = FormData.fromMap({
-      'pre-authorized_code': code,
-      'grant_type': grantType,
-    });
     return handleResponse<TokenAuthenticationResponse>(
       request: () => dio.post(
         uri,
-        data: parameters,
+        options: Options(
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        ),
+        data: {
+          'pre-authorized_code': code,
+          'grant_type': grantType,
+          if (transactionCode != null) 'tx_code': transactionCode,
+        },
       ),
       payloadMapper: TokenAuthenticationResponse.fromJson,
     );

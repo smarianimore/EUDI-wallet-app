@@ -15,5 +15,6 @@ abstract class IAuthenticationRepository {
     required String uri,
     required String code,
     required String grantType,
+    String? transactionCode,
   });
 }
