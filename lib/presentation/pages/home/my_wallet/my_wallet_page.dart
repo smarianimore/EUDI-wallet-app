@@ -34,7 +34,7 @@ class MyWalletPage extends ConsumerWidget {
 }
 
 class _EmptyWalletBuilder extends StatelessWidget {
-  const _EmptyWalletBuilder({super.key});
+  const _EmptyWalletBuilder();
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,6 @@ class _EmptyWalletBuilder extends StatelessWidget {
 class _CredentialListSection extends StatelessWidget {
   const _CredentialListSection({
     required this.values,
-    super.key,
   });
 
   final List<VerifiableCredential> values;
