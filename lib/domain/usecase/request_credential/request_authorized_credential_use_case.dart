@@ -8,11 +8,11 @@ import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
 import 'package:birex/presentation/pages/qr_code/transaction_code_input_bottom_sheet.dart';
 import 'package:birex/service/bottom_sheet.dart/bottom_sheet_service.dart';
+import 'package:birex/service/jwt/jwt_service.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/use_case.dart';
-import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -22,6 +22,7 @@ part 'request_authorized_credential_use_case.g.dart';
 RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
   return RequestAuthorizedCredentialUseCase(
     bottomSheetService: ref.read(bottomSheetServiceProvider),
+    jwtService: ref.read(jwtServiceProvider).builder(),
     repository: ref.read(authenticationRepositoryProvider),
     verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
     wellKnownRepository: ref.read(wellKnownRepositoryProvider),
@@ -31,6 +32,7 @@ RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
 class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, CredentialPreauthorizationResponse> {
   RequestAuthorizedCredentialUseCase({
     required this.bottomSheetService,
+    required this.jwtService,
     required this.repository,
     required this.verifiableCredentialRepository,
     required this.wellKnownRepository,
@@ -41,6 +43,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
   });
 
   final BottomSheetService bottomSheetService;
+  final JWTBuilder jwtService;
   final IAuthenticationRepository repository;
   final IWellKnownRepository wellKnownRepository;
   final IVerifiableCredentialRepository verifiableCredentialRepository;
@@ -95,25 +98,15 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final keyProofPayload = keyProofResponse.payload;
     if (keyProofResponse.isError || keyProofPayload == null) return _closeRequest(keyProofResponse, input: input);
-    final jwt = JWT(
-      {
-        'aud': issuerPayload.credentialIssuer,
-        'iat': DateTime.now().millisecondsSinceEpoch,
-        'nonce': loginPayload.cNonce,
-      },
+    final jwt = jwtService.buildVCLoginJWT(
       issuer: issuerPayload.credentialIssuer,
-      header: {
-        'type': 'openid4vci-proof+jwt',
-        'alg': 'ES256',
-        'jwk': {
-          'kty': keyProofPayload.kty,
-          'crv': keyProofPayload.crv,
-          'x': keyProofPayload.x,
-          'y': keyProofPayload.y,
-        },
-      },
+      nonce: loginPayload.cNonce,
+      kty: keyProofPayload.kty,
+      crv: keyProofPayload.crv,
+      x: keyProofPayload.x,
+      y: keyProofPayload.y,
     );
-    final jwtToken = jwt.sign(SecretKey(keyProofPayload.x));
+    final jwtToken = jwtService.signJWT(jwt, keyProofPayload.x);
     final credentialResponse = await keyProofResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         accessToken: loginPayload.accessToken,

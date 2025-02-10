@@ -10,11 +10,13 @@ JWTService jwtService(Ref ref) {
 }
 
 class JWTService {
-  JWTComposer manageJWT(String jwt) => JWTComposer(jwt: JWT.decode(jwt));
+  JWTInspector manageJWT(String jwt) => JWTInspector(jwt: JWT.decode(jwt));
+
+  JWTBuilder builder() => JWTBuilder();
 }
 
-class JWTComposer {
-  JWTComposer({required this.jwt});
+class JWTInspector {
+  JWTInspector({required this.jwt});
 
   final JWT jwt;
 
@@ -36,5 +38,39 @@ class JWTComposer {
       ..remove('_sd_alg')
       ..remove('cnf');
     return focusedClaims;
+  }
+}
+
+class JWTBuilder {
+  JWT buildVCLoginJWT({
+    required String issuer,
+    required String nonce,
+    required String kty,
+    required String crv,
+    required String x,
+    required String y,
+  }) {
+    return JWT(
+      {
+        'aud': issuer,
+        'iat': DateTime.now().millisecondsSinceEpoch,
+        'nonce': nonce,
+      },
+      issuer: issuer,
+      header: {
+        'type': 'openid4vci-proof+jwt',
+        'alg': 'ES256',
+        'jwk': {
+          'kty': kty,
+          'crv': crv,
+          'x': x,
+          'y': y,
+        },
+      },
+    );
+  }
+
+  String signJWT(JWT jwt, String x) {
+    return jwt.sign(SecretKey(x));
   }
 }
