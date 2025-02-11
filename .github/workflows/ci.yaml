@@ -52,7 +52,7 @@ jobs:
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storeFile=keystore.jks" >> android/key.properties
       - name: Build APK
-        run: flutter build apk --release
+        run: flutter build apk --release --dart-define "CRIF_HOST=${{ secrets.CRIF_HOST }}" --dart-define "CRIF_API_KEY=${{ secrets.CRIF_API_KEY }}"
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:

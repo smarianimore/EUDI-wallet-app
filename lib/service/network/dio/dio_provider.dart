@@ -1,3 +1,4 @@
+import 'package:birex/service/network/api_key_interceptor.dart';
 import 'package:curl_logger_dio_interceptor/curl_logger_dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -17,6 +18,7 @@ Dio dio(Ref ref) {
     ),
   );
   final inteceptors = [
+    CrifAPIKeyInterceptor(),
     CurlLoggerDioInterceptor(printOnSuccess: false),
     PrettyDioLogger(requestBody: true, requestHeader: true),
   ];
