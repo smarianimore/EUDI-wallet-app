@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 class TransactionCodeInputBottomSheet extends StatefulWidget {
   const TransactionCodeInputBottomSheet({super.key, this.codeLength, this.hint});
 
-  final int? codeLength;
+  final num? codeLength;
   final String? hint;
 
   @override

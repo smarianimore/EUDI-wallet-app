@@ -6,10 +6,12 @@ class CustomBottomSheet extends StatelessWidget {
   const CustomBottomSheet({
     required this.title,
     required this.body,
+    this.onClosed,
     super.key,
   });
 
   final String title;
+  final void Function()? onClosed;
   final Widget Function(BuildContext context) body;
 
   @override
@@ -25,10 +27,18 @@ class CustomBottomSheet extends StatelessWidget {
           children: [
             Row(
               children: [
-                Expanded(child: Text(title)),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
                 IconButton(
                   icon: const Icon(Icons.close),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    onClosed?.call();
+                    Navigator.of(context).pop();
+                  },
                 ),
               ],
             ),

@@ -6,13 +6,18 @@ import 'package:birex/data/repository/verifiable_credential/i_verifiable_credent
 import 'package:birex/data/repository/verifiable_credential/impl/verifiable_credential_repository.dart';
 import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
 import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
-import 'package:birex/presentation/pages/qr_code/transaction_code_input_bottom_sheet.dart';
-import 'package:birex/service/bottom_sheet.dart/bottom_sheet_service.dart';
+import 'package:birex/presentation/components/bottom_sheet/custom_bottom_sheet.dart';
+import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
+import 'package:birex/presentation/theme/dimension.dart';
+import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/service/bottom_sheet/bottom_sheet_service.dart';
 import 'package:birex/service/jwt/jwt_service.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
 import 'package:birex/utils/usecase/use_case.dart';
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -72,15 +77,16 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     final preAuthorizedGrant = input.grants.entries.first;
     final preAuthorizedGrantProperties = preAuthorizedGrant.value;
     final preAuthorizedGrantName = preAuthorizedGrant.key;
+    final txCodeRequest = preAuthorizedGrantProperties.transactionCode;
 
-    String? txCode;
-
-    if (preAuthorizedGrantProperties.transactionCode != null) {
-      txCode = await bottomSheetService.showCustomBottomSheet<String>(
-        bottomSheetBuilder: (context) => const TransactionCodeInputBottomSheet(),
-      );
-      // Show dialog to input transaction code
-    }
+    final txCode = await bottomSheetService.showCustomBottomSheet<String>(
+      bottomSheetBuilder: (context) => _RequestedCredentialsDisplay(
+        configuration: target,
+        requiresTxCode: txCodeRequest != null,
+        codeLength: txCodeRequest?.length,
+        hint: txCodeRequest?.description,
+      ),
+    );
 
     /* Credential request */
     final loginResponse = await repository.login(
@@ -137,5 +143,116 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
     await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
     return errorResponse;
+  }
+}
+
+/* UI Components related to UseCase */
+
+class _RequestedCredentialsDisplay extends StatefulWidget {
+  const _RequestedCredentialsDisplay({
+    required this.configuration,
+    required this.requiresTxCode,
+    this.codeLength,
+    this.hint,
+  });
+
+  final SupportedCredentialConfiguration configuration;
+  final bool requiresTxCode;
+  final num? codeLength;
+  final String? hint;
+
+  @override
+  State<_RequestedCredentialsDisplay> createState() => __RequestedCredentialsDisplayState();
+}
+
+class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisplay> {
+  late final TextEditingController _controller;
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      OverlayLoaderManager.instance.hideLoader();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomBottomSheet(
+      title: 'Richiesta credenziali',
+      onClosed: () => OverlayLoaderManager.instance.showLoader(context),
+      body: (context) => Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text.rich(
+              TextSpan(
+                style: Theme.of(context).textTheme.bodyMedium,
+                children: [
+                  const TextSpan(
+                    text: 'Richiesta di credenziali per: ',
+                  ),
+                  TextSpan(
+                    text: widget.configuration.display.first.name,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            ),
+            Dimensions.mediumSize.spacer(),
+            Wrap(
+              spacing: Dimensions.smallSize,
+              children: [
+                for (final claim in widget.configuration.claims.entries)
+                  Chip(label: Text(claim.value.display.first.name)),
+              ],
+            ),
+            Dimensions.mediumSize.spacer(),
+            if (widget.requiresTxCode) ...[
+              TextFormField(
+                controller: _controller,
+                validator: _validator,
+                decoration: InputDecoration(
+                  border: const OutlineInputBorder(),
+                  hintText: widget.hint,
+                  label: const Text('Inserisci codice'),
+                  alignLabelWithHint: true,
+                  counterText: '${_controller.text.length}/${widget.codeLength}',
+                ),
+              ),
+              Dimensions.mediumSize.spacer(),
+            ],
+            FilledButton(
+              onPressed: () {
+                if (!widget.requiresTxCode) {
+                  OverlayLoaderManager.instance.showLoader(context);
+                  context.pop();
+                } else if (_formKey.currentState!.validate()) {
+                  OverlayLoaderManager.instance.showLoader(context);
+                  context.pop(_controller.text);
+                }
+              },
+              child: const Text('Conferma'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String? _validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Inserisci il codice di sicurezza';
+    }
+    return null;
   }
 }

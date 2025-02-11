@@ -23,6 +23,7 @@ class BottomSheetService {
     if (context == null) return null;
     return showModalBottomSheet(
       context: context,
+      isDismissible: false,
       builder: bottomSheetBuilder,
     );
   }
