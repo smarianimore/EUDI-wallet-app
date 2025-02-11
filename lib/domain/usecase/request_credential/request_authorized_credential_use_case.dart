@@ -188,7 +188,7 @@ class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisp
   Widget build(BuildContext context) {
     return CustomBottomSheet(
       title: 'Richiesta credenziali',
-      onClosed: () => OverlayLoaderManager.instance.showLoader(context),
+      beforeClosing: () => OverlayLoaderManager.instance.showLoader(context),
       body: (context) => Form(
         key: _formKey,
         child: Column(
@@ -234,11 +234,9 @@ class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisp
             FilledButton(
               onPressed: () {
                 if (!widget.requiresTxCode) {
-                  OverlayLoaderManager.instance.showLoader(context);
-                  context.pop();
+                  _completeOperation(context);
                 } else if (_formKey.currentState!.validate()) {
-                  OverlayLoaderManager.instance.showLoader(context);
-                  context.pop(_controller.text);
+                  _completeOperation(context);
                 }
               },
               child: const Text('Conferma'),
@@ -247,6 +245,12 @@ class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisp
         ),
       ),
     );
+  }
+
+  void _completeOperation(BuildContext context) {
+    OverlayLoaderManager.instance.showLoader(context);
+    final value = _controller.text.isEmpty ? null : _controller.text;
+    context.pop(value);
   }
 
   String? _validator(String? value) {
