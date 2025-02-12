@@ -24,6 +24,7 @@ class BirexApp extends ConsumerWidget {
       themeMode: themeMode,
       theme: lightTheme.copyWith(textTheme: lightTextTheme),
       darkTheme: darkTheme.copyWith(textTheme: darkTextTheme),
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

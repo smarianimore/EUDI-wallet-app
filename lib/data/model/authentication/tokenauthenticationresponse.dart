@@ -42,9 +42,9 @@ class TokenAuthenticationResponse with _$TokenAuthenticationResponse {
   factory TokenAuthenticationResponse({
     @JsonKey(name: 'access_token') required String accessToken,
     @JsonKey(name: 'token_type') required String tokenType,
-    @JsonKey(name: 'expires_in') required int expiresIn,
+    @JsonKey(name: 'expires_in') required num expiresIn,
     @JsonKey(name: 'c_nonce') required String cNonce,
-    @JsonKey(name: 'c_nonce_expires_in') required int cNonceExpiresIn,
+    @JsonKey(name: 'c_nonce_expires_in') required num cNonceExpiresIn,
     @JsonKey(name: 'refresh_token') String? refreshToken,
     @JsonKey(name: 'id_token') String? idToken,
   }) = _TokenAuthenticationResponse;

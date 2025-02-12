@@ -26,7 +26,7 @@ class VerifiableCredentialCard extends StatelessWidget {
         subject: 'Verifiable Credential: ${credential.formatName}',
       ),
       child: Card(
-        shape: Shapes.buildRoundedShape(color: Theme.of(context).cardColor),
+        shape: Shapes.buildRoundedShape(borderSide: BorderSide(color: Theme.of(context).cardColor)),
         margin: EdgeInsets.zero,
         child: Padding(
           padding: Dimensions.mediumSize.padding,
@@ -99,6 +99,10 @@ class _Disclosures extends StatelessWidget {
         for (final claim in credential.disclosures)
           Chip(
             label: Text('${claim.formatName}: ${claim.value}'),
+          ),
+        for (final claim in credential.claims)
+          Chip(
+            label: Text('${claim.name}: ${claim.value}'),
           ),
       ],
     );

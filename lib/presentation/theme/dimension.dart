@@ -66,9 +66,8 @@ enum Orientations {
 }
 
 class Shapes {
-  static RoundedRectangleBorder buildRoundedShape({Color color = Colors.white, double borderSize = 1.0}) =>
-      RoundedRectangleBorder(
+  static RoundedRectangleBorder buildRoundedShape({BorderSide? borderSide}) => RoundedRectangleBorder(
         borderRadius: Dimensions.containerRadius,
-        side: BorderSide(color: color, width: borderSize),
+        side: borderSide ?? BorderSide.none,
       );
 }

@@ -692,11 +692,11 @@ mixin _$TokenAuthenticationResponse {
   @JsonKey(name: 'token_type')
   String get tokenType => throw _privateConstructorUsedError;
   @JsonKey(name: 'expires_in')
-  int get expiresIn => throw _privateConstructorUsedError;
+  num get expiresIn => throw _privateConstructorUsedError;
   @JsonKey(name: 'c_nonce')
   String get cNonce => throw _privateConstructorUsedError;
   @JsonKey(name: 'c_nonce_expires_in')
-  int get cNonceExpiresIn => throw _privateConstructorUsedError;
+  num get cNonceExpiresIn => throw _privateConstructorUsedError;
   @JsonKey(name: 'refresh_token')
   String? get refreshToken => throw _privateConstructorUsedError;
   @JsonKey(name: 'id_token')
@@ -723,9 +723,9 @@ abstract class $TokenAuthenticationResponseCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
       @JsonKey(name: 'token_type') String tokenType,
-      @JsonKey(name: 'expires_in') int expiresIn,
+      @JsonKey(name: 'expires_in') num expiresIn,
       @JsonKey(name: 'c_nonce') String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce_expires_in') num cNonceExpiresIn,
       @JsonKey(name: 'refresh_token') String? refreshToken,
       @JsonKey(name: 'id_token') String? idToken});
 }
@@ -766,7 +766,7 @@ class _$TokenAuthenticationResponseCopyWithImpl<$Res,
       expiresIn: null == expiresIn
           ? _value.expiresIn
           : expiresIn // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       cNonce: null == cNonce
           ? _value.cNonce
           : cNonce // ignore: cast_nullable_to_non_nullable
@@ -774,7 +774,7 @@ class _$TokenAuthenticationResponseCopyWithImpl<$Res,
       cNonceExpiresIn: null == cNonceExpiresIn
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       refreshToken: freezed == refreshToken
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
@@ -799,9 +799,9 @@ abstract class _$$TokenAuthenticationResponseImplCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'access_token') String accessToken,
       @JsonKey(name: 'token_type') String tokenType,
-      @JsonKey(name: 'expires_in') int expiresIn,
+      @JsonKey(name: 'expires_in') num expiresIn,
       @JsonKey(name: 'c_nonce') String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce_expires_in') num cNonceExpiresIn,
       @JsonKey(name: 'refresh_token') String? refreshToken,
       @JsonKey(name: 'id_token') String? idToken});
 }
@@ -841,7 +841,7 @@ class __$$TokenAuthenticationResponseImplCopyWithImpl<$Res>
       expiresIn: null == expiresIn
           ? _value.expiresIn
           : expiresIn // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       cNonce: null == cNonce
           ? _value.cNonce
           : cNonce // ignore: cast_nullable_to_non_nullable
@@ -849,7 +849,7 @@ class __$$TokenAuthenticationResponseImplCopyWithImpl<$Res>
       cNonceExpiresIn: null == cNonceExpiresIn
           ? _value.cNonceExpiresIn
           : cNonceExpiresIn // ignore: cast_nullable_to_non_nullable
-              as int,
+              as num,
       refreshToken: freezed == refreshToken
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
@@ -887,13 +887,13 @@ class _$TokenAuthenticationResponseImpl
   final String tokenType;
   @override
   @JsonKey(name: 'expires_in')
-  final int expiresIn;
+  final num expiresIn;
   @override
   @JsonKey(name: 'c_nonce')
   final String cNonce;
   @override
   @JsonKey(name: 'c_nonce_expires_in')
-  final int cNonceExpiresIn;
+  final num cNonceExpiresIn;
   @override
   @JsonKey(name: 'refresh_token')
   final String? refreshToken;
@@ -952,9 +952,9 @@ abstract class _TokenAuthenticationResponse
   factory _TokenAuthenticationResponse(
       {@JsonKey(name: 'access_token') required final String accessToken,
       @JsonKey(name: 'token_type') required final String tokenType,
-      @JsonKey(name: 'expires_in') required final int expiresIn,
+      @JsonKey(name: 'expires_in') required final num expiresIn,
       @JsonKey(name: 'c_nonce') required final String cNonce,
-      @JsonKey(name: 'c_nonce_expires_in') required final int cNonceExpiresIn,
+      @JsonKey(name: 'c_nonce_expires_in') required final num cNonceExpiresIn,
       @JsonKey(name: 'refresh_token') final String? refreshToken,
       @JsonKey(name: 'id_token')
       final String? idToken}) = _$TokenAuthenticationResponseImpl;
@@ -970,13 +970,13 @@ abstract class _TokenAuthenticationResponse
   String get tokenType;
   @override
   @JsonKey(name: 'expires_in')
-  int get expiresIn;
+  num get expiresIn;
   @override
   @JsonKey(name: 'c_nonce')
   String get cNonce;
   @override
   @JsonKey(name: 'c_nonce_expires_in')
-  int get cNonceExpiresIn;
+  num get cNonceExpiresIn;
   @override
   @JsonKey(name: 'refresh_token')
   String? get refreshToken;

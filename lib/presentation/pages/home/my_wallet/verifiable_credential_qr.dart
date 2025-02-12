@@ -15,7 +15,7 @@ class VerifiableCredentialQRCodeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: Shapes.buildRoundedShape(color: Theme.of(context).dialogBackgroundColor),
+      shape: Shapes.buildRoundedShape(borderSide: BorderSide(color: Theme.of(context).dialogBackgroundColor)),
       child: ClipRRect(
         borderRadius: Dimensions.containerRadius,
         child: QrImageView(

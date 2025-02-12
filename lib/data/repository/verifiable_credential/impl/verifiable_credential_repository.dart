@@ -70,7 +70,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
 extension on String {
   List<VerifiableDisclosure> get parseDisclosures {
     final rawDisclosures = [...split('~')];
-    if (rawDisclosures.length < 2) return rawDisclosures.disclosures;
+    if (rawDisclosures.length < 2) return <VerifiableDisclosure>[];
     rawDisclosures
       ..removeLast()
       ..removeAt(0);
