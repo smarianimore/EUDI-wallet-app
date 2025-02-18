@@ -32,6 +32,23 @@ class ApplicationErrorFactory {
   static ApplicationErrorFactory get instance => _singleton;
 
   ApplicationError mapNetworkError(DioException error) {
+    final responseData = error.response?.data;
+    if (responseData is Map<String, dynamic>) {
+      return _mapStructuredNetworkError(error);
+    } else {
+      return _mapPlainErrorBody(error);
+    }
+  }
+
+  ApplicationError _mapPlainErrorBody(DioException error) {
+    final responseData = error.response?.data;
+    if (responseData is String) {
+      return ApplicationError.generic(message: responseData);
+    }
+    return ApplicationError.generic(message: error.message);
+  }
+
+  ApplicationError _mapStructuredNetworkError(DioException error) {
     final payload = error.response?.data as Map<String, dynamic>?;
     if (payload == null) return ApplicationError.generic();
     final openIDError = _mapOpenIDError(payload);

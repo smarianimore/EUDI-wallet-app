@@ -28,13 +28,13 @@ class DialogService {
     );
   }
 
-  Future<void> showErrorDialog(ApplicationError error) {
+  Future<void> showErrorDialog(ApplicationError error, {String? customErrorMessage}) {
     final isAbortedOperation = error.maybeMap(orElse: () => false, operationAborted: (_) => true);
     if (isAbortedOperation) return Future.value();
     return showCustomDialog(
       dialogBuilder: (context) => AlertDialog(
         title: Text(error.title),
-        content: Text(error.message),
+        content: Text(customErrorMessage ?? error.message),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),

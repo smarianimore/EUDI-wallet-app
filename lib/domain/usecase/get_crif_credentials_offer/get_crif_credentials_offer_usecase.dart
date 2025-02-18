@@ -14,8 +14,7 @@ part 'get_crif_credentials_offer_usecase.g.dart';
 GetCRIFCredentialsOfferUseCase getCRIFCredentialsOfferUseCase(Ref ref) {
   final repo = ref.read(wellKnownRepositoryProvider);
   final dialogService = ref.read(dialogServiceProvider);
-  final errorHandler = ShowDialogErrorHandler(dialogService);
-
+  final errorHandler = ShowDialogErrorHandler<void>(dialogService);
   return GetCRIFCredentialsOfferUseCase(
     repository: repo,
     errorHandlers: [errorHandler],
@@ -41,7 +40,7 @@ class GetCRIFCredentialsOfferUseCase extends UseCase<CredentialIssuerConfigurati
         'https://crif.azurewebsites.net',
       ),
     );
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
+    await response.ifErrorAsync((_) => applyErrorHandlers(response, input));
     await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
     return response;
   }

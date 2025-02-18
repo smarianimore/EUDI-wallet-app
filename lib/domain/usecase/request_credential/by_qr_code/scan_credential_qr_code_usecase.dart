@@ -26,7 +26,7 @@ ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
   final router = ref.watch(birexRouterProvider);
   final requestCredentialUseCase = ref.watch(requestAuthorizedCredentialUseCaseProvider);
   final dialogService = ref.watch(dialogServiceProvider);
-  final errorHandler = ShowDialogErrorHandler(dialogService);
+  final errorHandler = ShowDialogErrorHandler<BuildContext>(dialogService);
   final successHandler = ShowDialogSuccessHandler<VerifiableCredential, BuildContext>(
     dialogService,
     textMapper: (payload, __) => 'Credenziali ${payload!.subject} richieste con successo!',
@@ -70,7 +70,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
     if (credentialUri == null && credentialOffer == null) {
       final error = ApplicationError.generic(message: 'Il QR code non è valido');
       final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([error]);
-      await applyErrorHandlers(errorResponse);
+      await applyErrorHandlers(errorResponse, input);
       return Responses.failure([error]);
     }
     var offerPayload = credentialOffer;
@@ -83,7 +83,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
     if (offerPayload == null) return _closeRequest(check, input: input);
     if (input.mounted) OverlayLoaderManager.instance.showLoader(input);
     final response = await requestCredentialUseCase.call(offerPayload);
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
+    await response.ifErrorAsync((_) => applyErrorHandlers(response, input));
     await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
     return response;
   }
@@ -95,7 +95,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
     final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
       ...response.errors ?? <ApplicationError>[],
     ]);
-    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse, input));
     await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
     return errorResponse;
   }

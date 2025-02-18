@@ -8,7 +8,7 @@ abstract class UseCaseSuccessHandler<R, I> {
   Future<void> handle(R? payload, I input);
 }
 
-abstract class UseCaseErrorHandler {
+abstract class UseCaseErrorHandler<I> {
   Future<bool> isError(Response<dynamic, ApplicationError> response) {
     final isError = response.isError;
     if (!isError) return Future.value(isError);
@@ -18,7 +18,7 @@ abstract class UseCaseErrorHandler {
     return Future.value(error.maybeMap(orElse: () => isError, unauthorized: (value) => false));
   }
 
-  Future<void> handle(List<ApplicationError> errors);
+  Future<void> handle(List<ApplicationError> errors, I input);
 }
 
 class CustomSuccessHandler<R, I> extends UseCaseSuccessHandler<R, I> {
@@ -29,7 +29,7 @@ class CustomSuccessHandler<R, I> extends UseCaseSuccessHandler<R, I> {
   Future<void> handle(R? payload, I input) async => await onSuccess(payload, input);
 }
 
-class CustomErrorHandler extends UseCaseErrorHandler {
+class CustomErrorHandler<I> extends UseCaseErrorHandler<I> {
   CustomErrorHandler({required this.onError, this.errorCode});
   final Future<void> Function(List<ApplicationError> errors) onError;
   final ErrorCode? errorCode;
@@ -43,5 +43,5 @@ class CustomErrorHandler extends UseCaseErrorHandler {
   }
 
   @override
-  Future<void> handle(List<ApplicationError> errors) => onError(errors);
+  Future<void> handle(List<ApplicationError> errors, I input) => onError(errors);
 }

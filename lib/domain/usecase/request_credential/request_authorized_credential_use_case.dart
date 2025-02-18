@@ -11,10 +11,12 @@ import 'package:birex/presentation/components/screen/loading/overlay_manager.dar
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
 import 'package:birex/service/bottom_sheet/bottom_sheet_service.dart';
+import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/service/jwt/jwt_service.dart';
 import 'package:birex/service/storage/hive/hive_controller.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/response.dart';
+import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
 import 'package:birex/utils/usecase/use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -25,12 +27,15 @@ part 'request_authorized_credential_use_case.g.dart';
 
 @riverpod
 RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
+  final dialogService = ref.read(dialogServiceProvider);
+  final dialogOnError = ShowDialogErrorHandler<CredentialPreauthorizationResponse>(dialogService);
   return RequestAuthorizedCredentialUseCase(
     bottomSheetService: ref.read(bottomSheetServiceProvider),
     jwtService: ref.read(jwtServiceProvider).builder(),
     repository: ref.read(authenticationRepositoryProvider),
     verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
     wellKnownRepository: ref.read(wellKnownRepositoryProvider),
+    errorHandlers: [dialogOnError],
   );
 }
 
@@ -128,7 +133,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     if (credentialResponse.isError || credentialPayload == null) return _closeRequest(credentialResponse, input: input);
     final hiveController = HiveController.instance;
     await hiveController.saveVerifiableCredential(credentialPayload);
-    await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse));
+    await credentialResponse.ifErrorAsync((_) => applyErrorHandlers(credentialResponse, input));
     await credentialResponse.ifSuccessAsync((_) => applySuccessHandlers(credentialResponse, input));
     return credentialResponse;
   }
@@ -140,7 +145,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
       ...response.errors ?? <ApplicationError>[],
     ]);
-    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse, input));
     await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
     return errorResponse;
   }

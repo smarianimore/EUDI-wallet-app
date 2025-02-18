@@ -15,7 +15,7 @@ abstract class UseCase<R, I> {
 
   final List<UseCaseRequirement>? requirements;
   final List<UseCaseValidator<I>>? validators;
-  final List<UseCaseErrorHandler>? errorHandlers;
+  final List<UseCaseErrorHandler<I>>? errorHandlers;
   final List<UseCaseSuccessHandler<R, I>>? successHandlers;
 
   AsyncApplicationResponse<R> call(I input);
@@ -43,7 +43,8 @@ abstract class UseCase<R, I> {
   }
 
   Future<void> applyErrorHandlers(
-    ApplicationResponse<R> response, {
+    ApplicationResponse<R> response,
+    I input, {
     bool ignoreAbortedOperations = true,
   }) async {
     if (errorHandlers == null) return Future.value();
@@ -56,7 +57,7 @@ abstract class UseCase<R, I> {
       if (match) {
         final error = response.errors?.isEmpty ?? true ? null : response.errors?.first;
         if (error == null) return;
-        await handler.handle(response.errors ?? <ApplicationError>[]);
+        await handler.handle(response.errors ?? <ApplicationError>[], input);
       }
     }
   }

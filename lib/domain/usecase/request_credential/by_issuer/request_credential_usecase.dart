@@ -25,7 +25,7 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   );
   final redirectToHome =
       RedirectToHomePageSuccessHandler<VerifiableCredential, RequestCredentialCommand>(router: router);
-  final errorHandler = ShowDialogErrorHandler(dialogService);
+  final errorHandler = ShowDialogErrorHandler<RequestCredentialCommand>(dialogService);
 
   return RequestCredentialUseCase(
     requestAuthorizedCredentialUseCase: ref.read(requestAuthorizedCredentialUseCaseProvider),
@@ -60,7 +60,7 @@ class RequestCredentialUseCase extends UseCase<VerifiableCredential, RequestCred
     final authPayload = authResponse.payload;
     if (authResponse.isError || authPayload == null) return _closeRequest(authResponse, input: input);
     final response = await authResponse.flatMapAsync((_) => requestAuthorizedCredentialUseCase.call(authPayload));
-    await response.ifErrorAsync((_) => applyErrorHandlers(response));
+    await response.ifErrorAsync((_) => applyErrorHandlers(response, input));
     await response.ifSuccessAsync((_) => applySuccessHandlers(response, input));
     return response;
   }
@@ -72,7 +72,7 @@ class RequestCredentialUseCase extends UseCase<VerifiableCredential, RequestCred
     final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
       ...response.errors ?? <ApplicationError>[],
     ]);
-    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse));
+    await errorResponse.ifErrorAsync((_) => applyErrorHandlers(errorResponse, input));
     await errorResponse.ifSuccessAsync((_) => applySuccessHandlers(errorResponse, input));
     return errorResponse;
   }

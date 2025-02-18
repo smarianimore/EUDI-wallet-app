@@ -3,14 +3,19 @@ import 'package:birex/service/dialog/dialog_service.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/usecase/handler/handler.dart';
 
-class ShowDialogErrorHandler extends UseCaseErrorHandler {
-  ShowDialogErrorHandler(this.dialogService);
+class ShowDialogErrorHandler<I> extends UseCaseErrorHandler<I> {
+  ShowDialogErrorHandler(this.dialogService, {this.textMapper});
   final DialogService dialogService;
+  final String Function(ApplicationError error, I input)? textMapper;
 
   @override
-  Future<void> handle(List<ApplicationError> errors) async {
+  Future<void> handle(List<ApplicationError> errors, I input) async {
     OverlayLoaderManager.instance.hideLoader();
-    return dialogService.showErrorDialog(errors.first);
+    final error = errors.first;
+    return dialogService.showErrorDialog(
+      error,
+      customErrorMessage: textMapper?.call(error, input),
+    );
   }
 }
 
