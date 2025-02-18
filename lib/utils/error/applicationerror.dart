@@ -10,6 +10,11 @@ class ApplicationError with _$ApplicationError {
     @Default(ErrorCode.generic) ErrorCode code,
   }) = Generic;
 
+  factory ApplicationError.network({
+    DioException? error,
+    @Default(ErrorCode.network) ErrorCode code,
+  }) = Network;
+
   factory ApplicationError.openIDError({
     String? error,
     @JsonKey(name: 'error_description') String? errorDescription,
@@ -36,26 +41,18 @@ class ApplicationErrorFactory {
     if (responseData is Map<String, dynamic>) {
       return _mapStructuredNetworkError(error);
     } else {
-      return _mapPlainErrorBody(error);
+      return ApplicationError.network(error: error);
     }
-  }
-
-  ApplicationError _mapPlainErrorBody(DioException error) {
-    final responseData = error.response?.data;
-    if (responseData is String) {
-      return ApplicationError.generic(message: responseData);
-    }
-    return ApplicationError.generic(message: error.message);
   }
 
   ApplicationError _mapStructuredNetworkError(DioException error) {
     final payload = error.response?.data as Map<String, dynamic>?;
-    if (payload == null) return ApplicationError.generic();
+    if (payload == null) return ApplicationError.network(error: error);
     final openIDError = _mapOpenIDError(payload);
     if (openIDError != null) return openIDError;
     final lissiNetworkError = _mapLissiNetworkError(payload);
     if (lissiNetworkError != null) return lissiNetworkError;
-    return ApplicationError.generic(message: error.response?.statusMessage ?? error.message);
+    return ApplicationError.network(error: error);
   }
 
   ApplicationError? _mapOpenIDError(Map<String, dynamic> payload) {
@@ -74,6 +71,7 @@ class ApplicationErrorFactory {
 
 enum ErrorCode {
   generic,
+  network,
   openIDError,
   operationAborted,
   unauthorized,
@@ -88,6 +86,7 @@ extension ErrorLabelMapper on ApplicationError {
 
   String get message {
     return map(
+      network: (value) => value.error?.message ?? 'Errore di rete',
       generic: (error) => error.message ?? 'Errore generico',
       operationAborted: (_) => 'Operazione annullata',
       unauthorized: (_) => 'Non autorizzato',

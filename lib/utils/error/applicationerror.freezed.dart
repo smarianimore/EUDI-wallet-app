@@ -20,6 +20,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
     required TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -32,6 +33,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
     TResult? Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -44,6 +46,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
     TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -57,6 +60,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
     required TResult Function(OpenIDError value) openIDError,
     required TResult Function(OperationAborted value) operationAborted,
     required TResult Function(Unauthorized value) unauthorized,
@@ -65,6 +69,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
     TResult? Function(OpenIDError value)? openIDError,
     TResult? Function(OperationAborted value)? operationAborted,
     TResult? Function(Unauthorized value)? unauthorized,
@@ -73,6 +78,7 @@ mixin _$ApplicationError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
     TResult Function(OpenIDError value)? openIDError,
     TResult Function(OperationAborted value)? operationAborted,
     TResult Function(Unauthorized value)? unauthorized,
@@ -202,6 +208,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
     required TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -217,6 +224,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
     TResult? Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -232,6 +240,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
     TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -251,6 +260,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
     required TResult Function(OpenIDError value) openIDError,
     required TResult Function(OperationAborted value) operationAborted,
     required TResult Function(Unauthorized value) unauthorized,
@@ -262,6 +272,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
     TResult? Function(OpenIDError value)? openIDError,
     TResult? Function(OperationAborted value)? operationAborted,
     TResult? Function(Unauthorized value)? unauthorized,
@@ -273,6 +284,7 @@ class _$GenericImpl implements Generic {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
     TResult Function(OpenIDError value)? openIDError,
     TResult Function(OperationAborted value)? operationAborted,
     TResult Function(Unauthorized value)? unauthorized,
@@ -298,6 +310,191 @@ abstract class Generic implements ApplicationError {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GenericImplCopyWith<_$GenericImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$NetworkImplCopyWith<$Res>
+    implements $ApplicationErrorCopyWith<$Res> {
+  factory _$$NetworkImplCopyWith(
+          _$NetworkImpl value, $Res Function(_$NetworkImpl) then) =
+      __$$NetworkImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({DioException? error, ErrorCode code});
+}
+
+/// @nodoc
+class __$$NetworkImplCopyWithImpl<$Res>
+    extends _$ApplicationErrorCopyWithImpl<$Res, _$NetworkImpl>
+    implements _$$NetworkImplCopyWith<$Res> {
+  __$$NetworkImplCopyWithImpl(
+      _$NetworkImpl _value, $Res Function(_$NetworkImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ApplicationError
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = freezed,
+    Object? code = null,
+  }) {
+    return _then(_$NetworkImpl(
+      error: freezed == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as DioException?,
+      code: null == code
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
+              as ErrorCode,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$NetworkImpl implements Network {
+  _$NetworkImpl({this.error, this.code = ErrorCode.network});
+
+  @override
+  final DioException? error;
+  @override
+  @JsonKey()
+  final ErrorCode code;
+
+  @override
+  String toString() {
+    return 'ApplicationError.network(error: $error, code: $code)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$NetworkImpl &&
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.code, code) || other.code == code));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error, code);
+
+  /// Create a copy of ApplicationError
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$NetworkImplCopyWith<_$NetworkImpl> get copyWith =>
+      __$$NetworkImplCopyWithImpl<_$NetworkImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
+    required TResult Function(
+            String? error,
+            @JsonKey(name: 'error_description') String? errorDescription,
+            ErrorCode code)
+        openIDError,
+    required TResult Function(ErrorCode code) operationAborted,
+    required TResult Function(ErrorCode code) unauthorized,
+  }) {
+    return network(error, code);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
+    TResult? Function(
+            String? error,
+            @JsonKey(name: 'error_description') String? errorDescription,
+            ErrorCode code)?
+        openIDError,
+    TResult? Function(ErrorCode code)? operationAborted,
+    TResult? Function(ErrorCode code)? unauthorized,
+  }) {
+    return network?.call(error, code);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
+    TResult Function(
+            String? error,
+            @JsonKey(name: 'error_description') String? errorDescription,
+            ErrorCode code)?
+        openIDError,
+    TResult Function(ErrorCode code)? operationAborted,
+    TResult Function(ErrorCode code)? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (network != null) {
+      return network(error, code);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
+    required TResult Function(OpenIDError value) openIDError,
+    required TResult Function(OperationAborted value) operationAborted,
+    required TResult Function(Unauthorized value) unauthorized,
+  }) {
+    return network(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
+    TResult? Function(OpenIDError value)? openIDError,
+    TResult? Function(OperationAborted value)? operationAborted,
+    TResult? Function(Unauthorized value)? unauthorized,
+  }) {
+    return network?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
+    TResult Function(OpenIDError value)? openIDError,
+    TResult Function(OperationAborted value)? operationAborted,
+    TResult Function(Unauthorized value)? unauthorized,
+    required TResult orElse(),
+  }) {
+    if (network != null) {
+      return network(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Network implements ApplicationError {
+  factory Network({final DioException? error, final ErrorCode code}) =
+      _$NetworkImpl;
+
+  DioException? get error;
+  @override
+  ErrorCode get code;
+
+  /// Create a copy of ApplicationError
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$NetworkImplCopyWith<_$NetworkImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -397,6 +594,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
     required TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -412,6 +610,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
     TResult? Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -427,6 +626,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
     TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -446,6 +646,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
     required TResult Function(OpenIDError value) openIDError,
     required TResult Function(OperationAborted value) operationAborted,
     required TResult Function(Unauthorized value) unauthorized,
@@ -457,6 +658,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
     TResult? Function(OpenIDError value)? openIDError,
     TResult? Function(OperationAborted value)? operationAborted,
     TResult? Function(Unauthorized value)? unauthorized,
@@ -468,6 +670,7 @@ class _$OpenIDErrorImpl implements OpenIDError {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
     TResult Function(OpenIDError value)? openIDError,
     TResult Function(OperationAborted value)? operationAborted,
     TResult Function(Unauthorized value)? unauthorized,
@@ -573,6 +776,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
     required TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -588,6 +792,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
     TResult? Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -603,6 +808,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
     TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -622,6 +828,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
     required TResult Function(OpenIDError value) openIDError,
     required TResult Function(OperationAborted value) operationAborted,
     required TResult Function(Unauthorized value) unauthorized,
@@ -633,6 +840,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
     TResult? Function(OpenIDError value)? openIDError,
     TResult? Function(OperationAborted value)? operationAborted,
     TResult? Function(Unauthorized value)? unauthorized,
@@ -644,6 +852,7 @@ class _$OperationAbortedImpl implements OperationAborted {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
     TResult Function(OpenIDError value)? openIDError,
     TResult Function(OperationAborted value)? operationAborted,
     TResult Function(Unauthorized value)? unauthorized,
@@ -742,6 +951,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String? message, ErrorCode code) generic,
+    required TResult Function(DioException? error, ErrorCode code) network,
     required TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -757,6 +967,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String? message, ErrorCode code)? generic,
+    TResult? Function(DioException? error, ErrorCode code)? network,
     TResult? Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -772,6 +983,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String? message, ErrorCode code)? generic,
+    TResult Function(DioException? error, ErrorCode code)? network,
     TResult Function(
             String? error,
             @JsonKey(name: 'error_description') String? errorDescription,
@@ -791,6 +1003,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(Generic value) generic,
+    required TResult Function(Network value) network,
     required TResult Function(OpenIDError value) openIDError,
     required TResult Function(OperationAborted value) operationAborted,
     required TResult Function(Unauthorized value) unauthorized,
@@ -802,6 +1015,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Generic value)? generic,
+    TResult? Function(Network value)? network,
     TResult? Function(OpenIDError value)? openIDError,
     TResult? Function(OperationAborted value)? operationAborted,
     TResult? Function(Unauthorized value)? unauthorized,
@@ -813,6 +1027,7 @@ class _$UnauthorizedImpl implements Unauthorized {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Generic value)? generic,
+    TResult Function(Network value)? network,
     TResult Function(OpenIDError value)? openIDError,
     TResult Function(OperationAborted value)? operationAborted,
     TResult Function(Unauthorized value)? unauthorized,

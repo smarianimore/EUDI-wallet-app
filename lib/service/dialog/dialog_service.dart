@@ -1,3 +1,4 @@
+import 'package:birex/presentation/components/dialog/confirm_dialog.dart';
 import 'package:birex/service/routing/router.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class DialogService {
 
   Future<void> showErrorDialog(ApplicationError error, {String? customErrorMessage}) {
     final isAbortedOperation = error.maybeMap(orElse: () => false, operationAborted: (_) => true);
+    final isNetworkError = error.maybeMap(orElse: () => false, network: (_) => true);
+    if (isNetworkError) return _showNetworkErrorDialog(error);
     if (isAbortedOperation) return Future.value();
     return showCustomDialog(
       dialogBuilder: (context) => AlertDialog(
@@ -42,6 +45,14 @@ class DialogService {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showNetworkErrorDialog(ApplicationError error) {
+    final networkError = error.mapOrNull(network: (value) => value);
+    if (networkError == null) return Future.value();
+    return showCustomDialog(
+      dialogBuilder: (context) => NetworkErrorDialog(dioError: networkError.error!),
     );
   }
 

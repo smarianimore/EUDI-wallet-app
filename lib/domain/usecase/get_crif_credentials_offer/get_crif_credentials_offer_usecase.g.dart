@@ -7,7 +7,7 @@ part of 'get_crif_credentials_offer_usecase.dart';
 // **************************************************************************
 
 String _$getCRIFCredentialsOfferUseCaseHash() =>
-    r'a5a07223c6553b1b64705c7cb932161f02b4e4f2';
+    r'e3e27d21813091ea4609332181b1461045f52a51';
 
 /// See also [getCRIFCredentialsOfferUseCase].
 @ProviderFor(getCRIFCredentialsOfferUseCase)
