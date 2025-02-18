@@ -56,7 +56,19 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
           if (transactionCode != null) 'tx_code': transactionCode,
         },
       ),
-      payloadMapper: TokenAuthenticationResponse.fromJson,
+      payloadMapper: (payload) {
+        final expiresIn = payload['expires_in'];
+        final cNonceExpiresIn = payload['c_nonce_expires_in'];
+        return TokenAuthenticationResponse(
+          accessToken: payload['access_token'] as String,
+          tokenType: payload['token_type'] as String,
+          expiresIn: expiresIn is num ? expiresIn : num.tryParse(expiresIn as String)!,
+          cNonce: payload['c_nonce'] as String,
+          cNonceExpiresIn: cNonceExpiresIn is num ? cNonceExpiresIn : num.tryParse(cNonceExpiresIn as String)!,
+          refreshToken: payload['refresh_token'] as String?,
+          idToken: payload['id_token'] as String?,
+        );
+      },
     );
   }
 

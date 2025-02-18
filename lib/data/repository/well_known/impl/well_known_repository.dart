@@ -53,12 +53,27 @@ class WellKnownRepository with RepositoryResponseHandler implements IWellKnownRe
   }
 
   @override
-  AsyncApplicationResponse<SigningProofConfiguration> getJWKConfiguration(String issuer) {
-    return handleResponse<SigningProofConfiguration>(
+  AsyncApplicationResponse<SigningProofConfiguration> getJWKConfiguration(String issuer) async {
+    final jwksAttempt = await handleResponse<SigningProofConfiguration>(
       request: () => dio.get('$issuer/.well-known/jwks.json'),
       payloadMapper: (payload) => (payload['keys'] as List<dynamic>)
           .map<SigningProofConfiguration>((e) => SigningProofConfiguration.fromJson(e as Map<String, dynamic>))
           .first,
+    );
+    if (!jwksAttempt.isError) return jwksAttempt;
+    return handleResponse<SigningProofConfiguration>(
+      request: () => dio.get('$issuer/.well-known/jwt-vc-issuer'),
+      payloadMapper: (payload) {
+        final key = ((payload['jwks'] as Map<String, dynamic>)['keys'] as List<dynamic>).first;
+        final keyMap = key as Map<String, dynamic>;
+        return SigningProofConfiguration(
+          kty: keyMap['kty'] as String,
+          crv: keyMap['crv'] as String,
+          x: keyMap['x'] as String,
+          y: keyMap['y'] as String,
+          kid: keyMap['kid'] as String,
+        );
+      },
     );
   }
 }

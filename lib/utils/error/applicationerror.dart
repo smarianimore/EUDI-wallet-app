@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'applicationerror.freezed.dart';
@@ -9,6 +10,12 @@ class ApplicationError with _$ApplicationError {
     @Default(ErrorCode.generic) ErrorCode code,
   }) = Generic;
 
+  factory ApplicationError.openIDError({
+    String? error,
+    @JsonKey(name: 'error_description') String? errorDescription,
+    @Default(ErrorCode.openIDError) ErrorCode code,
+  }) = OpenIDError;
+
   factory ApplicationError.operationAborted({
     @Default(ErrorCode.operationAborted) ErrorCode code,
   }) = OperationAborted;
@@ -18,8 +25,39 @@ class ApplicationError with _$ApplicationError {
   }) = Unauthorized;
 }
 
+class ApplicationErrorFactory {
+  ApplicationErrorFactory._();
+
+  static final _singleton = ApplicationErrorFactory._();
+  static ApplicationErrorFactory get instance => _singleton;
+
+  ApplicationError mapNetworkError(DioException error) {
+    final payload = error.response?.data as Map<String, dynamic>?;
+    if (payload == null) return ApplicationError.generic();
+    final openIDError = _mapOpenIDError(payload);
+    if (openIDError != null) return openIDError;
+    final lissiNetworkError = _mapLissiNetworkError(payload);
+    if (lissiNetworkError != null) return lissiNetworkError;
+    return ApplicationError.generic(message: error.response?.statusMessage ?? error.message);
+  }
+
+  ApplicationError? _mapOpenIDError(Map<String, dynamic> payload) {
+    final error = payload['error'] as String?;
+    final errorDescription = payload['error_description'] as String?;
+    if (error == null || errorDescription == null) return null;
+    return ApplicationError.openIDError(error: error, errorDescription: errorDescription);
+  }
+
+  ApplicationError? _mapLissiNetworkError(Map<String, dynamic> payload) {
+    final error = payload['error'] as String?;
+    if (error == null) return null;
+    return ApplicationError.generic(message: error);
+  }
+}
+
 enum ErrorCode {
   generic,
+  openIDError,
   operationAborted,
   unauthorized,
 }
@@ -36,6 +74,7 @@ extension ErrorLabelMapper on ApplicationError {
       generic: (error) => error.message ?? 'Errore generico',
       operationAborted: (_) => 'Operazione annullata',
       unauthorized: (_) => 'Non autorizzato',
+      openIDError: (value) => value.errorDescription ?? 'Errore OpenID',
     );
   }
 }

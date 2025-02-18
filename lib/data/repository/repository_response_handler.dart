@@ -1,5 +1,4 @@
 import 'package:birex/utils/error/applicationerror.dart';
-import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:birex/utils/response.dart';
 import 'package:dio/dio.dart' as dio;
 
@@ -22,12 +21,10 @@ mixin RepositoryResponseHandler {
         return result;
       }
     } on dio.DioException catch (e) {
-      final message = e.response?.statusMessage ?? e.message;
-      ApplicationLogger.instance.logApplicationError(message ?? 'ERRORE');
-      final response = Responses.failure<T, ApplicationError>([ApplicationError.generic(message: message)]);
+      final error = ApplicationErrorFactory.instance.mapNetworkError(e);
+      final response = Responses.failure<T, ApplicationError>([error]);
       return Future.value(response);
     } catch (e) {
-      ApplicationLogger.instance.logApplicationError(e.toString());
       final response = Responses.failure<T, ApplicationError>([ApplicationError.generic()]);
       return Future.value(response);
     }

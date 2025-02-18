@@ -58,7 +58,7 @@ class JWTBuilder {
       },
       issuer: issuer,
       header: {
-        'type': 'openid4vci-proof+jwt',
+        'typ': 'openid4vci-proof+jwt',
         'alg': 'ES256',
         'jwk': {
           'kty': kty,

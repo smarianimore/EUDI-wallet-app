@@ -28,8 +28,8 @@ _$SigningProofConfigurationImpl _$$SigningProofConfigurationImplFromJson(
       x: json['x'] as String,
       y: json['y'] as String,
       kid: json['kid'] as String,
-      use: json['use'] as String,
-      alg: json['alg'] as String,
+      use: json['use'] as String?,
+      alg: json['alg'] as String?,
     );
 
 Map<String, dynamic> _$$SigningProofConfigurationImplToJson(

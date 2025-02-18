@@ -21,8 +21,8 @@ class SigningProofConfiguration with _$SigningProofConfiguration {
     required String x,
     required String y,
     required String kid,
-    required String use,
-    required String alg,
+    String? use,
+    String? alg,
   }) = _SigningProofConfiguration;
 
   factory SigningProofConfiguration.fromJson(Map<String, dynamic> json) => _$SigningProofConfigurationFromJson(json);

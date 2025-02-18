@@ -195,8 +195,8 @@ mixin _$SigningProofConfiguration {
   String get x => throw _privateConstructorUsedError;
   String get y => throw _privateConstructorUsedError;
   String get kid => throw _privateConstructorUsedError;
-  String get use => throw _privateConstructorUsedError;
-  String get alg => throw _privateConstructorUsedError;
+  String? get use => throw _privateConstructorUsedError;
+  String? get alg => throw _privateConstructorUsedError;
 
   /// Serializes this SigningProofConfiguration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -220,8 +220,8 @@ abstract class $SigningProofConfigurationCopyWith<$Res> {
       String x,
       String y,
       String kid,
-      String use,
-      String alg});
+      String? use,
+      String? alg});
 }
 
 /// @nodoc
@@ -245,8 +245,8 @@ class _$SigningProofConfigurationCopyWithImpl<$Res,
     Object? x = null,
     Object? y = null,
     Object? kid = null,
-    Object? use = null,
-    Object? alg = null,
+    Object? use = freezed,
+    Object? alg = freezed,
   }) {
     return _then(_value.copyWith(
       kty: null == kty
@@ -269,14 +269,14 @@ class _$SigningProofConfigurationCopyWithImpl<$Res,
           ? _value.kid
           : kid // ignore: cast_nullable_to_non_nullable
               as String,
-      use: null == use
+      use: freezed == use
           ? _value.use
           : use // ignore: cast_nullable_to_non_nullable
-              as String,
-      alg: null == alg
+              as String?,
+      alg: freezed == alg
           ? _value.alg
           : alg // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -296,8 +296,8 @@ abstract class _$$SigningProofConfigurationImplCopyWith<$Res>
       String x,
       String y,
       String kid,
-      String use,
-      String alg});
+      String? use,
+      String? alg});
 }
 
 /// @nodoc
@@ -320,8 +320,8 @@ class __$$SigningProofConfigurationImplCopyWithImpl<$Res>
     Object? x = null,
     Object? y = null,
     Object? kid = null,
-    Object? use = null,
-    Object? alg = null,
+    Object? use = freezed,
+    Object? alg = freezed,
   }) {
     return _then(_$SigningProofConfigurationImpl(
       kty: null == kty
@@ -344,14 +344,14 @@ class __$$SigningProofConfigurationImplCopyWithImpl<$Res>
           ? _value.kid
           : kid // ignore: cast_nullable_to_non_nullable
               as String,
-      use: null == use
+      use: freezed == use
           ? _value.use
           : use // ignore: cast_nullable_to_non_nullable
-              as String,
-      alg: null == alg
+              as String?,
+      alg: freezed == alg
           ? _value.alg
           : alg // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -365,8 +365,8 @@ class _$SigningProofConfigurationImpl implements _SigningProofConfiguration {
       required this.x,
       required this.y,
       required this.kid,
-      required this.use,
-      required this.alg});
+      this.use,
+      this.alg});
 
   factory _$SigningProofConfigurationImpl.fromJson(Map<String, dynamic> json) =>
       _$$SigningProofConfigurationImplFromJson(json);
@@ -382,9 +382,9 @@ class _$SigningProofConfigurationImpl implements _SigningProofConfiguration {
   @override
   final String kid;
   @override
-  final String use;
+  final String? use;
   @override
-  final String alg;
+  final String? alg;
 
   @override
   String toString() {
@@ -433,8 +433,8 @@ abstract class _SigningProofConfiguration implements SigningProofConfiguration {
       required final String x,
       required final String y,
       required final String kid,
-      required final String use,
-      required final String alg}) = _$SigningProofConfigurationImpl;
+      final String? use,
+      final String? alg}) = _$SigningProofConfigurationImpl;
 
   factory _SigningProofConfiguration.fromJson(Map<String, dynamic> json) =
       _$SigningProofConfigurationImpl.fromJson;
@@ -450,9 +450,9 @@ abstract class _SigningProofConfiguration implements SigningProofConfiguration {
   @override
   String get kid;
   @override
-  String get use;
+  String? get use;
   @override
-  String get alg;
+  String? get alg;
 
   /// Create a copy of SigningProofConfiguration
   /// with the given fields replaced by the non-null parameter values.
