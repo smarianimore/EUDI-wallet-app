@@ -1,6 +1,15 @@
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+extension on Map<dynamic, dynamic> {
+  Map<String, dynamic> get hiveCast {
+    return map((key, value) {
+      final castedValue = value is Map<dynamic, dynamic> ? value.hiveCast : value;
+      return MapEntry(key as String, castedValue);
+    });
+  }
+}
+
 class VerifiableCredentialHiveModel {
   VerifiableCredentialHiveModel({
     required this.credential,
@@ -25,9 +34,12 @@ class VerifiableCredentialHiveModel {
       cNonce: cnonce,
       cNonceExpiresIn: cnonceExpiresIn,
     );
+    final displayPayload = (json['display'] as Map<dynamic, dynamic>?)?.hiveCast;
+    final display = displayPayload != null ? SupportedCredentialDisplayInformation.fromJson(displayPayload) : null;
     return VerifiableCredentialHiveModel(
       credential: VerifiableCredential(
         credentialResponse: vcResponse,
+        display: display,
         subject: subject,
         claims: _mapClaims(claims),
         disclosures: _mapDisclosures(disclosures),
@@ -73,6 +85,7 @@ class VerifiableCredentialHiveModel {
       'claims': credential.claims.map((e) => e.toJson()).toList(),
       'disclosures': credential.disclosures.map((e) => e.toJson()).toList(),
       'expiresAt': DateTime.now().toIso8601String(),
+      if (credential.display != null) 'display': credential.display!.toJson(),
     };
   }
 }

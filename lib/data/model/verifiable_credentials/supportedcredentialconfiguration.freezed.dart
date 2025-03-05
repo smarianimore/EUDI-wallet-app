@@ -1466,6 +1466,8 @@ mixin _$VerifiableCredential {
   List<VerifiableDisclosure> get disclosures =>
       throw _privateConstructorUsedError;
   DateTime get expiresAt => throw _privateConstructorUsedError;
+  SupportedCredentialDisplayInformation? get display =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this VerifiableCredential to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1488,9 +1490,11 @@ abstract class $VerifiableCredentialCopyWith<$Res> {
       String subject,
       List<VerifiableCredentialClaim> claims,
       List<VerifiableDisclosure> disclosures,
-      DateTime expiresAt});
+      DateTime expiresAt,
+      SupportedCredentialDisplayInformation? display});
 
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
 
 /// @nodoc
@@ -1514,6 +1518,7 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     Object? claims = null,
     Object? disclosures = null,
     Object? expiresAt = null,
+    Object? display = freezed,
   }) {
     return _then(_value.copyWith(
       credentialResponse: null == credentialResponse
@@ -1536,6 +1541,10 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      display: freezed == display
+          ? _value.display
+          : display // ignore: cast_nullable_to_non_nullable
+              as SupportedCredentialDisplayInformation?,
     ) as $Val);
   }
 
@@ -1547,6 +1556,21 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     return $VerifiableCredentialResponseCopyWith<$Res>(
         _value.credentialResponse, (value) {
       return _then(_value.copyWith(credentialResponse: value) as $Val);
+    });
+  }
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display {
+    if (_value.display == null) {
+      return null;
+    }
+
+    return $SupportedCredentialDisplayInformationCopyWith<$Res>(_value.display!,
+        (value) {
+      return _then(_value.copyWith(display: value) as $Val);
     });
   }
 }
@@ -1564,10 +1588,13 @@ abstract class _$$VerifiableCredentialImplCopyWith<$Res>
       String subject,
       List<VerifiableCredentialClaim> claims,
       List<VerifiableDisclosure> disclosures,
-      DateTime expiresAt});
+      DateTime expiresAt,
+      SupportedCredentialDisplayInformation? display});
 
   @override
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+  @override
+  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
 
 /// @nodoc
@@ -1588,6 +1615,7 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
     Object? claims = null,
     Object? disclosures = null,
     Object? expiresAt = null,
+    Object? display = freezed,
   }) {
     return _then(_$VerifiableCredentialImpl(
       credentialResponse: null == credentialResponse
@@ -1610,6 +1638,10 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      display: freezed == display
+          ? _value.display
+          : display // ignore: cast_nullable_to_non_nullable
+              as SupportedCredentialDisplayInformation?,
     ));
   }
 }
@@ -1623,7 +1655,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       required this.subject,
       required final List<VerifiableCredentialClaim> claims,
       required final List<VerifiableDisclosure> disclosures,
-      required this.expiresAt})
+      required this.expiresAt,
+      this.display})
       : _claims = claims,
         _disclosures = disclosures;
 
@@ -1652,10 +1685,12 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
 
   @override
   final DateTime expiresAt;
+  @override
+  final SupportedCredentialDisplayInformation? display;
 
   @override
   String toString() {
-    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt)';
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt, display: $display)';
   }
 
   @override
@@ -1670,7 +1705,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
             const DeepCollectionEquality()
                 .equals(other._disclosures, _disclosures) &&
             (identical(other.expiresAt, expiresAt) ||
-                other.expiresAt == expiresAt));
+                other.expiresAt == expiresAt) &&
+            (identical(other.display, display) || other.display == display));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -1681,7 +1717,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       subject,
       const DeepCollectionEquality().hash(_claims),
       const DeepCollectionEquality().hash(_disclosures),
-      expiresAt);
+      expiresAt,
+      display);
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.
@@ -1703,11 +1740,13 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
 
 abstract class _VerifiableCredential implements VerifiableCredential {
   factory _VerifiableCredential(
-      {required final VerifiableCredentialResponse credentialResponse,
-      required final String subject,
-      required final List<VerifiableCredentialClaim> claims,
-      required final List<VerifiableDisclosure> disclosures,
-      required final DateTime expiresAt}) = _$VerifiableCredentialImpl;
+          {required final VerifiableCredentialResponse credentialResponse,
+          required final String subject,
+          required final List<VerifiableCredentialClaim> claims,
+          required final List<VerifiableDisclosure> disclosures,
+          required final DateTime expiresAt,
+          final SupportedCredentialDisplayInformation? display}) =
+      _$VerifiableCredentialImpl;
 
   factory _VerifiableCredential.fromJson(Map<String, dynamic> json) =
       _$VerifiableCredentialImpl.fromJson;
@@ -1722,6 +1761,8 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   List<VerifiableDisclosure> get disclosures;
   @override
   DateTime get expiresAt;
+  @override
+  SupportedCredentialDisplayInformation? get display;
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.

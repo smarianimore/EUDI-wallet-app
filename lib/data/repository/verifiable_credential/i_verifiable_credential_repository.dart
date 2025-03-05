@@ -10,5 +10,6 @@ abstract class IVerifiableCredentialRepository {
     required String jwt,
     required String proofType,
     required String subject,
+    required SupportedCredentialDisplayInformation display,
   });
 }

@@ -34,6 +34,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     required String jwt,
     required String proofType,
     required String subject,
+    required SupportedCredentialDisplayInformation display,
   }) {
     return handleResponse(
       request: () => dio.post(
@@ -61,6 +62,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
             )
             .toList();
         return VerifiableCredential(
+          display: display,
           credentialResponse: response,
           subject: subject,
           disclosures: response.credential.parseDisclosures,

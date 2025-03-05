@@ -96,6 +96,7 @@ class VerifiableCredential with _$VerifiableCredential {
     required List<VerifiableCredentialClaim> claims,
     required List<VerifiableDisclosure> disclosures,
     required DateTime expiresAt,
+    SupportedCredentialDisplayInformation? display,
   }) = _VerifiableCredential;
 
   factory VerifiableCredential.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialFromJson(json);

@@ -55,8 +55,13 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final logoUri = credential.display?.logo.uri;
     return Row(
       children: [
+        if (logoUri != null) ...[
+          CircleAvatar(backgroundImage: NetworkImage(logoUri)),
+          Dimensions.mediumSize.spacer(axis: Axis.horizontal),
+        ],
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

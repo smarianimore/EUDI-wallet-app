@@ -120,6 +120,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     final jwtToken = jwtService.signJWT(jwt, keyProofPayload.x);
     final credentialResponse = await keyProofResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
+        display: target.display.first,
         accessToken: loginPayload.accessToken,
         uri: issuerPayload.credentialEndpoint,
         format: target.format,

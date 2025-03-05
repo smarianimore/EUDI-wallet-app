@@ -145,6 +145,10 @@ _$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
           .map((e) => VerifiableDisclosure.fromJson(e as Map<String, dynamic>))
           .toList(),
       expiresAt: DateTime.parse(json['expiresAt'] as String),
+      display: json['display'] == null
+          ? null
+          : SupportedCredentialDisplayInformation.fromJson(
+              json['display'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$VerifiableCredentialImplToJson(
@@ -155,6 +159,7 @@ Map<String, dynamic> _$$VerifiableCredentialImplToJson(
       'claims': instance.claims.map((e) => e.toJson()).toList(),
       'disclosures': instance.disclosures.map((e) => e.toJson()).toList(),
       'expiresAt': instance.expiresAt.toIso8601String(),
+      'display': instance.display?.toJson(),
     };
 
 _$VerifiableCredentialClaimImpl _$$VerifiableCredentialClaimImplFromJson(
