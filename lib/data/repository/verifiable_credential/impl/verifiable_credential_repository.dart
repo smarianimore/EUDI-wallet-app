@@ -53,7 +53,12 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
         final jwtComposer = jwtService.manageJWT(response.credential);
         final expiresAt = jwtComposer.expirationDate;
         final claims = jwtComposer.claims.entries
-            .map((e) => VerifiableCredentialClaim(name: e.key, value: e.value.toString()))
+            .map(
+              (e) => VerifiableCredentialClaim(
+                name: e.key,
+                value: e.toString(),
+              ),
+            )
             .toList();
         return VerifiableCredential(
           credentialResponse: response,
@@ -69,7 +74,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
 
 extension on String {
   List<VerifiableDisclosure> get parseDisclosures {
-    final rawDisclosures = [...split('~')];
+    final rawDisclosures = [...split('~')]..removeWhere((e) => e.isEmpty);
     if (rawDisclosures.length < 2) return <VerifiableDisclosure>[];
     rawDisclosures
       ..removeLast()
