@@ -1,4 +1,5 @@
 import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:birex/utils/response.dart';
 import 'package:dio/dio.dart' as dio;
 
@@ -24,7 +25,8 @@ mixin RepositoryResponseHandler {
       final error = ApplicationErrorFactory.instance.mapNetworkError(e);
       final response = Responses.failure<T, ApplicationError>([error]);
       return Future.value(response);
-    } catch (e) {
+    } catch (e, exception) {
+      ApplicationLogger.instance.logApplicationError('Eccezione', error: e, stacktrace: exception);
       final response = Responses.failure<T, ApplicationError>([ApplicationError.generic()]);
       return Future.value(response);
     }

@@ -18,20 +18,25 @@ class ApplicationLogger {
   );
 
   void logApplicationEvent(Object? event) {
-    _logMessage('NEW VALUE: $event');
+    _logGenericMessage('NEW VALUE: $event');
   }
 
-  void logApplicationError(String error) {
-    _logMessage('[ERROR] $error', level: Level.error);
+  void logApplicationError(String message, {dynamic error, StackTrace? stacktrace}) {
+    _logDartError(message, error: error, stacktrace: stacktrace);
   }
 
   void logApplicationSuccess(String message) {
-    _logMessage('[SUCCESS] $message', level: Level.info);
+    _logGenericMessage('[SUCCESS] $message', level: Level.info);
   }
 
-  void _logMessage(String message, {Level level = Level.debug}) {
+  void _logGenericMessage(String message, {Level level = Level.debug}) {
     if (!EnvVariables.loggingEnabled) return;
     logger.log(level, message);
+  }
+
+  void _logDartError(String message, {Object? error, StackTrace? stacktrace}) {
+    if (!EnvVariables.loggingEnabled) return;
+    logger.e(message, error: error, stackTrace: stacktrace);
   }
 
   void logFlutterError(FlutterErrorDetails details) {
