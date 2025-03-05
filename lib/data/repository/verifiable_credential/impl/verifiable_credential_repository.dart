@@ -56,7 +56,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
             .map(
               (e) => VerifiableCredentialClaim(
                 name: e.key,
-                value: e.toString(),
+                value: e.value.toString(),
               ),
             )
             .toList();

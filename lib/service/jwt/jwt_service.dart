@@ -56,7 +56,6 @@ class JWTBuilder {
         'iat': DateTime.now().millisecondsSinceEpoch,
         'nonce': nonce,
       },
-      issuer: issuer,
       header: {
         'typ': 'openid4vci-proof+jwt',
         'alg': 'ES256',
