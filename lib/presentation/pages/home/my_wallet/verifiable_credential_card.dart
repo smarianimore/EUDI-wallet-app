@@ -131,31 +131,6 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _UnknownDisclosuresSection extends StatelessWidget {
-  const _UnknownDisclosuresSection({
-    required this.credential,
-  });
-
-  final VerifiableCredential credential;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: Dimensions.mediumSize,
-      children: [
-        for (final claim in credential.unknownDiscolures)
-          Chip(
-            label: Text('${claim.formatName}: ${claim.value}'),
-          ),
-        for (final claim in credential.unknownClaims)
-          Chip(
-            label: Text('${claim.name}: ${claim.value}'),
-          ),
-      ],
-    );
-  }
-}
-
 class _ActionBar extends ConsumerWidget {
   const _ActionBar({
     required this.credential,
@@ -198,7 +173,7 @@ class _UserInformationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _KnownInformationSection(
+    return _InformationSection(
       leading: const Icon(Icons.person),
       title: 'Informazioni utente',
       children: [
@@ -245,37 +220,37 @@ class _ScoreInformationSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _KnownInformationSection(
+    return _InformationSection(
       leading: const Icon(Icons.credit_card),
       title: 'Informazioni di credito',
       children: [
         if (scoreIndex != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Indice di affidabilità',
+            label: 'Indice affidabilità',
             description: scoreIndex!.value,
           ),
         ],
         if (scoreDesc != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Descrizione',
+            label: 'Descrizione affidabilità',
             description: scoreDesc!.value,
           ),
         ],
         if (rentAmount != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Importo affitto',
+            label: 'Canone sostenibile',
             description: rentAmount!.value,
           ),
         ],
         if (scoreDate != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Data',
+            label: 'Data emissione',
             description: scoreDate!.value,
           ),
         ],
         if (scoreDateExpiration != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Scadenza',
+            label: 'Data validità',
             description: scoreDateExpiration!.value,
           ),
         ],
@@ -300,7 +275,7 @@ class _PaymentDetailsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (paymentAnalysis == null) return const SizedBox.shrink();
-    return _KnownInformationSection(
+    return _InformationSection(
       leading: const Icon(Icons.payment),
       title: 'Informazioni di pagamento',
       children: [
@@ -312,8 +287,36 @@ class _PaymentDetailsSection extends ConsumerWidget {
   }
 }
 
-class _KnownInformationSection extends StatelessWidget {
-  const _KnownInformationSection({
+class _UnknownDisclosuresSection extends StatelessWidget {
+  const _UnknownDisclosuresSection({
+    required this.credential,
+  });
+
+  final VerifiableCredential credential;
+
+  @override
+  Widget build(BuildContext context) {
+    return _InformationSection(
+      title: 'Altre informazioni',
+      leading: const Icon(Icons.info),
+      children: [
+        for (final claim in credential.unknownDiscolures)
+          LabelAndDescriptionComponent(
+            label: claim.formatName,
+            description: claim.value,
+          ),
+        for (final claim in credential.unknownClaims)
+          LabelAndDescriptionComponent(
+            label: claim.formatName,
+            description: claim.value,
+          ),
+      ],
+    );
+  }
+}
+
+class _InformationSection extends StatelessWidget {
+  const _InformationSection({
     required this.title,
     required this.children,
     required this.leading,

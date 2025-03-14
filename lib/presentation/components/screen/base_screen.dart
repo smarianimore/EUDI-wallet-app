@@ -45,8 +45,6 @@ class _BaseScreenState extends State<BaseScreen> {
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               title: Text(widget.title),
               actions: widget.actions,
-              elevation: 10,
-              floating: true,
               shape: widget.roundedAppBar
                   ? const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
