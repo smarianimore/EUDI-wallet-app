@@ -1,4 +1,5 @@
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/utils/response.dart';
 
 abstract class IVerifiableCredentialRepository {

@@ -1,4 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/presentation/components/screen/base_screen.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_card.dart';
 import 'package:birex/presentation/theme/dimension.dart';

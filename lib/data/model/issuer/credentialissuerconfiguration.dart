@@ -1,4 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'credentialissuerconfiguration.freezed.dart';

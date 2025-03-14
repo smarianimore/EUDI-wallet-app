@@ -1,4 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
 import 'package:flutter/material.dart';

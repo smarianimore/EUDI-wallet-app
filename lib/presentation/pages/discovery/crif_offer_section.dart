@@ -1,5 +1,5 @@
 import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/request_credential_usecase.dart';
 import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';

@@ -1,4 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';

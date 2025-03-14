@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
-import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
