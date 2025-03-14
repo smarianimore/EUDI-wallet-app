@@ -2116,3 +2116,194 @@ abstract class _VerifiableDisclosure implements VerifiableDisclosure {
   _$$VerifiableDisclosureImplCopyWith<_$VerifiableDisclosureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
+
+PaymentAnalysisInformation _$PaymentAnalysisInformationFromJson(
+    Map<String, dynamic> json) {
+  return _PaymentAnalysisInformation.fromJson(json);
+}
+
+/// @nodoc
+mixin _$PaymentAnalysisInformation {
+  @JsonKey(name: 'Title')
+  String get title => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Desc')
+  String get description => throw _privateConstructorUsedError;
+
+  /// Serializes this PaymentAnalysisInformation to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of PaymentAnalysisInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $PaymentAnalysisInformationCopyWith<PaymentAnalysisInformation>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $PaymentAnalysisInformationCopyWith<$Res> {
+  factory $PaymentAnalysisInformationCopyWith(PaymentAnalysisInformation value,
+          $Res Function(PaymentAnalysisInformation) then) =
+      _$PaymentAnalysisInformationCopyWithImpl<$Res,
+          PaymentAnalysisInformation>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'Title') String title,
+      @JsonKey(name: 'Desc') String description});
+}
+
+/// @nodoc
+class _$PaymentAnalysisInformationCopyWithImpl<$Res,
+        $Val extends PaymentAnalysisInformation>
+    implements $PaymentAnalysisInformationCopyWith<$Res> {
+  _$PaymentAnalysisInformationCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of PaymentAnalysisInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? description = null,
+  }) {
+    return _then(_value.copyWith(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$PaymentAnalysisInformationImplCopyWith<$Res>
+    implements $PaymentAnalysisInformationCopyWith<$Res> {
+  factory _$$PaymentAnalysisInformationImplCopyWith(
+          _$PaymentAnalysisInformationImpl value,
+          $Res Function(_$PaymentAnalysisInformationImpl) then) =
+      __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'Title') String title,
+      @JsonKey(name: 'Desc') String description});
+}
+
+/// @nodoc
+class __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>
+    extends _$PaymentAnalysisInformationCopyWithImpl<$Res,
+        _$PaymentAnalysisInformationImpl>
+    implements _$$PaymentAnalysisInformationImplCopyWith<$Res> {
+  __$$PaymentAnalysisInformationImplCopyWithImpl(
+      _$PaymentAnalysisInformationImpl _value,
+      $Res Function(_$PaymentAnalysisInformationImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PaymentAnalysisInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? title = null,
+    Object? description = null,
+  }) {
+    return _then(_$PaymentAnalysisInformationImpl(
+      title: null == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
+  _$PaymentAnalysisInformationImpl(
+      {@JsonKey(name: 'Title') required this.title,
+      @JsonKey(name: 'Desc') required this.description});
+
+  factory _$PaymentAnalysisInformationImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$PaymentAnalysisInformationImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'Title')
+  final String title;
+  @override
+  @JsonKey(name: 'Desc')
+  final String description;
+
+  @override
+  String toString() {
+    return 'PaymentAnalysisInformation(title: $title, description: $description)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PaymentAnalysisInformationImpl &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.description, description) ||
+                other.description == description));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(runtimeType, title, description);
+
+  /// Create a copy of PaymentAnalysisInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PaymentAnalysisInformationImplCopyWith<_$PaymentAnalysisInformationImpl>
+      get copyWith => __$$PaymentAnalysisInformationImplCopyWithImpl<
+          _$PaymentAnalysisInformationImpl>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$PaymentAnalysisInformationImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _PaymentAnalysisInformation
+    implements PaymentAnalysisInformation {
+  factory _PaymentAnalysisInformation(
+          {@JsonKey(name: 'Title') required final String title,
+          @JsonKey(name: 'Desc') required final String description}) =
+      _$PaymentAnalysisInformationImpl;
+
+  factory _PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) =
+      _$PaymentAnalysisInformationImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'Title')
+  String get title;
+  @override
+  @JsonKey(name: 'Desc')
+  String get description;
+
+  /// Create a copy of PaymentAnalysisInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PaymentAnalysisInformationImplCopyWith<_$PaymentAnalysisInformationImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}

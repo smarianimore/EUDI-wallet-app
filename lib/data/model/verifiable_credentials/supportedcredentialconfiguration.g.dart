@@ -189,3 +189,17 @@ Map<String, dynamic> _$$VerifiableDisclosureImplToJson(
       'name': instance.name,
       'value': instance.value,
     };
+
+_$PaymentAnalysisInformationImpl _$$PaymentAnalysisInformationImplFromJson(
+        Map<String, dynamic> json) =>
+    _$PaymentAnalysisInformationImpl(
+      title: json['Title'] as String,
+      description: json['Desc'] as String,
+    );
+
+Map<String, dynamic> _$$PaymentAnalysisInformationImplToJson(
+        _$PaymentAnalysisInformationImpl instance) =>
+    <String, dynamic>{
+      'Title': instance.title,
+      'Desc': instance.description,
+    };

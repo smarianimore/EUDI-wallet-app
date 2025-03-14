@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:birex/utils/logger/custom_logger.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -135,5 +138,138 @@ extension VerifiableCredentialFormatter on VerifiableCredential {
   String get formatName {
     final beforeCapitalLetter = RegExp('(?=[A-Z])');
     return subject.split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
+  }
+}
+
+extension on List<VerifiableDisclosure> {
+  VerifiableDisclosure? findByKnownType(KnownVerfiableCredentialInformationType type) {
+    final result = where((element) => element.name == type.apiValue).toList();
+    return result.isNotEmpty ? result.first : null;
+  }
+}
+
+extension on List<VerifiableCredentialClaim> {
+  VerifiableCredentialClaim? findByKnownType(KnownVerfiableCredentialInformationType type) {
+    final result = where((element) => element.name == type.apiValue).toList();
+    return result.isNotEmpty ? result.first : null;
+  }
+}
+
+extension VerifiableCredentialKnownInformation on VerifiableCredential {
+  List<PaymentAnalysisInformation>? get paymentAnalysis {
+    try {
+      final match = claims.findByKnownType(KnownVerfiableCredentialInformationType.paymentAnalysis)?.value;
+      if (match == null) return null;
+      return PaymentAnalysisInformation.generateFromClaim(match);
+    } catch (e, exception) {
+      ApplicationLogger.instance.logApplicationError('Error', error: e, stacktrace: exception);
+      return null;
+    }
+  }
+
+  VerifiableDisclosure? get firstName {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.firstName);
+  }
+
+  VerifiableDisclosure? get lastName {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.lastName);
+  }
+
+  VerifiableDisclosure? get fiscalCode {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.fiscalCode);
+  }
+
+  VerifiableDisclosure? get scoreIndex {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.scoreIndex);
+  }
+
+  VerifiableDisclosure? get scoreDesc {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.scoreDesc);
+  }
+
+  VerifiableDisclosure? get rentAmount {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.rentAmount);
+  }
+
+  VerifiableDisclosure? get scoreDate {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.scoreDate);
+  }
+
+  VerifiableDisclosure? get scoreDateExpiration {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.scoreDateExpiration);
+  }
+
+  VerifiableDisclosure? get scoreDetail {
+    return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.scoreDetail);
+  }
+
+  List<VerifiableDisclosure> get unknownDiscolures {
+    const knownValues = KnownVerfiableCredentialInformationType.values;
+    final notSupported = disclosures.where((element) => !knownValues.map((e) => e.apiValue).contains(element.name));
+    return notSupported.toList();
+  }
+
+  List<VerifiableDisclosure> get unknownClaims {
+    const knownValues = KnownVerfiableCredentialInformationType.values;
+    final notSupported = disclosures.where((element) => !knownValues.map((e) => e.apiValue).contains(element.name));
+    return notSupported.toList();
+  }
+
+  bool get hasUnknownInformations => unknownDiscolures.isNotEmpty || unknownClaims.isNotEmpty;
+}
+
+enum KnownVerfiableCredentialInformationType {
+  firstName,
+  lastName,
+  fiscalCode,
+  scoreIndex,
+  scoreDesc,
+  rentAmount,
+  scoreDate,
+  scoreDateExpiration,
+  scoreDetail,
+  paymentAnalysis,
+}
+
+extension on KnownVerfiableCredentialInformationType {
+  String get apiValue {
+    switch (this) {
+      case KnownVerfiableCredentialInformationType.firstName:
+        return 'FirstName';
+      case KnownVerfiableCredentialInformationType.lastName:
+        return 'LastName';
+      case KnownVerfiableCredentialInformationType.fiscalCode:
+        return 'FiscalCode';
+      case KnownVerfiableCredentialInformationType.scoreIndex:
+        return 'ScoreIndex';
+      case KnownVerfiableCredentialInformationType.scoreDesc:
+        return 'ScoreDesc';
+      case KnownVerfiableCredentialInformationType.rentAmount:
+        return 'RentAmount';
+      case KnownVerfiableCredentialInformationType.scoreDate:
+        return 'ScoreDate';
+      case KnownVerfiableCredentialInformationType.scoreDateExpiration:
+        return 'ScoreDateExpiration';
+      case KnownVerfiableCredentialInformationType.scoreDetail:
+        return 'ScoreDetail';
+      case KnownVerfiableCredentialInformationType.paymentAnalysis:
+        return 'PaymentAnalysis';
+    }
+  }
+}
+
+@freezed
+class PaymentAnalysisInformation with _$PaymentAnalysisInformation {
+  @JsonSerializable(explicitToJson: true)
+  factory PaymentAnalysisInformation({
+    @JsonKey(name: 'Title') required String title,
+    @JsonKey(name: 'Desc') required String description,
+  }) = _PaymentAnalysisInformation;
+
+  factory PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) => _$PaymentAnalysisInformationFromJson(json);
+
+  static List<PaymentAnalysisInformation> generateFromClaim(String value) {
+    final decoded = json.decode(value) as List<dynamic>;
+    return decoded.map((e) => PaymentAnalysisInformation.fromJson(e as Map<String, dynamic>)).toList();
   }
 }

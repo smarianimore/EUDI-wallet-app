@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:birex/data/model/verifiable_credentials/supportedcredentialconfiguration.dart';
+import 'package:birex/presentation/components/header/label_and_description_component.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
 import 'package:birex/presentation/theme/dimension.dart';
 import 'package:birex/presentation/theme/separator.dart';
@@ -34,9 +35,48 @@ class VerifiableCredentialCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _Header(credential: credential),
-              Dimensions.mediumSize.spacer(),
-              _Disclosures(credential: credential),
-              Dimensions.mediumSize.spacer(),
+              Dimensions.largeSize.spacer(),
+              IntrinsicHeight(
+                child: Stack(
+                  children: [
+                    const Positioned(
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: VerticalDivider(width: 40),
+                      ),
+                    ),
+                    Positioned(
+                      child: Column(
+                        children: [
+                          _UserInformationSection(
+                            firstName: credential.firstName,
+                            lastName: credential.lastName,
+                            fiscalCode: credential.fiscalCode,
+                          ),
+                          Dimensions.largeSize.spacer(),
+                          _ScoreInformationSection(
+                            scoreIndex: credential.scoreIndex,
+                            scoreDesc: credential.scoreDesc,
+                            rentAmount: credential.rentAmount,
+                            scoreDate: credential.scoreDate,
+                            scoreDateExpiration: credential.scoreDateExpiration,
+                            scoreDetail: credential.scoreDetail,
+                          ),
+                          if (credential.paymentAnalysis != null) ...[
+                            Dimensions.largeSize.spacer(),
+                            _PaymentDetailsSection(paymentAnalysis: credential.paymentAnalysis),
+                          ],
+                          if (credential.hasUnknownInformations) ...[
+                            Dimensions.largeSize.spacer(),
+                            _UnknownDisclosuresSection(credential: credential),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Dimensions.largeSize.spacer(),
               _ActionBar(credential: credential),
             ],
           ),
@@ -45,6 +85,8 @@ class VerifiableCredentialCard extends StatelessWidget {
     );
   }
 }
+
+/* Sections */
 
 class _Header extends StatelessWidget {
   const _Header({
@@ -89,8 +131,8 @@ class _Header extends StatelessWidget {
   }
 }
 
-class _Disclosures extends StatelessWidget {
-  const _Disclosures({
+class _UnknownDisclosuresSection extends StatelessWidget {
+  const _UnknownDisclosuresSection({
     required this.credential,
   });
 
@@ -101,11 +143,11 @@ class _Disclosures extends StatelessWidget {
     return Wrap(
       spacing: Dimensions.mediumSize,
       children: [
-        for (final claim in credential.disclosures)
+        for (final claim in credential.unknownDiscolures)
           Chip(
             label: Text('${claim.formatName}: ${claim.value}'),
           ),
-        for (final claim in credential.claims)
+        for (final claim in credential.unknownClaims)
           Chip(
             label: Text('${claim.name}: ${claim.value}'),
           ),
@@ -135,6 +177,172 @@ class _ActionBar extends ConsumerWidget {
                   credential: credential,
                 ),
               ),
+        ),
+      ],
+    );
+  }
+}
+
+/* Known information */
+
+class _UserInformationSection extends StatelessWidget {
+  const _UserInformationSection({
+    this.firstName,
+    this.lastName,
+    this.fiscalCode,
+  });
+
+  final VerifiableDisclosure? firstName;
+  final VerifiableDisclosure? lastName;
+  final VerifiableDisclosure? fiscalCode;
+
+  @override
+  Widget build(BuildContext context) {
+    return _KnownInformationSection(
+      leading: const Icon(Icons.person),
+      title: 'Informazioni utente',
+      children: [
+        if (firstName != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Nome',
+            description: firstName!.value,
+          ),
+        ],
+        if (lastName != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Cognome',
+            description: lastName!.value,
+          ),
+        ],
+        if (fiscalCode != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Codice fiscale',
+            description: fiscalCode!.value,
+          ),
+        ],
+        const SizedBox.shrink(),
+      ],
+    );
+  }
+}
+
+class _ScoreInformationSection extends StatelessWidget {
+  const _ScoreInformationSection({
+    this.scoreIndex,
+    this.scoreDesc,
+    this.rentAmount,
+    this.scoreDate,
+    this.scoreDateExpiration,
+    this.scoreDetail,
+  });
+
+  final VerifiableDisclosure? scoreIndex;
+  final VerifiableDisclosure? scoreDesc;
+  final VerifiableDisclosure? rentAmount;
+  final VerifiableDisclosure? scoreDate;
+  final VerifiableDisclosure? scoreDateExpiration;
+  final VerifiableDisclosure? scoreDetail;
+
+  @override
+  Widget build(BuildContext context) {
+    return _KnownInformationSection(
+      leading: const Icon(Icons.credit_card),
+      title: 'Informazioni di credito',
+      children: [
+        if (scoreIndex != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Indice di affidabilità',
+            description: scoreIndex!.value,
+          ),
+        ],
+        if (scoreDesc != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Descrizione',
+            description: scoreDesc!.value,
+          ),
+        ],
+        if (rentAmount != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Importo affitto',
+            description: rentAmount!.value,
+          ),
+        ],
+        if (scoreDate != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Data',
+            description: scoreDate!.value,
+          ),
+        ],
+        if (scoreDateExpiration != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Scadenza',
+            description: scoreDateExpiration!.value,
+          ),
+        ],
+        if (scoreDetail != null) ...[
+          LabelAndDescriptionComponent(
+            label: 'Dettagli',
+            description: scoreDetail!.value,
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+class _PaymentDetailsSection extends ConsumerWidget {
+  const _PaymentDetailsSection({
+    required this.paymentAnalysis,
+  });
+
+  final List<PaymentAnalysisInformation>? paymentAnalysis;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (paymentAnalysis == null) return const SizedBox.shrink();
+    return _KnownInformationSection(
+      leading: const Icon(Icons.payment),
+      title: 'Informazioni di pagamento',
+      children: [
+        for (final info in paymentAnalysis!) ...[
+          LabelAndDescriptionComponent(label: info.title, description: info.description),
+        ],
+      ],
+    );
+  }
+}
+
+class _KnownInformationSection extends StatelessWidget {
+  const _KnownInformationSection({
+    required this.title,
+    required this.children,
+    required this.leading,
+  });
+
+  final String title;
+  final List<Widget> children;
+  final Widget leading;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CircleAvatar(child: leading),
+        Dimensions.mediumSize.spacer(axis: Axis.horizontal),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.titleMedium),
+              const Divider(height: Dimensions.smallSize),
+              Wrap(
+                spacing: Dimensions.largeSize,
+                runSpacing: Dimensions.smallSize,
+                children: children,
+              ),
+            ],
+          ),
         ),
       ],
     );
