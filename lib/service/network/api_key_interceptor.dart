@@ -1,4 +1,4 @@
-import 'package:birex/utils/env.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:dio/dio.dart';
 
 class CrifAPIKeyInterceptor extends Interceptor {

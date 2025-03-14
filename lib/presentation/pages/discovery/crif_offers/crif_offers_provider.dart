@@ -1,6 +1,6 @@
-import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
-import 'package:birex/domain/usecase/get_crif_credentials_offer/get_crif_credentials_offer_usecase.dart';
-import 'package:birex/utils/response.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/domain/domain.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

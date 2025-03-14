@@ -1,5 +1,5 @@
-import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/presentation/components/components.dart';
+import 'package:birex/service/service.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/usecase/handler/handler.dart';
 

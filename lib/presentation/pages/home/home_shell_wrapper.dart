@@ -1,6 +1,5 @@
-import 'package:birex/domain/usecase/request_credential/by_qr_code/scan_credential_qr_code_usecase.dart';
-import 'package:birex/service/routing/router.dart';
-import 'package:birex/service/routing/routes/home_route.dart';
+import 'package:birex/domain/domain.dart';
+import 'package:birex/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

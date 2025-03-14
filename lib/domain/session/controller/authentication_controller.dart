@@ -1,7 +1,6 @@
 import 'package:birex/domain/session/state/authenticationstate.dart';
-import 'package:birex/service/routing/router.dart';
-import 'package:birex/service/routing/routes/home_route.dart';
-import 'package:birex/utils/logger/custom_logger.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;

@@ -1,8 +1,6 @@
-import 'package:birex/presentation/components/screen/base_screen.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/service/routing/router.dart';
-import 'package:birex/service/routing/routes/discovery_route.dart';
-import 'package:birex/service/routing/routes/settings_route.dart';
+import 'package:birex/presentation/components/components.dart';
+import 'package:birex/presentation/theme/theme.dart';
+import 'package:birex/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

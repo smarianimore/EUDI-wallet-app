@@ -1,6 +1,5 @@
-import 'package:birex/presentation/components/bottom_sheet/custom_bottom_sheet.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/presentation/components/components.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

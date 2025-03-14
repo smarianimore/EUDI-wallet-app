@@ -1,4 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
+import 'package:birex/data/data.dart';
 import 'package:birex/service/storage/model/verifiable_credential_adapter.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/hive_flutter.dart';

@@ -1,5 +1,5 @@
 import 'package:birex/presentation/theme/theme_mode/theme_mode.dart';
-import 'package:birex/service/routing/router.dart';
+import 'package:birex/service/service.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';

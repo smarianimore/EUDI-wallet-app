@@ -1,10 +1,6 @@
-import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
-import 'package:birex/data/repository/well_known/i_well_known_repository.dart';
-import 'package:birex/data/repository/well_known/impl/well_known_repository.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
-import 'package:birex/utils/response.dart';
-import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
-import 'package:birex/utils/usecase/use_case.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

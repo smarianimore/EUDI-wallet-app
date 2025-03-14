@@ -1,5 +1,5 @@
-import 'package:birex/presentation/components/dialog/confirm_dialog.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
+import 'package:birex/presentation/components/components.dart';
+import 'package:birex/service/service.dart';
 import 'package:birex/utils/error/applicationerror.dart';
 import 'package:birex/utils/extensions/empty_response/emptyresponse.dart';
 import 'package:birex/utils/response.dart';

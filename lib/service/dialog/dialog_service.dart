@@ -1,6 +1,6 @@
 import 'package:birex/presentation/components/dialog/confirm_dialog.dart';
 import 'package:birex/service/routing/router.dart';
-import 'package:birex/utils/error/applicationerror.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

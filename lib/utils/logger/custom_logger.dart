@@ -1,4 +1,4 @@
-import 'package:birex/service/env.dart';
+import 'package:birex/utils/env.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
 

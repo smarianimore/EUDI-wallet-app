@@ -1,5 +1,4 @@
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomSheet extends StatelessWidget {

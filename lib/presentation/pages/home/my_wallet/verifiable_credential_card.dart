@@ -1,12 +1,11 @@
 import 'dart:convert';
 
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
-import 'package:birex/presentation/components/header/label_and_description_component.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/presentation/components/components.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
-import 'package:birex/utils/extensions/formatter/date_formatter.dart';
+import 'package:birex/presentation/theme/theme.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:share_plus/share_plus.dart';

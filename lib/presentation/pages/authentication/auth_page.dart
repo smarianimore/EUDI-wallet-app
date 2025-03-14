@@ -1,5 +1,5 @@
-import 'package:birex/domain/session/authentication_controller.dart';
-import 'package:birex/presentation/components/screen/base_screen.dart';
+import 'package:birex/domain/domain.dart';
+import 'package:birex/presentation/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

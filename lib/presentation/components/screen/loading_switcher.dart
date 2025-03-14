@@ -1,6 +1,5 @@
 import 'package:birex/presentation/components/screen/placeholders.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 

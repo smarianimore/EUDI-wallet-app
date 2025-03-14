@@ -4,9 +4,8 @@ import 'package:birex/data/model/verifiable_credentials/configuration/supportedc
 import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
-import 'package:birex/service/jwt/jwt_service.dart';
-import 'package:birex/service/network/dio/dio_provider.dart';
-import 'package:birex/utils/response.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:dio/dio.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

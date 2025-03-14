@@ -1,5 +1,4 @@
-import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
+import 'package:birex/data/data.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 extension on Map<dynamic, dynamic> {

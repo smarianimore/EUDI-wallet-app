@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
-import 'package:birex/presentation/components/screen/base_screen.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/presentation/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

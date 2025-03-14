@@ -1,7 +1,5 @@
-import 'package:birex/presentation/components/screen/base_screen.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
-import 'package:birex/presentation/theme/theme_mode/theme_mode.dart';
+import 'package:birex/presentation/components/components.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';

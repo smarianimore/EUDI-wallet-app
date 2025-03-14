@@ -1,6 +1,4 @@
-import 'package:birex/utils/error/applicationerror.dart';
-import 'package:birex/utils/logger/custom_logger.dart';
-import 'package:birex/utils/response.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:dio/dio.dart' as dio;
 
 mixin RepositoryResponseHandler {

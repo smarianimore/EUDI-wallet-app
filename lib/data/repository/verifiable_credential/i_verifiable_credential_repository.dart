@@ -1,6 +1,6 @@
 import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
 import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
-import 'package:birex/utils/response.dart';
+import 'package:birex/utils/utils.dart';
 
 abstract class IVerifiableCredentialRepository {
   AsyncApplicationResponse<VerifiableCredential> generateCredentials({

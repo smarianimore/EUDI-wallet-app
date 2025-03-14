@@ -1,15 +1,9 @@
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
-import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
-import 'package:birex/data/repository/authentication/impl/authentication_repository.dart';
+import 'package:birex/data/data.dart';
 import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
 import 'package:birex/domain/utils/home_page_redirect_sucess_handler.dart';
-import 'package:birex/service/dialog/dialog_service.dart';
-import 'package:birex/service/routing/router.dart';
-import 'package:birex/utils/error/applicationerror.dart';
-import 'package:birex/utils/response.dart';
-import 'package:birex/utils/usecase/handler/show_dialog_error_handler.dart';
-import 'package:birex/utils/usecase/use_case.dart';
+import 'package:birex/service/service.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

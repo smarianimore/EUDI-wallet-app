@@ -1,6 +1,5 @@
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-import 'package:birex/utils/logger/custom_logger.dart';
+import 'package:birex/utils/utils.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

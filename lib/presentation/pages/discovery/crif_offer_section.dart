@@ -1,12 +1,8 @@
-import 'package:birex/data/model/issuer/credentialissuerconfiguration.dart';
-import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-import 'package:birex/domain/usecase/request_credential/by_issuer/command/requestcredentialcommand.dart';
-import 'package:birex/domain/usecase/request_credential/by_issuer/request_credential_usecase.dart';
-import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
-import 'package:birex/presentation/components/screen/loading_switcher.dart';
+import 'package:birex/data/data.dart';
+import 'package:birex/domain/domain.dart';
+import 'package:birex/presentation/components/components.dart';
 import 'package:birex/presentation/pages/discovery/crif_offers/crif_offers_provider.dart';
-import 'package:birex/presentation/theme/dimension.dart';
-import 'package:birex/presentation/theme/separator.dart';
+import 'package:birex/presentation/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

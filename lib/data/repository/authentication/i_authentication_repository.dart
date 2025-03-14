@@ -1,5 +1,5 @@
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
-import 'package:birex/utils/response.dart';
+import 'package:birex/utils/utils.dart';
 
 abstract class IAuthenticationRepository {
   AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
