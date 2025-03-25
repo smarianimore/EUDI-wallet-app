@@ -14,9 +14,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'scan_credential_qr_code_usecase.g.dart';
 
 @riverpod
-ScanCredentialQrCodeUsecase scanCredentialQrCodeUsecase(Ref ref) {
+Future<ScanCredentialQrCodeUsecase> scanCredentialQrCodeUsecase(Ref ref) async {
   final router = ref.watch(birexRouterProvider);
-  final requestCredentialUseCase = ref.watch(requestAuthorizedCredentialUseCaseProvider);
+  final requestCredentialUseCase = await ref.watch(requestAuthorizedCredentialUseCaseProvider.future);
   final dialogService = ref.watch(dialogServiceProvider);
   final errorHandler = ShowDialogErrorHandler<BuildContext>(dialogService);
   final successHandler = ShowDialogSuccessHandler<VerifiableCredential, BuildContext>(

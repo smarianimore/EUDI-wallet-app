@@ -160,7 +160,8 @@ class _SupportedCredentialComponent extends ConsumerWidget {
       credentialSubject: credentialSubject,
     );
     loaderManager.showLoader(context);
-    await ref.read(requestCredentialUseCaseProvider).call(request);
+    final usecase = await ref.read(requestCredentialUseCaseProvider.future);
+    await usecase.call(request);
     loaderManager.hideLoader();
   }
 }

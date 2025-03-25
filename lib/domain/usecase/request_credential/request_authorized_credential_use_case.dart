@@ -13,15 +13,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'request_authorized_credential_use_case.g.dart';
 
 @riverpod
-RequestAuthorizedCredentialUseCase requestAuthorizedCredentialUseCase(Ref ref) {
-  final dialogService = ref.read(dialogServiceProvider);
+Future<RequestAuthorizedCredentialUseCase> requestAuthorizedCredentialUseCase(Ref ref) async {
+  final dialogService = ref.watch(dialogServiceProvider);
   final dialogOnError = ShowDialogErrorHandler<CredentialPreauthorizationResponse>(dialogService);
+  final jwtBuilder = await ref.watch(jwtBuilderProvider.future);
   return RequestAuthorizedCredentialUseCase(
-    bottomSheetService: ref.read(bottomSheetServiceProvider),
-    jwtService: ref.read(jwtServiceProvider).builder(),
-    repository: ref.read(authenticationRepositoryProvider),
-    verifiableCredentialRepository: ref.read(verifiableCredentialRepositoryProvider),
-    wellKnownRepository: ref.read(wellKnownRepositoryProvider),
+    bottomSheetService: ref.watch(bottomSheetServiceProvider),
+    jwtService: jwtBuilder,
+    repository: ref.watch(authenticationRepositoryProvider),
+    verifiableCredentialRepository: ref.watch(verifiableCredentialRepositoryProvider),
+    wellKnownRepository: ref.watch(wellKnownRepositoryProvider),
     errorHandlers: [dialogOnError],
   );
 }
@@ -40,7 +41,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
   });
 
   final BottomSheetService bottomSheetService;
-  final JWTBuilder jwtService;
+  final WalletProofBuilder jwtService;
   final IAuthenticationRepository repository;
   final IWellKnownRepository wellKnownRepository;
   final IVerifiableCredentialRepository verifiableCredentialRepository;
@@ -96,15 +97,10 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final keyProofPayload = keyProofResponse.payload;
     if (keyProofResponse.isError || keyProofPayload == null) return _closeRequest(keyProofResponse, input: input);
-    final jwt = jwtService.buildVCLoginJWT(
+    final jwtToken = jwtService.createSignedWalletProofJWT(
       issuer: issuerPayload.credentialIssuer,
       nonce: loginPayload.cNonce,
-      kty: keyProofPayload.kty,
-      crv: keyProofPayload.crv,
-      x: keyProofPayload.x,
-      y: keyProofPayload.y,
     );
-    final jwtToken = jwtService.signJWT(jwt, keyProofPayload.x);
     final credentialResponse = await keyProofResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         display: target.display.first,

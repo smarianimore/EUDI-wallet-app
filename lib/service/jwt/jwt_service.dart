@@ -1,4 +1,10 @@
+import 'dart:convert';
+
+import 'package:birex/service/encryption/encryption_key_provider.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
+import 'package:ecdsa/ecdsa.dart';
+import 'package:elliptic/elliptic.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,8 +17,6 @@ JWTService jwtService(Ref ref) {
 
 class JWTService {
   JWTInspector manageJWT(String jwt) => JWTInspector(jwt: JWT.decode(jwt));
-
-  JWTBuilder builder() => JWTBuilder();
 }
 
 class JWTInspector {
@@ -41,35 +45,61 @@ class JWTInspector {
   }
 }
 
-class JWTBuilder {
-  JWT buildVCLoginJWT({
-    required String issuer,
-    required String nonce,
-    required String kty,
-    required String crv,
-    required String x,
-    required String y,
-  }) {
-    return JWT(
-      {
-        'aud': issuer,
-        'iat': DateTime.now().millisecondsSinceEpoch,
-        'nonce': nonce,
-      },
-      header: {
+@Riverpod(keepAlive: true)
+Future<WalletProofBuilder> jwtBuilder(Ref ref) async {
+  final walletKey = await ref.read(walletPrivateKeyProvider.future);
+  return WalletProofBuilder(walletKey: walletKey);
+}
+
+class WalletProofBuilder {
+  WalletProofBuilder({required this.walletKey});
+
+  final PrivateKey walletKey;
+
+  Map<String, dynamic> get _jwtProofHeaders => {
         'typ': 'openid4vci-proof+jwt',
         'alg': 'ES256',
         'jwk': {
-          'kty': kty,
-          'crv': crv,
-          'x': x,
-          'y': y,
+          'kty': 'EC',
+          'crv': 'P-256',
+          'x': walletKey.publicKey.X.toString(),
+          'y': walletKey.publicKey.Y.toString(),
         },
-      },
-    );
+      };
+
+  Map<String, dynamic> _jwtProofPayload({
+    required String issuer,
+    required String nonce,
+  }) {
+    return {
+      'aud': issuer,
+      'iat': DateTime.now().millisecondsSinceEpoch,
+      'nonce': nonce,
+    };
   }
 
-  String signJWT(JWT jwt, String x) {
-    return jwt.sign(SecretKey(x));
+  String createSignedWalletProofJWT({
+    required String issuer,
+    required String nonce,
+  }) {
+    final header = _jwtProofHeaders;
+    final payload = _jwtProofPayload(issuer: issuer, nonce: nonce);
+    final encodedHeader = base64Url.encode(jsonEncode(header).codeUnits);
+    final encodedPayload = base64Url.encode(jsonEncode(payload).codeUnits);
+    final data = '${_base64Unpadded(encodedHeader)}.${_base64Unpadded(encodedPayload)}';
+    final signed = signature(walletKey, data.codeUnits);
+    final encodedSignature = base64Url.encode(signed.toString().codeUnits);
+    final completeJwt = '$data.${_base64Unpadded(encodedSignature)}';
+    if (kDebugMode) {
+      print('JWT: $completeJwt');
+      print('PrivateKey: ${walletKey.D}');
+    }
+    return completeJwt;
+  }
+
+  String _base64Unpadded(String value) {
+    if (value.endsWith('==')) return value.substring(0, value.length - 2);
+    if (value.endsWith('=')) return value.substring(0, value.length - 1);
+    return value;
   }
 }

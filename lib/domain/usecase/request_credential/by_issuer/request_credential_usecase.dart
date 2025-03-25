@@ -10,9 +10,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'request_credential_usecase.g.dart';
 
 @riverpod
-RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
-  final dialogService = ref.read(dialogServiceProvider);
-  final router = ref.read(birexRouterProvider);
+Future<RequestCredentialUseCase> requestCredentialUseCase(Ref ref) async {
+  final dialogService = ref.watch(dialogServiceProvider);
+  final router = ref.watch(birexRouterProvider);
   final successDialog = ShowDialogSuccessHandler<VerifiableCredential, RequestCredentialCommand>(
     dialogService,
     textMapper: (payload, input) => 'Credenziali ${payload!.subject} richieste con successo!',
@@ -20,10 +20,10 @@ RequestCredentialUseCase requestCredentialUseCase(Ref ref) {
   final redirectToHome =
       RedirectToHomePageSuccessHandler<VerifiableCredential, RequestCredentialCommand>(router: router);
   final errorHandler = ShowDialogErrorHandler<RequestCredentialCommand>(dialogService);
-
+  final usecase = await ref.watch(requestAuthorizedCredentialUseCaseProvider.future);
   return RequestCredentialUseCase(
-    requestAuthorizedCredentialUseCase: ref.read(requestAuthorizedCredentialUseCaseProvider),
-    repository: ref.read(authenticationRepositoryProvider),
+    requestAuthorizedCredentialUseCase: usecase,
+    repository: ref.watch(authenticationRepositoryProvider),
     errorHandlers: [errorHandler],
     successHandlers: [successDialog, redirectToHome],
   );

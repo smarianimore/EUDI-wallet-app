@@ -5,6 +5,8 @@ class EnvVariables {
 
   static const crifHost = String.fromEnvironment('CRIF_HOST');
 
+  static const walletEncryptionKey = String.fromEnvironment('WALLET_ENCRYPTION_KEY');
+
   static const loggingEnabled = bool.fromEnvironment('LOGGING_ENABLED', defaultValue: true);
 
   static const visibleStacktrace = bool.fromEnvironment('VISIBLE_STACKTRACE', defaultValue: true);

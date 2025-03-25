@@ -13,7 +13,10 @@ class HomePageShellWrapper extends ConsumerWidget {
     return Scaffold(
       body: child,
       floatingActionButton: FloatingActionButton(
-        onPressed: () => ref.read(scanCredentialQrCodeUsecaseProvider).call(context),
+        onPressed: () async {
+          final usecase = await ref.read(scanCredentialQrCodeUsecaseProvider.future);
+          if (context.mounted) await usecase.call(context);
+        },
         child: const Icon(Icons.qr_code),
       ),
       bottomNavigationBar: const _HomeBottomNavBar(),
