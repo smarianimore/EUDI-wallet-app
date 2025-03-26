@@ -39,6 +39,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     return handleResponse(
       request: () => dio.post(
         uri,
+        options: Options(headers: {'authorization': 'Bearer $accessToken'}),
         data: {
           'format': format,
           'vct': vct,
@@ -47,29 +48,38 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
             'proof_type': proofType,
           },
         },
-        options: Options(headers: {'authorization': 'Bearer $accessToken'}),
       ),
-      payloadMapper: (payload) {
-        final response = VerifiableCredentialResponse.fromJson(payload);
-        final jwtComposer = jwtService.manageJWT(response.credential);
-        final expiresAt = jwtComposer.expirationDate;
-        final claims = jwtComposer.claims.entries
-            .map(
-              (e) => VerifiableCredentialClaim(
-                name: e.key,
-                value: e.value.toString(),
-              ),
-            )
-            .toList();
-        return VerifiableCredential(
-          display: display,
-          credentialResponse: response,
-          subject: subject,
-          disclosures: response.credential.parseDisclosures,
-          claims: claims,
-          expiresAt: expiresAt,
-        );
-      },
+      payloadMapper: (payload) => VerifiableCredentialResponse.fromJson(payload).toVerifiableCredential(
+        jwtService,
+        subject: subject,
+      ),
+    );
+  }
+}
+
+extension on VerifiableCredentialResponse {
+  VerifiableCredential toVerifiableCredential(
+    JWTService jwtService, {
+    required String subject,
+    SupportedCredentialDisplayInformation? display,
+  }) {
+    final jwtComposer = jwtService.manageJWT(credential);
+    final expiresAt = jwtComposer.expirationDate;
+    final claims = jwtComposer.claims.entries
+        .map(
+          (e) => VerifiableCredentialClaim(
+            name: e.key,
+            value: e.value.toString(),
+          ),
+        )
+        .toList();
+    return VerifiableCredential(
+      display: display,
+      credentialResponse: this,
+      subject: subject,
+      disclosures: credential.parseDisclosures,
+      claims: claims,
+      expiresAt: expiresAt,
     );
   }
 }
