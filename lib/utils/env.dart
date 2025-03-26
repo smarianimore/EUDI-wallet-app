@@ -3,8 +3,6 @@ class EnvVariables {
 
   static const crifApiKey = String.fromEnvironment('CRIF_API_KEY');
 
-  static const crifHost = String.fromEnvironment('CRIF_HOST');
-
   static const walletEncryptionKey = String.fromEnvironment('WALLET_ENCRYPTION_KEY');
 
   static const loggingEnabled = bool.fromEnvironment('LOGGING_ENABLED', defaultValue: true);

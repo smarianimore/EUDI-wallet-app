@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-import 'package:birex/utils/utils.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -30,6 +27,7 @@ class VerifiableCredential with _$VerifiableCredential {
     required List<VerifiableCredentialClaim> claims,
     required List<VerifiableDisclosure> disclosures,
     required DateTime expiresAt,
+    PaymentAnalysisInformation? paymentAnalysis,
     SupportedCredentialDisplayInformation? display,
   }) = _VerifiableCredential;
 
@@ -79,24 +77,25 @@ extension on List<VerifiableDisclosure> {
   }
 }
 
-extension on List<VerifiableCredentialClaim> {
+/* extension on List<VerifiableCredentialClaim> {
   VerifiableCredentialClaim? findByKnownType(KnownVerfiableCredentialInformationType type) {
     final result = where((element) => element.name == type.apiValue).toList();
     return result.isNotEmpty ? result.first : null;
   }
-}
+} */
 
 extension VerifiableCredentialKnownInformation on VerifiableCredential {
-  List<PaymentAnalysisInformation>? get paymentAnalysis {
+/*   List<PaymentAnalysisInformation>? get paymentAnalysis {
     try {
       final match = claims.findByKnownType(KnownVerfiableCredentialInformationType.paymentAnalysis)?.value;
       if (match == null) return null;
       return PaymentAnalysisInformation.generateFromClaim(match);
     } catch (e, exception) {
+      log(credentialResponse.credential);
       ApplicationLogger.instance.logApplicationError('Error', error: e, stacktrace: exception);
       return null;
     }
-  }
+  } */
 
   VerifiableDisclosure? get firstName {
     return disclosures.findByKnownType(KnownVerfiableCredentialInformationType.firstName);
@@ -166,25 +165,25 @@ extension on KnownVerfiableCredentialInformationType {
   String get apiValue {
     switch (this) {
       case KnownVerfiableCredentialInformationType.firstName:
-        return 'FirstName';
+        return 'firstName';
       case KnownVerfiableCredentialInformationType.lastName:
-        return 'LastName';
+        return 'lastName';
       case KnownVerfiableCredentialInformationType.fiscalCode:
-        return 'FiscalCode';
+        return 'fiscalCode';
       case KnownVerfiableCredentialInformationType.scoreIndex:
-        return 'ScoreIndex';
+        return 'scoreIndex';
       case KnownVerfiableCredentialInformationType.scoreDesc:
-        return 'ScoreDesc';
+        return 'scoreDesc';
       case KnownVerfiableCredentialInformationType.rentAmount:
-        return 'RentAmount';
+        return 'rentAmount';
       case KnownVerfiableCredentialInformationType.scoreDate:
-        return 'ScoreDate';
+        return 'scoreDate';
       case KnownVerfiableCredentialInformationType.scoreDateExpiration:
-        return 'ScoreDateExpiration';
+        return 'scoreDateExpiration';
       case KnownVerfiableCredentialInformationType.scoreDetail:
-        return 'ScoreDetail';
+        return 'scoreDetail';
       case KnownVerfiableCredentialInformationType.paymentAnalysis:
-        return 'PaymentAnalysis';
+        return 'paymentAnalysis';
     }
   }
 }
@@ -193,14 +192,10 @@ extension on KnownVerfiableCredentialInformationType {
 class PaymentAnalysisInformation with _$PaymentAnalysisInformation {
   @JsonSerializable(explicitToJson: true)
   factory PaymentAnalysisInformation({
-    @JsonKey(name: 'Title') required String title,
-    @JsonKey(name: 'Desc') required String description,
+    @JsonKey(name: 'Protesti') required String protestiInfo,
+    @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti') required String latePaymentsInfo,
+    @JsonKey(name: 'Altre informazioni pubbliche negative') required String otherNegativeInfo,
   }) = _PaymentAnalysisInformation;
 
   factory PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) => _$PaymentAnalysisInformationFromJson(json);
-
-  static List<PaymentAnalysisInformation> generateFromClaim(String value) {
-    final decoded = json.decode(value) as List<dynamic>;
-    return decoded.map((e) => PaymentAnalysisInformation.fromJson(e as Map<String, dynamic>)).toList();
-  }
 }

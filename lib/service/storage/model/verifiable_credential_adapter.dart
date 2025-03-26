@@ -35,6 +35,7 @@ class VerifiableCredentialHiveModel {
       cNonceExpiresIn: cnonceExpiresIn,
     );
     final displayPayload = (json['display'] as Map<dynamic, dynamic>?)?.hiveCast;
+    final paymentAnalysis = (json['paymentAnalysis'] as Map<dynamic, dynamic>?)?.hiveCast;
     final display = displayPayload != null ? SupportedCredentialDisplayInformation.fromJson(displayPayload) : null;
     return VerifiableCredentialHiveModel(
       credential: VerifiableCredential(
@@ -44,6 +45,7 @@ class VerifiableCredentialHiveModel {
         claims: _mapClaims(claims),
         disclosures: _mapDisclosures(disclosures),
         expiresAt: expiresAt,
+        paymentAnalysis: paymentAnalysis != null ? PaymentAnalysisInformation.fromJson(paymentAnalysis) : null,
       ),
     );
   }
@@ -86,6 +88,7 @@ class VerifiableCredentialHiveModel {
       'disclosures': credential.disclosures.map((e) => e.toJson()).toList(),
       'expiresAt': DateTime.now().toIso8601String(),
       if (credential.display != null) 'display': credential.display!.toJson(),
+      if (credential.paymentAnalysis != null) 'paymentAnalysis': credential.paymentAnalysis!.toJson(),
     };
   }
 }

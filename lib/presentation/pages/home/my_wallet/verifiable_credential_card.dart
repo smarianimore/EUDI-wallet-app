@@ -269,18 +269,27 @@ class _PaymentDetailsSection extends ConsumerWidget {
     required this.paymentAnalysis,
   });
 
-  final List<PaymentAnalysisInformation>? paymentAnalysis;
+  final PaymentAnalysisInformation? paymentAnalysis;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (paymentAnalysis == null) return const SizedBox.shrink();
     return _InformationSection(
       leading: const Icon(Icons.payment),
-      title: 'Informazioni di pagamento',
+      title: 'Analisi dei pagamenti',
       children: [
-        for (final info in paymentAnalysis!) ...[
-          LabelAndDescriptionComponent(label: info.title, description: info.description),
-        ],
+        LabelAndDescriptionComponent(
+          label: 'Protesti',
+          description: paymentAnalysis!.protestiInfo,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Ritardo nei pagamenti di prestiti e finanziamenti',
+          description: paymentAnalysis!.latePaymentsInfo,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Altre informazioni pubbliche negative',
+          description: paymentAnalysis!.otherNegativeInfo,
+        ),
       ],
     );
   }

@@ -64,6 +64,7 @@ extension on VerifiableCredentialResponse {
     SupportedCredentialDisplayInformation? display,
   }) {
     final jwtComposer = jwtService.manageJWT(credential);
+    final paymentsAnalysis = jwtComposer.payload['paymentAnalysis'] as Map<String, dynamic>?;
     final expiresAt = jwtComposer.expirationDate;
     final claims = jwtComposer.claims.entries
         .map(
@@ -80,6 +81,7 @@ extension on VerifiableCredentialResponse {
       disclosures: credential.parseDisclosures,
       claims: claims,
       expiresAt: expiresAt,
+      paymentAnalysis: paymentsAnalysis != null ? PaymentAnalysisInformation.fromJson(paymentsAnalysis) : null,
     );
   }
 }

@@ -7,7 +7,7 @@ part of 'request_credential_usecase.dart';
 // **************************************************************************
 
 String _$requestCredentialUseCaseHash() =>
-    r'e7372f703c1dfe65745d30686740559baf390db8';
+    r'68ee9d5ff244b85a9dc7d2959ffe0bc59fd3de5a';
 
 /// See also [requestCredentialUseCase].
 @ProviderFor(requestCredentialUseCase)

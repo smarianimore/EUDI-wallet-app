@@ -245,6 +245,8 @@ mixin _$VerifiableCredential {
   List<VerifiableDisclosure> get disclosures =>
       throw _privateConstructorUsedError;
   DateTime get expiresAt => throw _privateConstructorUsedError;
+  PaymentAnalysisInformation? get paymentAnalysis =>
+      throw _privateConstructorUsedError;
   SupportedCredentialDisplayInformation? get display =>
       throw _privateConstructorUsedError;
 
@@ -270,9 +272,11 @@ abstract class $VerifiableCredentialCopyWith<$Res> {
       List<VerifiableCredentialClaim> claims,
       List<VerifiableDisclosure> disclosures,
       DateTime expiresAt,
+      PaymentAnalysisInformation? paymentAnalysis,
       SupportedCredentialDisplayInformation? display});
 
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
   $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
 
@@ -297,6 +301,7 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     Object? claims = null,
     Object? disclosures = null,
     Object? expiresAt = null,
+    Object? paymentAnalysis = freezed,
     Object? display = freezed,
   }) {
     return _then(_value.copyWith(
@@ -320,6 +325,10 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      paymentAnalysis: freezed == paymentAnalysis
+          ? _value.paymentAnalysis
+          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
+              as PaymentAnalysisInformation?,
       display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
@@ -335,6 +344,21 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     return $VerifiableCredentialResponseCopyWith<$Res>(
         _value.credentialResponse, (value) {
       return _then(_value.copyWith(credentialResponse: value) as $Val);
+    });
+  }
+
+  /// Create a copy of VerifiableCredential
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis {
+    if (_value.paymentAnalysis == null) {
+      return null;
+    }
+
+    return $PaymentAnalysisInformationCopyWith<$Res>(_value.paymentAnalysis!,
+        (value) {
+      return _then(_value.copyWith(paymentAnalysis: value) as $Val);
     });
   }
 
@@ -368,10 +392,13 @@ abstract class _$$VerifiableCredentialImplCopyWith<$Res>
       List<VerifiableCredentialClaim> claims,
       List<VerifiableDisclosure> disclosures,
       DateTime expiresAt,
+      PaymentAnalysisInformation? paymentAnalysis,
       SupportedCredentialDisplayInformation? display});
 
   @override
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
+  @override
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
   @override
   $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
@@ -394,6 +421,7 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
     Object? claims = null,
     Object? disclosures = null,
     Object? expiresAt = null,
+    Object? paymentAnalysis = freezed,
     Object? display = freezed,
   }) {
     return _then(_$VerifiableCredentialImpl(
@@ -417,6 +445,10 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      paymentAnalysis: freezed == paymentAnalysis
+          ? _value.paymentAnalysis
+          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
+              as PaymentAnalysisInformation?,
       display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
@@ -435,6 +467,7 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       required final List<VerifiableCredentialClaim> claims,
       required final List<VerifiableDisclosure> disclosures,
       required this.expiresAt,
+      this.paymentAnalysis,
       this.display})
       : _claims = claims,
         _disclosures = disclosures;
@@ -465,11 +498,13 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
   @override
   final DateTime expiresAt;
   @override
+  final PaymentAnalysisInformation? paymentAnalysis;
+  @override
   final SupportedCredentialDisplayInformation? display;
 
   @override
   String toString() {
-    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt, display: $display)';
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt, paymentAnalysis: $paymentAnalysis, display: $display)';
   }
 
   @override
@@ -485,6 +520,8 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
                 .equals(other._disclosures, _disclosures) &&
             (identical(other.expiresAt, expiresAt) ||
                 other.expiresAt == expiresAt) &&
+            (identical(other.paymentAnalysis, paymentAnalysis) ||
+                other.paymentAnalysis == paymentAnalysis) &&
             (identical(other.display, display) || other.display == display));
   }
 
@@ -497,6 +534,7 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       const DeepCollectionEquality().hash(_claims),
       const DeepCollectionEquality().hash(_disclosures),
       expiresAt,
+      paymentAnalysis,
       display);
 
   /// Create a copy of VerifiableCredential
@@ -524,6 +562,7 @@ abstract class _VerifiableCredential implements VerifiableCredential {
           required final List<VerifiableCredentialClaim> claims,
           required final List<VerifiableDisclosure> disclosures,
           required final DateTime expiresAt,
+          final PaymentAnalysisInformation? paymentAnalysis,
           final SupportedCredentialDisplayInformation? display}) =
       _$VerifiableCredentialImpl;
 
@@ -540,6 +579,8 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   List<VerifiableDisclosure> get disclosures;
   @override
   DateTime get expiresAt;
+  @override
+  PaymentAnalysisInformation? get paymentAnalysis;
   @override
   SupportedCredentialDisplayInformation? get display;
 
@@ -903,10 +944,12 @@ PaymentAnalysisInformation _$PaymentAnalysisInformationFromJson(
 
 /// @nodoc
 mixin _$PaymentAnalysisInformation {
-  @JsonKey(name: 'Title')
-  String get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Desc')
-  String get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Protesti')
+  String get protestiInfo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+  String get latePaymentsInfo => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Altre informazioni pubbliche negative')
+  String get otherNegativeInfo => throw _privateConstructorUsedError;
 
   /// Serializes this PaymentAnalysisInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -926,8 +969,11 @@ abstract class $PaymentAnalysisInformationCopyWith<$Res> {
           PaymentAnalysisInformation>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'Title') String title,
-      @JsonKey(name: 'Desc') String description});
+      {@JsonKey(name: 'Protesti') String protestiInfo,
+      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+      String latePaymentsInfo,
+      @JsonKey(name: 'Altre informazioni pubbliche negative')
+      String otherNegativeInfo});
 }
 
 /// @nodoc
@@ -946,17 +992,22 @@ class _$PaymentAnalysisInformationCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? description = null,
+    Object? protestiInfo = null,
+    Object? latePaymentsInfo = null,
+    Object? otherNegativeInfo = null,
   }) {
     return _then(_value.copyWith(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      protestiInfo: null == protestiInfo
+          ? _value.protestiInfo
+          : protestiInfo // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      latePaymentsInfo: null == latePaymentsInfo
+          ? _value.latePaymentsInfo
+          : latePaymentsInfo // ignore: cast_nullable_to_non_nullable
+              as String,
+      otherNegativeInfo: null == otherNegativeInfo
+          ? _value.otherNegativeInfo
+          : otherNegativeInfo // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -972,8 +1023,11 @@ abstract class _$$PaymentAnalysisInformationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'Title') String title,
-      @JsonKey(name: 'Desc') String description});
+      {@JsonKey(name: 'Protesti') String protestiInfo,
+      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+      String latePaymentsInfo,
+      @JsonKey(name: 'Altre informazioni pubbliche negative')
+      String otherNegativeInfo});
 }
 
 /// @nodoc
@@ -991,17 +1045,22 @@ class __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? title = null,
-    Object? description = null,
+    Object? protestiInfo = null,
+    Object? latePaymentsInfo = null,
+    Object? otherNegativeInfo = null,
   }) {
     return _then(_$PaymentAnalysisInformationImpl(
-      title: null == title
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      protestiInfo: null == protestiInfo
+          ? _value.protestiInfo
+          : protestiInfo // ignore: cast_nullable_to_non_nullable
               as String,
-      description: null == description
-          ? _value.description
-          : description // ignore: cast_nullable_to_non_nullable
+      latePaymentsInfo: null == latePaymentsInfo
+          ? _value.latePaymentsInfo
+          : latePaymentsInfo // ignore: cast_nullable_to_non_nullable
+              as String,
+      otherNegativeInfo: null == otherNegativeInfo
+          ? _value.otherNegativeInfo
+          : otherNegativeInfo // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -1012,23 +1071,29 @@ class __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
   _$PaymentAnalysisInformationImpl(
-      {@JsonKey(name: 'Title') required this.title,
-      @JsonKey(name: 'Desc') required this.description});
+      {@JsonKey(name: 'Protesti') required this.protestiInfo,
+      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+      required this.latePaymentsInfo,
+      @JsonKey(name: 'Altre informazioni pubbliche negative')
+      required this.otherNegativeInfo});
 
   factory _$PaymentAnalysisInformationImpl.fromJson(
           Map<String, dynamic> json) =>
       _$$PaymentAnalysisInformationImplFromJson(json);
 
   @override
-  @JsonKey(name: 'Title')
-  final String title;
+  @JsonKey(name: 'Protesti')
+  final String protestiInfo;
   @override
-  @JsonKey(name: 'Desc')
-  final String description;
+  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+  final String latePaymentsInfo;
+  @override
+  @JsonKey(name: 'Altre informazioni pubbliche negative')
+  final String otherNegativeInfo;
 
   @override
   String toString() {
-    return 'PaymentAnalysisInformation(title: $title, description: $description)';
+    return 'PaymentAnalysisInformation(protestiInfo: $protestiInfo, latePaymentsInfo: $latePaymentsInfo, otherNegativeInfo: $otherNegativeInfo)';
   }
 
   @override
@@ -1036,14 +1101,18 @@ class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PaymentAnalysisInformationImpl &&
-            (identical(other.title, title) || other.title == title) &&
-            (identical(other.description, description) ||
-                other.description == description));
+            (identical(other.protestiInfo, protestiInfo) ||
+                other.protestiInfo == protestiInfo) &&
+            (identical(other.latePaymentsInfo, latePaymentsInfo) ||
+                other.latePaymentsInfo == latePaymentsInfo) &&
+            (identical(other.otherNegativeInfo, otherNegativeInfo) ||
+                other.otherNegativeInfo == otherNegativeInfo));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, title, description);
+  int get hashCode => Object.hash(
+      runtimeType, protestiInfo, latePaymentsInfo, otherNegativeInfo);
 
   /// Create a copy of PaymentAnalysisInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -1065,19 +1134,25 @@ class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
 abstract class _PaymentAnalysisInformation
     implements PaymentAnalysisInformation {
   factory _PaymentAnalysisInformation(
-          {@JsonKey(name: 'Title') required final String title,
-          @JsonKey(name: 'Desc') required final String description}) =
+          {@JsonKey(name: 'Protesti') required final String protestiInfo,
+          @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+          required final String latePaymentsInfo,
+          @JsonKey(name: 'Altre informazioni pubbliche negative')
+          required final String otherNegativeInfo}) =
       _$PaymentAnalysisInformationImpl;
 
   factory _PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) =
       _$PaymentAnalysisInformationImpl.fromJson;
 
   @override
-  @JsonKey(name: 'Title')
-  String get title;
+  @JsonKey(name: 'Protesti')
+  String get protestiInfo;
   @override
-  @JsonKey(name: 'Desc')
-  String get description;
+  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+  String get latePaymentsInfo;
+  @override
+  @JsonKey(name: 'Altre informazioni pubbliche negative')
+  String get otherNegativeInfo;
 
   /// Create a copy of PaymentAnalysisInformation
   /// with the given fields replaced by the non-null parameter values.

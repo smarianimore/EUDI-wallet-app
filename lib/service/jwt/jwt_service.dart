@@ -44,6 +44,8 @@ class JWTInspector {
       ..remove('cnf');
     return focusedClaims;
   }
+
+  Map<String, dynamic> get payload => jwt.payload as Map<String, dynamic>;
 }
 
 @Riverpod(keepAlive: true)

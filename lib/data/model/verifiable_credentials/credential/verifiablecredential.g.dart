@@ -36,6 +36,10 @@ _$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
           .map((e) => VerifiableDisclosure.fromJson(e as Map<String, dynamic>))
           .toList(),
       expiresAt: DateTime.parse(json['expiresAt'] as String),
+      paymentAnalysis: json['paymentAnalysis'] == null
+          ? null
+          : PaymentAnalysisInformation.fromJson(
+              json['paymentAnalysis'] as Map<String, dynamic>),
       display: json['display'] == null
           ? null
           : SupportedCredentialDisplayInformation.fromJson(
@@ -50,6 +54,7 @@ Map<String, dynamic> _$$VerifiableCredentialImplToJson(
       'claims': instance.claims.map((e) => e.toJson()).toList(),
       'disclosures': instance.disclosures.map((e) => e.toJson()).toList(),
       'expiresAt': instance.expiresAt.toIso8601String(),
+      'paymentAnalysis': instance.paymentAnalysis?.toJson(),
       'display': instance.display?.toJson(),
     };
 
@@ -84,13 +89,18 @@ Map<String, dynamic> _$$VerifiableDisclosureImplToJson(
 _$PaymentAnalysisInformationImpl _$$PaymentAnalysisInformationImplFromJson(
         Map<String, dynamic> json) =>
     _$PaymentAnalysisInformationImpl(
-      title: json['Title'] as String,
-      description: json['Desc'] as String,
+      protestiInfo: json['Protesti'] as String,
+      latePaymentsInfo:
+          json['Ritardo nei pagamenti di prestiti e finanziamenti'] as String,
+      otherNegativeInfo:
+          json['Altre informazioni pubbliche negative'] as String,
     );
 
 Map<String, dynamic> _$$PaymentAnalysisInformationImplToJson(
         _$PaymentAnalysisInformationImpl instance) =>
     <String, dynamic>{
-      'Title': instance.title,
-      'Desc': instance.description,
+      'Protesti': instance.protestiInfo,
+      'Ritardo nei pagamenti di prestiti e finanziamenti':
+          instance.latePaymentsInfo,
+      'Altre informazioni pubbliche negative': instance.otherNegativeInfo,
     };
