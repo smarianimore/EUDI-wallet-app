@@ -19,12 +19,10 @@ Future<RequestCredentialUseCase> requestCredentialUseCase(Ref ref) async {
   );
   final redirectToHome =
       RedirectToHomePageSuccessHandler<VerifiableCredential, RequestCredentialCommand>(router: router);
-  final errorHandler = ShowDialogErrorHandler<RequestCredentialCommand>(dialogService);
   final usecase = await ref.watch(requestAuthorizedCredentialUseCaseProvider.future);
   return RequestCredentialUseCase(
     requestAuthorizedCredentialUseCase: usecase,
     repository: ref.watch(authenticationRepositoryProvider),
-    errorHandlers: [errorHandler],
     successHandlers: [successDialog, redirectToHome],
   );
 }
