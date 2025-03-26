@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:birex/service/encryption/encryption_key_provider.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -67,7 +68,7 @@ class WalletProofBuilder {
         },
       };
 
-  Map<String, dynamic> _jwtProofPayload({
+  Map<String, dynamic> _jwtProofBody({
     required String issuer,
     required String nonce,
   }) {
@@ -83,16 +84,22 @@ class WalletProofBuilder {
     required String nonce,
   }) {
     final header = _jwtProofHeaders;
-    final payload = _jwtProofPayload(issuer: issuer, nonce: nonce);
+    final body = _jwtProofBody(issuer: issuer, nonce: nonce);
     final encodedHeader = base64Url.encode(jsonEncode(header).codeUnits);
-    final encodedPayload = base64Url.encode(jsonEncode(payload).codeUnits);
-    final data = '${_base64Unpadded(encodedHeader)}.${_base64Unpadded(encodedPayload)}';
+    final encodedBody = base64Url.encode(jsonEncode(body).codeUnits);
+    final data = '${_base64Unpadded(encodedHeader)}.${_base64Unpadded(encodedBody)}';
     final signed = signature(walletKey, data.codeUnits);
     final encodedSignature = base64Url.encode(signed.toString().codeUnits);
     final completeJwt = '$data.${_base64Unpadded(encodedSignature)}';
     if (kDebugMode) {
-      print('JWT: $completeJwt');
-      print('PrivateKey: ${walletKey.D}');
+      log('JWT: $completeJwt');
+      log('PrivateKey (D): ${walletKey.D}');
+      log('PrivateKey (HEX) ${walletKey.toHex()}');
+      log('PrivateKey (Curve) ${walletKey.curve}');
+    }
+    final verified = verify(walletKey.publicKey, completeJwt.codeUnits, signed);
+    if (!verified) {
+      log('Signature verification failed');
     }
     return completeJwt;
   }
