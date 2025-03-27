@@ -14,13 +14,13 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-IssuerOpenIDConfiguration _$IssuerOpenIDConfigurationFromJson(
+WellKnownOpenIDConfiguration _$WellKnownOpenIDConfigurationFromJson(
     Map<String, dynamic> json) {
-  return _IssuerOpenIDConfiguration.fromJson(json);
+  return _WellKnownOpenIDConfiguration.fromJson(json);
 }
 
 /// @nodoc
-mixin _$IssuerOpenIDConfiguration {
+mixin _$WellKnownOpenIDConfiguration {
   String get issuer => throw _privateConstructorUsedError;
   @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint => throw _privateConstructorUsedError;
@@ -33,21 +33,23 @@ mixin _$IssuerOpenIDConfiguration {
   @JsonKey(name: 'claims_supported')
   List<String> get claimsSupported => throw _privateConstructorUsedError;
 
-  /// Serializes this IssuerOpenIDConfiguration to a JSON map.
+  /// Serializes this WellKnownOpenIDConfiguration to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of IssuerOpenIDConfiguration
+  /// Create a copy of WellKnownOpenIDConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $IssuerOpenIDConfigurationCopyWith<IssuerOpenIDConfiguration> get copyWith =>
-      throw _privateConstructorUsedError;
+  $WellKnownOpenIDConfigurationCopyWith<WellKnownOpenIDConfiguration>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $IssuerOpenIDConfigurationCopyWith<$Res> {
-  factory $IssuerOpenIDConfigurationCopyWith(IssuerOpenIDConfiguration value,
-          $Res Function(IssuerOpenIDConfiguration) then) =
-      _$IssuerOpenIDConfigurationCopyWithImpl<$Res, IssuerOpenIDConfiguration>;
+abstract class $WellKnownOpenIDConfigurationCopyWith<$Res> {
+  factory $WellKnownOpenIDConfigurationCopyWith(
+          WellKnownOpenIDConfiguration value,
+          $Res Function(WellKnownOpenIDConfiguration) then) =
+      _$WellKnownOpenIDConfigurationCopyWithImpl<$Res,
+          WellKnownOpenIDConfiguration>;
   @useResult
   $Res call(
       {String issuer,
@@ -59,17 +61,17 @@ abstract class $IssuerOpenIDConfigurationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$IssuerOpenIDConfigurationCopyWithImpl<$Res,
-        $Val extends IssuerOpenIDConfiguration>
-    implements $IssuerOpenIDConfigurationCopyWith<$Res> {
-  _$IssuerOpenIDConfigurationCopyWithImpl(this._value, this._then);
+class _$WellKnownOpenIDConfigurationCopyWithImpl<$Res,
+        $Val extends WellKnownOpenIDConfiguration>
+    implements $WellKnownOpenIDConfigurationCopyWith<$Res> {
+  _$WellKnownOpenIDConfigurationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of IssuerOpenIDConfiguration
+  /// Create a copy of WellKnownOpenIDConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -111,12 +113,12 @@ class _$IssuerOpenIDConfigurationCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$IssuerOpenIDConfigurationImplCopyWith<$Res>
-    implements $IssuerOpenIDConfigurationCopyWith<$Res> {
-  factory _$$IssuerOpenIDConfigurationImplCopyWith(
-          _$IssuerOpenIDConfigurationImpl value,
-          $Res Function(_$IssuerOpenIDConfigurationImpl) then) =
-      __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>;
+abstract class _$$WellKnownOpenIDConfigurationImplCopyWith<$Res>
+    implements $WellKnownOpenIDConfigurationCopyWith<$Res> {
+  factory _$$WellKnownOpenIDConfigurationImplCopyWith(
+          _$WellKnownOpenIDConfigurationImpl value,
+          $Res Function(_$WellKnownOpenIDConfigurationImpl) then) =
+      __$$WellKnownOpenIDConfigurationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -129,16 +131,16 @@ abstract class _$$IssuerOpenIDConfigurationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
-    extends _$IssuerOpenIDConfigurationCopyWithImpl<$Res,
-        _$IssuerOpenIDConfigurationImpl>
-    implements _$$IssuerOpenIDConfigurationImplCopyWith<$Res> {
-  __$$IssuerOpenIDConfigurationImplCopyWithImpl(
-      _$IssuerOpenIDConfigurationImpl _value,
-      $Res Function(_$IssuerOpenIDConfigurationImpl) _then)
+class __$$WellKnownOpenIDConfigurationImplCopyWithImpl<$Res>
+    extends _$WellKnownOpenIDConfigurationCopyWithImpl<$Res,
+        _$WellKnownOpenIDConfigurationImpl>
+    implements _$$WellKnownOpenIDConfigurationImplCopyWith<$Res> {
+  __$$WellKnownOpenIDConfigurationImplCopyWithImpl(
+      _$WellKnownOpenIDConfigurationImpl _value,
+      $Res Function(_$WellKnownOpenIDConfigurationImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of IssuerOpenIDConfiguration
+  /// Create a copy of WellKnownOpenIDConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -150,7 +152,7 @@ class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
     Object? jwksUri = null,
     Object? claimsSupported = null,
   }) {
-    return _then(_$IssuerOpenIDConfigurationImpl(
+    return _then(_$WellKnownOpenIDConfigurationImpl(
       issuer: null == issuer
           ? _value.issuer
           : issuer // ignore: cast_nullable_to_non_nullable
@@ -181,8 +183,9 @@ class __$$IssuerOpenIDConfigurationImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
-  _$IssuerOpenIDConfigurationImpl(
+class _$WellKnownOpenIDConfigurationImpl
+    implements _WellKnownOpenIDConfiguration {
+  _$WellKnownOpenIDConfigurationImpl(
       {required this.issuer,
       @JsonKey(name: 'authorization_endpoint')
       required this.authorizationEndpoint,
@@ -193,8 +196,9 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
       required final List<String> claimsSupported})
       : _claimsSupported = claimsSupported;
 
-  factory _$IssuerOpenIDConfigurationImpl.fromJson(Map<String, dynamic> json) =>
-      _$$IssuerOpenIDConfigurationImplFromJson(json);
+  factory _$WellKnownOpenIDConfigurationImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$WellKnownOpenIDConfigurationImplFromJson(json);
 
   @override
   final String issuer;
@@ -221,14 +225,14 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
 
   @override
   String toString() {
-    return 'IssuerOpenIDConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, userInfoEndpoint: $userInfoEndpoint, jwksUri: $jwksUri, claimsSupported: $claimsSupported)';
+    return 'WellKnownOpenIDConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, userInfoEndpoint: $userInfoEndpoint, jwksUri: $jwksUri, claimsSupported: $claimsSupported)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$IssuerOpenIDConfigurationImpl &&
+            other is _$WellKnownOpenIDConfigurationImpl &&
             (identical(other.issuer, issuer) || other.issuer == issuer) &&
             (identical(other.authorizationEndpoint, authorizationEndpoint) ||
                 other.authorizationEndpoint == authorizationEndpoint) &&
@@ -252,25 +256,27 @@ class _$IssuerOpenIDConfigurationImpl implements _IssuerOpenIDConfiguration {
       jwksUri,
       const DeepCollectionEquality().hash(_claimsSupported));
 
-  /// Create a copy of IssuerOpenIDConfiguration
+  /// Create a copy of WellKnownOpenIDConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$IssuerOpenIDConfigurationImplCopyWith<_$IssuerOpenIDConfigurationImpl>
-      get copyWith => __$$IssuerOpenIDConfigurationImplCopyWithImpl<
-          _$IssuerOpenIDConfigurationImpl>(this, _$identity);
+  _$$WellKnownOpenIDConfigurationImplCopyWith<
+          _$WellKnownOpenIDConfigurationImpl>
+      get copyWith => __$$WellKnownOpenIDConfigurationImplCopyWithImpl<
+          _$WellKnownOpenIDConfigurationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IssuerOpenIDConfigurationImplToJson(
+    return _$$WellKnownOpenIDConfigurationImplToJson(
       this,
     );
   }
 }
 
-abstract class _IssuerOpenIDConfiguration implements IssuerOpenIDConfiguration {
-  factory _IssuerOpenIDConfiguration(
+abstract class _WellKnownOpenIDConfiguration
+    implements WellKnownOpenIDConfiguration {
+  factory _WellKnownOpenIDConfiguration(
           {required final String issuer,
           @JsonKey(name: 'authorization_endpoint')
           required final String authorizationEndpoint,
@@ -280,10 +286,10 @@ abstract class _IssuerOpenIDConfiguration implements IssuerOpenIDConfiguration {
           @JsonKey(name: 'jwks_uri') required final String jwksUri,
           @JsonKey(name: 'claims_supported')
           required final List<String> claimsSupported}) =
-      _$IssuerOpenIDConfigurationImpl;
+      _$WellKnownOpenIDConfigurationImpl;
 
-  factory _IssuerOpenIDConfiguration.fromJson(Map<String, dynamic> json) =
-      _$IssuerOpenIDConfigurationImpl.fromJson;
+  factory _WellKnownOpenIDConfiguration.fromJson(Map<String, dynamic> json) =
+      _$WellKnownOpenIDConfigurationImpl.fromJson;
 
   @override
   String get issuer;
@@ -303,10 +309,11 @@ abstract class _IssuerOpenIDConfiguration implements IssuerOpenIDConfiguration {
   @JsonKey(name: 'claims_supported')
   List<String> get claimsSupported;
 
-  /// Create a copy of IssuerOpenIDConfiguration
+  /// Create a copy of WellKnownOpenIDConfiguration
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$IssuerOpenIDConfigurationImplCopyWith<_$IssuerOpenIDConfigurationImpl>
+  _$$WellKnownOpenIDConfigurationImplCopyWith<
+          _$WellKnownOpenIDConfigurationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

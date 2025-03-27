@@ -6,10 +6,10 @@ part of 'issuerauthorizationserverconfiguration.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$IssuerAuthorizationServerConfigurationImpl
-    _$$IssuerAuthorizationServerConfigurationImplFromJson(
+_$WellKnownAuthorizationServerInformationImpl
+    _$$WellKnownAuthorizationServerInformationImplFromJson(
             Map<String, dynamic> json) =>
-        _$IssuerAuthorizationServerConfigurationImpl(
+        _$WellKnownAuthorizationServerInformationImpl(
           issuer: json['issuer'] as String,
           authorizationEndpoint: json['authorization_endpoint'] as String,
           tokenEndpoint: json['token_endpoint'] as String,
@@ -19,8 +19,8 @@ _$IssuerAuthorizationServerConfigurationImpl
           jwksUri: json['jwks_uri'] as String?,
         );
 
-Map<String, dynamic> _$$IssuerAuthorizationServerConfigurationImplToJson(
-        _$IssuerAuthorizationServerConfigurationImpl instance) =>
+Map<String, dynamic> _$$WellKnownAuthorizationServerInformationImplToJson(
+        _$WellKnownAuthorizationServerInformationImpl instance) =>
     <String, dynamic>{
       'issuer': instance.issuer,
       'authorization_endpoint': instance.authorizationEndpoint,

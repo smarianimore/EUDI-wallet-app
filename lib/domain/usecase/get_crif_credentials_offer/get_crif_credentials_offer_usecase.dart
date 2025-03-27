@@ -17,7 +17,7 @@ GetCRIFCredentialsOfferUseCase getCRIFCredentialsOfferUseCase(Ref ref) {
   );
 }
 
-class GetCRIFCredentialsOfferUseCase extends UseCase<CredentialIssuerConfiguration, void> {
+class GetCRIFCredentialsOfferUseCase extends UseCase<WellKnownCredentialIssuerConfiguration, void> {
   GetCRIFCredentialsOfferUseCase({
     required this.repository,
     super.requirements,
@@ -29,7 +29,7 @@ class GetCRIFCredentialsOfferUseCase extends UseCase<CredentialIssuerConfigurati
   final IWellKnownRepository repository;
 
   @override
-  AsyncApplicationResponse<CredentialIssuerConfiguration> call(void input) async {
+  AsyncApplicationResponse<WellKnownCredentialIssuerConfiguration> call(void input) async {
     final check = await checkRequirements();
     final response = await check.flatMapAsync(
       (_) => repository.getCredentialIssuerConfiguration(

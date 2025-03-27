@@ -1,13 +1,14 @@
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
+import 'package:birex/data/model/credential_offer/credentialofferresponse.dart';
 import 'package:birex/utils/utils.dart';
 
 abstract class IAuthenticationRepository {
-  AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
+  AsyncApplicationResponse<CredentialOfferResponse> authorizeCredentialIssuance({
     required String uri,
     required String credentialSubject,
   });
 
-  AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({
+  AsyncApplicationResponse<CredentialOfferResponse> getIssuerOffer({
     required String uri,
   });
 

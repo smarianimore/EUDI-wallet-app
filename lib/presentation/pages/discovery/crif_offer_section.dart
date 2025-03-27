@@ -30,7 +30,7 @@ class _IssuerOffersSection extends StatelessWidget {
     required this.configuration,
   });
 
-  final CredentialIssuerConfiguration configuration;
+  final WellKnownCredentialIssuerConfiguration configuration;
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +84,7 @@ class _IssuerDisplayInformationCard extends StatelessWidget {
 class _SupportedCredentialsSection extends StatelessWidget {
   const _SupportedCredentialsSection({required this.configuration});
 
-  final CredentialIssuerConfiguration configuration;
+  final WellKnownCredentialIssuerConfiguration configuration;
 
   @override
   Widget build(BuildContext context) {
@@ -116,7 +116,7 @@ class _SupportedCredentialComponent extends ConsumerWidget {
 
   final SupportedCredentialConfiguration credential;
   final String credentialSubject;
-  final CredentialIssuerConfiguration configuration;
+  final WellKnownCredentialIssuerConfiguration configuration;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

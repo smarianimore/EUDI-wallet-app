@@ -1,7 +1,47 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'supportedcredentialconfiguration.freezed.dart';
-part 'supportedcredentialconfiguration.g.dart';
+part 'credentialissuerconfiguration.freezed.dart';
+part 'credentialissuerconfiguration.g.dart';
+
+@freezed
+class WellKnownCredentialIssuerConfiguration with _$WellKnownCredentialIssuerConfiguration {
+  @JsonSerializable(explicitToJson: true)
+  factory WellKnownCredentialIssuerConfiguration({
+    @JsonKey(name: 'credential_issuer') required String credentialIssuer,
+    @JsonKey(name: 'authorization_servers') required List<String> authorizationServers,
+    @JsonKey(name: 'credential_endpoint') required String credentialEndpoint,
+    required List<CredentialIssuerDisplayInformation> display,
+    @JsonKey(name: 'credential_configurations_supported')
+    required Map<String, SupportedCredentialConfiguration> credentialConfigurationsSupported,
+  }) = _WellKnownCredentialIssuerConfiguration;
+
+  factory WellKnownCredentialIssuerConfiguration.fromJson(Map<String, dynamic> json) =>
+      _$WellKnownCredentialIssuerConfigurationFromJson(json);
+}
+
+@freezed
+class CredentialIssuerDisplayInformation with _$CredentialIssuerDisplayInformation {
+  factory CredentialIssuerDisplayInformation({
+    required String name,
+    String? location,
+    String? locale,
+    String? description,
+    CredentialIssuerLogoInformation? logo,
+  }) = _CredentialIssuerDisplayInformation;
+
+  factory CredentialIssuerDisplayInformation.fromJson(Map<String, dynamic> json) =>
+      _$CredentialIssuerDisplayInformationFromJson(json);
+}
+
+@freezed
+class CredentialIssuerLogoInformation with _$CredentialIssuerLogoInformation {
+  factory CredentialIssuerLogoInformation({
+    required String uri,
+  }) = _CredentialIssuerLogoInformation;
+
+  factory CredentialIssuerLogoInformation.fromJson(Map<String, dynamic> json) =>
+      _$CredentialIssuerLogoInformationFromJson(json);
+}
 
 @freezed
 class SupportedCredentialConfiguration with _$SupportedCredentialConfiguration {

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:birex/data/data.dart';
+import 'package:birex/data/model/credential_offer/credentialofferresponse.dart';
 import 'package:birex/presentation/components/components.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -44,7 +45,7 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> with WidgetsBindi
     if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));
     final credentialOfferObject = queryParameters?['credential_offer'];
     final credentialOffer = credentialOfferObject == null ? null : jsonDecode(credentialOfferObject);
-    final parsed = CredentialPreauthorizationResponse.fromJson(credentialOffer as Map<String, dynamic>);
+    final parsed = CredentialOfferResponse.fromJson(credentialOffer as Map<String, dynamic>);
     return context.pop((null, parsed));
   }
 

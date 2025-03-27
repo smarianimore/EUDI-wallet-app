@@ -15,7 +15,7 @@ part 'request_authorized_credential_use_case.g.dart';
 @riverpod
 Future<RequestAuthorizedCredentialUseCase> requestAuthorizedCredentialUseCase(Ref ref) async {
   final dialogService = ref.watch(dialogServiceProvider);
-  final dialogOnError = ShowDialogErrorHandler<CredentialPreauthorizationResponse>(dialogService);
+  final dialogOnError = ShowDialogErrorHandler<CredentialOfferResponse>(dialogService);
   final jwtBuilder = await ref.watch(jwtBuilderProvider.future);
   return RequestAuthorizedCredentialUseCase(
     bottomSheetService: ref.watch(bottomSheetServiceProvider),
@@ -27,7 +27,7 @@ Future<RequestAuthorizedCredentialUseCase> requestAuthorizedCredentialUseCase(Re
   );
 }
 
-class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, CredentialPreauthorizationResponse> {
+class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, CredentialOfferResponse> {
   RequestAuthorizedCredentialUseCase({
     required this.bottomSheetService,
     required this.jwtService,
@@ -47,7 +47,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
   final IVerifiableCredentialRepository verifiableCredentialRepository;
 
   @override
-  AsyncApplicationResponse<VerifiableCredential> call(CredentialPreauthorizationResponse input) async {
+  AsyncApplicationResponse<VerifiableCredential> call(CredentialOfferResponse input) async {
     final check = await checkRequirements();
     final issuerResponse = await check.flatMapAsync(
       (_) => wellKnownRepository.getCredentialIssuerConfiguration(
@@ -90,18 +90,11 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final loginPayload = loginResponse.payload;
     if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);
-    final keyProofResponse = await loginResponse.flatMapAsync(
-      (payload) => wellKnownRepository.getJWKConfiguration(
-        input.credentialIssuer,
-      ),
-    );
-    final keyProofPayload = keyProofResponse.payload;
-    if (keyProofResponse.isError || keyProofPayload == null) return _closeRequest(keyProofResponse, input: input);
     final jwtToken = jwtService.createSignedWalletProofJWT(
       issuer: issuerPayload.credentialIssuer,
       nonce: loginPayload.cNonce,
     );
-    final credentialResponse = await keyProofResponse.flatMapAsync(
+    final credentialResponse = await loginResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
         display: target.display.first,
         accessToken: loginPayload.accessToken,
@@ -124,7 +117,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
 
   AsyncApplicationResponse<VerifiableCredential> _closeRequest(
     ApplicationResponse<dynamic> response, {
-    required CredentialPreauthorizationResponse input,
+    required CredentialOfferResponse input,
   }) async {
     final errorResponse = Responses.failure<VerifiableCredential, ApplicationError>([
       ...response.errors ?? <ApplicationError>[],

@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'crif_offers_provider.g.dart';
 
 @riverpod
-Future<CredentialIssuerConfiguration> crifOffers(Ref ref) async {
+Future<WellKnownCredentialIssuerConfiguration> crifOffers(Ref ref) async {
   final usecase = ref.read(getCRIFCredentialsOfferUseCaseProvider);
   final response = await usecase.call(null);
   return response.toFuture();

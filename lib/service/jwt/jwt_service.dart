@@ -87,11 +87,11 @@ class WalletProofBuilder {
   }) {
     final header = _jwtProofHeaders;
     final body = _jwtProofBody(issuer: issuer, nonce: nonce);
-    final encodedHeader = base64Url.encode(jsonEncode(header).codeUnits);
-    final encodedBody = base64Url.encode(jsonEncode(body).codeUnits);
+    final encodedHeader = base64Url.encode(utf8.encode(jsonEncode(header)));
+    final encodedBody = base64Url.encode(utf8.encode(jsonEncode(body)));
     final data = '${_base64Unpadded(encodedHeader)}.${_base64Unpadded(encodedBody)}';
-    final signed = signature(walletKey, data.codeUnits);
-    final encodedSignature = base64Url.encode(signed.toString().codeUnits);
+    final signed = signature(walletKey, utf8.encode(data));
+    final encodedSignature = base64Url.encode(utf8.encode(signed.toString()));
     final completeJwt = '$data.${_base64Unpadded(encodedSignature)}';
     if (kDebugMode) {
       log('JWT: $completeJwt');
@@ -99,7 +99,7 @@ class WalletProofBuilder {
       log('PrivateKey (HEX) ${walletKey.toHex()}');
       log('PrivateKey (Curve) ${walletKey.curve}');
     }
-    final verified = verify(walletKey.publicKey, completeJwt.codeUnits, signed);
+    final verified = verify(walletKey.publicKey, utf8.encode(completeJwt), signed);
     if (!verified) {
       log('Signature verification failed');
     }

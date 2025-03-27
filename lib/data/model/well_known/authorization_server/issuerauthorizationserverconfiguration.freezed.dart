@@ -14,14 +14,14 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-IssuerAuthorizationServerConfiguration
-    _$IssuerAuthorizationServerConfigurationFromJson(
+WellKnownAuthorizationServerInformation
+    _$WellKnownAuthorizationServerInformationFromJson(
         Map<String, dynamic> json) {
-  return _IssuerAuthorizationServerConfiguration.fromJson(json);
+  return _WellKnownAuthorizationServerInformation.fromJson(json);
 }
 
 /// @nodoc
-mixin _$IssuerAuthorizationServerConfiguration {
+mixin _$WellKnownAuthorizationServerInformation {
   String get issuer => throw _privateConstructorUsedError;
   @JsonKey(name: 'authorization_endpoint')
   String get authorizationEndpoint => throw _privateConstructorUsedError;
@@ -32,24 +32,24 @@ mixin _$IssuerAuthorizationServerConfiguration {
   @JsonKey(name: 'jwks_uri')
   String? get jwksUri => throw _privateConstructorUsedError;
 
-  /// Serializes this IssuerAuthorizationServerConfiguration to a JSON map.
+  /// Serializes this WellKnownAuthorizationServerInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of IssuerAuthorizationServerConfiguration
+  /// Create a copy of WellKnownAuthorizationServerInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $IssuerAuthorizationServerConfigurationCopyWith<
-          IssuerAuthorizationServerConfiguration>
+  $WellKnownAuthorizationServerInformationCopyWith<
+          WellKnownAuthorizationServerInformation>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $IssuerAuthorizationServerConfigurationCopyWith<$Res> {
-  factory $IssuerAuthorizationServerConfigurationCopyWith(
-          IssuerAuthorizationServerConfiguration value,
-          $Res Function(IssuerAuthorizationServerConfiguration) then) =
-      _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
-          IssuerAuthorizationServerConfiguration>;
+abstract class $WellKnownAuthorizationServerInformationCopyWith<$Res> {
+  factory $WellKnownAuthorizationServerInformationCopyWith(
+          WellKnownAuthorizationServerInformation value,
+          $Res Function(WellKnownAuthorizationServerInformation) then) =
+      _$WellKnownAuthorizationServerInformationCopyWithImpl<$Res,
+          WellKnownAuthorizationServerInformation>;
   @useResult
   $Res call(
       {String issuer,
@@ -60,17 +60,18 @@ abstract class $IssuerAuthorizationServerConfigurationCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
-        $Val extends IssuerAuthorizationServerConfiguration>
-    implements $IssuerAuthorizationServerConfigurationCopyWith<$Res> {
-  _$IssuerAuthorizationServerConfigurationCopyWithImpl(this._value, this._then);
+class _$WellKnownAuthorizationServerInformationCopyWithImpl<$Res,
+        $Val extends WellKnownAuthorizationServerInformation>
+    implements $WellKnownAuthorizationServerInformationCopyWith<$Res> {
+  _$WellKnownAuthorizationServerInformationCopyWithImpl(
+      this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of IssuerAuthorizationServerConfiguration
+  /// Create a copy of WellKnownAuthorizationServerInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -107,12 +108,12 @@ class _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
 }
 
 /// @nodoc
-abstract class _$$IssuerAuthorizationServerConfigurationImplCopyWith<$Res>
-    implements $IssuerAuthorizationServerConfigurationCopyWith<$Res> {
-  factory _$$IssuerAuthorizationServerConfigurationImplCopyWith(
-          _$IssuerAuthorizationServerConfigurationImpl value,
-          $Res Function(_$IssuerAuthorizationServerConfigurationImpl) then) =
-      __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>;
+abstract class _$$WellKnownAuthorizationServerInformationImplCopyWith<$Res>
+    implements $WellKnownAuthorizationServerInformationCopyWith<$Res> {
+  factory _$$WellKnownAuthorizationServerInformationImplCopyWith(
+          _$WellKnownAuthorizationServerInformationImpl value,
+          $Res Function(_$WellKnownAuthorizationServerInformationImpl) then) =
+      __$$WellKnownAuthorizationServerInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -124,16 +125,16 @@ abstract class _$$IssuerAuthorizationServerConfigurationImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
-    extends _$IssuerAuthorizationServerConfigurationCopyWithImpl<$Res,
-        _$IssuerAuthorizationServerConfigurationImpl>
-    implements _$$IssuerAuthorizationServerConfigurationImplCopyWith<$Res> {
-  __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl(
-      _$IssuerAuthorizationServerConfigurationImpl _value,
-      $Res Function(_$IssuerAuthorizationServerConfigurationImpl) _then)
+class __$$WellKnownAuthorizationServerInformationImplCopyWithImpl<$Res>
+    extends _$WellKnownAuthorizationServerInformationCopyWithImpl<$Res,
+        _$WellKnownAuthorizationServerInformationImpl>
+    implements _$$WellKnownAuthorizationServerInformationImplCopyWith<$Res> {
+  __$$WellKnownAuthorizationServerInformationImplCopyWithImpl(
+      _$WellKnownAuthorizationServerInformationImpl _value,
+      $Res Function(_$WellKnownAuthorizationServerInformationImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of IssuerAuthorizationServerConfiguration
+  /// Create a copy of WellKnownAuthorizationServerInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
@@ -144,7 +145,7 @@ class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
     Object? grantTypesSupported = null,
     Object? jwksUri = freezed,
   }) {
-    return _then(_$IssuerAuthorizationServerConfigurationImpl(
+    return _then(_$WellKnownAuthorizationServerInformationImpl(
       issuer: null == issuer
           ? _value.issuer
           : issuer // ignore: cast_nullable_to_non_nullable
@@ -172,9 +173,9 @@ class __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$IssuerAuthorizationServerConfigurationImpl
-    implements _IssuerAuthorizationServerConfiguration {
-  _$IssuerAuthorizationServerConfigurationImpl(
+class _$WellKnownAuthorizationServerInformationImpl
+    implements _WellKnownAuthorizationServerInformation {
+  _$WellKnownAuthorizationServerInformationImpl(
       {required this.issuer,
       @JsonKey(name: 'authorization_endpoint')
       required this.authorizationEndpoint,
@@ -184,9 +185,9 @@ class _$IssuerAuthorizationServerConfigurationImpl
       @JsonKey(name: 'jwks_uri') this.jwksUri})
       : _grantTypesSupported = grantTypesSupported;
 
-  factory _$IssuerAuthorizationServerConfigurationImpl.fromJson(
+  factory _$WellKnownAuthorizationServerInformationImpl.fromJson(
           Map<String, dynamic> json) =>
-      _$$IssuerAuthorizationServerConfigurationImplFromJson(json);
+      _$$WellKnownAuthorizationServerInformationImplFromJson(json);
 
   @override
   final String issuer;
@@ -212,14 +213,14 @@ class _$IssuerAuthorizationServerConfigurationImpl
 
   @override
   String toString() {
-    return 'IssuerAuthorizationServerConfiguration(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, grantTypesSupported: $grantTypesSupported, jwksUri: $jwksUri)';
+    return 'WellKnownAuthorizationServerInformation(issuer: $issuer, authorizationEndpoint: $authorizationEndpoint, tokenEndpoint: $tokenEndpoint, grantTypesSupported: $grantTypesSupported, jwksUri: $jwksUri)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$IssuerAuthorizationServerConfigurationImpl &&
+            other is _$WellKnownAuthorizationServerInformationImpl &&
             (identical(other.issuer, issuer) || other.issuer == issuer) &&
             (identical(other.authorizationEndpoint, authorizationEndpoint) ||
                 other.authorizationEndpoint == authorizationEndpoint) &&
@@ -240,28 +241,28 @@ class _$IssuerAuthorizationServerConfigurationImpl
       const DeepCollectionEquality().hash(_grantTypesSupported),
       jwksUri);
 
-  /// Create a copy of IssuerAuthorizationServerConfiguration
+  /// Create a copy of WellKnownAuthorizationServerInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$IssuerAuthorizationServerConfigurationImplCopyWith<
-          _$IssuerAuthorizationServerConfigurationImpl>
+  _$$WellKnownAuthorizationServerInformationImplCopyWith<
+          _$WellKnownAuthorizationServerInformationImpl>
       get copyWith =>
-          __$$IssuerAuthorizationServerConfigurationImplCopyWithImpl<
-              _$IssuerAuthorizationServerConfigurationImpl>(this, _$identity);
+          __$$WellKnownAuthorizationServerInformationImplCopyWithImpl<
+              _$WellKnownAuthorizationServerInformationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$IssuerAuthorizationServerConfigurationImplToJson(
+    return _$$WellKnownAuthorizationServerInformationImplToJson(
       this,
     );
   }
 }
 
-abstract class _IssuerAuthorizationServerConfiguration
-    implements IssuerAuthorizationServerConfiguration {
-  factory _IssuerAuthorizationServerConfiguration(
+abstract class _WellKnownAuthorizationServerInformation
+    implements WellKnownAuthorizationServerInformation {
+  factory _WellKnownAuthorizationServerInformation(
           {required final String issuer,
           @JsonKey(name: 'authorization_endpoint')
           required final String authorizationEndpoint,
@@ -269,11 +270,11 @@ abstract class _IssuerAuthorizationServerConfiguration
           @JsonKey(name: 'grant_types_supported')
           required final List<String> grantTypesSupported,
           @JsonKey(name: 'jwks_uri') final String? jwksUri}) =
-      _$IssuerAuthorizationServerConfigurationImpl;
+      _$WellKnownAuthorizationServerInformationImpl;
 
-  factory _IssuerAuthorizationServerConfiguration.fromJson(
+  factory _WellKnownAuthorizationServerInformation.fromJson(
           Map<String, dynamic> json) =
-      _$IssuerAuthorizationServerConfigurationImpl.fromJson;
+      _$WellKnownAuthorizationServerInformationImpl.fromJson;
 
   @override
   String get issuer;
@@ -290,11 +291,11 @@ abstract class _IssuerAuthorizationServerConfiguration
   @JsonKey(name: 'jwks_uri')
   String? get jwksUri;
 
-  /// Create a copy of IssuerAuthorizationServerConfiguration
+  /// Create a copy of WellKnownAuthorizationServerInformation
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$IssuerAuthorizationServerConfigurationImplCopyWith<
-          _$IssuerAuthorizationServerConfigurationImpl>
+  _$$WellKnownAuthorizationServerInformationImplCopyWith<
+          _$WellKnownAuthorizationServerInformationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

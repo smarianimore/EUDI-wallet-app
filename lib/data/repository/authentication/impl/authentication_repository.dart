@@ -1,4 +1,5 @@
 import 'package:birex/data/model/authentication/tokenauthenticationresponse.dart';
+import 'package:birex/data/model/credential_offer/credentialofferresponse.dart';
 import 'package:birex/data/repository/authentication/i_authentication_repository.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/service/service.dart';
@@ -20,7 +21,7 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
   final Dio dio;
 
   @override
-  AsyncApplicationResponse<CredentialPreauthorizationResponse> authorizeCredentialIssuance({
+  AsyncApplicationResponse<CredentialOfferResponse> authorizeCredentialIssuance({
     required String uri,
     required String credentialSubject,
   }) async {
@@ -34,7 +35,7 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
           'credentialType': credentialSubject == 'AffittabileCompleta' ? 2 : 0,
         },
       ),
-      payloadMapper: CredentialPreauthorizationResponse.fromJson,
+      payloadMapper: CredentialOfferResponse.fromJson,
     );
   }
 
@@ -74,10 +75,10 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
   }
 
   @override
-  AsyncApplicationResponse<CredentialPreauthorizationResponse> getIssuerOffer({required String uri}) {
+  AsyncApplicationResponse<CredentialOfferResponse> getIssuerOffer({required String uri}) {
     return handleResponse(
       request: () => dio.get(uri),
-      payloadMapper: CredentialPreauthorizationResponse.fromJson,
+      payloadMapper: CredentialOfferResponse.fromJson,
     );
   }
 }

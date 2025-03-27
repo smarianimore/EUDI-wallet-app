@@ -6,9 +6,9 @@ part of 'issueropenidconfiguration.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$IssuerOpenIDConfigurationImpl _$$IssuerOpenIDConfigurationImplFromJson(
+_$WellKnownOpenIDConfigurationImpl _$$WellKnownOpenIDConfigurationImplFromJson(
         Map<String, dynamic> json) =>
-    _$IssuerOpenIDConfigurationImpl(
+    _$WellKnownOpenIDConfigurationImpl(
       issuer: json['issuer'] as String,
       authorizationEndpoint: json['authorization_endpoint'] as String,
       tokenEndpoint: json['token_endpoint'] as String,
@@ -19,8 +19,8 @@ _$IssuerOpenIDConfigurationImpl _$$IssuerOpenIDConfigurationImplFromJson(
           .toList(),
     );
 
-Map<String, dynamic> _$$IssuerOpenIDConfigurationImplToJson(
-        _$IssuerOpenIDConfigurationImpl instance) =>
+Map<String, dynamic> _$$WellKnownOpenIDConfigurationImplToJson(
+        _$WellKnownOpenIDConfigurationImpl instance) =>
     <String, dynamic>{
       'issuer': instance.issuer,
       'authorization_endpoint': instance.authorizationEndpoint,

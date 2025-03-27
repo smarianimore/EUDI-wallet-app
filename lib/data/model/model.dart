@@ -1,7 +1,7 @@
 export 'authentication/tokenauthenticationresponse.dart';
-export 'authorization_server/issuerauthorizationserverconfiguration.dart';
-export 'issuer/credentialissuerconfiguration.dart';
-export 'key_proof/keyproofresponse.dart';
-export 'openid/issueropenidconfiguration.dart';
-export 'verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-export 'verifiable_credentials/credential/verifiablecredential.dart';
+export 'credential/crif_credential/crif_credential_transformer.dart';
+export 'credential/verifiablecredential.dart';
+export 'credential_offer/credentialofferresponse.dart';
+export 'well_known/authorization_server/issuerauthorizationserverconfiguration.dart';
+export 'well_known/issuer/credentialissuerconfiguration.dart';
+export 'well_known/openid/issueropenidconfiguration.dart';

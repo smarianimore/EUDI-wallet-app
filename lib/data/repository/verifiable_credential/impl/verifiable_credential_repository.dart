@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:birex/data/model/verifiable_credentials/configuration/supportedcredentialconfiguration.dart';
-import 'package:birex/data/model/verifiable_credentials/credential/verifiablecredential.dart';
+import 'package:birex/data/model/model.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
 import 'package:birex/service/service.dart';

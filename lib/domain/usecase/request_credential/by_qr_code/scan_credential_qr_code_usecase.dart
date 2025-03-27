@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:birex/data/data.dart';
+import 'package:birex/data/model/credential_offer/credentialofferresponse.dart';
 import 'package:birex/domain/usecase/request_credential/request_authorized_credential_use_case.dart';
 import 'package:birex/domain/utils/home_page_redirect_sucess_handler.dart';
 import 'package:birex/presentation/components/screen/loading/overlay_manager.dart';
@@ -52,7 +53,7 @@ class ScanCredentialQrCodeUsecase extends UseCase<VerifiableCredential, BuildCon
   AsyncApplicationResponse<VerifiableCredential> call(BuildContext input) async {
     final check = await checkRequirements();
     if (check.isError) return _closeRequest(check, input: input);
-    final qrResponse = await router.push<(Uri?, CredentialPreauthorizationResponse?)>(QRCodeScannerPageRoute.pagePath);
+    final qrResponse = await router.push<(Uri?, CredentialOfferResponse?)>(QRCodeScannerPageRoute.pagePath);
     if (qrResponse == null) {
       final error = Responses.failure<void, ApplicationError>([ApplicationError.operationAborted()]);
       return _closeRequest(error, input: input);
