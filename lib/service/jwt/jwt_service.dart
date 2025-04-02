@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:birex/service/encryption/encryption_key_provider.dart';
+import 'package:convert/convert.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:ecdsa/ecdsa.dart';
 import 'package:elliptic/elliptic.dart';
@@ -62,12 +63,7 @@ class WalletProofBuilder {
   Map<String, dynamic> get _jwtProofHeaders => {
         'typ': 'openid4vci-proof+jwt',
         'alg': 'ES256',
-        'jwk': {
-          'kty': 'EC',
-          'crv': 'P-256',
-          'x': walletKey.publicKey.X.toString(),
-          'y': walletKey.publicKey.Y.toString(),
-        },
+        'jwk': walletKey.publicKey.jwk,
       };
 
   Map<String, dynamic> _jwtProofBody({
@@ -89,10 +85,10 @@ class WalletProofBuilder {
     final body = _jwtProofBody(issuer: issuer, nonce: nonce);
     final encodedHeader = base64Url.encode(utf8.encode(jsonEncode(header)));
     final encodedBody = base64Url.encode(utf8.encode(jsonEncode(body)));
-    final data = '${_base64Unpadded(encodedHeader)}.${_base64Unpadded(encodedBody)}';
+    final data = '${_unppaddedJwtContent(encodedHeader)}.${_unppaddedJwtContent(encodedBody)}';
     final signed = signature(walletKey, utf8.encode(data));
     final encodedSignature = base64Url.encode(utf8.encode(signed.toString()));
-    final completeJwt = '$data.${_base64Unpadded(encodedSignature)}';
+    final completeJwt = '$data.${_unppaddedJwtContent(encodedSignature)}';
     if (kDebugMode) {
       log('JWT: $completeJwt');
       log('PrivateKey (D): ${walletKey.D}');
@@ -106,9 +102,29 @@ class WalletProofBuilder {
     return completeJwt;
   }
 
-  String _base64Unpadded(String value) {
+  String _unppaddedJwtContent(String value) {
     if (value.endsWith('==')) return value.substring(0, value.length - 2);
     if (value.endsWith('=')) return value.substring(0, value.length - 1);
     return value;
+  }
+}
+
+extension on PublicKey {
+  Map<String, dynamic> get jwk {
+    return {
+      'kty': 'EC',
+      'crv': 'P-256',
+      'x': _base64UrlNoPadding(_unsignedIntToBytes(X, 32)),
+      'y': _base64UrlNoPadding(_unsignedIntToBytes(Y, 32)),
+    };
+  }
+
+  String _base64UrlNoPadding(Uint8List input) {
+    return base64Url.encode(input).replaceAll('=', '');
+  }
+
+  Uint8List _unsignedIntToBytes(BigInt value, int length) {
+    final bytes = value.toUnsigned(8 * length).toRadixString(16).padLeft(length * 2, '0');
+    return Uint8List.fromList(hex.decode(bytes));
   }
 }

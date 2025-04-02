@@ -39,7 +39,7 @@ dependencies:
   qr_flutter: ^4.1.0
   ecdsa: ^0.1.2
   elliptic: ^0.3.11
-  pem: ^2.0.5
+  convert: ^3.1.2
 
 
 dev_dependencies:

@@ -84,7 +84,8 @@ enum KnownVerfiableCredentialInformationType {
   scoreDate('scoreDate'),
   scoreDateExpiration('scoreDateExpiration'),
   scoreDetail('scoreDetail'),
-  paymentAnalysis('paymentAnalysis');
+  paymentAnalysis('paymentAnalysis'),
+  accountDataAnalysis('accountDataAnalysis');
 
   const KnownVerfiableCredentialInformationType(this.apiValue);
 

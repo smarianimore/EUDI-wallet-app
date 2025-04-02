@@ -89,9 +89,7 @@ extension on String {
   List<VerifiableDisclosure> get parseDisclosures {
     final rawDisclosures = [...split('~')]..removeWhere((e) => e.isEmpty);
     if (rawDisclosures.length < 2) return <VerifiableDisclosure>[];
-    rawDisclosures
-      ..removeLast()
-      ..removeAt(0);
+    rawDisclosures.removeAt(0);
     return rawDisclosures.disclosures;
   }
 }
