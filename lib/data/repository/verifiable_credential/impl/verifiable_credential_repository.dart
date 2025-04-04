@@ -108,7 +108,8 @@ extension on (String, dynamic) {
     final value = this.$2;
     final type = KnownVerifiableCredentialInformationType.fromApiValue(key);
     if (type == KnownVerifiableCredentialInformationType.paymentAnalysis) {
-      final paymentAnalysis = PaymentAnalysisInformation.fromJson(value as Map<String, dynamic>);
+      final asMap = value is Map<String, dynamic> ? value : jsonDecode(value as String) as Map<String, dynamic>;
+      final paymentAnalysis = PaymentAnalysisInformation.fromJson(asMap);
       return KnownVerifiableCredentialInformation(type: type, paymentAnalysis: paymentAnalysis);
     } else if (type == KnownVerifiableCredentialInformationType.accountDataAnalysis) {
       final asMap = value is Map<String, dynamic> ? value : jsonDecode(value as String) as Map<String, dynamic>;
