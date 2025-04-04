@@ -1,3 +1,4 @@
+import 'package:birex/data/model/credential/crif_credential/crif_credential_transformer.dart';
 import 'package:birex/data/model/well_known/wellknown.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -23,10 +24,10 @@ class VerifiableCredential with _$VerifiableCredential {
   factory VerifiableCredential({
     required VerifiableCredentialResponse credentialResponse,
     required String subject,
-    required List<VerifiableCredentialClaim> claims,
-    required List<VerifiableDisclosure> disclosures,
     required DateTime expiresAt,
-    PaymentAnalysisInformation? paymentAnalysis,
+    required List<KnownVerifiableCredentialInformation> knownCredentialInfo,
+    @Default(<VerifiableDisclosure>[]) List<VerifiableDisclosure> unknownDisclosures,
+    @Default(<VerifiableDisclosure>[]) List<VerifiableDisclosure> unknownClaims,
     SupportedCredentialDisplayInformation? display,
   }) = _VerifiableCredential;
 
@@ -34,14 +35,17 @@ class VerifiableCredential with _$VerifiableCredential {
 }
 
 @freezed
-class VerifiableCredentialClaim with _$VerifiableCredentialClaim {
+class KnownVerifiableCredentialInformation with _$KnownVerifiableCredentialInformation {
   @JsonSerializable(explicitToJson: true)
-  factory VerifiableCredentialClaim({
-    required String name,
-    required String value,
-  }) = _VerifiableCredentialClaim;
+  factory KnownVerifiableCredentialInformation({
+    required KnownVerifiableCredentialInformationType type,
+    PaymentAnalysisInformation? paymentAnalysis,
+    AccountDataAnalysis? accountDataAnalysis,
+    VerifiableDisclosure? basicKeyValue,
+  }) = _KnownVerifiableCredentialInformation;
 
-  factory VerifiableCredentialClaim.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialClaimFromJson(json);
+  factory KnownVerifiableCredentialInformation.fromJson(Map<String, dynamic> json) =>
+      _$KnownVerifiableCredentialInformationFromJson(json);
 }
 
 @freezed
@@ -65,4 +69,20 @@ class PaymentAnalysisInformation with _$PaymentAnalysisInformation {
   }) = _PaymentAnalysisInformation;
 
   factory PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) => _$PaymentAnalysisInformationFromJson(json);
+}
+
+@freezed
+class AccountDataAnalysis with _$AccountDataAnalysis {
+  @JsonSerializable(explicitToJson: true)
+  factory AccountDataAnalysis({
+    @JsonKey(name: 'Equilibrio tra Uscite e Entrate') required String cashflowBalance,
+    @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile') required String incomeOutcomeRatio,
+    @JsonKey(name: 'Conto utilizzato per Tasse o Utenze') required String taxesOrUtilitiesAccount,
+    @JsonKey(name: 'Presenza di Entrate Ricorrenti') required String recurringIncome,
+    @JsonKey(name: 'Caratteristiche del conto') required String accountDescription,
+    @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito') required String financialCommitments,
+    @JsonKey(name: 'Conto destinato a uscite “virtuose”') required String extraordinaryIncome,
+  }) = _AccountDataAnalysis;
+
+  factory AccountDataAnalysis.fromJson(Map<String, dynamic> json) => _$AccountDataAnalysisFromJson(json);
 }

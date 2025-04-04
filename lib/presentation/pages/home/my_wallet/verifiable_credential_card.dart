@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:birex/data/data.dart';
+import 'package:birex/data/model/credential/crif_credential/formatter.dart';
 import 'package:birex/presentation/components/components.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
 import 'package:birex/presentation/theme/theme.dart';
@@ -48,22 +49,26 @@ class VerifiableCredentialCard extends StatelessWidget {
                       child: Column(
                         children: [
                           _UserInformationSection(
-                            firstName: credential.firstName,
-                            lastName: credential.lastName,
-                            fiscalCode: credential.fiscalCode,
+                            firstName: credential.firstName?.basicKeyValue,
+                            lastName: credential.lastName?.basicKeyValue,
+                            fiscalCode: credential.fiscalCode?.basicKeyValue,
                           ),
                           Dimensions.largeSize.spacer(),
                           _ScoreInformationSection(
-                            scoreIndex: credential.scoreIndex,
-                            scoreDesc: credential.scoreDesc,
-                            rentAmount: credential.rentAmount,
-                            scoreDate: credential.scoreDate,
-                            scoreDateExpiration: credential.scoreDateExpiration,
-                            scoreDetail: credential.scoreDetail,
+                            scoreIndex: credential.scoreIndex?.basicKeyValue,
+                            scoreDesc: credential.scoreDesc?.basicKeyValue,
+                            rentAmount: credential.rentAmount?.basicKeyValue,
+                            scoreDate: credential.scoreDate?.basicKeyValue,
+                            scoreDateExpiration: credential.scoreDateExpiration?.basicKeyValue,
+                            scoreDetail: credential.scoreDetail?.basicKeyValue,
                           ),
                           if (credential.paymentAnalysis != null) ...[
                             Dimensions.largeSize.spacer(),
                             _PaymentDetailsSection(paymentAnalysis: credential.paymentAnalysis),
+                          ],
+                          if (credential.accountDataAnalysis != null) ...[
+                            Dimensions.largeSize.spacer(),
+                            _AccountDataAnalysisSection(accountDataAnalysis: credential.accountDataAnalysis),
                           ],
                           if (credential.hasUnknownInformations) ...[
                             Dimensions.largeSize.spacer(),
@@ -295,6 +300,53 @@ class _PaymentDetailsSection extends ConsumerWidget {
   }
 }
 
+class _AccountDataAnalysisSection extends ConsumerWidget {
+  const _AccountDataAnalysisSection({
+    required this.accountDataAnalysis,
+  });
+
+  final AccountDataAnalysis? accountDataAnalysis;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (accountDataAnalysis == null) return const SizedBox.shrink();
+    return _InformationSection(
+      leading: const Icon(Icons.payment),
+      title: 'Analisi del conto',
+      children: [
+        LabelAndDescriptionComponent(
+          label: 'Equilibrio tra Uscite e Entrate',
+          description: accountDataAnalysis!.cashflowBalance,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Rapporto tra Uscite e Saldo Mensile',
+          description: accountDataAnalysis!.incomeOutcomeRatio,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Conto utilizzato per Tasse o Utenze',
+          description: accountDataAnalysis!.taxesOrUtilitiesAccount,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Presenza di Entrate Ricorrenti',
+          description: accountDataAnalysis!.recurringIncome,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Caratteristiche del conto',
+          description: accountDataAnalysis!.accountDescription,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Incidenza Impegni Finanziari sul Reddito',
+          description: accountDataAnalysis!.financialCommitments,
+        ),
+        LabelAndDescriptionComponent(
+          label: 'Conto destinato a uscite “virtuose”',
+          description: accountDataAnalysis!.extraordinaryIncome,
+        ),
+      ],
+    );
+  }
+}
+
 class _UnknownDisclosuresSection extends StatelessWidget {
   const _UnknownDisclosuresSection({
     required this.credential,
@@ -308,7 +360,7 @@ class _UnknownDisclosuresSection extends StatelessWidget {
       title: 'Altre informazioni',
       leading: const Icon(Icons.info),
       children: [
-        for (final claim in credential.unknownDiscolures)
+        for (final claim in credential.unknownDisclosures)
           LabelAndDescriptionComponent(
             label: claim.formatName,
             description: claim.value,

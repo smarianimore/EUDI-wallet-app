@@ -240,12 +240,12 @@ mixin _$VerifiableCredential {
   VerifiableCredentialResponse get credentialResponse =>
       throw _privateConstructorUsedError;
   String get subject => throw _privateConstructorUsedError;
-  List<VerifiableCredentialClaim> get claims =>
-      throw _privateConstructorUsedError;
-  List<VerifiableDisclosure> get disclosures =>
-      throw _privateConstructorUsedError;
   DateTime get expiresAt => throw _privateConstructorUsedError;
-  PaymentAnalysisInformation? get paymentAnalysis =>
+  List<KnownVerifiableCredentialInformation> get knownCredentialInfo =>
+      throw _privateConstructorUsedError;
+  List<VerifiableDisclosure> get unknownDisclosures =>
+      throw _privateConstructorUsedError;
+  List<VerifiableDisclosure> get unknownClaims =>
       throw _privateConstructorUsedError;
   SupportedCredentialDisplayInformation? get display =>
       throw _privateConstructorUsedError;
@@ -269,14 +269,13 @@ abstract class $VerifiableCredentialCopyWith<$Res> {
   $Res call(
       {VerifiableCredentialResponse credentialResponse,
       String subject,
-      List<VerifiableCredentialClaim> claims,
-      List<VerifiableDisclosure> disclosures,
       DateTime expiresAt,
-      PaymentAnalysisInformation? paymentAnalysis,
+      List<KnownVerifiableCredentialInformation> knownCredentialInfo,
+      List<VerifiableDisclosure> unknownDisclosures,
+      List<VerifiableDisclosure> unknownClaims,
       SupportedCredentialDisplayInformation? display});
 
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
-  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
   $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
 
@@ -298,10 +297,10 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
   $Res call({
     Object? credentialResponse = null,
     Object? subject = null,
-    Object? claims = null,
-    Object? disclosures = null,
     Object? expiresAt = null,
-    Object? paymentAnalysis = freezed,
+    Object? knownCredentialInfo = null,
+    Object? unknownDisclosures = null,
+    Object? unknownClaims = null,
     Object? display = freezed,
   }) {
     return _then(_value.copyWith(
@@ -313,22 +312,22 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as String,
-      claims: null == claims
-          ? _value.claims
-          : claims // ignore: cast_nullable_to_non_nullable
-              as List<VerifiableCredentialClaim>,
-      disclosures: null == disclosures
-          ? _value.disclosures
-          : disclosures // ignore: cast_nullable_to_non_nullable
-              as List<VerifiableDisclosure>,
       expiresAt: null == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      paymentAnalysis: freezed == paymentAnalysis
-          ? _value.paymentAnalysis
-          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
-              as PaymentAnalysisInformation?,
+      knownCredentialInfo: null == knownCredentialInfo
+          ? _value.knownCredentialInfo
+          : knownCredentialInfo // ignore: cast_nullable_to_non_nullable
+              as List<KnownVerifiableCredentialInformation>,
+      unknownDisclosures: null == unknownDisclosures
+          ? _value.unknownDisclosures
+          : unknownDisclosures // ignore: cast_nullable_to_non_nullable
+              as List<VerifiableDisclosure>,
+      unknownClaims: null == unknownClaims
+          ? _value.unknownClaims
+          : unknownClaims // ignore: cast_nullable_to_non_nullable
+              as List<VerifiableDisclosure>,
       display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
@@ -344,21 +343,6 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     return $VerifiableCredentialResponseCopyWith<$Res>(
         _value.credentialResponse, (value) {
       return _then(_value.copyWith(credentialResponse: value) as $Val);
-    });
-  }
-
-  /// Create a copy of VerifiableCredential
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis {
-    if (_value.paymentAnalysis == null) {
-      return null;
-    }
-
-    return $PaymentAnalysisInformationCopyWith<$Res>(_value.paymentAnalysis!,
-        (value) {
-      return _then(_value.copyWith(paymentAnalysis: value) as $Val);
     });
   }
 
@@ -389,16 +373,14 @@ abstract class _$$VerifiableCredentialImplCopyWith<$Res>
   $Res call(
       {VerifiableCredentialResponse credentialResponse,
       String subject,
-      List<VerifiableCredentialClaim> claims,
-      List<VerifiableDisclosure> disclosures,
       DateTime expiresAt,
-      PaymentAnalysisInformation? paymentAnalysis,
+      List<KnownVerifiableCredentialInformation> knownCredentialInfo,
+      List<VerifiableDisclosure> unknownDisclosures,
+      List<VerifiableDisclosure> unknownClaims,
       SupportedCredentialDisplayInformation? display});
 
   @override
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
-  @override
-  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
   @override
   $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
 }
@@ -418,10 +400,10 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
   $Res call({
     Object? credentialResponse = null,
     Object? subject = null,
-    Object? claims = null,
-    Object? disclosures = null,
     Object? expiresAt = null,
-    Object? paymentAnalysis = freezed,
+    Object? knownCredentialInfo = null,
+    Object? unknownDisclosures = null,
+    Object? unknownClaims = null,
     Object? display = freezed,
   }) {
     return _then(_$VerifiableCredentialImpl(
@@ -433,22 +415,22 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
           ? _value.subject
           : subject // ignore: cast_nullable_to_non_nullable
               as String,
-      claims: null == claims
-          ? _value._claims
-          : claims // ignore: cast_nullable_to_non_nullable
-              as List<VerifiableCredentialClaim>,
-      disclosures: null == disclosures
-          ? _value._disclosures
-          : disclosures // ignore: cast_nullable_to_non_nullable
-              as List<VerifiableDisclosure>,
       expiresAt: null == expiresAt
           ? _value.expiresAt
           : expiresAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      paymentAnalysis: freezed == paymentAnalysis
-          ? _value.paymentAnalysis
-          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
-              as PaymentAnalysisInformation?,
+      knownCredentialInfo: null == knownCredentialInfo
+          ? _value._knownCredentialInfo
+          : knownCredentialInfo // ignore: cast_nullable_to_non_nullable
+              as List<KnownVerifiableCredentialInformation>,
+      unknownDisclosures: null == unknownDisclosures
+          ? _value._unknownDisclosures
+          : unknownDisclosures // ignore: cast_nullable_to_non_nullable
+              as List<VerifiableDisclosure>,
+      unknownClaims: null == unknownClaims
+          ? _value._unknownClaims
+          : unknownClaims // ignore: cast_nullable_to_non_nullable
+              as List<VerifiableDisclosure>,
       display: freezed == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
@@ -464,13 +446,17 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
   _$VerifiableCredentialImpl(
       {required this.credentialResponse,
       required this.subject,
-      required final List<VerifiableCredentialClaim> claims,
-      required final List<VerifiableDisclosure> disclosures,
       required this.expiresAt,
-      this.paymentAnalysis,
+      required final List<KnownVerifiableCredentialInformation>
+          knownCredentialInfo,
+      final List<VerifiableDisclosure> unknownDisclosures =
+          const <VerifiableDisclosure>[],
+      final List<VerifiableDisclosure> unknownClaims =
+          const <VerifiableDisclosure>[],
       this.display})
-      : _claims = claims,
-        _disclosures = disclosures;
+      : _knownCredentialInfo = knownCredentialInfo,
+        _unknownDisclosures = unknownDisclosures,
+        _unknownClaims = unknownClaims;
 
   factory _$VerifiableCredentialImpl.fromJson(Map<String, dynamic> json) =>
       _$$VerifiableCredentialImplFromJson(json);
@@ -479,32 +465,42 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
   final VerifiableCredentialResponse credentialResponse;
   @override
   final String subject;
-  final List<VerifiableCredentialClaim> _claims;
-  @override
-  List<VerifiableCredentialClaim> get claims {
-    if (_claims is EqualUnmodifiableListView) return _claims;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_claims);
-  }
-
-  final List<VerifiableDisclosure> _disclosures;
-  @override
-  List<VerifiableDisclosure> get disclosures {
-    if (_disclosures is EqualUnmodifiableListView) return _disclosures;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_disclosures);
-  }
-
   @override
   final DateTime expiresAt;
+  final List<KnownVerifiableCredentialInformation> _knownCredentialInfo;
   @override
-  final PaymentAnalysisInformation? paymentAnalysis;
+  List<KnownVerifiableCredentialInformation> get knownCredentialInfo {
+    if (_knownCredentialInfo is EqualUnmodifiableListView)
+      return _knownCredentialInfo;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_knownCredentialInfo);
+  }
+
+  final List<VerifiableDisclosure> _unknownDisclosures;
+  @override
+  @JsonKey()
+  List<VerifiableDisclosure> get unknownDisclosures {
+    if (_unknownDisclosures is EqualUnmodifiableListView)
+      return _unknownDisclosures;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unknownDisclosures);
+  }
+
+  final List<VerifiableDisclosure> _unknownClaims;
+  @override
+  @JsonKey()
+  List<VerifiableDisclosure> get unknownClaims {
+    if (_unknownClaims is EqualUnmodifiableListView) return _unknownClaims;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_unknownClaims);
+  }
+
   @override
   final SupportedCredentialDisplayInformation? display;
 
   @override
   String toString() {
-    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, claims: $claims, disclosures: $disclosures, expiresAt: $expiresAt, paymentAnalysis: $paymentAnalysis, display: $display)';
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, expiresAt: $expiresAt, knownCredentialInfo: $knownCredentialInfo, unknownDisclosures: $unknownDisclosures, unknownClaims: $unknownClaims, display: $display)';
   }
 
   @override
@@ -515,13 +511,14 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
             (identical(other.credentialResponse, credentialResponse) ||
                 other.credentialResponse == credentialResponse) &&
             (identical(other.subject, subject) || other.subject == subject) &&
-            const DeepCollectionEquality().equals(other._claims, _claims) &&
-            const DeepCollectionEquality()
-                .equals(other._disclosures, _disclosures) &&
             (identical(other.expiresAt, expiresAt) ||
                 other.expiresAt == expiresAt) &&
-            (identical(other.paymentAnalysis, paymentAnalysis) ||
-                other.paymentAnalysis == paymentAnalysis) &&
+            const DeepCollectionEquality()
+                .equals(other._knownCredentialInfo, _knownCredentialInfo) &&
+            const DeepCollectionEquality()
+                .equals(other._unknownDisclosures, _unknownDisclosures) &&
+            const DeepCollectionEquality()
+                .equals(other._unknownClaims, _unknownClaims) &&
             (identical(other.display, display) || other.display == display));
   }
 
@@ -531,10 +528,10 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       runtimeType,
       credentialResponse,
       subject,
-      const DeepCollectionEquality().hash(_claims),
-      const DeepCollectionEquality().hash(_disclosures),
       expiresAt,
-      paymentAnalysis,
+      const DeepCollectionEquality().hash(_knownCredentialInfo),
+      const DeepCollectionEquality().hash(_unknownDisclosures),
+      const DeepCollectionEquality().hash(_unknownClaims),
       display);
 
   /// Create a copy of VerifiableCredential
@@ -559,10 +556,11 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   factory _VerifiableCredential(
           {required final VerifiableCredentialResponse credentialResponse,
           required final String subject,
-          required final List<VerifiableCredentialClaim> claims,
-          required final List<VerifiableDisclosure> disclosures,
           required final DateTime expiresAt,
-          final PaymentAnalysisInformation? paymentAnalysis,
+          required final List<KnownVerifiableCredentialInformation>
+              knownCredentialInfo,
+          final List<VerifiableDisclosure> unknownDisclosures,
+          final List<VerifiableDisclosure> unknownClaims,
           final SupportedCredentialDisplayInformation? display}) =
       _$VerifiableCredentialImpl;
 
@@ -574,13 +572,13 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   @override
   String get subject;
   @override
-  List<VerifiableCredentialClaim> get claims;
-  @override
-  List<VerifiableDisclosure> get disclosures;
-  @override
   DateTime get expiresAt;
   @override
-  PaymentAnalysisInformation? get paymentAnalysis;
+  List<KnownVerifiableCredentialInformation> get knownCredentialInfo;
+  @override
+  List<VerifiableDisclosure> get unknownDisclosures;
+  @override
+  List<VerifiableDisclosure> get unknownClaims;
   @override
   SupportedCredentialDisplayInformation? get display;
 
@@ -592,106 +590,197 @@ abstract class _VerifiableCredential implements VerifiableCredential {
       get copyWith => throw _privateConstructorUsedError;
 }
 
-VerifiableCredentialClaim _$VerifiableCredentialClaimFromJson(
-    Map<String, dynamic> json) {
-  return _VerifiableCredentialClaim.fromJson(json);
+KnownVerifiableCredentialInformation
+    _$KnownVerifiableCredentialInformationFromJson(Map<String, dynamic> json) {
+  return _KnownVerifiableCredentialInformation.fromJson(json);
 }
 
 /// @nodoc
-mixin _$VerifiableCredentialClaim {
-  String get name => throw _privateConstructorUsedError;
-  String get value => throw _privateConstructorUsedError;
+mixin _$KnownVerifiableCredentialInformation {
+  KnownVerifiableCredentialInformationType get type =>
+      throw _privateConstructorUsedError;
+  PaymentAnalysisInformation? get paymentAnalysis =>
+      throw _privateConstructorUsedError;
+  AccountDataAnalysis? get accountDataAnalysis =>
+      throw _privateConstructorUsedError;
+  VerifiableDisclosure? get basicKeyValue => throw _privateConstructorUsedError;
 
-  /// Serializes this VerifiableCredentialClaim to a JSON map.
+  /// Serializes this KnownVerifiableCredentialInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
 
-  /// Create a copy of VerifiableCredentialClaim
+  /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $VerifiableCredentialClaimCopyWith<VerifiableCredentialClaim> get copyWith =>
-      throw _privateConstructorUsedError;
+  $KnownVerifiableCredentialInformationCopyWith<
+          KnownVerifiableCredentialInformation>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $VerifiableCredentialClaimCopyWith<$Res> {
-  factory $VerifiableCredentialClaimCopyWith(VerifiableCredentialClaim value,
-          $Res Function(VerifiableCredentialClaim) then) =
-      _$VerifiableCredentialClaimCopyWithImpl<$Res, VerifiableCredentialClaim>;
+abstract class $KnownVerifiableCredentialInformationCopyWith<$Res> {
+  factory $KnownVerifiableCredentialInformationCopyWith(
+          KnownVerifiableCredentialInformation value,
+          $Res Function(KnownVerifiableCredentialInformation) then) =
+      _$KnownVerifiableCredentialInformationCopyWithImpl<$Res,
+          KnownVerifiableCredentialInformation>;
   @useResult
-  $Res call({String name, String value});
+  $Res call(
+      {KnownVerifiableCredentialInformationType type,
+      PaymentAnalysisInformation? paymentAnalysis,
+      AccountDataAnalysis? accountDataAnalysis,
+      VerifiableDisclosure? basicKeyValue});
+
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
+  $AccountDataAnalysisCopyWith<$Res>? get accountDataAnalysis;
+  $VerifiableDisclosureCopyWith<$Res>? get basicKeyValue;
 }
 
 /// @nodoc
-class _$VerifiableCredentialClaimCopyWithImpl<$Res,
-        $Val extends VerifiableCredentialClaim>
-    implements $VerifiableCredentialClaimCopyWith<$Res> {
-  _$VerifiableCredentialClaimCopyWithImpl(this._value, this._then);
+class _$KnownVerifiableCredentialInformationCopyWithImpl<$Res,
+        $Val extends KnownVerifiableCredentialInformation>
+    implements $KnownVerifiableCredentialInformationCopyWith<$Res> {
+  _$KnownVerifiableCredentialInformationCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
 
-  /// Create a copy of VerifiableCredentialClaim
+  /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? value = null,
+    Object? type = null,
+    Object? paymentAnalysis = freezed,
+    Object? accountDataAnalysis = freezed,
+    Object? basicKeyValue = freezed,
   }) {
     return _then(_value.copyWith(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as KnownVerifiableCredentialInformationType,
+      paymentAnalysis: freezed == paymentAnalysis
+          ? _value.paymentAnalysis
+          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
+              as PaymentAnalysisInformation?,
+      accountDataAnalysis: freezed == accountDataAnalysis
+          ? _value.accountDataAnalysis
+          : accountDataAnalysis // ignore: cast_nullable_to_non_nullable
+              as AccountDataAnalysis?,
+      basicKeyValue: freezed == basicKeyValue
+          ? _value.basicKeyValue
+          : basicKeyValue // ignore: cast_nullable_to_non_nullable
+              as VerifiableDisclosure?,
     ) as $Val);
+  }
+
+  /// Create a copy of KnownVerifiableCredentialInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis {
+    if (_value.paymentAnalysis == null) {
+      return null;
+    }
+
+    return $PaymentAnalysisInformationCopyWith<$Res>(_value.paymentAnalysis!,
+        (value) {
+      return _then(_value.copyWith(paymentAnalysis: value) as $Val);
+    });
+  }
+
+  /// Create a copy of KnownVerifiableCredentialInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AccountDataAnalysisCopyWith<$Res>? get accountDataAnalysis {
+    if (_value.accountDataAnalysis == null) {
+      return null;
+    }
+
+    return $AccountDataAnalysisCopyWith<$Res>(_value.accountDataAnalysis!,
+        (value) {
+      return _then(_value.copyWith(accountDataAnalysis: value) as $Val);
+    });
+  }
+
+  /// Create a copy of KnownVerifiableCredentialInformation
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $VerifiableDisclosureCopyWith<$Res>? get basicKeyValue {
+    if (_value.basicKeyValue == null) {
+      return null;
+    }
+
+    return $VerifiableDisclosureCopyWith<$Res>(_value.basicKeyValue!, (value) {
+      return _then(_value.copyWith(basicKeyValue: value) as $Val);
+    });
   }
 }
 
 /// @nodoc
-abstract class _$$VerifiableCredentialClaimImplCopyWith<$Res>
-    implements $VerifiableCredentialClaimCopyWith<$Res> {
-  factory _$$VerifiableCredentialClaimImplCopyWith(
-          _$VerifiableCredentialClaimImpl value,
-          $Res Function(_$VerifiableCredentialClaimImpl) then) =
-      __$$VerifiableCredentialClaimImplCopyWithImpl<$Res>;
+abstract class _$$KnownVerifiableCredentialInformationImplCopyWith<$Res>
+    implements $KnownVerifiableCredentialInformationCopyWith<$Res> {
+  factory _$$KnownVerifiableCredentialInformationImplCopyWith(
+          _$KnownVerifiableCredentialInformationImpl value,
+          $Res Function(_$KnownVerifiableCredentialInformationImpl) then) =
+      __$$KnownVerifiableCredentialInformationImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String name, String value});
+  $Res call(
+      {KnownVerifiableCredentialInformationType type,
+      PaymentAnalysisInformation? paymentAnalysis,
+      AccountDataAnalysis? accountDataAnalysis,
+      VerifiableDisclosure? basicKeyValue});
+
+  @override
+  $PaymentAnalysisInformationCopyWith<$Res>? get paymentAnalysis;
+  @override
+  $AccountDataAnalysisCopyWith<$Res>? get accountDataAnalysis;
+  @override
+  $VerifiableDisclosureCopyWith<$Res>? get basicKeyValue;
 }
 
 /// @nodoc
-class __$$VerifiableCredentialClaimImplCopyWithImpl<$Res>
-    extends _$VerifiableCredentialClaimCopyWithImpl<$Res,
-        _$VerifiableCredentialClaimImpl>
-    implements _$$VerifiableCredentialClaimImplCopyWith<$Res> {
-  __$$VerifiableCredentialClaimImplCopyWithImpl(
-      _$VerifiableCredentialClaimImpl _value,
-      $Res Function(_$VerifiableCredentialClaimImpl) _then)
+class __$$KnownVerifiableCredentialInformationImplCopyWithImpl<$Res>
+    extends _$KnownVerifiableCredentialInformationCopyWithImpl<$Res,
+        _$KnownVerifiableCredentialInformationImpl>
+    implements _$$KnownVerifiableCredentialInformationImplCopyWith<$Res> {
+  __$$KnownVerifiableCredentialInformationImplCopyWithImpl(
+      _$KnownVerifiableCredentialInformationImpl _value,
+      $Res Function(_$KnownVerifiableCredentialInformationImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of VerifiableCredentialClaim
+  /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? name = null,
-    Object? value = null,
+    Object? type = null,
+    Object? paymentAnalysis = freezed,
+    Object? accountDataAnalysis = freezed,
+    Object? basicKeyValue = freezed,
   }) {
-    return _then(_$VerifiableCredentialClaimImpl(
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      value: null == value
-          ? _value.value
-          : value // ignore: cast_nullable_to_non_nullable
-              as String,
+    return _then(_$KnownVerifiableCredentialInformationImpl(
+      type: null == type
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as KnownVerifiableCredentialInformationType,
+      paymentAnalysis: freezed == paymentAnalysis
+          ? _value.paymentAnalysis
+          : paymentAnalysis // ignore: cast_nullable_to_non_nullable
+              as PaymentAnalysisInformation?,
+      accountDataAnalysis: freezed == accountDataAnalysis
+          ? _value.accountDataAnalysis
+          : accountDataAnalysis // ignore: cast_nullable_to_non_nullable
+              as AccountDataAnalysis?,
+      basicKeyValue: freezed == basicKeyValue
+          ? _value.basicKeyValue
+          : basicKeyValue // ignore: cast_nullable_to_non_nullable
+              as VerifiableDisclosure?,
     ));
   }
 }
@@ -699,70 +788,97 @@ class __$$VerifiableCredentialClaimImplCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(explicitToJson: true)
-class _$VerifiableCredentialClaimImpl implements _VerifiableCredentialClaim {
-  _$VerifiableCredentialClaimImpl({required this.name, required this.value});
+class _$KnownVerifiableCredentialInformationImpl
+    implements _KnownVerifiableCredentialInformation {
+  _$KnownVerifiableCredentialInformationImpl(
+      {required this.type,
+      this.paymentAnalysis,
+      this.accountDataAnalysis,
+      this.basicKeyValue});
 
-  factory _$VerifiableCredentialClaimImpl.fromJson(Map<String, dynamic> json) =>
-      _$$VerifiableCredentialClaimImplFromJson(json);
+  factory _$KnownVerifiableCredentialInformationImpl.fromJson(
+          Map<String, dynamic> json) =>
+      _$$KnownVerifiableCredentialInformationImplFromJson(json);
 
   @override
-  final String name;
+  final KnownVerifiableCredentialInformationType type;
   @override
-  final String value;
+  final PaymentAnalysisInformation? paymentAnalysis;
+  @override
+  final AccountDataAnalysis? accountDataAnalysis;
+  @override
+  final VerifiableDisclosure? basicKeyValue;
 
   @override
   String toString() {
-    return 'VerifiableCredentialClaim(name: $name, value: $value)';
+    return 'KnownVerifiableCredentialInformation(type: $type, paymentAnalysis: $paymentAnalysis, accountDataAnalysis: $accountDataAnalysis, basicKeyValue: $basicKeyValue)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$VerifiableCredentialClaimImpl &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.value, value) || other.value == value));
+            other is _$KnownVerifiableCredentialInformationImpl &&
+            (identical(other.type, type) || other.type == type) &&
+            (identical(other.paymentAnalysis, paymentAnalysis) ||
+                other.paymentAnalysis == paymentAnalysis) &&
+            (identical(other.accountDataAnalysis, accountDataAnalysis) ||
+                other.accountDataAnalysis == accountDataAnalysis) &&
+            (identical(other.basicKeyValue, basicKeyValue) ||
+                other.basicKeyValue == basicKeyValue));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, value);
+  int get hashCode => Object.hash(
+      runtimeType, type, paymentAnalysis, accountDataAnalysis, basicKeyValue);
 
-  /// Create a copy of VerifiableCredentialClaim
+  /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$VerifiableCredentialClaimImplCopyWith<_$VerifiableCredentialClaimImpl>
-      get copyWith => __$$VerifiableCredentialClaimImplCopyWithImpl<
-          _$VerifiableCredentialClaimImpl>(this, _$identity);
+  _$$KnownVerifiableCredentialInformationImplCopyWith<
+          _$KnownVerifiableCredentialInformationImpl>
+      get copyWith => __$$KnownVerifiableCredentialInformationImplCopyWithImpl<
+          _$KnownVerifiableCredentialInformationImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$VerifiableCredentialClaimImplToJson(
+    return _$$KnownVerifiableCredentialInformationImplToJson(
       this,
     );
   }
 }
 
-abstract class _VerifiableCredentialClaim implements VerifiableCredentialClaim {
-  factory _VerifiableCredentialClaim(
-      {required final String name,
-      required final String value}) = _$VerifiableCredentialClaimImpl;
+abstract class _KnownVerifiableCredentialInformation
+    implements KnownVerifiableCredentialInformation {
+  factory _KnownVerifiableCredentialInformation(
+          {required final KnownVerifiableCredentialInformationType type,
+          final PaymentAnalysisInformation? paymentAnalysis,
+          final AccountDataAnalysis? accountDataAnalysis,
+          final VerifiableDisclosure? basicKeyValue}) =
+      _$KnownVerifiableCredentialInformationImpl;
 
-  factory _VerifiableCredentialClaim.fromJson(Map<String, dynamic> json) =
-      _$VerifiableCredentialClaimImpl.fromJson;
+  factory _KnownVerifiableCredentialInformation.fromJson(
+          Map<String, dynamic> json) =
+      _$KnownVerifiableCredentialInformationImpl.fromJson;
 
   @override
-  String get name;
+  KnownVerifiableCredentialInformationType get type;
   @override
-  String get value;
+  PaymentAnalysisInformation? get paymentAnalysis;
+  @override
+  AccountDataAnalysis? get accountDataAnalysis;
+  @override
+  VerifiableDisclosure? get basicKeyValue;
 
-  /// Create a copy of VerifiableCredentialClaim
+  /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$VerifiableCredentialClaimImplCopyWith<_$VerifiableCredentialClaimImpl>
+  _$$KnownVerifiableCredentialInformationImplCopyWith<
+          _$KnownVerifiableCredentialInformationImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
 
@@ -1160,4 +1276,338 @@ abstract class _PaymentAnalysisInformation
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PaymentAnalysisInformationImplCopyWith<_$PaymentAnalysisInformationImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+AccountDataAnalysis _$AccountDataAnalysisFromJson(Map<String, dynamic> json) {
+  return _AccountDataAnalysis.fromJson(json);
+}
+
+/// @nodoc
+mixin _$AccountDataAnalysis {
+  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
+  String get cashflowBalance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+  String get incomeOutcomeRatio => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+  String get taxesOrUtilitiesAccount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
+  String get recurringIncome => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Caratteristiche del conto')
+  String get accountDescription => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+  String get financialCommitments => throw _privateConstructorUsedError;
+  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+  String get extraordinaryIncome => throw _privateConstructorUsedError;
+
+  /// Serializes this AccountDataAnalysis to a JSON map.
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+
+  /// Create a copy of AccountDataAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $AccountDataAnalysisCopyWith<AccountDataAnalysis> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $AccountDataAnalysisCopyWith<$Res> {
+  factory $AccountDataAnalysisCopyWith(
+          AccountDataAnalysis value, $Res Function(AccountDataAnalysis) then) =
+      _$AccountDataAnalysisCopyWithImpl<$Res, AccountDataAnalysis>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate') String cashflowBalance,
+      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+      String incomeOutcomeRatio,
+      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+      String taxesOrUtilitiesAccount,
+      @JsonKey(name: 'Presenza di Entrate Ricorrenti') String recurringIncome,
+      @JsonKey(name: 'Caratteristiche del conto') String accountDescription,
+      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+      String financialCommitments,
+      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+      String extraordinaryIncome});
+}
+
+/// @nodoc
+class _$AccountDataAnalysisCopyWithImpl<$Res, $Val extends AccountDataAnalysis>
+    implements $AccountDataAnalysisCopyWith<$Res> {
+  _$AccountDataAnalysisCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  /// Create a copy of AccountDataAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cashflowBalance = null,
+    Object? incomeOutcomeRatio = null,
+    Object? taxesOrUtilitiesAccount = null,
+    Object? recurringIncome = null,
+    Object? accountDescription = null,
+    Object? financialCommitments = null,
+    Object? extraordinaryIncome = null,
+  }) {
+    return _then(_value.copyWith(
+      cashflowBalance: null == cashflowBalance
+          ? _value.cashflowBalance
+          : cashflowBalance // ignore: cast_nullable_to_non_nullable
+              as String,
+      incomeOutcomeRatio: null == incomeOutcomeRatio
+          ? _value.incomeOutcomeRatio
+          : incomeOutcomeRatio // ignore: cast_nullable_to_non_nullable
+              as String,
+      taxesOrUtilitiesAccount: null == taxesOrUtilitiesAccount
+          ? _value.taxesOrUtilitiesAccount
+          : taxesOrUtilitiesAccount // ignore: cast_nullable_to_non_nullable
+              as String,
+      recurringIncome: null == recurringIncome
+          ? _value.recurringIncome
+          : recurringIncome // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountDescription: null == accountDescription
+          ? _value.accountDescription
+          : accountDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      financialCommitments: null == financialCommitments
+          ? _value.financialCommitments
+          : financialCommitments // ignore: cast_nullable_to_non_nullable
+              as String,
+      extraordinaryIncome: null == extraordinaryIncome
+          ? _value.extraordinaryIncome
+          : extraordinaryIncome // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$AccountDataAnalysisImplCopyWith<$Res>
+    implements $AccountDataAnalysisCopyWith<$Res> {
+  factory _$$AccountDataAnalysisImplCopyWith(_$AccountDataAnalysisImpl value,
+          $Res Function(_$AccountDataAnalysisImpl) then) =
+      __$$AccountDataAnalysisImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate') String cashflowBalance,
+      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+      String incomeOutcomeRatio,
+      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+      String taxesOrUtilitiesAccount,
+      @JsonKey(name: 'Presenza di Entrate Ricorrenti') String recurringIncome,
+      @JsonKey(name: 'Caratteristiche del conto') String accountDescription,
+      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+      String financialCommitments,
+      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+      String extraordinaryIncome});
+}
+
+/// @nodoc
+class __$$AccountDataAnalysisImplCopyWithImpl<$Res>
+    extends _$AccountDataAnalysisCopyWithImpl<$Res, _$AccountDataAnalysisImpl>
+    implements _$$AccountDataAnalysisImplCopyWith<$Res> {
+  __$$AccountDataAnalysisImplCopyWithImpl(_$AccountDataAnalysisImpl _value,
+      $Res Function(_$AccountDataAnalysisImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AccountDataAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? cashflowBalance = null,
+    Object? incomeOutcomeRatio = null,
+    Object? taxesOrUtilitiesAccount = null,
+    Object? recurringIncome = null,
+    Object? accountDescription = null,
+    Object? financialCommitments = null,
+    Object? extraordinaryIncome = null,
+  }) {
+    return _then(_$AccountDataAnalysisImpl(
+      cashflowBalance: null == cashflowBalance
+          ? _value.cashflowBalance
+          : cashflowBalance // ignore: cast_nullable_to_non_nullable
+              as String,
+      incomeOutcomeRatio: null == incomeOutcomeRatio
+          ? _value.incomeOutcomeRatio
+          : incomeOutcomeRatio // ignore: cast_nullable_to_non_nullable
+              as String,
+      taxesOrUtilitiesAccount: null == taxesOrUtilitiesAccount
+          ? _value.taxesOrUtilitiesAccount
+          : taxesOrUtilitiesAccount // ignore: cast_nullable_to_non_nullable
+              as String,
+      recurringIncome: null == recurringIncome
+          ? _value.recurringIncome
+          : recurringIncome // ignore: cast_nullable_to_non_nullable
+              as String,
+      accountDescription: null == accountDescription
+          ? _value.accountDescription
+          : accountDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      financialCommitments: null == financialCommitments
+          ? _value.financialCommitments
+          : financialCommitments // ignore: cast_nullable_to_non_nullable
+              as String,
+      extraordinaryIncome: null == extraordinaryIncome
+          ? _value.extraordinaryIncome
+          : extraordinaryIncome // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+@JsonSerializable(explicitToJson: true)
+class _$AccountDataAnalysisImpl implements _AccountDataAnalysis {
+  _$AccountDataAnalysisImpl(
+      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate')
+      required this.cashflowBalance,
+      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+      required this.incomeOutcomeRatio,
+      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+      required this.taxesOrUtilitiesAccount,
+      @JsonKey(name: 'Presenza di Entrate Ricorrenti')
+      required this.recurringIncome,
+      @JsonKey(name: 'Caratteristiche del conto')
+      required this.accountDescription,
+      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+      required this.financialCommitments,
+      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+      required this.extraordinaryIncome});
+
+  factory _$AccountDataAnalysisImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AccountDataAnalysisImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
+  final String cashflowBalance;
+  @override
+  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+  final String incomeOutcomeRatio;
+  @override
+  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+  final String taxesOrUtilitiesAccount;
+  @override
+  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
+  final String recurringIncome;
+  @override
+  @JsonKey(name: 'Caratteristiche del conto')
+  final String accountDescription;
+  @override
+  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+  final String financialCommitments;
+  @override
+  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+  final String extraordinaryIncome;
+
+  @override
+  String toString() {
+    return 'AccountDataAnalysis(cashflowBalance: $cashflowBalance, incomeOutcomeRatio: $incomeOutcomeRatio, taxesOrUtilitiesAccount: $taxesOrUtilitiesAccount, recurringIncome: $recurringIncome, accountDescription: $accountDescription, financialCommitments: $financialCommitments, extraordinaryIncome: $extraordinaryIncome)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AccountDataAnalysisImpl &&
+            (identical(other.cashflowBalance, cashflowBalance) ||
+                other.cashflowBalance == cashflowBalance) &&
+            (identical(other.incomeOutcomeRatio, incomeOutcomeRatio) ||
+                other.incomeOutcomeRatio == incomeOutcomeRatio) &&
+            (identical(
+                    other.taxesOrUtilitiesAccount, taxesOrUtilitiesAccount) ||
+                other.taxesOrUtilitiesAccount == taxesOrUtilitiesAccount) &&
+            (identical(other.recurringIncome, recurringIncome) ||
+                other.recurringIncome == recurringIncome) &&
+            (identical(other.accountDescription, accountDescription) ||
+                other.accountDescription == accountDescription) &&
+            (identical(other.financialCommitments, financialCommitments) ||
+                other.financialCommitments == financialCommitments) &&
+            (identical(other.extraordinaryIncome, extraordinaryIncome) ||
+                other.extraordinaryIncome == extraordinaryIncome));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      cashflowBalance,
+      incomeOutcomeRatio,
+      taxesOrUtilitiesAccount,
+      recurringIncome,
+      accountDescription,
+      financialCommitments,
+      extraordinaryIncome);
+
+  /// Create a copy of AccountDataAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AccountDataAnalysisImplCopyWith<_$AccountDataAnalysisImpl> get copyWith =>
+      __$$AccountDataAnalysisImplCopyWithImpl<_$AccountDataAnalysisImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AccountDataAnalysisImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _AccountDataAnalysis implements AccountDataAnalysis {
+  factory _AccountDataAnalysis(
+      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate')
+      required final String cashflowBalance,
+      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+      required final String incomeOutcomeRatio,
+      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+      required final String taxesOrUtilitiesAccount,
+      @JsonKey(name: 'Presenza di Entrate Ricorrenti')
+      required final String recurringIncome,
+      @JsonKey(name: 'Caratteristiche del conto')
+      required final String accountDescription,
+      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+      required final String financialCommitments,
+      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+      required final String extraordinaryIncome}) = _$AccountDataAnalysisImpl;
+
+  factory _AccountDataAnalysis.fromJson(Map<String, dynamic> json) =
+      _$AccountDataAnalysisImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
+  String get cashflowBalance;
+  @override
+  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+  String get incomeOutcomeRatio;
+  @override
+  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
+  String get taxesOrUtilitiesAccount;
+  @override
+  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
+  String get recurringIncome;
+  @override
+  @JsonKey(name: 'Caratteristiche del conto')
+  String get accountDescription;
+  @override
+  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
+  String get financialCommitments;
+  @override
+  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
+  String get extraordinaryIncome;
+
+  /// Create a copy of AccountDataAnalysis
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AccountDataAnalysisImplCopyWith<_$AccountDataAnalysisImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

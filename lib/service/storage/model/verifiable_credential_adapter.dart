@@ -22,48 +22,45 @@ class VerifiableCredentialHiveModel {
   }
 
   factory VerifiableCredentialHiveModel.fromJson(Map<dynamic, dynamic> json) {
-    final cnonce = json['c_nonce'] as String;
-    final cnonceExpiresIn = json['c_nonce_expires_in'] as int;
-    final subject = json['subject'] as String;
-    final credential = json['credential'] as String;
-    final disclosures = json['disclosures'] as List<dynamic>;
-    final claims = json['claims'] as List<dynamic>;
-    final expiresAt = DateTime.parse(json['expiresAt'] as String);
+    final cnonce = json[cnonceStoreKey] as String;
+    final cnonceExpiresIn = json[cnonceExpiresInStoreKey] as int;
+    final subject = json[subjectStoreKey] as String;
+    final credential = json[credentialStoreKey] as String;
+    final unknownDisclosures = json[unknownDisclosuresStoreKey] as List<dynamic>;
+    final unknownClaims = json[unknownClaimsStoreKey] as List<dynamic>;
+    final expiresAt = DateTime.parse(json[expiresAtStoreKey] as String);
     final vcResponse = VerifiableCredentialResponse(
       credential: credential,
       cNonce: cnonce,
       cNonceExpiresIn: cnonceExpiresIn,
     );
-    final displayPayload = (json['display'] as Map<dynamic, dynamic>?)?.hiveCast;
-    final paymentAnalysis = (json['paymentAnalysis'] as Map<dynamic, dynamic>?)?.hiveCast;
+    final displayPayload = (json[displayStoreKey] as Map<dynamic, dynamic>?)?.hiveCast;
     final display = displayPayload != null ? SupportedCredentialDisplayInformation.fromJson(displayPayload) : null;
+    final knownInfo = _mapKnownInfo(json[knownInfoStoreKey] as List<dynamic>);
     return VerifiableCredentialHiveModel(
       credential: VerifiableCredential(
         credentialResponse: vcResponse,
         display: display,
         subject: subject,
-        claims: _mapClaims(claims),
-        disclosures: _mapDisclosures(disclosures),
         expiresAt: expiresAt,
-        paymentAnalysis: paymentAnalysis != null ? PaymentAnalysisInformation.fromJson(paymentAnalysis) : null,
+        knownCredentialInfo: knownInfo,
+        unknownClaims: _mapUnknownClaims(unknownClaims),
+        unknownDisclosures: _mapUnknownDisclosures(unknownDisclosures),
       ),
     );
   }
 
-  static List<VerifiableCredentialClaim> _mapClaims(List<dynamic> values) {
-    final results = <VerifiableCredentialClaim>[];
-    for (final value in values) {
-      final asMap = value as Map<dynamic, dynamic>;
-      final item = VerifiableCredentialClaim(
-        name: asMap['name'] as String,
-        value: asMap['value'] as String,
-      );
-      results.add(item);
-    }
-    return results;
-  }
+  static const cnonceStoreKey = 'c_nonce';
+  static const cnonceExpiresInStoreKey = 'c_nonce_expires_in';
+  static const subjectStoreKey = 'subject';
+  static const credentialStoreKey = 'credential';
+  static const displayStoreKey = 'display';
+  static const unknownClaimsStoreKey = 'unknown_claims';
+  static const unknownDisclosuresStoreKey = 'unknown_disclosures';
+  static const expiresAtStoreKey = 'expiresAt';
+  static const knownInfoStoreKey = 'known_info';
 
-  static List<VerifiableDisclosure> _mapDisclosures(List<dynamic> values) {
+  static List<VerifiableDisclosure> _mapUnknownClaims(List<dynamic> values) {
     final results = <VerifiableDisclosure>[];
     for (final value in values) {
       final asMap = value as Map<dynamic, dynamic>;
@@ -76,19 +73,44 @@ class VerifiableCredentialHiveModel {
     return results;
   }
 
+  static List<VerifiableDisclosure> _mapUnknownDisclosures(List<dynamic> values) {
+    final results = <VerifiableDisclosure>[];
+    for (final value in values) {
+      final asMap = value as Map<dynamic, dynamic>;
+      final item = VerifiableDisclosure(
+        name: asMap['name'] as String,
+        value: asMap['value'] as String,
+      );
+      results.add(item);
+    }
+    return results;
+  }
+
+  static List<KnownVerifiableCredentialInformation> _mapKnownInfo(List<dynamic> values) {
+    final results = <KnownVerifiableCredentialInformation>[];
+    for (final value in values) {
+      final asMap = value as Map<dynamic, dynamic>;
+      final item = KnownVerifiableCredentialInformation.fromJson(asMap.hiveCast);
+      results.add(item);
+    }
+    return results;
+  }
+
   final VerifiableCredential credential;
 
   Map<dynamic, dynamic> toJson() {
+    final knownInfo = credential.knownCredentialInfo;
     return {
-      'subject': credential.subject,
-      'c_nonce': credential.credentialResponse.cNonce,
-      'c_nonce_expires_in': credential.credentialResponse.cNonceExpiresIn,
-      'credential': credential.credentialResponse.credential,
-      'claims': credential.claims.map((e) => e.toJson()).toList(),
-      'disclosures': credential.disclosures.map((e) => e.toJson()).toList(),
-      'expiresAt': DateTime.now().toIso8601String(),
-      if (credential.display != null) 'display': credential.display!.toJson(),
-      if (credential.paymentAnalysis != null) 'paymentAnalysis': credential.paymentAnalysis!.toJson(),
+      subjectStoreKey: credential.subject,
+      cnonceStoreKey: credential.credentialResponse.cNonce,
+      cnonceExpiresInStoreKey: credential.credentialResponse.cNonceExpiresIn,
+      credentialStoreKey: credential.credentialResponse.credential,
+      expiresAtStoreKey: credential.expiresAt.toIso8601String(),
+      //
+      if (credential.display != null) displayStoreKey: credential.display!.toJson(),
+      unknownClaimsStoreKey: credential.unknownClaims.map((e) => e.toJson()).toList(),
+      unknownDisclosuresStoreKey: credential.unknownDisclosures.map((e) => e.toJson()).toList(),
+      if (knownInfo.isNotEmpty) knownInfoStoreKey: knownInfo.map((e) => e.toJson()).toList(),
     };
   }
 }
