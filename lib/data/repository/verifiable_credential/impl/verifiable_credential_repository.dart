@@ -107,18 +107,23 @@ extension on (String, dynamic) {
     final key = this.$1;
     final value = this.$2;
     final type = KnownVerifiableCredentialInformationType.fromApiValue(key);
-    if (type == KnownVerifiableCredentialInformationType.paymentAnalysis) {
+    final basicKeyValue = VerifiableDisclosure(name: key, value: value.toString());
+    return KnownVerifiableCredentialInformation(type: type, basicKeyValue: basicKeyValue);
+    /* if (type == KnownVerifiableCredentialInformationType.paymentAnalysis) {
       final asMap = value is Map<String, dynamic> ? value : jsonDecode(value as String) as Map<String, dynamic>;
       final paymentAnalysis = PaymentAnalysisInformation.fromJson(asMap);
       return KnownVerifiableCredentialInformation(type: type, paymentAnalysis: paymentAnalysis);
     } else if (type == KnownVerifiableCredentialInformationType.accountDataAnalysis) {
       final asMap = value is Map<String, dynamic> ? value : jsonDecode(value as String) as Map<String, dynamic>;
+      final values = asMap['_sd'] as List<dynamic>;
+      final decoded = values.map((e) => (e as String).decodeDisclosure).toList();
+      ApplicationLogger.instance.logApplicationEvent(decoded);
       final accountDataAnalysis = AccountDataAnalysis.fromJson(asMap);
       return KnownVerifiableCredentialInformation(type: type, accountDataAnalysis: accountDataAnalysis);
     } else {
       final basicKeyValue = VerifiableDisclosure(name: key, value: value.toString());
       return KnownVerifiableCredentialInformation(type: type, basicKeyValue: basicKeyValue);
-    }
+    } */
   }
 }
 
@@ -127,23 +132,16 @@ extension on String {
     final rawDisclosures = [...split('~')]..removeWhere((e) => e.isEmpty);
     if (rawDisclosures.length < 2) return <KnownVerifiableCredentialInformation>[];
     rawDisclosures.removeAt(0);
-    return rawDisclosures.decodeDisclosure;
+    return rawDisclosures.map((e) => e.decodeDisclosure).toList();
   }
-}
 
-extension on List<String> {
-  List<KnownVerifiableCredentialInformation> get decodeDisclosure {
-    final disclosures = <KnownVerifiableCredentialInformation>{};
-    for (final raw in this) {
-      final stringToBase64 = utf8.fuse(base64);
-      final padding = raw.length % 4;
-      final rawPadded = padding == 0 ? raw : raw + ('=' * (4 - padding));
-      final base = stringToBase64.decode(rawPadded);
-      final (key, value) = _getKeyValue(base);
-      final mapped = (key, value).toKnownVerifiableCredentialInformation;
-      disclosures.add(mapped);
-    }
-    return disclosures.toList();
+  KnownVerifiableCredentialInformation get decodeDisclosure {
+    final stringToBase64 = utf8.fuse(base64);
+    final padding = length % 4;
+    final thisPadded = padding == 0 ? this : this + ('=' * (4 - padding));
+    final base = stringToBase64.decode(thisPadded);
+    final (key, value) = _getKeyValue(base);
+    return (key, value).toKnownVerifiableCredentialInformation;
   }
 
   (String, dynamic) _getKeyValue(String value) {
@@ -157,13 +155,6 @@ extension on List<String> {
     final content = splitted.join(',');
     log(content);
     return (_removeQuotes(key), _removeQuotes(content));
-    /* final values = normalized.split(',');
-    final result = <String>[];
-    for (final value in values) {
-      final isString = value.startsWith('"') && value.endsWith('"');
-      result.add(isString ? value.substring(1, value.length - 1) : value);
-    }
-    return result; */
   }
 
   String _removeQuotes(String value) {

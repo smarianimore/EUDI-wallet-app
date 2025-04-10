@@ -104,9 +104,27 @@ const _$KnownVerifiableCredentialInformationTypeEnumMap = {
   KnownVerifiableCredentialInformationType.scoreDateExpiration:
       'scoreDateExpiration',
   KnownVerifiableCredentialInformationType.scoreDetail: 'scoreDetail',
+  KnownVerifiableCredentialInformationType.cashflowBalance: 'cashflowBalance',
+  KnownVerifiableCredentialInformationType.monthlyOutcomeBalanceRatio:
+      'monthlyOutcomeBalanceRatio',
+  KnownVerifiableCredentialInformationType.taxesOrUtilitiesAccount:
+      'taxesOrUtilitiesAccount',
+  KnownVerifiableCredentialInformationType.recurringIncome: 'recurringIncome',
+  KnownVerifiableCredentialInformationType.accountDescription:
+      'accountDescription',
+  KnownVerifiableCredentialInformationType.financialCommitments:
+      'financialCommitments',
+  KnownVerifiableCredentialInformationType.extraordinaryIncome:
+      'extraordinaryIncome',
+  KnownVerifiableCredentialInformationType.protestiInfo: 'protestiInfo',
+  KnownVerifiableCredentialInformationType.latePaymentsInfo: 'latePaymentsInfo',
+  KnownVerifiableCredentialInformationType.otherNegativeInfo:
+      'otherNegativeInfo',
   KnownVerifiableCredentialInformationType.paymentAnalysis: 'paymentAnalysis',
   KnownVerifiableCredentialInformationType.accountDataAnalysis:
       'accountDataAnalysis',
+  KnownVerifiableCredentialInformationType.incomeOutcomeRatio:
+      'incomeOutcomeRatio',
 };
 
 _$VerifiableDisclosureImpl _$$VerifiableDisclosureImplFromJson(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:birex/data/data.dart';
 import 'package:birex/data/model/credential/crif_credential/formatter.dart';
 import 'package:birex/presentation/components/components.dart';
+import 'package:birex/presentation/components/star/star_component.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
 import 'package:birex/presentation/theme/theme.dart';
 import 'package:birex/service/service.dart';
@@ -222,6 +223,20 @@ class _ScoreInformationSection extends StatelessWidget {
   final VerifiableDisclosure? scoreDateExpiration;
   final VerifiableDisclosure? scoreDetail;
 
+  int get scoreIndexValue {
+    try {
+      final value = int.parse(scoreIndex!.value);
+      return value;
+    } catch (e) {
+      try {
+        final value = int.parse(scoreIndex!.value[0]);
+        return value;
+      } catch (e) {
+        return 0;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return _InformationSection(
@@ -229,9 +244,9 @@ class _ScoreInformationSection extends StatelessWidget {
       title: 'Informazioni di credito',
       children: [
         if (scoreIndex != null) ...[
-          LabelAndDescriptionComponent(
+          LabelAndDescriptionWidgetComponent(
             label: 'Indice affidabilità',
-            description: scoreIndex!.value,
+            description: StarComponent(value: scoreIndexValue),
           ),
         ],
         if (scoreDesc != null) ...[

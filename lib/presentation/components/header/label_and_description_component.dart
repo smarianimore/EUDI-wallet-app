@@ -15,14 +15,49 @@ class LabelAndDescriptionComponent extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: Theme.of(context).textTheme.titleSmall,
-        ),
+        _Label(label: label),
         Text(
           description.parseUnicode,
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
         ),
+      ],
+    );
+  }
+}
+
+class _Label extends StatelessWidget {
+  const _Label({
+    required this.label,
+  });
+
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      label,
+      style: Theme.of(context).textTheme.titleSmall,
+    );
+  }
+}
+
+class LabelAndDescriptionWidgetComponent extends StatelessWidget {
+  const LabelAndDescriptionWidgetComponent({
+    required this.label,
+    required this.description,
+    super.key,
+  });
+
+  final String label;
+  final Widget description;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _Label(label: label),
+        description,
       ],
     );
   }
