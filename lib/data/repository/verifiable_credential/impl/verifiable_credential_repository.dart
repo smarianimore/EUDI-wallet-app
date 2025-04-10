@@ -96,19 +96,19 @@ extension on Map<String, dynamic> {
     for (final entry in entries) {
       final key = entry.key;
       final value = entry.value;
-      disclosures.add((key, value).toKnownVerifiableCredentialInformation);
+      disclosures.add((key, value, null).toKnownVerifiableCredentialInformation);
     }
     return disclosures.toList();
   }
 }
 
-extension on (String, dynamic) {
+extension on (String, dynamic, String?) {
   KnownVerifiableCredentialInformation get toKnownVerifiableCredentialInformation {
     final key = this.$1;
     final value = this.$2;
     final type = KnownVerifiableCredentialInformationType.fromApiValue(key);
     final basicKeyValue = VerifiableDisclosure(name: key, value: value.toString());
-    return KnownVerifiableCredentialInformation(type: type, basicKeyValue: basicKeyValue);
+    return KnownVerifiableCredentialInformation(type: type, basicKeyValue: basicKeyValue, disclosure: this.$3);
     /* if (type == KnownVerifiableCredentialInformationType.paymentAnalysis) {
       final asMap = value is Map<String, dynamic> ? value : jsonDecode(value as String) as Map<String, dynamic>;
       final paymentAnalysis = PaymentAnalysisInformation.fromJson(asMap);
@@ -141,7 +141,7 @@ extension on String {
     final thisPadded = padding == 0 ? this : this + ('=' * (4 - padding));
     final base = stringToBase64.decode(thisPadded);
     final (key, value) = _getKeyValue(base);
-    return (key, value).toKnownVerifiableCredentialInformation;
+    return (key, value, this).toKnownVerifiableCredentialInformation;
   }
 
   (String, dynamic) _getKeyValue(String value) {

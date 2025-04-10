@@ -39,6 +39,7 @@ class KnownVerifiableCredentialInformation with _$KnownVerifiableCredentialInfor
   @JsonSerializable(explicitToJson: true)
   factory KnownVerifiableCredentialInformation({
     required KnownVerifiableCredentialInformationType type,
+    String? disclosure,
     PaymentAnalysisInformation? paymentAnalysis,
     AccountDataAnalysis? accountDataAnalysis,
     VerifiableDisclosure? basicKeyValue,

@@ -295,7 +295,7 @@ class _PaymentDetailsSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (paymentAnalysis == null) return const SizedBox.shrink();
     return _InformationSection(
-      leading: const Icon(Icons.payment),
+      leading: const Icon(Icons.analytics_outlined),
       title: 'Analisi dei pagamenti',
       children: [
         LabelAndDescriptionComponent(
@@ -326,7 +326,7 @@ class _AccountDataAnalysisSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     if (accountDataAnalysis == null) return const SizedBox.shrink();
     return _InformationSection(
-      leading: const Icon(Icons.payment),
+      leading: const Icon(Icons.account_balance),
       title: 'Analisi del conto',
       children: [
         LabelAndDescriptionComponent(

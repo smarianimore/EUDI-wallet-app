@@ -69,6 +69,7 @@ _$KnownVerifiableCredentialInformationImpl
         _$KnownVerifiableCredentialInformationImpl(
           type: $enumDecode(
               _$KnownVerifiableCredentialInformationTypeEnumMap, json['type']),
+          disclosure: json['disclosure'] as String?,
           paymentAnalysis: json['paymentAnalysis'] == null
               ? null
               : PaymentAnalysisInformation.fromJson(
@@ -87,6 +88,7 @@ Map<String, dynamic> _$$KnownVerifiableCredentialInformationImplToJson(
         _$KnownVerifiableCredentialInformationImpl instance) =>
     <String, dynamic>{
       'type': _$KnownVerifiableCredentialInformationTypeEnumMap[instance.type]!,
+      'disclosure': instance.disclosure,
       'paymentAnalysis': instance.paymentAnalysis?.toJson(),
       'accountDataAnalysis': instance.accountDataAnalysis?.toJson(),
       'basicKeyValue': instance.basicKeyValue?.toJson(),

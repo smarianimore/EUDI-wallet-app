@@ -599,6 +599,7 @@ KnownVerifiableCredentialInformation
 mixin _$KnownVerifiableCredentialInformation {
   KnownVerifiableCredentialInformationType get type =>
       throw _privateConstructorUsedError;
+  String? get disclosure => throw _privateConstructorUsedError;
   PaymentAnalysisInformation? get paymentAnalysis =>
       throw _privateConstructorUsedError;
   AccountDataAnalysis? get accountDataAnalysis =>
@@ -626,6 +627,7 @@ abstract class $KnownVerifiableCredentialInformationCopyWith<$Res> {
   @useResult
   $Res call(
       {KnownVerifiableCredentialInformationType type,
+      String? disclosure,
       PaymentAnalysisInformation? paymentAnalysis,
       AccountDataAnalysis? accountDataAnalysis,
       VerifiableDisclosure? basicKeyValue});
@@ -652,6 +654,7 @@ class _$KnownVerifiableCredentialInformationCopyWithImpl<$Res,
   @override
   $Res call({
     Object? type = null,
+    Object? disclosure = freezed,
     Object? paymentAnalysis = freezed,
     Object? accountDataAnalysis = freezed,
     Object? basicKeyValue = freezed,
@@ -661,6 +664,10 @@ class _$KnownVerifiableCredentialInformationCopyWithImpl<$Res,
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as KnownVerifiableCredentialInformationType,
+      disclosure: freezed == disclosure
+          ? _value.disclosure
+          : disclosure // ignore: cast_nullable_to_non_nullable
+              as String?,
       paymentAnalysis: freezed == paymentAnalysis
           ? _value.paymentAnalysis
           : paymentAnalysis // ignore: cast_nullable_to_non_nullable
@@ -732,6 +739,7 @@ abstract class _$$KnownVerifiableCredentialInformationImplCopyWith<$Res>
   @useResult
   $Res call(
       {KnownVerifiableCredentialInformationType type,
+      String? disclosure,
       PaymentAnalysisInformation? paymentAnalysis,
       AccountDataAnalysis? accountDataAnalysis,
       VerifiableDisclosure? basicKeyValue});
@@ -760,6 +768,7 @@ class __$$KnownVerifiableCredentialInformationImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? type = null,
+    Object? disclosure = freezed,
     Object? paymentAnalysis = freezed,
     Object? accountDataAnalysis = freezed,
     Object? basicKeyValue = freezed,
@@ -769,6 +778,10 @@ class __$$KnownVerifiableCredentialInformationImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as KnownVerifiableCredentialInformationType,
+      disclosure: freezed == disclosure
+          ? _value.disclosure
+          : disclosure // ignore: cast_nullable_to_non_nullable
+              as String?,
       paymentAnalysis: freezed == paymentAnalysis
           ? _value.paymentAnalysis
           : paymentAnalysis // ignore: cast_nullable_to_non_nullable
@@ -792,6 +805,7 @@ class _$KnownVerifiableCredentialInformationImpl
     implements _KnownVerifiableCredentialInformation {
   _$KnownVerifiableCredentialInformationImpl(
       {required this.type,
+      this.disclosure,
       this.paymentAnalysis,
       this.accountDataAnalysis,
       this.basicKeyValue});
@@ -803,6 +817,8 @@ class _$KnownVerifiableCredentialInformationImpl
   @override
   final KnownVerifiableCredentialInformationType type;
   @override
+  final String? disclosure;
+  @override
   final PaymentAnalysisInformation? paymentAnalysis;
   @override
   final AccountDataAnalysis? accountDataAnalysis;
@@ -811,7 +827,7 @@ class _$KnownVerifiableCredentialInformationImpl
 
   @override
   String toString() {
-    return 'KnownVerifiableCredentialInformation(type: $type, paymentAnalysis: $paymentAnalysis, accountDataAnalysis: $accountDataAnalysis, basicKeyValue: $basicKeyValue)';
+    return 'KnownVerifiableCredentialInformation(type: $type, disclosure: $disclosure, paymentAnalysis: $paymentAnalysis, accountDataAnalysis: $accountDataAnalysis, basicKeyValue: $basicKeyValue)';
   }
 
   @override
@@ -820,6 +836,8 @@ class _$KnownVerifiableCredentialInformationImpl
         (other.runtimeType == runtimeType &&
             other is _$KnownVerifiableCredentialInformationImpl &&
             (identical(other.type, type) || other.type == type) &&
+            (identical(other.disclosure, disclosure) ||
+                other.disclosure == disclosure) &&
             (identical(other.paymentAnalysis, paymentAnalysis) ||
                 other.paymentAnalysis == paymentAnalysis) &&
             (identical(other.accountDataAnalysis, accountDataAnalysis) ||
@@ -830,8 +848,8 @@ class _$KnownVerifiableCredentialInformationImpl
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, type, paymentAnalysis, accountDataAnalysis, basicKeyValue);
+  int get hashCode => Object.hash(runtimeType, type, disclosure,
+      paymentAnalysis, accountDataAnalysis, basicKeyValue);
 
   /// Create a copy of KnownVerifiableCredentialInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -855,6 +873,7 @@ abstract class _KnownVerifiableCredentialInformation
     implements KnownVerifiableCredentialInformation {
   factory _KnownVerifiableCredentialInformation(
           {required final KnownVerifiableCredentialInformationType type,
+          final String? disclosure,
           final PaymentAnalysisInformation? paymentAnalysis,
           final AccountDataAnalysis? accountDataAnalysis,
           final VerifiableDisclosure? basicKeyValue}) =
@@ -866,6 +885,8 @@ abstract class _KnownVerifiableCredentialInformation
 
   @override
   KnownVerifiableCredentialInformationType get type;
+  @override
+  String? get disclosure;
   @override
   PaymentAnalysisInformation? get paymentAnalysis;
   @override
