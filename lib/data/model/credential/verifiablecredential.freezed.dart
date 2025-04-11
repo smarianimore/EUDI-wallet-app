@@ -247,7 +247,7 @@ mixin _$VerifiableCredential {
       throw _privateConstructorUsedError;
   List<VerifiableDisclosure> get unknownClaims =>
       throw _privateConstructorUsedError;
-  SupportedCredentialDisplayInformation? get display =>
+  SupportedCredentialConfiguration? get credentialConfiguration =>
       throw _privateConstructorUsedError;
 
   /// Serializes this VerifiableCredential to a JSON map.
@@ -273,10 +273,10 @@ abstract class $VerifiableCredentialCopyWith<$Res> {
       List<KnownVerifiableCredentialInformation> knownCredentialInfo,
       List<VerifiableDisclosure> unknownDisclosures,
       List<VerifiableDisclosure> unknownClaims,
-      SupportedCredentialDisplayInformation? display});
+      SupportedCredentialConfiguration? credentialConfiguration});
 
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
-  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
+  $SupportedCredentialConfigurationCopyWith<$Res>? get credentialConfiguration;
 }
 
 /// @nodoc
@@ -301,7 +301,7 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
     Object? knownCredentialInfo = null,
     Object? unknownDisclosures = null,
     Object? unknownClaims = null,
-    Object? display = freezed,
+    Object? credentialConfiguration = freezed,
   }) {
     return _then(_value.copyWith(
       credentialResponse: null == credentialResponse
@@ -328,10 +328,10 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
           ? _value.unknownClaims
           : unknownClaims // ignore: cast_nullable_to_non_nullable
               as List<VerifiableDisclosure>,
-      display: freezed == display
-          ? _value.display
-          : display // ignore: cast_nullable_to_non_nullable
-              as SupportedCredentialDisplayInformation?,
+      credentialConfiguration: freezed == credentialConfiguration
+          ? _value.credentialConfiguration
+          : credentialConfiguration // ignore: cast_nullable_to_non_nullable
+              as SupportedCredentialConfiguration?,
     ) as $Val);
   }
 
@@ -350,14 +350,14 @@ class _$VerifiableCredentialCopyWithImpl<$Res,
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display {
-    if (_value.display == null) {
+  $SupportedCredentialConfigurationCopyWith<$Res>? get credentialConfiguration {
+    if (_value.credentialConfiguration == null) {
       return null;
     }
 
-    return $SupportedCredentialDisplayInformationCopyWith<$Res>(_value.display!,
-        (value) {
-      return _then(_value.copyWith(display: value) as $Val);
+    return $SupportedCredentialConfigurationCopyWith<$Res>(
+        _value.credentialConfiguration!, (value) {
+      return _then(_value.copyWith(credentialConfiguration: value) as $Val);
     });
   }
 }
@@ -377,12 +377,12 @@ abstract class _$$VerifiableCredentialImplCopyWith<$Res>
       List<KnownVerifiableCredentialInformation> knownCredentialInfo,
       List<VerifiableDisclosure> unknownDisclosures,
       List<VerifiableDisclosure> unknownClaims,
-      SupportedCredentialDisplayInformation? display});
+      SupportedCredentialConfiguration? credentialConfiguration});
 
   @override
   $VerifiableCredentialResponseCopyWith<$Res> get credentialResponse;
   @override
-  $SupportedCredentialDisplayInformationCopyWith<$Res>? get display;
+  $SupportedCredentialConfigurationCopyWith<$Res>? get credentialConfiguration;
 }
 
 /// @nodoc
@@ -404,7 +404,7 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
     Object? knownCredentialInfo = null,
     Object? unknownDisclosures = null,
     Object? unknownClaims = null,
-    Object? display = freezed,
+    Object? credentialConfiguration = freezed,
   }) {
     return _then(_$VerifiableCredentialImpl(
       credentialResponse: null == credentialResponse
@@ -431,10 +431,10 @@ class __$$VerifiableCredentialImplCopyWithImpl<$Res>
           ? _value._unknownClaims
           : unknownClaims // ignore: cast_nullable_to_non_nullable
               as List<VerifiableDisclosure>,
-      display: freezed == display
-          ? _value.display
-          : display // ignore: cast_nullable_to_non_nullable
-              as SupportedCredentialDisplayInformation?,
+      credentialConfiguration: freezed == credentialConfiguration
+          ? _value.credentialConfiguration
+          : credentialConfiguration // ignore: cast_nullable_to_non_nullable
+              as SupportedCredentialConfiguration?,
     ));
   }
 }
@@ -453,7 +453,7 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
           const <VerifiableDisclosure>[],
       final List<VerifiableDisclosure> unknownClaims =
           const <VerifiableDisclosure>[],
-      this.display})
+      this.credentialConfiguration})
       : _knownCredentialInfo = knownCredentialInfo,
         _unknownDisclosures = unknownDisclosures,
         _unknownClaims = unknownClaims;
@@ -496,11 +496,11 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
   }
 
   @override
-  final SupportedCredentialDisplayInformation? display;
+  final SupportedCredentialConfiguration? credentialConfiguration;
 
   @override
   String toString() {
-    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, expiresAt: $expiresAt, knownCredentialInfo: $knownCredentialInfo, unknownDisclosures: $unknownDisclosures, unknownClaims: $unknownClaims, display: $display)';
+    return 'VerifiableCredential(credentialResponse: $credentialResponse, subject: $subject, expiresAt: $expiresAt, knownCredentialInfo: $knownCredentialInfo, unknownDisclosures: $unknownDisclosures, unknownClaims: $unknownClaims, credentialConfiguration: $credentialConfiguration)';
   }
 
   @override
@@ -519,7 +519,9 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
                 .equals(other._unknownDisclosures, _unknownDisclosures) &&
             const DeepCollectionEquality()
                 .equals(other._unknownClaims, _unknownClaims) &&
-            (identical(other.display, display) || other.display == display));
+            (identical(
+                    other.credentialConfiguration, credentialConfiguration) ||
+                other.credentialConfiguration == credentialConfiguration));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -532,7 +534,7 @@ class _$VerifiableCredentialImpl implements _VerifiableCredential {
       const DeepCollectionEquality().hash(_knownCredentialInfo),
       const DeepCollectionEquality().hash(_unknownDisclosures),
       const DeepCollectionEquality().hash(_unknownClaims),
-      display);
+      credentialConfiguration);
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.
@@ -561,7 +563,7 @@ abstract class _VerifiableCredential implements VerifiableCredential {
               knownCredentialInfo,
           final List<VerifiableDisclosure> unknownDisclosures,
           final List<VerifiableDisclosure> unknownClaims,
-          final SupportedCredentialDisplayInformation? display}) =
+          final SupportedCredentialConfiguration? credentialConfiguration}) =
       _$VerifiableCredentialImpl;
 
   factory _VerifiableCredential.fromJson(Map<String, dynamic> json) =
@@ -580,7 +582,7 @@ abstract class _VerifiableCredential implements VerifiableCredential {
   @override
   List<VerifiableDisclosure> get unknownClaims;
   @override
-  SupportedCredentialDisplayInformation? get display;
+  SupportedCredentialConfiguration? get credentialConfiguration;
 
   /// Create a copy of VerifiableCredential
   /// with the given fields replaced by the non-null parameter values.

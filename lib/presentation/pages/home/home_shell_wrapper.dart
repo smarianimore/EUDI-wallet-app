@@ -29,7 +29,7 @@ class _QrCodePageFAB extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
-      onPressed: () => _onTap(context, ref),
+      onPressed: () => _mockTap(context, ref),
       child: const Icon(Icons.qr_code),
     );
   }

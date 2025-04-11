@@ -35,7 +35,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     required String jwt,
     required String proofType,
     required String subject,
-    required SupportedCredentialDisplayInformation display,
+    required SupportedCredentialConfiguration configuration,
   }) {
     return handleResponse(
       request: () => dio.post(
@@ -53,7 +53,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
       payloadMapper: (payload) => VerifiableCredentialResponse.fromJson(payload).toVerifiableCredential(
         jwtService,
         subject: subject,
-        display: display,
+        configuration: configuration,
       ),
     );
   }
@@ -103,18 +103,14 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     required String state,
     required Map<String, dynamic> presentationDefinition,
   }) async {
-    log(vpToken);
-    log(presentationDefinition.toString());
     return handleResponse(
       request: () => dio.post(
         uri,
-        data: FormData.fromMap(
-          {
-            'vp_token': vpToken,
-            'state': state,
-            //'presentation_definition': presentationDefinition.toString(),
-          },
-        ),
+        data: {
+          'vp_token': vpToken,
+          'state': state,
+          'presentation_submission': presentationDefinition,
+        },
       ),
       payloadMapper: (payload) {},
     );
@@ -139,7 +135,7 @@ extension on VerifiableCredentialResponse {
   VerifiableCredential toVerifiableCredential(
     JWTService jwtService, {
     required String subject,
-    required SupportedCredentialDisplayInformation display,
+    required SupportedCredentialConfiguration configuration,
   }) {
     log(credential);
     final jwtComposer = jwtService.manageJWT(credential);
@@ -151,7 +147,7 @@ extension on VerifiableCredentialResponse {
     final knownInformations = {...knownClaims, ...knownDisclosures}.toList();
 
     return VerifiableCredential(
-      display: display,
+      credentialConfiguration: configuration,
       credentialResponse: this,
       subject: subject,
       expiresAt: expiresAt,

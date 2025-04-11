@@ -43,10 +43,10 @@ _$VerifiableCredentialImpl _$$VerifiableCredentialImplFromJson(
                   VerifiableDisclosure.fromJson(e as Map<String, dynamic>))
               .toList() ??
           const <VerifiableDisclosure>[],
-      display: json['display'] == null
+      credentialConfiguration: json['credentialConfiguration'] == null
           ? null
-          : SupportedCredentialDisplayInformation.fromJson(
-              json['display'] as Map<String, dynamic>),
+          : SupportedCredentialConfiguration.fromJson(
+              json['credentialConfiguration'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$VerifiableCredentialImplToJson(
@@ -60,7 +60,7 @@ Map<String, dynamic> _$$VerifiableCredentialImplToJson(
       'unknownDisclosures':
           instance.unknownDisclosures.map((e) => e.toJson()).toList(),
       'unknownClaims': instance.unknownClaims.map((e) => e.toJson()).toList(),
-      'display': instance.display?.toJson(),
+      'credentialConfiguration': instance.credentialConfiguration?.toJson(),
     };
 
 _$KnownVerifiableCredentialInformationImpl

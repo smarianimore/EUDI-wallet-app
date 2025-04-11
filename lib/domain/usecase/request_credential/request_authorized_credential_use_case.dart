@@ -96,7 +96,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final credentialResponse = await loginResponse.flatMapAsync(
       (keyproof) => verifiableCredentialRepository.generateCredentials(
-        display: target.display.first,
+        configuration: target,
         accessToken: loginPayload.accessToken,
         uri: issuerPayload.credentialEndpoint,
         format: target.format,

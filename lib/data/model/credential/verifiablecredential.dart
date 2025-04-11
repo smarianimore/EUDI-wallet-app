@@ -28,7 +28,7 @@ class VerifiableCredential with _$VerifiableCredential {
     required List<KnownVerifiableCredentialInformation> knownCredentialInfo,
     @Default(<VerifiableDisclosure>[]) List<VerifiableDisclosure> unknownDisclosures,
     @Default(<VerifiableDisclosure>[]) List<VerifiableDisclosure> unknownClaims,
-    SupportedCredentialDisplayInformation? display,
+    SupportedCredentialConfiguration? credentialConfiguration,
   }) = _VerifiableCredential;
 
   factory VerifiableCredential.fromJson(Map<String, dynamic> json) => _$VerifiableCredentialFromJson(json);

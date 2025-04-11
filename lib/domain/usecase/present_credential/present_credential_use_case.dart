@@ -174,7 +174,7 @@ class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisp
 
   @override
   Widget build(BuildContext context) {
-    final credentialDisplay = widget.credential.display;
+    final credentialDisplay = widget.credential.credentialConfiguration?.display.first;
     return CustomBottomSheet(
       title: 'Richiesta credenziali',
       beforeClosing: () => OverlayLoaderManager.instance.showLoader(context),
@@ -201,7 +201,8 @@ class __RequestedCredentialsDisplayState extends State<_RequestedCredentialsDisp
             Wrap(
               spacing: Dimensions.smallSize,
               children: [
-                for (final claim in widget.requestedInfo) Chip(label: Text(claim.type.formattedName)),
+                for (final claim in widget.requestedInfo)
+                  Chip(label: Text(claim.type.findName(widget.credential.credentialConfiguration!))),
               ],
             ),
             Dimensions.mediumSize.spacer(),

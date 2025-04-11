@@ -37,18 +37,20 @@ class VerifiableCredentialCard extends StatelessWidget {
                   child: Column(
                     children: [
                       _UserInformationSection(
-                        firstName: credential.firstName?.basicKeyValue,
-                        lastName: credential.lastName?.basicKeyValue,
-                        fiscalCode: credential.fiscalCode?.basicKeyValue,
+                        firstName: credential.firstName,
+                        lastName: credential.lastName,
+                        fiscalCode: credential.fiscalCode,
+                        configuration: credential.credentialConfiguration!,
                       ),
                       Dimensions.largeSize.spacer(),
                       _ScoreInformationSection(
-                        scoreIndex: credential.scoreIndex?.basicKeyValue,
-                        scoreDesc: credential.scoreDesc?.basicKeyValue,
-                        rentAmount: credential.rentAmount?.basicKeyValue,
-                        scoreDate: credential.scoreDate?.basicKeyValue,
-                        scoreDateExpiration: credential.scoreDateExpiration?.basicKeyValue,
-                        scoreDetail: credential.scoreDetail?.basicKeyValue,
+                        scoreIndex: credential.scoreIndex,
+                        scoreDesc: credential.scoreDesc,
+                        rentAmount: credential.rentAmount,
+                        scoreDate: credential.scoreDate,
+                        scoreDateExpiration: credential.scoreDateExpiration,
+                        scoreDetail: credential.scoreDetail,
+                        configuration: credential.credentialConfiguration!,
                       ),
                       if (credential.paymentAnalysis != null) ...[
                         Dimensions.largeSize.spacer(),
@@ -88,7 +90,7 @@ class VerifiableCredentialCardHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final logoUri = credential.display?.logo.uri;
+    final logoUri = credential.credentialConfiguration?.display.first.logo.uri;
     return Row(
       children: [
         if (logoUri != null) ...[
@@ -147,14 +149,16 @@ class _ActionBar extends ConsumerWidget {
 
 class _UserInformationSection extends StatelessWidget {
   const _UserInformationSection({
+    required this.configuration,
     this.firstName,
     this.lastName,
     this.fiscalCode,
   });
 
-  final VerifiableDisclosure? firstName;
-  final VerifiableDisclosure? lastName;
-  final VerifiableDisclosure? fiscalCode;
+  final KnownVerifiableCredentialInformation? firstName;
+  final KnownVerifiableCredentialInformation? lastName;
+  final KnownVerifiableCredentialInformation? fiscalCode;
+  final SupportedCredentialConfiguration configuration;
 
   @override
   Widget build(BuildContext context) {
@@ -164,20 +168,20 @@ class _UserInformationSection extends StatelessWidget {
       children: [
         if (firstName != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Nome',
-            description: firstName!.value,
+            label: firstName!.type.findName(configuration),
+            description: firstName!.basicKeyValue!.value,
           ),
         ],
         if (lastName != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Cognome',
-            description: lastName!.value,
+            label: lastName!.type.findName(configuration),
+            description: lastName!.basicKeyValue!.value,
           ),
         ],
         if (fiscalCode != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Codice fiscale',
-            description: fiscalCode!.value,
+            label: fiscalCode!.type.findName(configuration),
+            description: fiscalCode!.basicKeyValue!.value,
           ),
         ],
         const SizedBox.shrink(),
@@ -188,6 +192,7 @@ class _UserInformationSection extends StatelessWidget {
 
 class _ScoreInformationSection extends StatelessWidget {
   const _ScoreInformationSection({
+    required this.configuration,
     this.scoreIndex,
     this.scoreDesc,
     this.rentAmount,
@@ -196,20 +201,22 @@ class _ScoreInformationSection extends StatelessWidget {
     this.scoreDetail,
   });
 
-  final VerifiableDisclosure? scoreIndex;
-  final VerifiableDisclosure? scoreDesc;
-  final VerifiableDisclosure? rentAmount;
-  final VerifiableDisclosure? scoreDate;
-  final VerifiableDisclosure? scoreDateExpiration;
-  final VerifiableDisclosure? scoreDetail;
+  final KnownVerifiableCredentialInformation? scoreIndex;
+  final KnownVerifiableCredentialInformation? scoreDesc;
+  final KnownVerifiableCredentialInformation? rentAmount;
+  final KnownVerifiableCredentialInformation? scoreDate;
+  final KnownVerifiableCredentialInformation? scoreDateExpiration;
+  final KnownVerifiableCredentialInformation? scoreDetail;
+
+  final SupportedCredentialConfiguration configuration;
 
   int get scoreIndexValue {
     try {
-      final value = int.parse(scoreIndex!.value);
+      final value = int.parse(scoreIndex!.basicKeyValue!.value);
       return value;
     } catch (e) {
       try {
-        final value = int.parse(scoreIndex!.value[0]);
+        final value = int.parse(scoreIndex!.basicKeyValue!.value[0]);
         return value;
       } catch (e) {
         return 0;
@@ -225,38 +232,38 @@ class _ScoreInformationSection extends StatelessWidget {
       children: [
         if (scoreIndex != null) ...[
           LabelAndDescriptionWidgetComponent(
-            label: 'Indice affidabilità',
+            label: scoreIndex!.type.findName(configuration),
             description: StarComponent(value: scoreIndexValue),
           ),
         ],
         if (scoreDesc != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Descrizione affidabilità',
-            description: scoreDesc!.value,
+            label: scoreDesc!.type.findName(configuration),
+            description: scoreDesc!.basicKeyValue!.value,
           ),
         ],
         if (rentAmount != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Canone sostenibile',
-            description: rentAmount!.value,
+            label: rentAmount!.type.findName(configuration),
+            description: rentAmount!.basicKeyValue!.value,
           ),
         ],
         if (scoreDate != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Data emissione',
-            description: scoreDate!.value,
+            label: scoreDate!.type.findName(configuration),
+            description: scoreDate!.basicKeyValue!.value,
           ),
         ],
         if (scoreDateExpiration != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Data validità',
-            description: scoreDateExpiration!.value,
+            label: scoreDateExpiration!.type.findName(configuration),
+            description: scoreDateExpiration!.basicKeyValue!.value,
           ),
         ],
         if (scoreDetail != null) ...[
           LabelAndDescriptionComponent(
-            label: 'Dettagli',
-            description: scoreDetail!.value,
+            label: scoreDetail!.type.findName(configuration),
+            description: scoreDetail!.basicKeyValue!.value,
           ),
         ],
       ],

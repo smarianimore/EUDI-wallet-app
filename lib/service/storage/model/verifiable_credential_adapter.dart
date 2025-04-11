@@ -34,13 +34,14 @@ class VerifiableCredentialHiveModel {
       cNonce: cnonce,
       cNonceExpiresIn: cnonceExpiresIn,
     );
-    final displayPayload = (json[displayStoreKey] as Map<dynamic, dynamic>?)?.hiveCast;
-    final display = displayPayload != null ? SupportedCredentialDisplayInformation.fromJson(displayPayload) : null;
+    final configurationPayload = (json[configurationStoreKey] as Map<dynamic, dynamic>?)?.hiveCast;
+    final configuration =
+        configurationPayload != null ? SupportedCredentialConfiguration.fromJson(configurationPayload) : null;
     final knownInfo = _mapKnownInfo(json[knownInfoStoreKey] as List<dynamic>);
     return VerifiableCredentialHiveModel(
       credential: VerifiableCredential(
         credentialResponse: vcResponse,
-        display: display,
+        credentialConfiguration: configuration,
         subject: subject,
         expiresAt: expiresAt,
         knownCredentialInfo: knownInfo,
@@ -54,7 +55,7 @@ class VerifiableCredentialHiveModel {
   static const cnonceExpiresInStoreKey = 'c_nonce_expires_in';
   static const subjectStoreKey = 'subject';
   static const credentialStoreKey = 'credential';
-  static const displayStoreKey = 'display';
+  static const configurationStoreKey = 'display';
   static const unknownClaimsStoreKey = 'unknown_claims';
   static const unknownDisclosuresStoreKey = 'unknown_disclosures';
   static const expiresAtStoreKey = 'expiresAt';
@@ -107,7 +108,8 @@ class VerifiableCredentialHiveModel {
       credentialStoreKey: credential.credentialResponse.credential,
       expiresAtStoreKey: credential.expiresAt.toIso8601String(),
       //
-      if (credential.display != null) displayStoreKey: credential.display!.toJson(),
+      if (credential.credentialConfiguration != null)
+        configurationStoreKey: credential.credentialConfiguration!.toJson(),
       unknownClaimsStoreKey: credential.unknownClaims.map((e) => e.toJson()).toList(),
       unknownDisclosuresStoreKey: credential.unknownDisclosures.map((e) => e.toJson()).toList(),
       if (knownInfo.isNotEmpty) knownInfoStoreKey: knownInfo.map((e) => e.toJson()).toList(),
