@@ -106,10 +106,11 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     return handleResponse(
       request: () => dio.post(
         uri,
+        options: Options(headers: {'Content-Type': Headers.formUrlEncodedContentType}),
         data: {
+          'presentation_submission': presentationDefinition,
           'vp_token': vpToken,
           'state': state,
-          'presentation_submission': presentationDefinition,
         },
       ),
       payloadMapper: (payload) {},
