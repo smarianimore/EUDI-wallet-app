@@ -35,8 +35,8 @@ class VerifiableCredentialCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              _Header(credential: credential),
-              Dimensions.largeSize.spacer(),
+              /* VCCardHeader(credential: credential),
+              Dimensions.largeSize.spacer(), */
               IntrinsicHeight(
                 child: Stack(
                   children: [
@@ -93,9 +93,10 @@ class VerifiableCredentialCard extends StatelessWidget {
 
 /* Sections */
 
-class _Header extends StatelessWidget {
-  const _Header({
+class VerifiableCredentialCardHeader extends StatelessWidget {
+  const VerifiableCredentialCardHeader({
     required this.credential,
+    super.key,
   });
 
   final VerifiableCredential credential;

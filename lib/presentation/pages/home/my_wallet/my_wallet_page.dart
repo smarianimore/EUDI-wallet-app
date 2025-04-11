@@ -51,7 +51,11 @@ class _EmptyWalletBuilder extends StatelessWidget {
   }
 }
 
-class _CredentialListSection extends StatelessWidget {
+final _expandendProvider = StateProvider.autoDispose.family<List<bool>, List<VerifiableCredential>>((ref, items) {
+  return items.map((_) => false).toList();
+});
+
+class _CredentialListSection extends ConsumerWidget {
   const _CredentialListSection({
     required this.values,
   });
@@ -59,13 +63,32 @@ class _CredentialListSection extends StatelessWidget {
   final List<VerifiableCredential> values;
 
   @override
-  Widget build(BuildContext context) {
-    return SliverPadding(
-      padding: Dimensions.pageInsets,
-      sliver: SliverList.separated(
-        itemCount: values.length,
-        separatorBuilder: (context, index) => Dimensions.mediumSize.spacer(),
-        itemBuilder: (context, index) => VerifiableCredentialCard(credential: values[index]),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final expansionState = ref.watch(_expandendProvider(values));
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: Dimensions.pageInsets,
+        child: ExpansionPanelList(
+          animationDuration: const Duration(milliseconds: 500),
+          expandedHeaderPadding: EdgeInsets.zero,
+          expansionCallback: (index, isExpanded) {
+            final newState = [...expansionState];
+            newState[index] = isExpanded;
+            ref.read(_expandendProvider(values).notifier).state = newState;
+          },
+          children: [
+            for (final (index, value) in values.indexed)
+              ExpansionPanel(
+                isExpanded: expansionState[index],
+                canTapOnHeader: true,
+                headerBuilder: (context, expanded) => Padding(
+                  padding: Dimensions.mediumSize.padding,
+                  child: VerifiableCredentialCardHeader(credential: value),
+                ),
+                body: VerifiableCredentialCard(credential: value),
+              ),
+          ],
+        ),
       ),
     );
   }
