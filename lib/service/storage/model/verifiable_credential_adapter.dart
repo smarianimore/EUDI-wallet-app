@@ -4,9 +4,19 @@ import 'package:hive_flutter/hive_flutter.dart';
 extension on Map<dynamic, dynamic> {
   Map<String, dynamic> get hiveCast {
     return map((key, value) {
-      final castedValue = value is Map<dynamic, dynamic> ? value.hiveCast : value;
+      final castedValue = value is Map<dynamic, dynamic>
+          ? value.hiveCast
+          : value is List<dynamic>
+              ? value.hiveCast
+              : value;
       return MapEntry(key as String, castedValue);
     });
+  }
+}
+
+extension on List<dynamic> {
+  List<dynamic> get hiveCast {
+    return map((value) => value is Map<dynamic, dynamic> ? value.hiveCast : value).toList();
   }
 }
 
