@@ -32,7 +32,7 @@ class Dimensions {
   static const EdgeInsets pageInsetsVertical = EdgeInsets.symmetric(vertical: pageInsetSize);
   static BorderRadius get buttonBorderRadius => BorderRadius.circular(29);
   static BorderRadius get smallRadius => BorderRadius.circular(8);
-  static BorderRadius get containerRadius => BorderRadius.circular(6);
+  static BorderRadius get containerRadius => BorderRadius.circular(26);
   static EdgeInsets mediumInsets([List<Orientations>? orientations]) => _applyOrientations(mediumSize, orientations);
   static EdgeInsets largeInsets([List<Orientations>? orientations]) => _applyOrientations(largeSize, orientations);
   static EdgeInsets smallInsets([List<Orientations>? orientations]) => _applyOrientations(smallSize, orientations);

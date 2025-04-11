@@ -39,14 +39,35 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> with WidgetsBindi
     final result = barcode?.barcodes.firstOrNull;
     if (result == null) return;
     final qrcodeUri = Uri.tryParse(result.rawValue ?? '');
-    final queryParameters = qrcodeUri?.queryParameters;
-    final credentialOfferUri = queryParameters?['credential_offer_uri'];
+    if (qrcodeUri == null) return;
+    final scheme = qrcodeUri.scheme;
+    if (scheme == 'openid4vp') return _handleCredentialPresentation(qrcodeUri);
+    return _handleCredentialIssuing(qrcodeUri);
+  }
+
+  void _handleCredentialIssuing(Uri uri) {
+    final queryParameters = uri.queryParameters;
+    final credentialOfferUri = queryParameters['credential_offer_uri'];
     final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
     if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));
-    final credentialOfferObject = queryParameters?['credential_offer'];
+    final credentialOfferObject = queryParameters['credential_offer'];
     final credentialOffer = credentialOfferObject == null ? null : jsonDecode(credentialOfferObject);
+    if (credentialOffer == null) return context.pop();
     final parsed = CredentialOfferResponse.fromJson(credentialOffer as Map<String, dynamic>);
     return context.pop((null, parsed));
+  }
+
+  void _handleCredentialPresentation(Uri uri) {
+    final queryParameters = uri.queryParameters;
+    final requestUri = queryParameters['request_uri'];
+    return context.pop(requestUri);
+/*     final credentialOfferUri = queryParameters['credential_offer_uri'];
+    final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
+    if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));
+    final credentialOfferObject = queryParameters['credential_offer'];
+    final credentialOffer = credentialOfferObject == null ? null : jsonDecode(credentialOfferObject);
+    final parsed = CredentialOfferResponse.fromJson(credentialOffer as Map<String, dynamic>);
+    return context.pop((null, parsed)); */
   }
 
   @override

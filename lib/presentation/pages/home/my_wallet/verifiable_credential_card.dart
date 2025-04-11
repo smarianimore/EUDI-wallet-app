@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:birex/data/data.dart';
 import 'package:birex/data/model/credential/crif_credential/formatter.dart';
 import 'package:birex/presentation/components/components.dart';
@@ -10,7 +8,6 @@ import 'package:birex/service/service.dart';
 import 'package:birex/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
 
 class VerifiableCredentialCard extends StatelessWidget {
   const VerifiableCredentialCard({
@@ -22,70 +19,58 @@ class VerifiableCredentialCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onLongPress: () => Share.share(
-        jsonEncode(credential.toJson()),
-        subject: 'Verifiable Credential: ${credential.formatName}',
-      ),
-      child: Card(
-        shape: Shapes.buildRoundedShape(borderSide: BorderSide(color: Theme.of(context).cardColor)),
-        margin: EdgeInsets.zero,
-        child: Padding(
-          padding: Dimensions.mediumSize.padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              /* VCCardHeader(credential: credential),
-              Dimensions.largeSize.spacer(), */
-              IntrinsicHeight(
-                child: Stack(
-                  children: [
-                    const Positioned(
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: VerticalDivider(width: 40),
-                      ),
-                    ),
-                    Positioned(
-                      child: Column(
-                        children: [
-                          _UserInformationSection(
-                            firstName: credential.firstName?.basicKeyValue,
-                            lastName: credential.lastName?.basicKeyValue,
-                            fiscalCode: credential.fiscalCode?.basicKeyValue,
-                          ),
-                          Dimensions.largeSize.spacer(),
-                          _ScoreInformationSection(
-                            scoreIndex: credential.scoreIndex?.basicKeyValue,
-                            scoreDesc: credential.scoreDesc?.basicKeyValue,
-                            rentAmount: credential.rentAmount?.basicKeyValue,
-                            scoreDate: credential.scoreDate?.basicKeyValue,
-                            scoreDateExpiration: credential.scoreDateExpiration?.basicKeyValue,
-                            scoreDetail: credential.scoreDetail?.basicKeyValue,
-                          ),
-                          if (credential.paymentAnalysis != null) ...[
-                            Dimensions.largeSize.spacer(),
-                            _PaymentDetailsSection(paymentAnalysis: credential.paymentAnalysis),
-                          ],
-                          if (credential.accountDataAnalysis != null) ...[
-                            Dimensions.largeSize.spacer(),
-                            _AccountDataAnalysisSection(accountDataAnalysis: credential.accountDataAnalysis),
-                          ],
-                          if (credential.hasUnknownInformations) ...[
-                            Dimensions.largeSize.spacer(),
-                            _UnknownDisclosuresSection(credential: credential),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ],
+    return Padding(
+      padding: Dimensions.mediumSize.padding,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          IntrinsicHeight(
+            child: Stack(
+              children: [
+                const Positioned(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: VerticalDivider(width: 40),
+                  ),
                 ),
-              ),
-              Dimensions.largeSize.spacer(),
-              _ActionBar(credential: credential),
-            ],
+                Positioned(
+                  child: Column(
+                    children: [
+                      _UserInformationSection(
+                        firstName: credential.firstName?.basicKeyValue,
+                        lastName: credential.lastName?.basicKeyValue,
+                        fiscalCode: credential.fiscalCode?.basicKeyValue,
+                      ),
+                      Dimensions.largeSize.spacer(),
+                      _ScoreInformationSection(
+                        scoreIndex: credential.scoreIndex?.basicKeyValue,
+                        scoreDesc: credential.scoreDesc?.basicKeyValue,
+                        rentAmount: credential.rentAmount?.basicKeyValue,
+                        scoreDate: credential.scoreDate?.basicKeyValue,
+                        scoreDateExpiration: credential.scoreDateExpiration?.basicKeyValue,
+                        scoreDetail: credential.scoreDetail?.basicKeyValue,
+                      ),
+                      if (credential.paymentAnalysis != null) ...[
+                        Dimensions.largeSize.spacer(),
+                        _PaymentDetailsSection(paymentAnalysis: credential.paymentAnalysis),
+                      ],
+                      if (credential.accountDataAnalysis != null) ...[
+                        Dimensions.largeSize.spacer(),
+                        _AccountDataAnalysisSection(accountDataAnalysis: credential.accountDataAnalysis),
+                      ],
+                      if (credential.hasUnknownInformations) ...[
+                        Dimensions.largeSize.spacer(),
+                        _UnknownDisclosuresSection(credential: credential),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
+          Dimensions.largeSize.spacer(),
+          _ActionBar(credential: credential),
+        ],
       ),
     );
   }
@@ -125,12 +110,6 @@ class VerifiableCredentialCardHeader extends StatelessWidget {
               ),
             ],
           ),
-        ),
-        Dimensions.smallSize.spacer(axis: Axis.horizontal),
-        const Icon(
-          Icons.verified,
-          color: Colors.green,
-          size: 36,
         ),
       ],
     );

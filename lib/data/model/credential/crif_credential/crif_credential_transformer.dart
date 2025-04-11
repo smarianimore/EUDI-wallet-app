@@ -132,6 +132,57 @@ enum KnownVerifiableCredentialInformationType {
 
   final String apiValue;
 
+  String get formattedName {
+    switch (this) {
+      case KnownVerifiableCredentialInformationType.firstName:
+        return 'Nome';
+      case KnownVerifiableCredentialInformationType.lastName:
+        return 'Cognome';
+      case KnownVerifiableCredentialInformationType.fiscalCode:
+        return 'Codice Fiscale';
+      case KnownVerifiableCredentialInformationType.scoreIndex:
+        return 'Indice di Affidabilità';
+      case KnownVerifiableCredentialInformationType.scoreDesc:
+        return 'Descrizione Indice di Affidabilità';
+      case KnownVerifiableCredentialInformationType.rentAmount:
+        return 'Importo Affitto';
+      case KnownVerifiableCredentialInformationType.scoreDate:
+        return 'Data di Valutazione';
+      case KnownVerifiableCredentialInformationType.scoreDateExpiration:
+        return 'Data di Scadenza';
+      case KnownVerifiableCredentialInformationType.scoreDetail:
+        return 'Dettagli Indice di Affidabilità';
+      case KnownVerifiableCredentialInformationType.cashflowBalance:
+        return 'Equilibrio Uscite/Entrate';
+      case KnownVerifiableCredentialInformationType.monthlyOutcomeBalanceRatio:
+        return 'Rapporto Uscite/Saldo Mensile';
+      case KnownVerifiableCredentialInformationType.taxesOrUtilitiesAccount:
+        return 'Conto Tasse/Utenze';
+      case KnownVerifiableCredentialInformationType.recurringIncome:
+        return 'Presenza Entrate Ricorrenti';
+      case KnownVerifiableCredentialInformationType.accountDescription:
+        return 'Caratteristiche del Conto';
+      case KnownVerifiableCredentialInformationType.financialCommitments:
+        return 'Incidenza Impegni Finanziari/Reddito';
+      case KnownVerifiableCredentialInformationType.extraordinaryIncome:
+        return 'Conto Destinato Uscite Virtuose';
+      case KnownVerifiableCredentialInformationType.protestiInfo:
+        return 'Protesti';
+      case KnownVerifiableCredentialInformationType.latePaymentsInfo:
+        return 'Ritardo Pagamenti Prestiti/Finanziamenti';
+      case KnownVerifiableCredentialInformationType.otherNegativeInfo:
+        return 'Altre Informazioni Pubbliche Negative';
+      case KnownVerifiableCredentialInformationType.paymentAnalysis:
+        return 'Analisi di Pagamento';
+      case KnownVerifiableCredentialInformationType.accountDataAnalysis:
+        return 'Analisi Dati Conto';
+      case KnownVerifiableCredentialInformationType.incomeOutcomeRatio:
+        return 'Rapporto Entrate/Uscite';
+      case KnownVerifiableCredentialInformationType.unknown:
+        return 'Informazioni Sconosciute';
+    }
+  }
+
   static KnownVerifiableCredentialInformationType fromApiValue(String apiValue) {
     const values = KnownVerifiableCredentialInformationType.values;
     final isContained = values.where((e) => e.apiValue == apiValue).toList();

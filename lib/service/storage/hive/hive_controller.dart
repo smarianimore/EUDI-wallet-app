@@ -44,6 +44,10 @@ class HiveController {
     return verifiableCredentialBox.listenable();
   }
 
+  List<VerifiableCredentialHiveModel> getVerifiableCredentials() {
+    return verifiableCredentialBox.values.toList();
+  }
+
   /* Certificate */
 
   Future<void> saveCertificate(List<int> certificate) async {

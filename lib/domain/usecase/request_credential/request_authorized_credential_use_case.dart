@@ -90,7 +90,7 @@ class RequestAuthorizedCredentialUseCase extends UseCase<VerifiableCredential, C
     );
     final loginPayload = loginResponse.payload;
     if (loginResponse.isError || loginPayload == null) return _closeRequest(loginResponse, input: input);
-    final jwtToken = jwtService.createSignedWalletProofJWT(
+    final jwtToken = jwtService.createIssuanceSignedWalletProofJWT(
       issuer: issuerPayload.credentialIssuer,
       nonce: loginPayload.cNonce,
     );

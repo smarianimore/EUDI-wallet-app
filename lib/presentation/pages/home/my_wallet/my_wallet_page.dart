@@ -68,26 +68,30 @@ class _CredentialListSection extends ConsumerWidget {
     return SliverToBoxAdapter(
       child: Padding(
         padding: Dimensions.pageInsets,
-        child: ExpansionPanelList(
-          animationDuration: const Duration(milliseconds: 500),
-          expandedHeaderPadding: EdgeInsets.zero,
-          expansionCallback: (index, isExpanded) {
-            final newState = [...expansionState];
-            newState[index] = isExpanded;
-            ref.read(_expandendProvider(values).notifier).state = newState;
-          },
-          children: [
-            for (final (index, value) in values.indexed)
-              ExpansionPanel(
-                isExpanded: expansionState[index],
-                canTapOnHeader: true,
-                headerBuilder: (context, expanded) => Padding(
-                  padding: Dimensions.mediumSize.padding,
-                  child: VerifiableCredentialCardHeader(credential: value),
+        child: ClipRRect(
+          borderRadius: Dimensions.containerRadius,
+          child: ExpansionPanelList(
+            animationDuration: const Duration(milliseconds: 500),
+            expandedHeaderPadding: EdgeInsets.zero,
+            expansionCallback: (index, isExpanded) {
+              final newState = [...expansionState];
+              newState[index] = isExpanded;
+              ref.read(_expandendProvider(values).notifier).state = newState;
+            },
+            children: [
+              for (final (index, value) in values.indexed)
+                ExpansionPanel(
+                  backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
+                  isExpanded: expansionState[index],
+                  canTapOnHeader: true,
+                  headerBuilder: (context, expanded) => Padding(
+                    padding: Dimensions.mediumSize.padding,
+                    child: VerifiableCredentialCardHeader(credential: value),
+                  ),
+                  body: VerifiableCredentialCard(credential: value),
                 ),
-                body: VerifiableCredentialCard(credential: value),
-              ),
-          ],
+            ],
+          ),
         ),
       ),
     );

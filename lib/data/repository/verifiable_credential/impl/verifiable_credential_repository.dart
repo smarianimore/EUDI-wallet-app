@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:birex/data/model/credential_presentation/credentialpresentationrequest.dart';
 import 'package:birex/data/model/model.dart';
 import 'package:birex/data/repository/repository_response_handler.dart';
 import 'package:birex/data/repository/verifiable_credential/i_verifiable_credential_repository.dart';
@@ -52,8 +53,85 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
       payloadMapper: (payload) => VerifiableCredentialResponse.fromJson(payload).toVerifiableCredential(
         jwtService,
         subject: subject,
+        display: display,
       ),
     );
+  }
+
+  @override
+  AsyncApplicationResponse<CredentialPresentationRequest> generatePresentation({
+    required String requestUri,
+  }) {
+    return handleResponse(
+      request: () => dio.get(
+        requestUri,
+      ),
+      responseDataConverter: (data) => {'jwt': data},
+      payloadMapper: (payload) {
+        final jwt = payload['jwt'] as String;
+        final jwtComposer = jwtService.manageJWT(jwt);
+        final nonce = jwtComposer.claims['nonce'] as String;
+        final clientId = jwtComposer.claims['client_id'] as String;
+        final responseUri = jwtComposer.claims['response_uri'] as String;
+        final state = jwtComposer.claims['state'] as String;
+        final presentationDefinition = jwtComposer.claims['presentation_definition'] as Map<String, dynamic>;
+        final descriptors = presentationDefinition['input_descriptors'] as List<dynamic>;
+        final firstDescriptor = descriptors.first as Map<String, dynamic>;
+        final constraints = firstDescriptor['constraints'] as Map<String, dynamic>;
+        final fields = constraints['fields'] as List<dynamic>;
+
+        final credentialField = fields.getCredentialField();
+        final credentialInfos = fields.getCredentialInfos();
+
+        return CredentialPresentationRequest(
+          nonce: nonce,
+          clientId: clientId,
+          responseUri: responseUri,
+          presentationDefinition: presentationDefinition,
+          state: state,
+          credential: credentialField,
+          requiredInformation: credentialInfos,
+        );
+      },
+    );
+  }
+
+  @override
+  AsyncApplicationResponse<void> presentCredential({
+    required String uri,
+    required String vpToken,
+    required String state,
+    required Map<String, dynamic> presentationDefinition,
+  }) async {
+    log(vpToken);
+    log(presentationDefinition.toString());
+    return handleResponse(
+      request: () => dio.post(
+        uri,
+        data: FormData.fromMap(
+          {
+            'vp_token': vpToken,
+            'state': state,
+            //'presentation_definition': presentationDefinition.toString(),
+          },
+        ),
+      ),
+      payloadMapper: (payload) {},
+    );
+  }
+}
+
+extension on List<dynamic> {
+  String getCredentialField() {
+    final credentialValue = getWhere((e) => (e as Map<String, dynamic>)['filter'] != null);
+    return ((credentialValue as Map<String, dynamic>)['filter'] as Map<String, dynamic>)['const'] as String;
+  }
+
+  List<String> getCredentialInfos() {
+    final credentialValue = where((e) => (e as Map<String, dynamic>)['filter'] == null);
+    return credentialValue
+        .map((e) => (((e as Map<String, dynamic>)['path'] as List<dynamic>).first as String).split('.').last)
+        .toList();
   }
 }
 
@@ -61,7 +139,7 @@ extension on VerifiableCredentialResponse {
   VerifiableCredential toVerifiableCredential(
     JWTService jwtService, {
     required String subject,
-    SupportedCredentialDisplayInformation? display,
+    required SupportedCredentialDisplayInformation display,
   }) {
     log(credential);
     final jwtComposer = jwtService.manageJWT(credential);

@@ -60,13 +60,29 @@ class WalletProofBuilder {
 
   final PrivateKey walletKey;
 
-  Map<String, dynamic> get _jwtProofHeaders => {
+  Map<String, dynamic> get _jwtProofIssuanceHeaders => {
         'typ': 'openid4vci-proof+jwt',
         'alg': 'ES256',
         'jwk': walletKey.publicKey.jwk,
       };
 
-  Map<String, dynamic> _jwtProofBody({
+  Map<String, dynamic> get _jwtPresentationHeaders => {
+        'typ': 'kb+jwt',
+        'alg': 'ES256',
+      };
+
+  Map<String, dynamic> _jwtPresentationBody({
+    required String audience,
+    required String nonce,
+  }) {
+    return {
+      'aud': audience,
+      'iat': DateTime.now().millisecondsSinceEpoch,
+      'nonce': nonce,
+    };
+  }
+
+  Map<String, dynamic> _jwtProofIssuanceBody({
     required String issuer,
     required String nonce,
   }) {
@@ -77,12 +93,37 @@ class WalletProofBuilder {
     };
   }
 
-  String createSignedWalletProofJWT({
+  String createPresentationKeyBindingJWT({
+    required String audience,
+    required String nonce,
+  }) {
+    final header = _jwtPresentationHeaders;
+    final body = _jwtPresentationBody(audience: audience, nonce: nonce);
+    final encodedHeader = base64Url.encode(utf8.encode(jsonEncode(header)));
+    final encodedBody = base64Url.encode(utf8.encode(jsonEncode(body)));
+    final data = '${_unppaddedJwtContent(encodedHeader)}.${_unppaddedJwtContent(encodedBody)}';
+    final signed = signature(walletKey, utf8.encode(data));
+    final encodedSignature = base64Url.encode(utf8.encode(signed.toString()));
+    final completeJwt = '$data.${_unppaddedJwtContent(encodedSignature)}';
+    if (kDebugMode) {
+      log('JWT: $completeJwt');
+      log('PrivateKey (D): ${walletKey.D}');
+      log('PrivateKey (HEX) ${walletKey.toHex()}');
+      log('PrivateKey (Curve) ${walletKey.curve}');
+    }
+    final verified = verify(walletKey.publicKey, utf8.encode(completeJwt), signed);
+    if (!verified) {
+      log('Signature verification failed');
+    }
+    return completeJwt;
+  }
+
+  String createIssuanceSignedWalletProofJWT({
     required String issuer,
     required String nonce,
   }) {
-    final header = _jwtProofHeaders;
-    final body = _jwtProofBody(issuer: issuer, nonce: nonce);
+    final header = _jwtProofIssuanceHeaders;
+    final body = _jwtProofIssuanceBody(issuer: issuer, nonce: nonce);
     final encodedHeader = base64Url.encode(utf8.encode(jsonEncode(header)));
     final encodedBody = base64Url.encode(utf8.encode(jsonEncode(body)));
     final data = '${_unppaddedJwtContent(encodedHeader)}.${_unppaddedJwtContent(encodedBody)}';

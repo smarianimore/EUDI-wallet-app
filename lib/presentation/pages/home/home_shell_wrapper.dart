@@ -1,6 +1,11 @@
 import 'package:birex/domain/domain.dart';
+import 'package:birex/domain/usecase/present_credential/command/presentcredentialcommand.dart';
+import 'package:birex/domain/usecase/present_credential/present_credential_use_case.dart';
+import 'package:birex/domain/usecase/request_credential/by_qr_code/command/scanqrcredentialcommand.dart';
+import 'package:birex/presentation/pages/qr_code/qr_code_content/qrcodecontent.dart';
 import 'package:birex/service/service.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HomePageShellWrapper extends ConsumerWidget {
@@ -12,16 +17,59 @@ class HomePageShellWrapper extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: child,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          final usecase = await ref.read(scanCredentialQrCodeUsecaseProvider.future);
-          if (context.mounted) await usecase.call(context);
-        },
-        child: const Icon(Icons.qr_code),
-      ),
+      floatingActionButton: const _QrCodePageFAB(),
       bottomNavigationBar: const _HomeBottomNavBar(),
     );
   }
+}
+
+class _QrCodePageFAB extends ConsumerWidget {
+  const _QrCodePageFAB();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return FloatingActionButton(
+      onPressed: () => _onTap(context, ref),
+      child: const Icon(Icons.qr_code),
+    );
+  }
+
+  Future<void> _mockTap(BuildContext context, WidgetRef ref) async {
+    const mockRequestUrl = 'https://crif.azurewebsites.net/openid4vp/presentation-request/';
+    const requestId = '4c59820f-dbb3-451b-9793-d1e7769aa803';
+    final command = PresentCredentialCommand(
+      context: context,
+      requestUri: '$mockRequestUrl$requestId',
+    );
+    final usecase = await ref.read(presentCredentialUseCaseProvider.future);
+    await usecase.call(command);
+  }
+
+  void _onTap(
+    BuildContext context,
+    WidgetRef ref,
+  ) =>
+      context.push<QrCodeContent?>(QRCodeScannerPageRoute.pagePath).then((e) async {
+        final presentation = e?.mapOrNull(presentation: (e) => e);
+        final issuance = e?.mapOrNull(issuance: (e) => e);
+        if (!context.mounted) return;
+        if (issuance != null) {
+          final command = ScanQrCredentialCommand(
+            context: context,
+            credentialOffer: issuance.credentialOffer,
+            credentialOfferUri: issuance.credentialOfferUri,
+          );
+          final usecase = await ref.read(scanCredentialQrCodeUsecaseProvider.future);
+          await usecase.call(command);
+        } else if (presentation != null) {
+          final command = PresentCredentialCommand(
+            context: context,
+            requestUri: presentation.requestUri!,
+          );
+          final usecase = await ref.read(presentCredentialUseCaseProvider.future);
+          await usecase.call(command);
+        }
+      });
 }
 
 final _homeBottomNavStateProvider = StateProvider<int>((ref) {
