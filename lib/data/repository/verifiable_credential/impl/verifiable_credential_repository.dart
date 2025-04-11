@@ -108,7 +108,7 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
         uri,
         options: Options(headers: {'Content-Type': Headers.formUrlEncodedContentType}),
         data: {
-          'presentation_submission': presentationDefinition,
+          'presentation_submission': jsonEncode(presentationDefinition),
           'vp_token': vpToken,
           'state': state,
         },
