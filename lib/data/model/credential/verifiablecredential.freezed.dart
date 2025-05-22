@@ -1083,12 +1083,9 @@ PaymentAnalysisInformation _$PaymentAnalysisInformationFromJson(
 
 /// @nodoc
 mixin _$PaymentAnalysisInformation {
-  @JsonKey(name: 'Protesti')
-  String get protestiInfo => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-  String get latePaymentsInfo => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Altre informazioni pubbliche negative')
-  String get otherNegativeInfo => throw _privateConstructorUsedError;
+  String? get protestiInfo => throw _privateConstructorUsedError;
+  String? get latePaymentsInfo => throw _privateConstructorUsedError;
+  String? get otherNegativeInfo => throw _privateConstructorUsedError;
 
   /// Serializes this PaymentAnalysisInformation to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1108,11 +1105,9 @@ abstract class $PaymentAnalysisInformationCopyWith<$Res> {
           PaymentAnalysisInformation>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'Protesti') String protestiInfo,
-      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-      String latePaymentsInfo,
-      @JsonKey(name: 'Altre informazioni pubbliche negative')
-      String otherNegativeInfo});
+      {String? protestiInfo,
+      String? latePaymentsInfo,
+      String? otherNegativeInfo});
 }
 
 /// @nodoc
@@ -1131,23 +1126,23 @@ class _$PaymentAnalysisInformationCopyWithImpl<$Res,
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? protestiInfo = null,
-    Object? latePaymentsInfo = null,
-    Object? otherNegativeInfo = null,
+    Object? protestiInfo = freezed,
+    Object? latePaymentsInfo = freezed,
+    Object? otherNegativeInfo = freezed,
   }) {
     return _then(_value.copyWith(
-      protestiInfo: null == protestiInfo
+      protestiInfo: freezed == protestiInfo
           ? _value.protestiInfo
           : protestiInfo // ignore: cast_nullable_to_non_nullable
-              as String,
-      latePaymentsInfo: null == latePaymentsInfo
+              as String?,
+      latePaymentsInfo: freezed == latePaymentsInfo
           ? _value.latePaymentsInfo
           : latePaymentsInfo // ignore: cast_nullable_to_non_nullable
-              as String,
-      otherNegativeInfo: null == otherNegativeInfo
+              as String?,
+      otherNegativeInfo: freezed == otherNegativeInfo
           ? _value.otherNegativeInfo
           : otherNegativeInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -1162,11 +1157,9 @@ abstract class _$$PaymentAnalysisInformationImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'Protesti') String protestiInfo,
-      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-      String latePaymentsInfo,
-      @JsonKey(name: 'Altre informazioni pubbliche negative')
-      String otherNegativeInfo});
+      {String? protestiInfo,
+      String? latePaymentsInfo,
+      String? otherNegativeInfo});
 }
 
 /// @nodoc
@@ -1184,23 +1177,23 @@ class __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? protestiInfo = null,
-    Object? latePaymentsInfo = null,
-    Object? otherNegativeInfo = null,
+    Object? protestiInfo = freezed,
+    Object? latePaymentsInfo = freezed,
+    Object? otherNegativeInfo = freezed,
   }) {
     return _then(_$PaymentAnalysisInformationImpl(
-      protestiInfo: null == protestiInfo
+      protestiInfo: freezed == protestiInfo
           ? _value.protestiInfo
           : protestiInfo // ignore: cast_nullable_to_non_nullable
-              as String,
-      latePaymentsInfo: null == latePaymentsInfo
+              as String?,
+      latePaymentsInfo: freezed == latePaymentsInfo
           ? _value.latePaymentsInfo
           : latePaymentsInfo // ignore: cast_nullable_to_non_nullable
-              as String,
-      otherNegativeInfo: null == otherNegativeInfo
+              as String?,
+      otherNegativeInfo: freezed == otherNegativeInfo
           ? _value.otherNegativeInfo
           : otherNegativeInfo // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -1210,10 +1203,8 @@ class __$$PaymentAnalysisInformationImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
   _$PaymentAnalysisInformationImpl(
-      {@JsonKey(name: 'Protesti') required this.protestiInfo,
-      @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
+      {required this.protestiInfo,
       required this.latePaymentsInfo,
-      @JsonKey(name: 'Altre informazioni pubbliche negative')
       required this.otherNegativeInfo});
 
   factory _$PaymentAnalysisInformationImpl.fromJson(
@@ -1221,14 +1212,11 @@ class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
       _$$PaymentAnalysisInformationImplFromJson(json);
 
   @override
-  @JsonKey(name: 'Protesti')
-  final String protestiInfo;
+  final String? protestiInfo;
   @override
-  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-  final String latePaymentsInfo;
+  final String? latePaymentsInfo;
   @override
-  @JsonKey(name: 'Altre informazioni pubbliche negative')
-  final String otherNegativeInfo;
+  final String? otherNegativeInfo;
 
   @override
   String toString() {
@@ -1273,25 +1261,20 @@ class _$PaymentAnalysisInformationImpl implements _PaymentAnalysisInformation {
 abstract class _PaymentAnalysisInformation
     implements PaymentAnalysisInformation {
   factory _PaymentAnalysisInformation(
-          {@JsonKey(name: 'Protesti') required final String protestiInfo,
-          @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-          required final String latePaymentsInfo,
-          @JsonKey(name: 'Altre informazioni pubbliche negative')
-          required final String otherNegativeInfo}) =
+          {required final String? protestiInfo,
+          required final String? latePaymentsInfo,
+          required final String? otherNegativeInfo}) =
       _$PaymentAnalysisInformationImpl;
 
   factory _PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) =
       _$PaymentAnalysisInformationImpl.fromJson;
 
   @override
-  @JsonKey(name: 'Protesti')
-  String get protestiInfo;
+  String? get protestiInfo;
   @override
-  @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti')
-  String get latePaymentsInfo;
+  String? get latePaymentsInfo;
   @override
-  @JsonKey(name: 'Altre informazioni pubbliche negative')
-  String get otherNegativeInfo;
+  String? get otherNegativeInfo;
 
   /// Create a copy of PaymentAnalysisInformation
   /// with the given fields replaced by the non-null parameter values.
@@ -1307,20 +1290,13 @@ AccountDataAnalysis _$AccountDataAnalysisFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AccountDataAnalysis {
-  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
-  String get cashflowBalance => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-  String get incomeOutcomeRatio => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-  String get taxesOrUtilitiesAccount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
-  String get recurringIncome => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Caratteristiche del conto')
-  String get accountDescription => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-  String get financialCommitments => throw _privateConstructorUsedError;
-  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-  String get extraordinaryIncome => throw _privateConstructorUsedError;
+  String? get cashflowBalance => throw _privateConstructorUsedError;
+  String? get incomeOutcomeRatio => throw _privateConstructorUsedError;
+  String? get taxesOrUtilitiesAccount => throw _privateConstructorUsedError;
+  String? get recurringIncome => throw _privateConstructorUsedError;
+  String? get accountDescription => throw _privateConstructorUsedError;
+  String? get financialCommitments => throw _privateConstructorUsedError;
+  String? get extraordinaryIncome => throw _privateConstructorUsedError;
 
   /// Serializes this AccountDataAnalysis to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1339,17 +1315,13 @@ abstract class $AccountDataAnalysisCopyWith<$Res> {
       _$AccountDataAnalysisCopyWithImpl<$Res, AccountDataAnalysis>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate') String cashflowBalance,
-      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-      String incomeOutcomeRatio,
-      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-      String taxesOrUtilitiesAccount,
-      @JsonKey(name: 'Presenza di Entrate Ricorrenti') String recurringIncome,
-      @JsonKey(name: 'Caratteristiche del conto') String accountDescription,
-      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-      String financialCommitments,
-      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-      String extraordinaryIncome});
+      {String? cashflowBalance,
+      String? incomeOutcomeRatio,
+      String? taxesOrUtilitiesAccount,
+      String? recurringIncome,
+      String? accountDescription,
+      String? financialCommitments,
+      String? extraordinaryIncome});
 }
 
 /// @nodoc
@@ -1367,43 +1339,43 @@ class _$AccountDataAnalysisCopyWithImpl<$Res, $Val extends AccountDataAnalysis>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cashflowBalance = null,
-    Object? incomeOutcomeRatio = null,
-    Object? taxesOrUtilitiesAccount = null,
-    Object? recurringIncome = null,
-    Object? accountDescription = null,
-    Object? financialCommitments = null,
-    Object? extraordinaryIncome = null,
+    Object? cashflowBalance = freezed,
+    Object? incomeOutcomeRatio = freezed,
+    Object? taxesOrUtilitiesAccount = freezed,
+    Object? recurringIncome = freezed,
+    Object? accountDescription = freezed,
+    Object? financialCommitments = freezed,
+    Object? extraordinaryIncome = freezed,
   }) {
     return _then(_value.copyWith(
-      cashflowBalance: null == cashflowBalance
+      cashflowBalance: freezed == cashflowBalance
           ? _value.cashflowBalance
           : cashflowBalance // ignore: cast_nullable_to_non_nullable
-              as String,
-      incomeOutcomeRatio: null == incomeOutcomeRatio
+              as String?,
+      incomeOutcomeRatio: freezed == incomeOutcomeRatio
           ? _value.incomeOutcomeRatio
           : incomeOutcomeRatio // ignore: cast_nullable_to_non_nullable
-              as String,
-      taxesOrUtilitiesAccount: null == taxesOrUtilitiesAccount
+              as String?,
+      taxesOrUtilitiesAccount: freezed == taxesOrUtilitiesAccount
           ? _value.taxesOrUtilitiesAccount
           : taxesOrUtilitiesAccount // ignore: cast_nullable_to_non_nullable
-              as String,
-      recurringIncome: null == recurringIncome
+              as String?,
+      recurringIncome: freezed == recurringIncome
           ? _value.recurringIncome
           : recurringIncome // ignore: cast_nullable_to_non_nullable
-              as String,
-      accountDescription: null == accountDescription
+              as String?,
+      accountDescription: freezed == accountDescription
           ? _value.accountDescription
           : accountDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      financialCommitments: null == financialCommitments
+              as String?,
+      financialCommitments: freezed == financialCommitments
           ? _value.financialCommitments
           : financialCommitments // ignore: cast_nullable_to_non_nullable
-              as String,
-      extraordinaryIncome: null == extraordinaryIncome
+              as String?,
+      extraordinaryIncome: freezed == extraordinaryIncome
           ? _value.extraordinaryIncome
           : extraordinaryIncome // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ) as $Val);
   }
 }
@@ -1417,17 +1389,13 @@ abstract class _$$AccountDataAnalysisImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate') String cashflowBalance,
-      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-      String incomeOutcomeRatio,
-      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-      String taxesOrUtilitiesAccount,
-      @JsonKey(name: 'Presenza di Entrate Ricorrenti') String recurringIncome,
-      @JsonKey(name: 'Caratteristiche del conto') String accountDescription,
-      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-      String financialCommitments,
-      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-      String extraordinaryIncome});
+      {String? cashflowBalance,
+      String? incomeOutcomeRatio,
+      String? taxesOrUtilitiesAccount,
+      String? recurringIncome,
+      String? accountDescription,
+      String? financialCommitments,
+      String? extraordinaryIncome});
 }
 
 /// @nodoc
@@ -1443,43 +1411,43 @@ class __$$AccountDataAnalysisImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cashflowBalance = null,
-    Object? incomeOutcomeRatio = null,
-    Object? taxesOrUtilitiesAccount = null,
-    Object? recurringIncome = null,
-    Object? accountDescription = null,
-    Object? financialCommitments = null,
-    Object? extraordinaryIncome = null,
+    Object? cashflowBalance = freezed,
+    Object? incomeOutcomeRatio = freezed,
+    Object? taxesOrUtilitiesAccount = freezed,
+    Object? recurringIncome = freezed,
+    Object? accountDescription = freezed,
+    Object? financialCommitments = freezed,
+    Object? extraordinaryIncome = freezed,
   }) {
     return _then(_$AccountDataAnalysisImpl(
-      cashflowBalance: null == cashflowBalance
+      cashflowBalance: freezed == cashflowBalance
           ? _value.cashflowBalance
           : cashflowBalance // ignore: cast_nullable_to_non_nullable
-              as String,
-      incomeOutcomeRatio: null == incomeOutcomeRatio
+              as String?,
+      incomeOutcomeRatio: freezed == incomeOutcomeRatio
           ? _value.incomeOutcomeRatio
           : incomeOutcomeRatio // ignore: cast_nullable_to_non_nullable
-              as String,
-      taxesOrUtilitiesAccount: null == taxesOrUtilitiesAccount
+              as String?,
+      taxesOrUtilitiesAccount: freezed == taxesOrUtilitiesAccount
           ? _value.taxesOrUtilitiesAccount
           : taxesOrUtilitiesAccount // ignore: cast_nullable_to_non_nullable
-              as String,
-      recurringIncome: null == recurringIncome
+              as String?,
+      recurringIncome: freezed == recurringIncome
           ? _value.recurringIncome
           : recurringIncome // ignore: cast_nullable_to_non_nullable
-              as String,
-      accountDescription: null == accountDescription
+              as String?,
+      accountDescription: freezed == accountDescription
           ? _value.accountDescription
           : accountDescription // ignore: cast_nullable_to_non_nullable
-              as String,
-      financialCommitments: null == financialCommitments
+              as String?,
+      financialCommitments: freezed == financialCommitments
           ? _value.financialCommitments
           : financialCommitments // ignore: cast_nullable_to_non_nullable
-              as String,
-      extraordinaryIncome: null == extraordinaryIncome
+              as String?,
+      extraordinaryIncome: freezed == extraordinaryIncome
           ? _value.extraordinaryIncome
           : extraordinaryIncome // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -1489,45 +1457,31 @@ class __$$AccountDataAnalysisImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$AccountDataAnalysisImpl implements _AccountDataAnalysis {
   _$AccountDataAnalysisImpl(
-      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate')
-      required this.cashflowBalance,
-      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
+      {required this.cashflowBalance,
       required this.incomeOutcomeRatio,
-      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
       required this.taxesOrUtilitiesAccount,
-      @JsonKey(name: 'Presenza di Entrate Ricorrenti')
       required this.recurringIncome,
-      @JsonKey(name: 'Caratteristiche del conto')
       required this.accountDescription,
-      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
       required this.financialCommitments,
-      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
       required this.extraordinaryIncome});
 
   factory _$AccountDataAnalysisImpl.fromJson(Map<String, dynamic> json) =>
       _$$AccountDataAnalysisImplFromJson(json);
 
   @override
-  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
-  final String cashflowBalance;
+  final String? cashflowBalance;
   @override
-  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-  final String incomeOutcomeRatio;
+  final String? incomeOutcomeRatio;
   @override
-  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-  final String taxesOrUtilitiesAccount;
+  final String? taxesOrUtilitiesAccount;
   @override
-  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
-  final String recurringIncome;
+  final String? recurringIncome;
   @override
-  @JsonKey(name: 'Caratteristiche del conto')
-  final String accountDescription;
+  final String? accountDescription;
   @override
-  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-  final String financialCommitments;
+  final String? financialCommitments;
   @override
-  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-  final String extraordinaryIncome;
+  final String? extraordinaryIncome;
 
   @override
   String toString() {
@@ -1587,45 +1541,31 @@ class _$AccountDataAnalysisImpl implements _AccountDataAnalysis {
 
 abstract class _AccountDataAnalysis implements AccountDataAnalysis {
   factory _AccountDataAnalysis(
-      {@JsonKey(name: 'Equilibrio tra Uscite e Entrate')
-      required final String cashflowBalance,
-      @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-      required final String incomeOutcomeRatio,
-      @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-      required final String taxesOrUtilitiesAccount,
-      @JsonKey(name: 'Presenza di Entrate Ricorrenti')
-      required final String recurringIncome,
-      @JsonKey(name: 'Caratteristiche del conto')
-      required final String accountDescription,
-      @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-      required final String financialCommitments,
-      @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-      required final String extraordinaryIncome}) = _$AccountDataAnalysisImpl;
+      {required final String? cashflowBalance,
+      required final String? incomeOutcomeRatio,
+      required final String? taxesOrUtilitiesAccount,
+      required final String? recurringIncome,
+      required final String? accountDescription,
+      required final String? financialCommitments,
+      required final String? extraordinaryIncome}) = _$AccountDataAnalysisImpl;
 
   factory _AccountDataAnalysis.fromJson(Map<String, dynamic> json) =
       _$AccountDataAnalysisImpl.fromJson;
 
   @override
-  @JsonKey(name: 'Equilibrio tra Uscite e Entrate')
-  String get cashflowBalance;
+  String? get cashflowBalance;
   @override
-  @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile')
-  String get incomeOutcomeRatio;
+  String? get incomeOutcomeRatio;
   @override
-  @JsonKey(name: 'Conto utilizzato per Tasse o Utenze')
-  String get taxesOrUtilitiesAccount;
+  String? get taxesOrUtilitiesAccount;
   @override
-  @JsonKey(name: 'Presenza di Entrate Ricorrenti')
-  String get recurringIncome;
+  String? get recurringIncome;
   @override
-  @JsonKey(name: 'Caratteristiche del conto')
-  String get accountDescription;
+  String? get accountDescription;
   @override
-  @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito')
-  String get financialCommitments;
+  String? get financialCommitments;
   @override
-  @JsonKey(name: 'Conto destinato a uscite “virtuose”')
-  String get extraordinaryIncome;
+  String? get extraordinaryIncome;
 
   /// Create a copy of AccountDataAnalysis
   /// with the given fields replaced by the non-null parameter values.

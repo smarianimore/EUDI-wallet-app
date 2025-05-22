@@ -775,6 +775,7 @@ SupportedCredentialConfiguration _$SupportedCredentialConfigurationFromJson(
 /// @nodoc
 mixin _$SupportedCredentialConfiguration {
   String get scope => throw _privateConstructorUsedError;
+  @SupportedClaimPropertiesConverter()
   Map<String, SupportedClaimProperties> get claims =>
       throw _privateConstructorUsedError;
   @JsonKey(name: 'cryptographic_binding_methods_supported')
@@ -811,6 +812,7 @@ abstract class $SupportedCredentialConfigurationCopyWith<$Res> {
   @useResult
   $Res call(
       {String scope,
+      @SupportedClaimPropertiesConverter()
       Map<String, SupportedClaimProperties> claims,
       @JsonKey(name: 'cryptographic_binding_methods_supported')
       List<String> cryptographicBindingMethodsSupported,
@@ -898,6 +900,7 @@ abstract class _$$SupportedCredentialConfigurationImplCopyWith<$Res>
   @useResult
   $Res call(
       {String scope,
+      @SupportedClaimPropertiesConverter()
       Map<String, SupportedClaimProperties> claims,
       @JsonKey(name: 'cryptographic_binding_methods_supported')
       List<String> cryptographicBindingMethodsSupported,
@@ -980,6 +983,7 @@ class _$SupportedCredentialConfigurationImpl
     implements _SupportedCredentialConfiguration {
   _$SupportedCredentialConfigurationImpl(
       {required this.scope,
+      @SupportedClaimPropertiesConverter()
       required final Map<String, SupportedClaimProperties> claims,
       @JsonKey(name: 'cryptographic_binding_methods_supported')
       required final List<String> cryptographicBindingMethodsSupported,
@@ -1006,6 +1010,7 @@ class _$SupportedCredentialConfigurationImpl
   final String scope;
   final Map<String, SupportedClaimProperties> _claims;
   @override
+  @SupportedClaimPropertiesConverter()
   Map<String, SupportedClaimProperties> get claims {
     if (_claims is EqualUnmodifiableMapView) return _claims;
     // ignore: implicit_dynamic_type
@@ -1115,6 +1120,7 @@ abstract class _SupportedCredentialConfiguration
     implements SupportedCredentialConfiguration {
   factory _SupportedCredentialConfiguration(
           {required final String scope,
+          @SupportedClaimPropertiesConverter()
           required final Map<String, SupportedClaimProperties> claims,
           @JsonKey(name: 'cryptographic_binding_methods_supported')
           required final List<String> cryptographicBindingMethodsSupported,
@@ -1134,6 +1140,7 @@ abstract class _SupportedCredentialConfiguration
   @override
   String get scope;
   @override
+  @SupportedClaimPropertiesConverter()
   Map<String, SupportedClaimProperties> get claims;
   @override
   @JsonKey(name: 'cryptographic_binding_methods_supported')
@@ -1649,6 +1656,8 @@ SupportedClaimProperties _$SupportedClaimPropertiesFromJson(
 mixin _$SupportedClaimProperties {
   List<DisplaySupportedClaimProperties> get display =>
       throw _privateConstructorUsedError;
+  Map<String, SupportedClaimProperties>? get properties =>
+      throw _privateConstructorUsedError;
 
   /// Serializes this SupportedClaimProperties to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -1666,7 +1675,9 @@ abstract class $SupportedClaimPropertiesCopyWith<$Res> {
           $Res Function(SupportedClaimProperties) then) =
       _$SupportedClaimPropertiesCopyWithImpl<$Res, SupportedClaimProperties>;
   @useResult
-  $Res call({List<DisplaySupportedClaimProperties> display});
+  $Res call(
+      {List<DisplaySupportedClaimProperties> display,
+      Map<String, SupportedClaimProperties>? properties});
 }
 
 /// @nodoc
@@ -1686,12 +1697,17 @@ class _$SupportedClaimPropertiesCopyWithImpl<$Res,
   @override
   $Res call({
     Object? display = null,
+    Object? properties = freezed,
   }) {
     return _then(_value.copyWith(
       display: null == display
           ? _value.display
           : display // ignore: cast_nullable_to_non_nullable
               as List<DisplaySupportedClaimProperties>,
+      properties: freezed == properties
+          ? _value.properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, SupportedClaimProperties>?,
     ) as $Val);
   }
 }
@@ -1705,7 +1721,9 @@ abstract class _$$SupportedClaimPropertiesImplCopyWith<$Res>
       __$$SupportedClaimPropertiesImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<DisplaySupportedClaimProperties> display});
+  $Res call(
+      {List<DisplaySupportedClaimProperties> display,
+      Map<String, SupportedClaimProperties>? properties});
 }
 
 /// @nodoc
@@ -1724,12 +1742,17 @@ class __$$SupportedClaimPropertiesImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? display = null,
+    Object? properties = freezed,
   }) {
     return _then(_$SupportedClaimPropertiesImpl(
       display: null == display
           ? _value._display
           : display // ignore: cast_nullable_to_non_nullable
               as List<DisplaySupportedClaimProperties>,
+      properties: freezed == properties
+          ? _value._properties
+          : properties // ignore: cast_nullable_to_non_nullable
+              as Map<String, SupportedClaimProperties>?,
     ));
   }
 }
@@ -1739,8 +1762,10 @@ class __$$SupportedClaimPropertiesImplCopyWithImpl<$Res>
 @JsonSerializable(explicitToJson: true)
 class _$SupportedClaimPropertiesImpl implements _SupportedClaimProperties {
   _$SupportedClaimPropertiesImpl(
-      {required final List<DisplaySupportedClaimProperties> display})
-      : _display = display;
+      {required final List<DisplaySupportedClaimProperties> display,
+      final Map<String, SupportedClaimProperties>? properties})
+      : _display = display,
+        _properties = properties;
 
   factory _$SupportedClaimPropertiesImpl.fromJson(Map<String, dynamic> json) =>
       _$$SupportedClaimPropertiesImplFromJson(json);
@@ -1753,9 +1778,19 @@ class _$SupportedClaimPropertiesImpl implements _SupportedClaimProperties {
     return EqualUnmodifiableListView(_display);
   }
 
+  final Map<String, SupportedClaimProperties>? _properties;
+  @override
+  Map<String, SupportedClaimProperties>? get properties {
+    final value = _properties;
+    if (value == null) return null;
+    if (_properties is EqualUnmodifiableMapView) return _properties;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(value);
+  }
+
   @override
   String toString() {
-    return 'SupportedClaimProperties(display: $display)';
+    return 'SupportedClaimProperties(display: $display, properties: $properties)';
   }
 
   @override
@@ -1763,13 +1798,17 @@ class _$SupportedClaimPropertiesImpl implements _SupportedClaimProperties {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SupportedClaimPropertiesImpl &&
-            const DeepCollectionEquality().equals(other._display, _display));
+            const DeepCollectionEquality().equals(other._display, _display) &&
+            const DeepCollectionEquality()
+                .equals(other._properties, _properties));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_display));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_display),
+      const DeepCollectionEquality().hash(_properties));
 
   /// Create a copy of SupportedClaimProperties
   /// with the given fields replaced by the non-null parameter values.
@@ -1790,7 +1829,8 @@ class _$SupportedClaimPropertiesImpl implements _SupportedClaimProperties {
 
 abstract class _SupportedClaimProperties implements SupportedClaimProperties {
   factory _SupportedClaimProperties(
-          {required final List<DisplaySupportedClaimProperties> display}) =
+          {required final List<DisplaySupportedClaimProperties> display,
+          final Map<String, SupportedClaimProperties>? properties}) =
       _$SupportedClaimPropertiesImpl;
 
   factory _SupportedClaimProperties.fromJson(Map<String, dynamic> json) =
@@ -1798,6 +1838,8 @@ abstract class _SupportedClaimProperties implements SupportedClaimProperties {
 
   @override
   List<DisplaySupportedClaimProperties> get display;
+  @override
+  Map<String, SupportedClaimProperties>? get properties;
 
   /// Create a copy of SupportedClaimProperties
   /// with the given fields replaced by the non-null parameter values.

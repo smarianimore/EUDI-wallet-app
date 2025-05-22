@@ -29,14 +29,14 @@ class _QrCodePageFAB extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FloatingActionButton(
-      onPressed: () => _onTap(context, ref),
+      onPressed: () => _mockTap(context, ref),
       child: const Icon(Icons.qr_code),
     );
   }
 
   Future<void> _mockTap(BuildContext context, WidgetRef ref) async {
     const mockRequestUrl = 'https://crif.azurewebsites.net/openid4vp/presentation-request/';
-    const requestId = '4c59820f-dbb3-451b-9793-d1e7769aa803';
+    const requestId = '1d6704b8-c4b8-432a-9b17-5816a763a408';
     final command = PresentCredentialCommand(
       context: context,
       requestUri: '$mockRequestUrl$requestId',

@@ -27,9 +27,12 @@ class JWTInspector {
   final JWT jwt;
 
   DateTime get expirationDate {
-    final payload = jwt.payload as Map<String, dynamic>;
-    final expiresIn = payload['exp'] as int;
-    return DateTime.fromMillisecondsSinceEpoch(expiresIn * 1000);
+    //TODO: Definire come gestire la scadenza del token
+
+    return DateTime.now().add(const Duration(days: 1));
+    // final payload = jwt.payload as Map<String, dynamic>;
+    // final expiresIn = payload['exp'] as int;
+    // return DateTime.fromMillisecondsSinceEpoch(expiresIn * 1000);
   }
 
   Map<String, dynamic> get claims {

@@ -8,7 +8,7 @@ part 'dio_provider.g.dart';
 
 @riverpod
 Dio dio(Ref ref) {
-  const baseTimeout = Duration(seconds: 30);
+  const baseTimeout = Duration(seconds: 45);
   final dio = Dio(
     BaseOptions(
       sendTimeout: baseTimeout,

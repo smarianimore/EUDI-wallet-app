@@ -10,6 +10,8 @@ extension on List<KnownVerifiableCredentialInformation> {
 }
 
 extension VerifiableCredentialKnownInformation on VerifiableCredential {
+  String? get credentialName => credentialConfiguration?.display.first.name;
+
   KnownVerifiableCredentialInformation? get firstName {
     return knownCredentialInfo.findByKnownType(KnownVerifiableCredentialInformationType.firstName);
   }
@@ -53,13 +55,10 @@ extension VerifiableCredentialKnownInformation on VerifiableCredential {
         knownCredentialInfo.findByKnownType(KnownVerifiableCredentialInformationType.latePaymentsInfo)?.basicKeyValue;
     final otherNegativeInfo =
         knownCredentialInfo.findByKnownType(KnownVerifiableCredentialInformationType.otherNegativeInfo)?.basicKeyValue;
-    if (protestiInfo == null && latePayments == null && otherNegativeInfo == null) {
-      return null;
-    }
     return PaymentAnalysisInformation(
-      protestiInfo: protestiInfo!.value,
-      latePaymentsInfo: latePayments!.value,
-      otherNegativeInfo: otherNegativeInfo!.value,
+      protestiInfo: protestiInfo?.value,
+      latePaymentsInfo: latePayments?.value,
+      otherNegativeInfo: otherNegativeInfo?.value,
     );
   }
 
@@ -82,27 +81,35 @@ extension VerifiableCredentialKnownInformation on VerifiableCredential {
     final extraordinaryIncome = knownCredentialInfo
         .findByKnownType(KnownVerifiableCredentialInformationType.extraordinaryIncome)
         ?.basicKeyValue;
-    if (cashflowBalance == null &&
-        monthlyOutcomeBalanceRatio == null &&
-        taxesOrUtilitiesAccount == null &&
-        recurringIncome == null &&
-        accountDescription == null &&
-        financialCommitments == null &&
-        extraordinaryIncome == null) {
-      return null;
-    }
     return AccountDataAnalysis(
-      cashflowBalance: cashflowBalance!.value,
-      incomeOutcomeRatio: monthlyOutcomeBalanceRatio!.value,
-      taxesOrUtilitiesAccount: taxesOrUtilitiesAccount!.value,
-      recurringIncome: recurringIncome!.value,
-      accountDescription: accountDescription!.value,
-      financialCommitments: financialCommitments!.value,
-      extraordinaryIncome: extraordinaryIncome!.value,
+      cashflowBalance: cashflowBalance?.value,
+      incomeOutcomeRatio: monthlyOutcomeBalanceRatio?.value,
+      taxesOrUtilitiesAccount: taxesOrUtilitiesAccount?.value,
+      recurringIncome: recurringIncome?.value,
+      accountDescription: accountDescription?.value,
+      financialCommitments: financialCommitments?.value,
+      extraordinaryIncome: extraordinaryIncome?.value,
     );
   }
 
   bool get hasUnknownInformations => unknownDisclosures.isNotEmpty || unknownClaims.isNotEmpty;
+
+  String? findClaimDisplayName(String claimName) {
+    if (credentialConfiguration == null) return null;
+    return credentialConfiguration!.claims.findClaimName(claimName);
+  }
+}
+
+extension on Map<String, SupportedClaimProperties> {
+  String? findClaimName(String name) {
+    for (final entry in entries) {
+      if (entry.key == name) return entry.value.display.first.name;
+      if (entry.value.properties == null) continue;
+      final result = entry.value.properties!.findClaimName(name);
+      if (result != null) return result;
+    }
+    return null;
+  }
 }
 
 enum KnownVerifiableCredentialInformationType {
@@ -110,22 +117,22 @@ enum KnownVerifiableCredentialInformationType {
   firstName('first_name'),
   lastName('last_name'),
   fiscalCode('fiscal_code'),
-  scoreIndex('score_index'),
-  scoreDesc('score_desc'),
+  scoreIndex('reliability_index'),
+  scoreDesc('reliability_level'),
   rentAmount('rent_amount'),
-  scoreDate('score_date'),
-  scoreDateExpiration('score_date_expiration'),
+  scoreDate('issue_date'),
+  scoreDateExpiration('expiration_date'),
   scoreDetail('score_detail'),
-  cashflowBalance('equilibrio_uscite_entrate'),
-  monthlyOutcomeBalanceRatio('rapporto_uscite_saldo_mensile'),
-  taxesOrUtilitiesAccount('conto_tasse_utenze'),
-  recurringIncome('presenza_entrate_ricorrenti'),
-  accountDescription('caratteristiche_del_conto'),
-  financialCommitments('incidenza_impegni_finanziari_reddito'),
-  extraordinaryIncome('conto_destinato_uscite_virtuose'),
-  protestiInfo('protesti'),
-  latePaymentsInfo('ritardo_pagamenti_prestiti_finanziamenti'),
-  otherNegativeInfo('altre_informazioni_pubbliche_negative'),
+  cashflowBalance('income_expenditure_balance_01'),
+  monthlyOutcomeBalanceRatio('expenditure_account_balance_02'),
+  taxesOrUtilitiesAccount('utilities_account_03'),
+  recurringIncome('recurrent_income_04'),
+  accountDescription('account_details_05'),
+  financialCommitments('debts_income_06'),
+  extraordinaryIncome('charity_investments_07'),
+  protestiInfo('protests'),
+  latePaymentsInfo('credit_payments'),
+  otherNegativeInfo('public_negative_info'),
   paymentAnalysis('payment_analysis'),
   accountDataAnalysis('account_data_analysis'),
   incomeOutcomeRatio('rapporto_entrate_uscite');

@@ -1,5 +1,4 @@
 import 'package:birex/data/data.dart';
-import 'package:birex/data/model/credential/crif_credential/formatter.dart';
 import 'package:birex/presentation/components/components.dart';
 import 'package:birex/presentation/components/star/star_component.dart';
 import 'package:birex/presentation/pages/home/my_wallet/verifiable_credential_qr.dart';
@@ -52,11 +51,12 @@ class VerifiableCredentialCard extends StatelessWidget {
                         scoreDetail: credential.scoreDetail,
                         configuration: credential.credentialConfiguration!,
                       ),
-                      if (credential.paymentAnalysis != null) ...[
+                      if (credential.paymentAnalysis != null && credential.paymentAnalysis!.hasPaymentAnalysis) ...[
                         Dimensions.largeSize.spacer(),
                         _PaymentDetailsSection(paymentAnalysis: credential.paymentAnalysis),
                       ],
-                      if (credential.accountDataAnalysis != null) ...[
+                      if (credential.accountDataAnalysis != null &&
+                          credential.accountDataAnalysis!.hasAccountDataAnalysis) ...[
                         Dimensions.largeSize.spacer(),
                         _AccountDataAnalysisSection(accountDataAnalysis: credential.accountDataAnalysis),
                       ],
@@ -102,7 +102,7 @@ class VerifiableCredentialCardHeader extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                credential.formatName,
+                credential.credentialName ?? 'Credenziale',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               Dimensions.tinySize.spacer(),
@@ -281,22 +281,28 @@ class _PaymentDetailsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (paymentAnalysis == null) return const SizedBox.shrink();
+    final protesti = paymentAnalysis?.protestiInfo;
+    final latePayments = paymentAnalysis?.latePaymentsInfo;
+    final otherNegativeInfo = paymentAnalysis?.otherNegativeInfo;
     return _InformationSection(
       leading: const Icon(Icons.analytics_outlined),
       title: 'Analisi dei pagamenti',
       children: [
-        LabelAndDescriptionComponent(
-          label: 'Protesti',
-          description: paymentAnalysis!.protestiInfo,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Ritardo nei pagamenti di prestiti e finanziamenti',
-          description: paymentAnalysis!.latePaymentsInfo,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Altre informazioni pubbliche negative',
-          description: paymentAnalysis!.otherNegativeInfo,
-        ),
+        if (protesti != null)
+          LabelAndDescriptionComponent(
+            label: 'Protesti',
+            description: protesti,
+          ),
+        if (latePayments != null)
+          LabelAndDescriptionComponent(
+            label: 'Ritardo nei pagamenti di prestiti e finanziamenti',
+            description: latePayments,
+          ),
+        if (otherNegativeInfo != null)
+          LabelAndDescriptionComponent(
+            label: 'Altre informazioni pubbliche negative',
+            description: otherNegativeInfo,
+          ),
       ],
     );
   }
@@ -312,38 +318,52 @@ class _AccountDataAnalysisSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     if (accountDataAnalysis == null) return const SizedBox.shrink();
+    final cashflowBalance = accountDataAnalysis?.cashflowBalance;
+    final incomeOutcomeRatio = accountDataAnalysis?.incomeOutcomeRatio;
+    final taxesOrUtilitiesAccount = accountDataAnalysis?.taxesOrUtilitiesAccount;
+    final recurringIncome = accountDataAnalysis?.recurringIncome;
+    final accountDescription = accountDataAnalysis?.accountDescription;
+    final financialCommitments = accountDataAnalysis?.financialCommitments;
+    final extraordinaryIncome = accountDataAnalysis?.extraordinaryIncome;
     return _InformationSection(
       leading: const Icon(Icons.account_balance),
       title: 'Analisi del conto',
       children: [
-        LabelAndDescriptionComponent(
-          label: 'Equilibrio tra Uscite e Entrate',
-          description: accountDataAnalysis!.cashflowBalance,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Rapporto tra Uscite e Saldo Mensile',
-          description: accountDataAnalysis!.incomeOutcomeRatio,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Conto utilizzato per Tasse o Utenze',
-          description: accountDataAnalysis!.taxesOrUtilitiesAccount,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Presenza di Entrate Ricorrenti',
-          description: accountDataAnalysis!.recurringIncome,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Caratteristiche del conto',
-          description: accountDataAnalysis!.accountDescription,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Incidenza Impegni Finanziari sul Reddito',
-          description: accountDataAnalysis!.financialCommitments,
-        ),
-        LabelAndDescriptionComponent(
-          label: 'Conto destinato a uscite “virtuose”',
-          description: accountDataAnalysis!.extraordinaryIncome,
-        ),
+        if (cashflowBalance != null)
+          LabelAndDescriptionComponent(
+            label: 'Equilibrio tra Uscite e Entrate',
+            description: cashflowBalance,
+          ),
+        if (incomeOutcomeRatio != null)
+          LabelAndDescriptionComponent(
+            label: 'Rapporto tra Uscite e Saldo Mensile',
+            description: incomeOutcomeRatio,
+          ),
+        if (taxesOrUtilitiesAccount != null)
+          LabelAndDescriptionComponent(
+            label: 'Conto utilizzato per Tasse o Utenze',
+            description: taxesOrUtilitiesAccount,
+          ),
+        if (recurringIncome != null)
+          LabelAndDescriptionComponent(
+            label: 'Presenza di Entrate Ricorrenti',
+            description: recurringIncome,
+          ),
+        if (accountDescription != null)
+          LabelAndDescriptionComponent(
+            label: 'Caratteristiche del conto',
+            description: accountDescription,
+          ),
+        if (financialCommitments != null)
+          LabelAndDescriptionComponent(
+            label: 'Incidenza Impegni Finanziari sul Reddito',
+            description: financialCommitments,
+          ),
+        if (extraordinaryIncome != null)
+          LabelAndDescriptionComponent(
+            label: 'Conto destinato a uscite “virtuose”',
+            description: extraordinaryIncome,
+          ),
       ],
     );
   }
@@ -364,12 +384,12 @@ class _UnknownDisclosuresSection extends StatelessWidget {
       children: [
         for (final claim in credential.unknownDisclosures)
           LabelAndDescriptionComponent(
-            label: claim.formatName,
+            label: credential.findClaimDisplayName(claim.name) ?? claim.name,
             description: claim.value,
           ),
         for (final claim in credential.unknownClaims)
           LabelAndDescriptionComponent(
-            label: claim.formatName,
+            label: credential.findClaimDisplayName(claim.name) ?? claim.name,
             description: claim.value,
           ),
       ],

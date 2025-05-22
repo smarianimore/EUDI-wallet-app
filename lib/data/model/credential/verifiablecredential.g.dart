@@ -146,45 +146,39 @@ Map<String, dynamic> _$$VerifiableDisclosureImplToJson(
 _$PaymentAnalysisInformationImpl _$$PaymentAnalysisInformationImplFromJson(
         Map<String, dynamic> json) =>
     _$PaymentAnalysisInformationImpl(
-      protestiInfo: json['Protesti'] as String,
-      latePaymentsInfo:
-          json['Ritardo nei pagamenti di prestiti e finanziamenti'] as String,
-      otherNegativeInfo:
-          json['Altre informazioni pubbliche negative'] as String,
+      protestiInfo: json['protestiInfo'] as String?,
+      latePaymentsInfo: json['latePaymentsInfo'] as String?,
+      otherNegativeInfo: json['otherNegativeInfo'] as String?,
     );
 
 Map<String, dynamic> _$$PaymentAnalysisInformationImplToJson(
         _$PaymentAnalysisInformationImpl instance) =>
     <String, dynamic>{
-      'Protesti': instance.protestiInfo,
-      'Ritardo nei pagamenti di prestiti e finanziamenti':
-          instance.latePaymentsInfo,
-      'Altre informazioni pubbliche negative': instance.otherNegativeInfo,
+      'protestiInfo': instance.protestiInfo,
+      'latePaymentsInfo': instance.latePaymentsInfo,
+      'otherNegativeInfo': instance.otherNegativeInfo,
     };
 
 _$AccountDataAnalysisImpl _$$AccountDataAnalysisImplFromJson(
         Map<String, dynamic> json) =>
     _$AccountDataAnalysisImpl(
-      cashflowBalance: json['Equilibrio tra Uscite e Entrate'] as String,
-      incomeOutcomeRatio: json['Rapporto tra Uscite e Saldo Mensile'] as String,
-      taxesOrUtilitiesAccount:
-          json['Conto utilizzato per Tasse o Utenze'] as String,
-      recurringIncome: json['Presenza di Entrate Ricorrenti'] as String,
-      accountDescription: json['Caratteristiche del conto'] as String,
-      financialCommitments:
-          json['Incidenza Impegni Finanziari sul Reddito'] as String,
-      extraordinaryIncome:
-          json['Conto destinato a uscite “virtuose”'] as String,
+      cashflowBalance: json['cashflowBalance'] as String?,
+      incomeOutcomeRatio: json['incomeOutcomeRatio'] as String?,
+      taxesOrUtilitiesAccount: json['taxesOrUtilitiesAccount'] as String?,
+      recurringIncome: json['recurringIncome'] as String?,
+      accountDescription: json['accountDescription'] as String?,
+      financialCommitments: json['financialCommitments'] as String?,
+      extraordinaryIncome: json['extraordinaryIncome'] as String?,
     );
 
 Map<String, dynamic> _$$AccountDataAnalysisImplToJson(
         _$AccountDataAnalysisImpl instance) =>
     <String, dynamic>{
-      'Equilibrio tra Uscite e Entrate': instance.cashflowBalance,
-      'Rapporto tra Uscite e Saldo Mensile': instance.incomeOutcomeRatio,
-      'Conto utilizzato per Tasse o Utenze': instance.taxesOrUtilitiesAccount,
-      'Presenza di Entrate Ricorrenti': instance.recurringIncome,
-      'Caratteristiche del conto': instance.accountDescription,
-      'Incidenza Impegni Finanziari sul Reddito': instance.financialCommitments,
-      'Conto destinato a uscite “virtuose”': instance.extraordinaryIncome,
+      'cashflowBalance': instance.cashflowBalance,
+      'incomeOutcomeRatio': instance.incomeOutcomeRatio,
+      'taxesOrUtilitiesAccount': instance.taxesOrUtilitiesAccount,
+      'recurringIncome': instance.recurringIncome,
+      'accountDescription': instance.accountDescription,
+      'financialCommitments': instance.financialCommitments,
+      'extraordinaryIncome': instance.extraordinaryIncome,
     };

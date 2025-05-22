@@ -15,7 +15,7 @@ Future<RequestCredentialUseCase> requestCredentialUseCase(Ref ref) async {
   final router = ref.watch(birexRouterProvider);
   final successDialog = ShowDialogSuccessHandler<VerifiableCredential, RequestCredentialCommand>(
     dialogService,
-    textMapper: (payload, input) => 'Credenziali ${payload!.subject} richieste con successo!',
+    textMapper: (payload, input) => 'Credenziale ${payload!.credentialName} richiesta con successo!',
   );
   final redirectToHome =
       RedirectToHomePageSuccessHandler<VerifiableCredential, RequestCredentialCommand>(router: router);

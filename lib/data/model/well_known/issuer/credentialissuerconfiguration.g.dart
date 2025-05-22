@@ -84,8 +84,10 @@ _$SupportedCredentialConfigurationImpl
         _$SupportedCredentialConfigurationImpl(
           scope: json['scope'] as String,
           claims: (json['claims'] as Map<String, dynamic>).map(
-            (k, e) => MapEntry(k,
-                SupportedClaimProperties.fromJson(e as Map<String, dynamic>)),
+            (k, e) => MapEntry(
+                k,
+                const SupportedClaimPropertiesConverter()
+                    .fromJson(e as Map<String, dynamic>)),
           ),
           cryptographicBindingMethodsSupported:
               (json['cryptographic_binding_methods_supported'] as List<dynamic>)
@@ -109,7 +111,8 @@ Map<String, dynamic> _$$SupportedCredentialConfigurationImplToJson(
         _$SupportedCredentialConfigurationImpl instance) =>
     <String, dynamic>{
       'scope': instance.scope,
-      'claims': instance.claims.map((k, e) => MapEntry(k, e.toJson())),
+      'claims': instance.claims.map((k, e) =>
+          MapEntry(k, const SupportedClaimPropertiesConverter().toJson(e))),
       'cryptographic_binding_methods_supported':
           instance.cryptographicBindingMethodsSupported,
       'display': instance.display.map((e) => e.toJson()).toList(),
@@ -165,12 +168,17 @@ _$SupportedClaimPropertiesImpl _$$SupportedClaimPropertiesImplFromJson(
           .map((e) => DisplaySupportedClaimProperties.fromJson(
               e as Map<String, dynamic>))
           .toList(),
+      properties: (json['properties'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(
+            k, SupportedClaimProperties.fromJson(e as Map<String, dynamic>)),
+      ),
     );
 
 Map<String, dynamic> _$$SupportedClaimPropertiesImplToJson(
         _$SupportedClaimPropertiesImpl instance) =>
     <String, dynamic>{
       'display': instance.display.map((e) => e.toJson()).toList(),
+      'properties': instance.properties?.map((k, e) => MapEntry(k, e.toJson())),
     };
 
 _$DisplaySupportedClaimPropertiesImpl

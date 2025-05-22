@@ -48,7 +48,7 @@ class SupportedCredentialConfiguration with _$SupportedCredentialConfiguration {
   @JsonSerializable(explicitToJson: true)
   factory SupportedCredentialConfiguration({
     required String scope,
-    required Map<String, SupportedClaimProperties> claims,
+    @SupportedClaimPropertiesConverter() required Map<String, SupportedClaimProperties> claims,
     @JsonKey(name: 'cryptographic_binding_methods_supported')
     required List<String> cryptographicBindingMethodsSupported,
     required List<SupportedCredentialDisplayInformation> display,
@@ -90,11 +90,34 @@ class SupportedCredentialIssuerLogo with _$SupportedCredentialIssuerLogo {
       _$SupportedCredentialIssuerLogoFromJson(json);
 }
 
+/* Dynamic claims management */
+
+class SupportedClaimPropertiesConverter implements JsonConverter<SupportedClaimProperties, Map<String, dynamic>> {
+  const SupportedClaimPropertiesConverter();
+
+  @override
+  SupportedClaimProperties fromJson(Map<String, dynamic> json) {
+    final display = json['display'] as List<dynamic>;
+    final properties = json['properties'] as Map<String, dynamic>?;
+    final displayList =
+        display.map((e) => DisplaySupportedClaimProperties.fromJson(e as Map<String, dynamic>)).toList();
+    if (properties == null) return SupportedClaimProperties(display: displayList);
+    final propertiesMap = properties.map((key, value) {
+      return MapEntry(key, SupportedClaimProperties.fromJson(value as Map<String, dynamic>));
+    });
+    return SupportedClaimProperties(display: displayList, properties: propertiesMap);
+  }
+
+  @override
+  Map<String, dynamic> toJson(SupportedClaimProperties data) => data.toJson();
+}
+
 @freezed
 class SupportedClaimProperties with _$SupportedClaimProperties {
   @JsonSerializable(explicitToJson: true)
   factory SupportedClaimProperties({
     required List<DisplaySupportedClaimProperties> display,
+    Map<String, SupportedClaimProperties>? properties,
   }) = _SupportedClaimProperties;
 
   factory SupportedClaimProperties.fromJson(Map<String, dynamic> json) => _$SupportedClaimPropertiesFromJson(json);

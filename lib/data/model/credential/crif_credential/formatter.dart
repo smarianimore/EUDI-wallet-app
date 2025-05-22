@@ -7,10 +7,3 @@ extension VerifiableDisclosureFormatter on VerifiableDisclosure {
     return name.split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
   }
 }
-
-extension VerifiableCredentialFormatter on VerifiableCredential {
-  String get formatName {
-    final beforeCapitalLetter = RegExp('(?=[A-Z])');
-    return subject.split(beforeCapitalLetter).map((e) => e.capitalize).join(' ');
-  }
-}

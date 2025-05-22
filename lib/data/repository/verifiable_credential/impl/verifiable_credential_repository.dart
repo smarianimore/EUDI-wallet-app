@@ -80,8 +80,8 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
         final constraints = firstDescriptor['constraints'] as Map<String, dynamic>;
         final fields = constraints['fields'] as List<dynamic>;
 
-        final credentialField = fields.getCredentialField();
-        final credentialInfos = fields.getCredentialInfos();
+        final credentialField = fields.findCredentialName();
+        final credentialInfos = fields.findRequestedDisclosures();
 
         return CredentialPresentationRequest(
           nonce: nonce,
@@ -96,6 +96,31 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     );
   }
 
+  List<Map<String, dynamic>> _createPresentationSubmission({
+    required Map<String, dynamic> presentationDefinition,
+  }) {
+    final presentationDefinitionDescriptors = presentationDefinition['input_descriptors'] as List<dynamic>;
+    final requestedCredentials = presentationDefinitionDescriptors.map((e) => e as Map<String, dynamic>).toList();
+
+    final values = <Map<String, dynamic>>{};
+
+    for (final credential in requestedCredentials) {
+      final formatMap = credential['format'] as Map<String, dynamic>;
+      final format = formatMap.entries.first.key;
+      final id = credential['id'] as String;
+      final credentialConstraints = credential['constraints'] as Map<String, dynamic>;
+      final value = _getCredentialFields(id, format, credentialConstraints);
+      values.add(value);
+    }
+    return values.toList();
+  }
+
+  Map<String, dynamic> _getCredentialFields(String id, String format, Map<String, dynamic> constraints) => {
+        'id': id,
+        'format': format,
+        'path': r'$',
+      };
+
   @override
   AsyncApplicationResponse<void> presentCredential({
     required String uri,
@@ -103,12 +128,18 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
     required String state,
     required Map<String, dynamic> presentationDefinition,
   }) async {
+    final mappedDescriptors = _createPresentationSubmission(presentationDefinition: presentationDefinition);
+    final submission = {
+      'id': presentationDefinition['id'],
+      'definition_id': presentationDefinition['id'],
+      'descriptor_map': mappedDescriptors,
+    };
     return handleResponse(
       request: () => dio.post(
         uri,
         options: Options(headers: {'Content-Type': Headers.formUrlEncodedContentType}),
         data: {
-          'presentation_submission': jsonEncode(presentationDefinition),
+          'presentation_submission': jsonEncode(submission),
           'vp_token': vpToken,
           'state': state,
         },
@@ -119,17 +150,34 @@ class VerifiableCredentialRepository with RepositoryResponseHandler implements I
 }
 
 extension on List<dynamic> {
-  String getCredentialField() {
+  String findCredentialName() {
     final credentialValue = getWhere((e) => (e as Map<String, dynamic>)['filter'] != null);
     return ((credentialValue as Map<String, dynamic>)['filter'] as Map<String, dynamic>)['const'] as String;
   }
 
-  List<String> getCredentialInfos() {
-    final credentialValue = where((e) => (e as Map<String, dynamic>)['filter'] == null);
-    return credentialValue
-        .map((e) => (((e as Map<String, dynamic>)['path'] as List<dynamic>).first as String).split('.').last)
-        .toList();
+  List<String> findRequestedDisclosures() {
+    final rawValues = _findRequestedDiscolures();
+    return rawValues.map((e) => e.split('.').last).toList();
   }
+
+  List<String> _findRequestedDiscolures() {
+    final credentialValue = where((e) => (e as Map<String, dynamic>)['filter'] == null);
+    return credentialValue.map((e) => ((e as Map<String, dynamic>)['path'] as List<dynamic>).first as String).toList();
+  }
+/*   String getCredentialField() {
+    final credentialValue = getWhere((e) => (e as Map<String, dynamic>)['filter'] != null);
+    return ((credentialValue as Map<String, dynamic>)['filter'] as Map<String, dynamic>)['const'] as String;
+  }
+
+  List<String> getCredentialInfosCleanedPath() {
+    final rawValues = getCredentialInfosPath();
+    return rawValues.map((e) => e.split('.').last).toList();
+  }
+
+  List<String> getCredentialInfosPath() {
+    final credentialValue = where((e) => (e as Map<String, dynamic>)['filter'] == null);
+    return credentialValue.map((e) => ((e as Map<String, dynamic>)['path'] as List<dynamic>).first as String).toList();
+  } */
 }
 
 extension on VerifiableCredentialResponse {

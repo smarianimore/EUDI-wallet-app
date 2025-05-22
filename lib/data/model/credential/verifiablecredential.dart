@@ -64,9 +64,9 @@ class VerifiableDisclosure with _$VerifiableDisclosure {
 class PaymentAnalysisInformation with _$PaymentAnalysisInformation {
   @JsonSerializable(explicitToJson: true)
   factory PaymentAnalysisInformation({
-    @JsonKey(name: 'Protesti') required String protestiInfo,
-    @JsonKey(name: 'Ritardo nei pagamenti di prestiti e finanziamenti') required String latePaymentsInfo,
-    @JsonKey(name: 'Altre informazioni pubbliche negative') required String otherNegativeInfo,
+    required String? protestiInfo,
+    required String? latePaymentsInfo,
+    required String? otherNegativeInfo,
   }) = _PaymentAnalysisInformation;
 
   factory PaymentAnalysisInformation.fromJson(Map<String, dynamic> json) => _$PaymentAnalysisInformationFromJson(json);
@@ -76,14 +76,29 @@ class PaymentAnalysisInformation with _$PaymentAnalysisInformation {
 class AccountDataAnalysis with _$AccountDataAnalysis {
   @JsonSerializable(explicitToJson: true)
   factory AccountDataAnalysis({
-    @JsonKey(name: 'Equilibrio tra Uscite e Entrate') required String cashflowBalance,
-    @JsonKey(name: 'Rapporto tra Uscite e Saldo Mensile') required String incomeOutcomeRatio,
-    @JsonKey(name: 'Conto utilizzato per Tasse o Utenze') required String taxesOrUtilitiesAccount,
-    @JsonKey(name: 'Presenza di Entrate Ricorrenti') required String recurringIncome,
-    @JsonKey(name: 'Caratteristiche del conto') required String accountDescription,
-    @JsonKey(name: 'Incidenza Impegni Finanziari sul Reddito') required String financialCommitments,
-    @JsonKey(name: 'Conto destinato a uscite “virtuose”') required String extraordinaryIncome,
+    required String? cashflowBalance,
+    required String? incomeOutcomeRatio,
+    required String? taxesOrUtilitiesAccount,
+    required String? recurringIncome,
+    required String? accountDescription,
+    required String? financialCommitments,
+    required String? extraordinaryIncome,
   }) = _AccountDataAnalysis;
 
   factory AccountDataAnalysis.fromJson(Map<String, dynamic> json) => _$AccountDataAnalysisFromJson(json);
+}
+
+extension AccountDataAnalysisFeature on AccountDataAnalysis {
+  bool get hasAccountDataAnalysis =>
+      cashflowBalance != null ||
+      incomeOutcomeRatio != null ||
+      taxesOrUtilitiesAccount != null ||
+      recurringIncome != null ||
+      accountDescription != null ||
+      financialCommitments != null ||
+      extraordinaryIncome != null;
+}
+
+extension PaymentAnalysisInformationFeature on PaymentAnalysisInformation {
+  bool get hasPaymentAnalysis => protestiInfo != null || latePaymentsInfo != null || otherNegativeInfo != null;
 }

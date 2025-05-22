@@ -30,9 +30,9 @@ class AuthenticationRepository with RepositoryResponseHandler implements IAuthen
         '$uri/api/CredentialOffer/offer',
         options: Options(headers: {'X-API-KEY': EnvVariables.crifApiKey}),
         data: {
-          'credentialSubject': '20654',
+          'credentialSubject': '20683',
           'expiresOn': DateTime.now().add(const Duration(days: 1)).toIso8601String(),
-          'credentialType': credentialSubject == 'AffittabileCompleta' ? 2 : 0,
+          'credentialType': credentialSubject,
         },
       ),
       payloadMapper: CredentialOfferResponse.fromJson,
