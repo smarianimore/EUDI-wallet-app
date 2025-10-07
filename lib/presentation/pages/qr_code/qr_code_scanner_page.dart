@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:birex/data/data.dart';
 import 'package:birex/data/model/credential_offer/credentialofferresponse.dart';
 import 'package:birex/presentation/components/components.dart';
+import 'package:birex/presentation/pages/qr_code/qr_code_content/qrcodecontent.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -49,18 +50,24 @@ class _QRCodeScannerPageState extends State<QRCodeScannerPage> with WidgetsBindi
     final queryParameters = uri.queryParameters;
     final credentialOfferUri = queryParameters['credential_offer_uri'];
     final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
-    if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));
+    if (credentialOfferUri != null && credentialUri != null) {
+      final response = QrCodeContent.issuance(credentialOfferUri: credentialOfferUri);
+      return context.pop(response);
+    }
     final credentialOfferObject = queryParameters['credential_offer'];
     final credentialOffer = credentialOfferObject == null ? null : jsonDecode(credentialOfferObject);
     if (credentialOffer == null) return context.pop();
     final parsed = CredentialOfferResponse.fromJson(credentialOffer as Map<String, dynamic>);
-    return context.pop((null, parsed));
+    final response = QrCodeContent.issuance(credentialOffer: parsed);
+    return context.pop(response);
   }
 
   void _handleCredentialPresentation(Uri uri) {
     final queryParameters = uri.queryParameters;
     final requestUri = queryParameters['request_uri'];
-    return context.pop(requestUri);
+    if (requestUri == null) return context.pop();
+    final response = QrCodeContent.presentation(requestUri: requestUri);
+    return context.pop(response);
 /*     final credentialOfferUri = queryParameters['credential_offer_uri'];
     final credentialUri = Uri.tryParse(credentialOfferUri ?? '');
     if (credentialOfferUri != null && credentialUri != null) return context.pop((credentialUri, null));

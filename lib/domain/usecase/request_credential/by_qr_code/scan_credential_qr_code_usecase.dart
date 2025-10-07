@@ -20,7 +20,7 @@ Future<ScanCredentialQrCodeUsecase> scanCredentialQrCodeUsecase(Ref ref) async {
   final errorHandler = ShowDialogErrorHandler<ScanQrCredentialCommand>(dialogService);
   final successHandler = ShowDialogSuccessHandler<VerifiableCredential, ScanQrCredentialCommand>(
     dialogService,
-    textMapper: (payload, __) => 'Credenziali ${payload!.subject} richieste con successo!',
+    textMapper: (payload, __) => 'Credenziale richiesta con successo!',
   );
   final redirectToHome =
       RedirectToHomePageSuccessHandler<VerifiableCredential, ScanQrCredentialCommand>(router: router);
